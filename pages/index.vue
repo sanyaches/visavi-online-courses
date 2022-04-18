@@ -11,7 +11,7 @@
             href="/login"
             class="button--green"
           >
-            Log in
+            {{ $t('index.login') }}
           </a>
         </div>
       </div>

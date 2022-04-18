@@ -4,5 +4,8 @@ export default {
     seo: {
       title: 'Страница входа'
     }
+  },
+  index: {
+    login: 'Вход'
   }
 }

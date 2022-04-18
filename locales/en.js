@@ -4,5 +4,8 @@ export default {
     seo: {
       title: 'Log in page'
     }
+  },
+  index: {
+    login: 'Login'
   }
 }
