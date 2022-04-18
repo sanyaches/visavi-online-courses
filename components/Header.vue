@@ -2,7 +2,9 @@
   <div class="header">
     <b-container>
       <div class="header__content">
-        <span>VISAVI</span>
+        <nuxt-link :to="localePath('/')">
+          {{ $t('index.name') }}
+        </nuxt-link>
         <nuxt-link :to="localePath('login')" class="button--green">
           {{ $t('index.login') }}
         </nuxt-link>

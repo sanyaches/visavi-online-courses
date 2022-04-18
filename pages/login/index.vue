@@ -13,12 +13,6 @@
         <button type="submit">
           {{ $t('login.submit') }}
         </button>
-        <span v-if="isLoggedIn">
-          Status: Logged in!
-        </span>
-        <span v-else>
-          Status: Not logged in!
-        </span>
       </form>
     </b-container>
   </div>
@@ -60,8 +54,22 @@ export default {
         })
         .then((data) => {
           if (data || data.status === '200') {
-            this.isLoggedIn = true
+            this.$root.$bvToast.toast(this.$t('notify.success_login'), {
+              title: this.$t('notify.success_login'),
+              toaster: 'b-toaster-top-right',
+              solid: true,
+              variant: 'success'
+            })
+            this.$router.push(this.localePath('profile'))
           }
+        }).catch(() => {
+          this.$root.$bvToast.toast(this.$t('notify.bad_credentials_msg'), {
+            title: this.$t('notify.bad_credentials'),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'danger',
+            appendToast: true
+          })
         })
     }
   }

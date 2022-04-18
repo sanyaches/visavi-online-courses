@@ -6,6 +6,15 @@ export default {
     }
   },
   index: {
-    login: 'Login'
+    login: 'Login',
+    name: 'VISAVI'
+  },
+  profile: {
+    welcome: 'Welcome, {name}'
+  },
+  notify: {
+    success_login: 'Successful login',
+    bad_credentials: 'Invalid username or password',
+    bad_credentials_msg: 'Account with your credentials not found'
   }
 }
