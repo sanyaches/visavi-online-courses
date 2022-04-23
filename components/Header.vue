@@ -5,17 +5,41 @@
         <nuxt-link :to="localePath('/')">
           {{ $t('index.name') }}
         </nuxt-link>
-        <nuxt-link :to="localePath('login')" class="button--green">
-          {{ $t('index.login') }}
-        </nuxt-link>
+        <template v-if="!getIsAuthenticated">
+          <nuxt-link :to="localePath('login')" class="button--green">
+            {{ $t('index.login') }}
+          </nuxt-link>
+        </template>
+        <template v-else>
+          <button class="button--green" @click="logout">
+            {{ $t('index.logout') }}
+          </button>
+        </template>
       </div>
     </b-container>
   </div>
 </template>
 
 <script>
-export default {
+import { mapGetters, mapActions } from 'vuex'
 
+export default {
+  computed: {
+    ...mapGetters({
+      getIsAuthenticated: 'user/getIsAuthenticated'
+    })
+  },
+
+  methods: {
+    ...mapActions({
+      unAuthorize: 'user/logout'
+    }),
+
+    logout () {
+      this.unAuthorize()
+      this.$router.push(this.localePath('login'))
+    }
+  }
 }
 </script>
 

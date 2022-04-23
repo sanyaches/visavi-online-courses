@@ -7,6 +7,7 @@ export default {
   },
   index: {
     login: 'Login',
+    logout: 'Logout',
     name: 'VISAVI'
   },
   profile: {

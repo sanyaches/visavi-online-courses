@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data () {
     return {
@@ -37,6 +39,11 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      loginUser: 'user/login',
+      authenticate: 'user/authenticate'
+    }),
+
     async submitLogin () {
       const jsonBody = JSON.stringify({ username: this.form.username, password: this.form.password })
 
@@ -58,6 +65,7 @@ export default {
             solid: true,
             variant: 'success'
           })
+          this.loginUser(data.user)
           this.$router.push(this.localePath('profile'))
 
           return
