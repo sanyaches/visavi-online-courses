@@ -14,7 +14,11 @@ export default {
   },
   notify: {
     success_login: 'Successful login',
-    bad_credentials: 'Invalid username or password',
-    bad_credentials_msg: 'Account with your credentials not found'
+    error: {
+      user_not_found: 'Invalid username or password',
+      user_not_found_msg: 'Account with your credentials not found',
+      server_error: 'Server error',
+      server_error_msg: 'Server error, try later please'
+    }
   }
 }

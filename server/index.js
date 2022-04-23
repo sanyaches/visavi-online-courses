@@ -1,16 +1,16 @@
-// require('./create_db.js')
+require('dotenv').config()
 
-const MongoClient = require('mongodb').MongoClient
+const mongoose = require('mongoose')
+const Users = require('../models/users')
 
-const url = 'mongodb://localhost:27017/'
+const url = process.env.MONGO_URL
 
-MongoClient.connect(url, function (err, db) {
-  if (err) { throw err }
-  const dbo = db.db('visavi')
+mongoose.connect(url)
 
-  dbo.collection('users').findOne({}, function (err, result) {
-    if (err) { throw err }
-    console.log(result.username)
-    db.close()
-  })
-})
+const main = async () => {
+  const user = await Users.findOne({ username: 'admin' })
+  console.log(user)
+  mongoose.disconnect()
+}
+
+main()

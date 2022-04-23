@@ -37,40 +37,49 @@ export default {
   },
 
   methods: {
-    submitLogin () {
+    async submitLogin () {
       const jsonBody = JSON.stringify({ username: this.form.username, password: this.form.password })
 
       const url = '/api/login'
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          Accept: 'application/json'
-        },
-        body: jsonBody
-      })
-        .then((res) => {
-          return res.json()
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Accept: 'application/json'
+          },
+          body: jsonBody
         })
-        .then((data) => {
-          if (data || data.status === '200') {
-            this.$root.$bvToast.toast(this.$t('notify.success_login'), {
-              title: this.$t('notify.success_login'),
-              toaster: 'b-toaster-top-right',
-              solid: true,
-              variant: 'success'
-            })
-            this.$router.push(this.localePath('profile'))
-          }
-        }).catch(() => {
-          this.$root.$bvToast.toast(this.$t('notify.bad_credentials_msg'), {
-            title: this.$t('notify.bad_credentials'),
+        const data = await res.json()
+        if (data?.status === 'success') {
+          this.$root.$bvToast.toast(this.$t('notify.success_login'), {
+            title: this.$t('notify.success_login'),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'success'
+          })
+          this.$router.push(this.localePath('profile'))
+
+          return
+        }
+
+        throw data
+      } catch (error) {
+        if (error.errorCode) {
+          const code = String(error.errorCode).toLowerCase()
+          console.error(`notify.error.${code}_msg`)
+          this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
+            title: this.$t(`notify.error.${code}`),
             toaster: 'b-toaster-top-right',
             solid: true,
             variant: 'danger',
             appendToast: true
           })
-        })
+        }
+        if (error.errorCode !== 'USER_NOT_FOUND') {
+          this.$sentry.captureException(new Error(error?.errorCode || error?.message))
+        }
+      }
     }
   }
 }

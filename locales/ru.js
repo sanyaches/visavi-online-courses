@@ -14,7 +14,11 @@ export default {
   },
   notify: {
     success_login: 'Успешный вход',
-    bad_credentials: 'Неверный логин или пароль',
-    bad_credentials_msg: 'Пользователь с такими данными не найден'
+    error: {
+      user_not_found: 'Неверный логин или пароль',
+      user_not_found_msg: 'Пользователь с такими данными не найден',
+      server_error: 'Ошибка сервера',
+      server_error_msg: 'Ошибка сервера, попробуйте позднее'
+    }
   }
 }
