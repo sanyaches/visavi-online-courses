@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import i18n from './config/i18n.js'
 
 export default {
@@ -69,6 +70,7 @@ export default {
     // Doc: https://http.nuxtjs.org
     '@nuxt/http',
     'bootstrap-vue/nuxt',
+    '@nuxtjs/sentry',
     [
       '@nuxtjs/i18n',
       {
@@ -109,5 +111,15 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+  },
+
+  sentry: {
+    dsn: process.env.SENTRY_DSN,
+    // Additional Module Options go here
+    // https://sentry.nuxtjs.org/sentry/options
+    config: {
+      // Add native Sentry config here
+      // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
+    }
   }
 }
