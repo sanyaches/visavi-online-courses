@@ -14,6 +14,10 @@
 <script>
 import { mapGetters } from 'vuex'
 
+const getFullName = (firstName, lastName) => {
+  return [firstName, lastName].filter(Boolean).join(' ')
+}
+
 export default {
   computed: {
     ...mapGetters({
@@ -21,7 +25,7 @@ export default {
       getIsAuthenticated: 'user/getIsAuthenticated'
     }),
     getWelcomeText () {
-      return this.$t('profile.welcome', { name: this.getMe?.username })
+      return this.$t('profile.welcome', { name: getFullName(this.getMe?.firstName, this.getMe?.lastName) })
     }
   },
   beforeMount () {

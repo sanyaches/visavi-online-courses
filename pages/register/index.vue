@@ -1,28 +1,41 @@
 <template>
-  <div class="login-page mt-4">
+  <div class="register-page mt-4">
     <b-container>
-      <h1>{{ $t('login.title') }}</h1>
+      <h1>{{ $t('register.title') }}</h1>
 
-      <b-form @submit.prevent="submitLogin">
-        <div class="login__form">
+      <b-form @submit.prevent="submitRegister">
+        <div class="register__form">
           <label for="email">
-            <div>{{ $t('login.form.email') }}</div>
+            <div>{{ $t('register.form.email') }}</div>
             <b-input id="email" v-model="form.email" required autocomplete="email" type="text" />
           </label>
+          <label for="first-name">
+            <div>{{ $t('register.form.first_name') }}</div>
+            <b-input id="first-name" v-model="form.firstName" required autocomplete="given-name" type="text" />
+          </label>
+          <label for="last-name">
+            <div>{{ $t('register.form.last_name') }}</div>
+            <b-input id="last-name" v-model="form.lastName" required autocomplete="family-name" type="text" />
+          </label>
           <label for="password">
-            <div>{{ $t('login.form.password') }}</div>
+            <div>{{ $t('register.form.password') }}</div>
             <b-input id="password" v-model="form.password" required autocomplete="password" type="password" />
           </label>
+          <label for="repeat-password">
+            <div>{{ $t('register.form.repeat_password') }}</div>
+            <b-input id="repeat-password" v-model="form.repeatPassword" required type="password" />
+          </label>
+
           <b-button type="submit" class="mt-2">
-            {{ $t('login.submit') }}
+            {{ $t('register.submit') }}
           </b-button>
         </div>
       </b-form>
 
       <div class="mt-2">
-        {{ $t('login.to_register') }}
-        <nuxt-link :to="localePath('register')">
-          {{ $t('login.to_register_link') }}
+        {{ $t('register.to_login') }}
+        <nuxt-link :to="localePath('login')">
+          {{ $t('register.to_login_link') }}
         </nuxt-link>
       </div>
     </b-container>
@@ -37,28 +50,32 @@ export default {
     return {
       form: {
         email: '',
-        password: ''
-      },
-      isLoggedIn: false
+        password: '',
+        repeatPassword: ''
+      }
     }
   },
 
   head () {
     return {
-      title: this.$t('login.seo.title')
+      title: this.$t('register.seo.title')
     }
   },
 
   methods: {
     ...mapActions({
-      loginUser: 'user/login',
-      authenticate: 'user/authenticate'
+      loginUser: 'user/login'
     }),
 
-    async submitLogin () {
-      const jsonBody = JSON.stringify({ email: this.form.email, password: this.form.password })
+    async submitRegister () {
+      const jsonBody = JSON.stringify({
+        lastName: this.form.lastName,
+        firstName: this.form.firstName,
+        password: this.form.password,
+        email: this.form.email
+      })
 
-      const url = '/api/login'
+      const url = '/api/register'
       try {
         const res = await fetch(url, {
           method: 'POST',
@@ -70,8 +87,8 @@ export default {
         })
         const data = await res.json()
         if (data?.status === 'success') {
-          this.$root.$bvToast.toast(this.$t('notify.success_login'), {
-            title: this.$t('notify.success_login'),
+          this.$root.$bvToast.toast(this.$t('notify.success_register'), {
+            title: this.$t('notify.success_register'),
             toaster: 'b-toaster-top-right',
             solid: true,
             variant: 'success'
@@ -86,7 +103,6 @@ export default {
       } catch (error) {
         if (error.errorCode) {
           const code = String(error.errorCode).toLowerCase()
-          console.error(`notify.error.${code}_msg`)
           this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
             title: this.$t(`notify.error.${code}`),
             toaster: 'b-toaster-top-right',
@@ -95,7 +111,7 @@ export default {
             appendToast: true
           })
         }
-        if (error.errorCode !== 'USER_NOT_FOUND') {
+        if (!(['USER_OR_EMAIL_ALREADY_EXISTS', 'VALIDATION_ERROR'].includes(error.errorCode))) {
           this.$sentry.captureException(new Error(error?.errorCode || error?.message))
         }
       }
@@ -105,8 +121,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-page {
-  .login__form {
+.register-page {
+  .register__form {
     display: flex;
     flex-direction: column;
   }

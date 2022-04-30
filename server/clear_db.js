@@ -1,14 +1,15 @@
-const MongoClient = require('mongodb').MongoClient
+require('dotenv').config()
 
-const url = 'mongodb://localhost:27017/'
+const mongoose = require('mongoose')
+const Users = require('../models/users')
 
-MongoClient.connect(url, function (err, db) {
-  if (err) { throw err }
-  const dbo = db.db('visavi')
+const url = process.env.MONGO_URL
 
-  dbo.collection('users').drop(function (err, delOK) {
-    if (err) { throw err }
-    if (delOK) { console.log('Collection users deleted') }
-    db.close()
-  })
-})
+mongoose.connect(url)
+
+const main = async () => {
+  console.log(await Users.remove())
+  mongoose.disconnect()
+}
+
+main()

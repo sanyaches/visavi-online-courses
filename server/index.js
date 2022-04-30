@@ -8,7 +8,7 @@ const url = process.env.MONGO_URL
 mongoose.connect(url)
 
 const main = async () => {
-  const user = await Users.findOne({ username: 'admin' })
+  const user = await Users.findOne({ email: 'sanyaches95@gmail.com' })
   console.log(user)
   mongoose.disconnect()
 }
