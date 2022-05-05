@@ -43,10 +43,15 @@ export default {
       user_not_found: 'Неверный email или пароль',
       user_not_found_msg: 'Пользователь с такими данными не найден',
       server_error: 'Ошибка сервера',
-      validation_error: 'Введенные данные не соответствуют требованиям',
       server_error_msg: 'Ошибка сервера, попробуйте позднее',
+      validation_error: 'Введенные данные не соответствуют требованиям',
+      validation_error_msg: 'Проверьте заполненные поля',
+      course_already_exist: 'Ошибка в создании курса',
+      course_already_exist_msg: 'Ошибка в создании курса, такой курс уже существует',
       user_or_email_already_exists_msg: 'Аккаунт с данным email уже существует',
-      user_or_email_already_exists: 'Аккаунт уже существует'
+      user_or_email_already_exists: 'Аккаунт уже существует',
+      forbidden_error: 'Ошибка авторизации',
+      forbidden_error_msg: 'У вас не достаточно прав или вы не авторизованы, попробуйте войти'
     }
   }
 }

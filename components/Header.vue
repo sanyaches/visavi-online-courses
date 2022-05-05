@@ -5,6 +5,11 @@
         <nuxt-link :to="localePath('/')">
           {{ $t('index.name') }}
         </nuxt-link>
+        <template v-if="isAdmin">
+          <nuxt-link :to="localePath('admin')" class="button--green">
+            {{ $t('index.admin') }}
+          </nuxt-link>
+        </template>
         <template v-if="!getIsAuthenticated">
           <nuxt-link :to="localePath('login')" class="button--green">
             {{ $t('index.login') }}
@@ -22,12 +27,17 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Cookies from 'js-cookie'
 
 export default {
   computed: {
     ...mapGetters({
+      getMe: 'user/getMe',
       getIsAuthenticated: 'user/getIsAuthenticated'
-    })
+    }),
+    isAdmin () {
+      return this.getMe?.isAdmin
+    }
   },
 
   methods: {
@@ -37,6 +47,7 @@ export default {
 
     logout () {
       this.unAuthorize()
+      Cookies.remove('bearer-token')
       this.$router.push(this.localePath('login'))
     }
   }

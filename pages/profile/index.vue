@@ -13,6 +13,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Cookies from 'js-cookie'
 
 const getFullName = (firstName, lastName) => {
   return [firstName, lastName].filter(Boolean).join(' ')
@@ -29,6 +30,10 @@ export default {
     }
   },
   beforeMount () {
+    const token = Cookies.get('bearer-token')
+    if (token) {
+      return
+    }
     if (!this.getIsAuthenticated) {
       this.$router.push(this.localePath('login'))
     }

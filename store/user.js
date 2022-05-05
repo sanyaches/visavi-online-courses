@@ -36,5 +36,30 @@ export const actions = {
 
   authenticate ({ commit }, isAuthenticated) {
     commit('setIsAuthenticated', isAuthenticated)
+  },
+
+  async getProfile ({ dispatch }, token) {
+    const url = 'api/auth/get-profile'
+
+    try {
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+      const data = await res.json()
+      if (data?.status === 'success') {
+        dispatch('login', data.user)
+
+        return true
+      }
+
+      return false
+    } catch (error) {
+      return false
+    }
   }
 }

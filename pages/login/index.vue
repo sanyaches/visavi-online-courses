@@ -31,6 +31,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import Cookies from 'js-cookie'
 
 export default {
   data () {
@@ -58,7 +59,7 @@ export default {
     async submitLogin () {
       const jsonBody = JSON.stringify({ email: this.form.email, password: this.form.password })
 
-      const url = '/api/login'
+      const url = '/api/auth/login'
       try {
         const res = await fetch(url, {
           method: 'POST',
@@ -76,7 +77,9 @@ export default {
             solid: true,
             variant: 'success'
           })
+
           this.loginUser(data.user)
+          Cookies.set('bearer-token', data.token, { expires: 30 })
           this.$router.push(this.localePath('profile'))
 
           return
@@ -86,7 +89,6 @@ export default {
       } catch (error) {
         if (error.errorCode) {
           const code = String(error.errorCode).toLowerCase()
-          console.error(`notify.error.${code}_msg`)
           this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
             title: this.$t(`notify.error.${code}`),
             toaster: 'b-toaster-top-right',

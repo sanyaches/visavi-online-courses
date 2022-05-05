@@ -8,7 +8,9 @@ export default {
     form: {
       email: 'Email',
       password: 'Password'
-    }
+    },
+    to_register: 'Have no account?',
+    to_register_link: 'Register'
   },
   register: {
     submit: 'Register',
@@ -19,10 +21,12 @@ export default {
     form: {
       password: 'Password',
       repeat_password: 'Repeat password',
-      email: 'Email',
-      first_name: 'Firstname',
-      last_name: 'Lastname'
-    }
+      first_name: 'First name',
+      last_name: 'Last name',
+      email: 'Email'
+    },
+    to_login: 'Do you already have an account?',
+    to_login_link: 'Login'
   },
   index: {
     login: 'Login',
@@ -40,8 +44,14 @@ export default {
       user_not_found_msg: 'Account with your credentials not found',
       server_error: 'Server error',
       server_error_msg: 'Server error, try later please',
+      validation_error: 'Checking data error',
+      validation_error_msg: 'Please, check your form fields',
+      course_already_exist: 'Error with creation course',
+      course_already_exist_msg: 'Course with thin name already exists',
       user_or_email_already_exists_msg: 'Account with this email already exists',
-      user_or_email_already_exists: 'Account already exists'
+      user_or_email_already_exists: 'Account already exists',
+      forbidden_error: 'Authorization error',
+      forbidden_error_msg: 'You don\'t have enough permissions or you\'re not authorized, login please'
     }
   }
 }

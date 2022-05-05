@@ -44,6 +44,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import Cookies from 'js-cookie'
 
 export default {
   data () {
@@ -75,7 +76,7 @@ export default {
         email: this.form.email
       })
 
-      const url = '/api/register'
+      const url = '/api/auth/register'
       try {
         const res = await fetch(url, {
           method: 'POST',
@@ -93,7 +94,9 @@ export default {
             solid: true,
             variant: 'success'
           })
+
           this.loginUser(data.user)
+          Cookies.set('bearer-token', data.token, { expires: 30 })
           this.$router.push(this.localePath('profile'))
 
           return
