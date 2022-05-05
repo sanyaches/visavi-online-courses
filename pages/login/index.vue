@@ -78,7 +78,7 @@ export default {
             variant: 'success'
           })
 
-          this.loginUser(data.user)
+          this.loginUser({ user: data.user, token: data.token })
           Cookies.set('bearer-token', data.token, { expires: 30 })
           this.$router.push(this.localePath('profile'))
 

@@ -1,4 +1,25 @@
 export default {
+  admin: {
+    list_courses: 'Список курсов',
+    no_courses: 'Нет курсов',
+    courses_loading: 'Загружается список курсов...',
+    add_course: {
+      seo: {
+        title: 'Страница добавления курса'
+      },
+      title: 'Добавить курс',
+      form: {
+        name: 'Имя',
+        title: 'Заголовок',
+        description: 'Описание',
+        image_url: 'Ссылка на изображение',
+        price: 'Цена',
+        price_plus: 'Цена с доп материалами'
+      },
+      submit: 'Добавить'
+    },
+    add_course_button: 'Добавить новый курс'
+  },
   login: {
     submit: 'Войти',
     title: 'Вход в visavi',
@@ -29,6 +50,7 @@ export default {
     to_login_link: 'Войти'
   },
   index: {
+    admin: 'Админ',
     login: 'Вход',
     logout: 'Выход',
     name: 'VISAVI'
@@ -39,6 +61,7 @@ export default {
   notify: {
     success_login: 'Успешный вход',
     success_register: 'Успешная регистрация',
+    success_add_course: 'Успешное создание курса',
     error: {
       user_not_found: 'Неверный email или пароль',
       user_not_found_msg: 'Пользователь с такими данными не найден',
@@ -51,7 +74,9 @@ export default {
       user_or_email_already_exists_msg: 'Аккаунт с данным email уже существует',
       user_or_email_already_exists: 'Аккаунт уже существует',
       forbidden_error: 'Ошибка авторизации',
-      forbidden_error_msg: 'У вас не достаточно прав или вы не авторизованы, попробуйте войти'
+      forbidden_error_msg: 'У вас не достаточно прав или вы не авторизованы, попробуйте войти',
+      course_already_exists: 'Курс уже существует',
+      course_already_exists_msg: 'Пожалуйста проверьте данные, произошло дублирование курса'
     }
   }
 }

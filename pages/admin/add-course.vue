@@ -1,23 +1,52 @@
 <template>
-  <b-container>
-    <h1>{{ $t('admin.add_course.title') }}</h1>
+  <div class="add-course mt-4">
+    <b-container>
+      <h1>{{ $t('admin.add_course.title') }}</h1>
 
-    <b-form @submit.prevent="submitRegister">
-      <div class="register__form">
-        <label for="course-name">
-          <div>{{ $t('admin.add_course.form.name') }}</div>
-          <b-input id="course-name" v-model="form.name" required autocomplete="course-name" type="text" />
-        </label>
+      <b-form @submit.prevent="submitAddition">
+        <div class="add-course__form">
+          <label for="course-name">
+            <div>{{ $t('admin.add_course.form.name') }}</div>
+            <b-input id="course-name" v-model="form.name" required autocomplete="course-name" type="text" />
+          </label>
 
-        <b-button type="submit" class="mt-2">
-          {{ $t('admin.add_course.submit') }}
-        </b-button>
-      </div>
-    </b-form>
-  </b-container>
+          <label for="course-title">
+            <div>{{ $t('admin.add_course.form.title') }}</div>
+            <b-input id="course-title" v-model="form.title" required autocomplete="course-title" type="text" />
+          </label>
+
+          <label for="course-description">
+            <div>{{ $t('admin.add_course.form.description') }}</div>
+            <b-input id="course-description" v-model="form.description" required autocomplete="course-description" type="text" />
+          </label>
+
+          <label for="course-image-url">
+            <div>{{ $t('admin.add_course.form.image_url') }}</div>
+            <b-input id="course-image-url" v-model="form.imageUrl" required autocomplete="course-image-url" type="text" />
+          </label>
+
+          <label for="course-price">
+            <div>{{ $t('admin.add_course.form.price') }}</div>
+            <b-input id="course-price" v-model="form.price" required autocomplete="course-price" type="number" />
+          </label>
+
+          <label for="course-price-plus">
+            <div>{{ $t('admin.add_course.form.price_plus') }}</div>
+            <b-input id="course-price-plus" v-model="form.pricePlus" required autocomplete="course-price-plus" type="number" />
+          </label>
+
+          <b-button type="submit" class="mt-2">
+            {{ $t('admin.add_course.submit') }}
+          </b-button>
+        </div>
+      </b-form>
+    </b-container>
+  </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -25,48 +54,58 @@ export default {
         name: '',
         title: '',
         description: '',
+        imageUrl: '',
         price: 0,
-        priceExtra: 0
+        pricePlus: 0
       }
     }
   },
+
   head () {
     return {
       title: this.$t('admin.add_course.seo.title')
     }
   },
 
+  computed: {
+    ...mapGetters({
+      token: 'user/getToken'
+    })
+  },
+
   methods: {
-    async submitRegister () {
+    async submitAddition () {
       const jsonBody = JSON.stringify({
         name: this.form.name,
         title: this.form.title,
-        password: this.form.password,
-        email: this.form.email
+        description: this.form.description,
+        imageUrl: this.form.imageUrl,
+        price: this.form.price,
+        pricePlus: this.form.pricePlus
       })
 
-      const url = '/api/auth/register'
+      const url = '/api/course/add'
+
       try {
         const res = await fetch(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
-            Accept: 'application/json'
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.token}`
           },
           body: jsonBody
         })
         const data = await res.json()
         if (data?.status === 'success') {
-          this.$root.$bvToast.toast(this.$t('notify.success_register'), {
-            title: this.$t('notify.success_register'),
+          this.$root.$bvToast.toast(this.$t('notify.success_add_course'), {
+            title: this.$t('notify.success_add_course'),
             toaster: 'b-toaster-top-right',
             solid: true,
             variant: 'success'
           })
 
-          this.loginUser(data.user)
-          Cookies.set('bearer-token', data.token, { expires: 30 })
-          this.$router.push(this.localePath('profile'))
+          this.$router.push(this.localePath('admin'))
 
           return
         }
@@ -83,7 +122,7 @@ export default {
             appendToast: true
           })
         }
-        if (!(['USER_OR_EMAIL_ALREADY_EXISTS', 'VALIDATION_ERROR'].includes(error.errorCode))) {
+        if (!(['COURSE_ALREADY_EXISTS', 'VALIDATION_ERROR'].includes(error.errorCode))) {
           this.$sentry.captureException(new Error(error?.errorCode || error?.message))
         }
       }
@@ -93,5 +132,8 @@ export default {
 </script>
 
 <style>
-
+.add-course__form {
+  display: flex;
+  flex-direction: column;
+}
 </style>

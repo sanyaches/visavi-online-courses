@@ -46,7 +46,6 @@ router.post('/auth/login', async function (req, res) {
 
     const token = jwt.sign({
       id: result._id,
-      email: result.email,
       isAdmin: result.isAdmin
     }, jwtSecretKey)
 
@@ -85,7 +84,6 @@ router.post('/auth/register', async function (req, res) {
 
     const token = jwt.sign({
       id: result._id,
-      email: result.email,
       isAdmin: result.isAdmin
     }, jwtSecretKey)
 
@@ -129,8 +127,7 @@ router.get('/auth/get-profile', verifyToken, async function (req, res) {
 
     const user = jwt.verify(token, jwtSecretKey)
     const query = {
-      _id: user.id,
-      email: user.email
+      _id: user.id
     }
 
     const result = await UsersModel.findOne(query)

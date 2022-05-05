@@ -1,4 +1,25 @@
 export default {
+  admin: {
+    list_courses: 'List courses',
+    no_courses: 'No courses',
+    courses_loading: 'List courses is loading...',
+    add_course: {
+      seo: {
+        title: 'Addition course page'
+      },
+      title: 'Add a course',
+      form: {
+        name: 'Name',
+        title: 'Title',
+        description: 'Description',
+        image_url: 'Image URL',
+        price: 'Price',
+        price_plus: 'Price with extended materials'
+      },
+      submit: 'Add'
+    },
+    add_course_button: 'Add new course'
+  },
   login: {
     submit: 'Log in',
     title: 'Login to visavi',
@@ -29,6 +50,7 @@ export default {
     to_login_link: 'Login'
   },
   index: {
+    admin: 'Admin',
     login: 'Login',
     logout: 'Logout',
     name: 'VISAVI'
@@ -39,6 +61,7 @@ export default {
   notify: {
     success_login: 'Successful login',
     success_register: 'Successful register',
+    success_add_course: 'Successful course creation',
     error: {
       user_not_found: 'Invalid email or password',
       user_not_found_msg: 'Account with your credentials not found',
@@ -51,7 +74,10 @@ export default {
       user_or_email_already_exists_msg: 'Account with this email already exists',
       user_or_email_already_exists: 'Account already exists',
       forbidden_error: 'Authorization error',
-      forbidden_error_msg: 'You don\'t have enough permissions or you\'re not authorized, login please'
+      forbidden_error_msg: 'You don\'t have enough permissions or you\'re not authorized, login please',
+      course_already_exists: 'Course already exists',
+      course_already_exists_msg: 'Please check your data, you duplicate course'
+
     }
   }
 }

@@ -10,6 +10,10 @@ export const mutations = {
 
   setIsAuthenticated (state, isAuthenticated) {
     state.isAuthenticated = isAuthenticated
+  },
+
+  setToken (state, token) {
+    state.authorizationToken = token
   }
 }
 
@@ -20,13 +24,18 @@ export const getters = {
 
   getIsAuthenticated (state) {
     return state.isAuthenticated
+  },
+
+  getToken (state) {
+    return state.authorizationToken
   }
 }
 
 export const actions = {
-  login ({ commit }, user) {
+  login ({ commit }, { user, token }) {
     commit('setUser', user)
     commit('setIsAuthenticated', true)
+    commit('setToken', token)
   },
 
   logout ({ commit }) {
@@ -52,7 +61,7 @@ export const actions = {
       })
       const data = await res.json()
       if (data?.status === 'success') {
-        dispatch('login', data.user)
+        dispatch('login', { user: data.user, token })
 
         return true
       }
