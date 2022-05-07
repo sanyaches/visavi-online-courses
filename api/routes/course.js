@@ -42,10 +42,10 @@ function verifyAdminToken (req, res, next) {
 
 router.post('/course/add', verifyToken, verifyAdminToken, async function (req, res) {
   try {
-    const { name, title, description, imageUrl = 'upload/example-image.png', price, pricePlus } = req.body
+    const { name, title, description, imageUrl = 'api/upload/example-image.png', price, pricePlus } = req.body
 
     const result = await CourseModel.create({ name, title, description, imageUrl, price, pricePlus })
-    console.log('Result: ', result)
+
     if (!result) {
       res.status(500).json({
         status: 'error',
@@ -53,6 +53,7 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
       })
       return
     }
+
     res.status(200).json({
       status: 'success',
       course: {
@@ -89,16 +90,74 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
   }
 })
 
+router.post('/course/edit', verifyToken, verifyAdminToken, async function (req, res) {
+  try {
+    const { name, title, description, imageUrl = 'api/upload/example-image.png', price, pricePlus } = req.body
+
+    const result = await CourseModel.updateOne({ name }, { title, description, imageUrl, price, pricePlus })
+
+    if (!result) {
+      res.status(500).json({
+        status: 'error',
+        errorCode: 'SERVER_ERROR'
+      })
+      return
+    }
+
+    res.status(200).json({
+      status: 'success'
+    })
+  } catch (error) {
+    if (error.errors) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'VALIDATION_ERROR'
+      })
+      return
+    }
+
+    res.status(500).json({
+      status: 'error',
+      errorCode: 'SERVER_ERROR'
+    })
+  }
+})
+
+router.post('/course/delete', verifyToken, verifyAdminToken, async function (req, res) {
+  try {
+    const { name } = req.body
+
+    const result = await CourseModel.deleteOne({ name })
+
+    if (!result) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'COURSE_NOT_FOUND'
+      })
+      return
+    }
+
+    res.status(200).json({
+      status: 'success'
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      errorCode: 'SERVER_ERROR'
+    })
+  }
+})
+
 router.get('/course/list', async function (req, res) {
   try {
-    const { limit = 10, offset = 0 } = req.params
+    const limit = parseInt(req.query.limit, 10) || 10
+    const offset = parseInt(req.query.offset, 10) || 0
 
     const result = await CourseModel.find()
       .limit(limit)
       .skip(offset)
       .exec()
 
-    console.log('Result: ', result)
     if (!result) {
       res.status(500).json({
         status: 'error',
@@ -115,14 +174,6 @@ router.get('/course/list', async function (req, res) {
       res.status(404).json({
         status: 'error',
         errorCode: 'VALIDATION_ERROR'
-      })
-      return
-    }
-
-    if (error.code === 11000) {
-      res.status(404).json({
-        status: 'error',
-        errorCode: 'COURSE_ALREADY_EXISTS'
       })
       return
     }

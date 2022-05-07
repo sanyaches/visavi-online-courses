@@ -1,5 +1,10 @@
 export default {
+  common: {
+    edit: 'Редактировать',
+    delete: 'Удалить'
+  },
   admin: {
+    delete_course_confirmation: 'Вы точно хотите удалить курс \'{name}\' ?',
     list_courses: 'Список курсов',
     no_courses: 'Нет курсов',
     courses_loading: 'Загружается список курсов...',
@@ -17,6 +22,21 @@ export default {
         price_plus: 'Цена с доп материалами'
       },
       submit: 'Добавить'
+    },
+    edit_course: {
+      seo: {
+        title: 'Страница редактирования курса'
+      },
+      title: 'Редактировать курс',
+      form: {
+        name: 'Имя (уникальное)',
+        title: 'Заголовок',
+        description: 'Описание',
+        image_url: 'Ссылка на изображение',
+        price: 'Цена',
+        price_plus: 'Цена с доп материалами'
+      },
+      submit: 'Обновить'
     },
     add_course_button: 'Добавить новый курс'
   },
@@ -58,10 +78,17 @@ export default {
   profile: {
     welcome: 'Добро пожаловать, {name}'
   },
+  course: {
+    description: 'Описание:',
+    price: 'Цена: ',
+    price_plus: 'Цена премиум: '
+  },
   notify: {
     success_login: 'Успешный вход',
     success_register: 'Успешная регистрация',
     success_add_course: 'Успешное создание курса',
+    success_delete_course: 'Успешное удаление курса',
+    success_edit_course: 'Успешное обновление курса',
     error: {
       user_not_found: 'Неверный email или пароль',
       user_not_found_msg: 'Пользователь с такими данными не найден',
@@ -76,7 +103,9 @@ export default {
       forbidden_error: 'Ошибка авторизации',
       forbidden_error_msg: 'У вас не достаточно прав или вы не авторизованы, попробуйте войти',
       course_already_exists: 'Курс уже существует',
-      course_already_exists_msg: 'Пожалуйста проверьте данные, произошло дублирование курса'
+      course_already_exists_msg: 'Пожалуйста проверьте данные, произошло дублирование курса',
+      course_not_found: 'Курс не найден',
+      course_not_found_mg: 'Курс не найден, пожалуйста, попробуйте позднее'
     }
   }
 }

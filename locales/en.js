@@ -1,5 +1,10 @@
 export default {
+  common: {
+    edit: 'Edit',
+    delete: 'Delete'
+  },
   admin: {
+    delete_course_confirmation: 'Are you sure to delete course \'{name}\' ?',
     list_courses: 'List courses',
     no_courses: 'No courses',
     courses_loading: 'List courses is loading...',
@@ -17,6 +22,21 @@ export default {
         price_plus: 'Price with extended materials'
       },
       submit: 'Add'
+    },
+    edit_course: {
+      seo: {
+        title: 'Edit course page'
+      },
+      title: 'Edit a course',
+      form: {
+        name: 'Name (unique)',
+        title: 'Title',
+        description: 'Description',
+        image_url: 'Image URL',
+        price: 'Price',
+        price_plus: 'Price with extended materials'
+      },
+      submit: 'Update'
     },
     add_course_button: 'Add new course'
   },
@@ -58,10 +78,17 @@ export default {
   profile: {
     welcome: 'Welcome, {name}'
   },
+  course: {
+    description: 'Description:',
+    price: 'Price: ',
+    price_plus: 'Price premium: '
+  },
   notify: {
     success_login: 'Successful login',
     success_register: 'Successful register',
     success_add_course: 'Successful course creation',
+    success_delete_course: 'Successful course delete',
+    success_edit_course: 'Successful course update',
     error: {
       user_not_found: 'Invalid email or password',
       user_not_found_msg: 'Account with your credentials not found',
@@ -76,8 +103,9 @@ export default {
       forbidden_error: 'Authorization error',
       forbidden_error_msg: 'You don\'t have enough permissions or you\'re not authorized, login please',
       course_already_exists: 'Course already exists',
-      course_already_exists_msg: 'Please check your data, you duplicate course'
-
+      course_already_exists_msg: 'Please check your data, you duplicate course',
+      course_not_found: 'Course not found',
+      course_not_found_mg: 'Course not found, try later, please'
     }
   }
 }

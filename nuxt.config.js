@@ -40,6 +40,7 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/styles/index.scss'
   ],
 
   /*
