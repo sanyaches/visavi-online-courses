@@ -17,6 +17,10 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  thumbnailUrl: {
+    type: String,
+    required: true
+  },
   lessonIds: {
     type: [String],
     default: []

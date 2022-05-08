@@ -2,10 +2,14 @@
   <div class="course-list-item">
     <div class="course-list-item__header">
       <div class="course-list-item__image">
-        <img :alt="course.description" :src="course.imageUrl">
+        <img :alt="course.description" :src="course.thumbnailUrl">
       </div>
       <div class="course-list-item__general">
-        <h2>{{ course.title }}</h2>
+        <h2>
+          <nuxt-link :to="courseLink">
+            {{ course.title }}
+          </nuxt-link>
+        </h2>
         <div>
           <span>{{ $t('course.price') }}</span>
           <span>{{ course.price }}</span>
@@ -15,8 +19,7 @@
       </div>
     </div>
     <div class="course-list-item__content">
-      <p>{{ $t('course.description') }}</p>
-      <p>{{ course.description }}</p>
+      <v-md-preview :text="course.description" />
     </div>
   </div>
 </template>
@@ -27,6 +30,10 @@ export default {
     course: {
       type: Object,
       required: true
+    },
+    courseLink: {
+      type: String,
+      default: ''
     }
   }
 }

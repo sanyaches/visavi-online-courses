@@ -1,6 +1,12 @@
 <template>
   <div class="edit-course mt-4">
     <b-container>
+      <div>
+        <b-button @click="$router.go(-1)">
+          {{ $t('common.back') }}
+        </b-button>
+      </div>
+
       <h1>{{ $t('admin.edit_course.title') }}</h1>
 
       <b-form @submit.prevent="submitUpdate">
@@ -24,12 +30,17 @@
 
           <label for="course-description">
             <div>{{ $t('admin.edit_course.form.description') }}</div>
-            <b-input id="course-description" v-model="form.description" required autocomplete="course-description" type="text" />
+            <v-md-editor id="course-description" v-model="form.description" height="400px" />
           </label>
 
           <label for="course-image-url">
             <div>{{ $t('admin.edit_course.form.image_url') }}</div>
             <b-input id="course-image-url" v-model="form.imageUrl" required autocomplete="course-image-url" type="text" />
+          </label>
+
+          <label for="course-thumbnail-url">
+            <div>{{ $t('admin.edit_course.form.thumbnail_url') }}</div>
+            <b-input id="course-thumbnail-url" v-model="form.thumbnailUrl" required autocomplete="course-thumbnail-url" type="text" />
           </label>
 
           <label for="course-price">
@@ -62,6 +73,7 @@ export default {
         title: '',
         description: '',
         imageUrl: '',
+        thumbnailUrl: '',
         price: 0,
         pricePlus: 0
       }
@@ -91,6 +103,7 @@ export default {
         title: this.form.title,
         description: this.form.description,
         imageUrl: this.form.imageUrl,
+        thumbnailUrl: this.form.thumbnailUrl,
         price: this.form.price,
         pricePlus: this.form.pricePlus
       })
@@ -116,7 +129,7 @@ export default {
             variant: 'success'
           })
 
-          this.$router.push(this.localePath('admin'))
+          this.$router.push(this.localePath({ path: `/admin/course/${this.form.name}` }))
 
           return
         }

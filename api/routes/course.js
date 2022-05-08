@@ -42,9 +42,9 @@ function verifyAdminToken (req, res, next) {
 
 router.post('/course/add', verifyToken, verifyAdminToken, async function (req, res) {
   try {
-    const { name, title, description, imageUrl = 'api/upload/example-image.png', price, pricePlus } = req.body
+    const { name, title, description, imageUrl = 'api/upload/example-image.png', thumbnailUrl = 'api/upload/example-image.png', price, pricePlus } = req.body
 
-    const result = await CourseModel.create({ name, title, description, imageUrl, price, pricePlus })
+    const result = await CourseModel.create({ name, title, description, imageUrl, price, pricePlus, thumbnailUrl })
 
     if (!result) {
       res.status(500).json({
@@ -61,6 +61,7 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
         title: result.title,
         description: result.description,
         imageUrl: result.imageUrl,
+        thumbnailUrl: result.thumbnailUrl,
         price: result.price,
         pricePlus: result.pricePlus,
         lessonIds: result.lessonIds
@@ -92,9 +93,9 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
 
 router.post('/course/edit', verifyToken, verifyAdminToken, async function (req, res) {
   try {
-    const { name, title, description, imageUrl = 'api/upload/example-image.png', price, pricePlus } = req.body
+    const { name, title, description, imageUrl = 'api/upload/example-image.png', thumbnailUrl = 'api/upload/example-image.png', price, pricePlus } = req.body
 
-    const result = await CourseModel.updateOne({ name }, { title, description, imageUrl, price, pricePlus })
+    const result = await CourseModel.updateOne({ name }, { title, description, imageUrl, thumbnailUrl, price, pricePlus })
 
     if (!result) {
       res.status(500).json({
@@ -178,6 +179,31 @@ router.get('/course/list', async function (req, res) {
       return
     }
 
+    res.status(500).json({
+      status: 'error',
+      errorCode: 'SERVER_ERROR'
+    })
+  }
+})
+
+router.get('/course/single/:courseName', async function (req, res) {
+  try {
+    const { courseName } = req.params
+
+    const result = await CourseModel.findOne({ name: courseName })
+
+    if (!result) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'COURSE_NOT_FOUND'
+      })
+      return
+    }
+    res.status(200).json({
+      status: 'success',
+      data: result
+    })
+  } catch (error) {
     res.status(500).json({
       status: 'error',
       errorCode: 'SERVER_ERROR'

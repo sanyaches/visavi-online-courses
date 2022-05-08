@@ -1,13 +1,15 @@
 export default {
   common: {
     edit: 'Edit',
-    delete: 'Delete'
+    delete: 'Delete',
+    back: 'Back'
   },
   admin: {
     delete_course_confirmation: 'Are you sure to delete course \'{name}\' ?',
     list_courses: 'List courses',
     no_courses: 'No courses',
     courses_loading: 'List courses is loading...',
+    list_lessons: 'Lessons',
     add_course: {
       seo: {
         title: 'Addition course page'
@@ -18,6 +20,7 @@ export default {
         title: 'Title',
         description: 'Description',
         image_url: 'Image URL',
+        thumbnail_url: 'Thumbnail URL',
         price: 'Price',
         price_plus: 'Price with extended materials'
       },
@@ -33,6 +36,7 @@ export default {
         title: 'Title',
         description: 'Description',
         image_url: 'Image URL',
+        thumbnail_url: 'Thumbnail URL',
         price: 'Price',
         price_plus: 'Price with extended materials'
       },

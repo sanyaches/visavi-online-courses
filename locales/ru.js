@@ -1,13 +1,15 @@
 export default {
   common: {
     edit: 'Редактировать',
-    delete: 'Удалить'
+    delete: 'Удалить',
+    back: 'Назад'
   },
   admin: {
     delete_course_confirmation: 'Вы точно хотите удалить курс \'{name}\' ?',
     list_courses: 'Список курсов',
     no_courses: 'Нет курсов',
     courses_loading: 'Загружается список курсов...',
+    list_lessons: 'Уроки',
     add_course: {
       seo: {
         title: 'Страница добавления курса'
@@ -18,6 +20,7 @@ export default {
         title: 'Заголовок',
         description: 'Описание',
         image_url: 'Ссылка на изображение',
+        thumbnail_url: 'Ссылка на миниатюру',
         price: 'Цена',
         price_plus: 'Цена с доп материалами'
       },
@@ -33,6 +36,7 @@ export default {
         title: 'Заголовок',
         description: 'Описание',
         image_url: 'Ссылка на изображение',
+        thumbnail_url: 'Ссылка на миниатюру',
         price: 'Цена',
         price_plus: 'Цена с доп материалами'
       },
