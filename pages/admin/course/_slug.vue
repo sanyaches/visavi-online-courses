@@ -36,11 +36,16 @@
         <h2 class="course-single__lessons-title">
           {{ $t('admin.list_lessons') }}
         </h2>
-        <b-button variant="info" @click="addLesson">
-          {{ $t('admin.add_lesson_btn') }}
-        </b-button>
-        <ul v-if="courseLessons.length" class="course-single__lesson-list">
-          <li v-for="lesson in courseLessons" :key="lesson.name" class="course-single__lesson-item">
+        <div class="text-center">
+          <b-button size="lg" variant="info" @click="addLesson">
+            {{ $t('admin.add_lesson_btn') }}
+          </b-button>
+        </div>
+        <ul v-if="courseLessons.length" class="course-single__lessons-list">
+          <li v-for="lesson in courseLessons" :key="lesson.name" class="course-single__lessons-item">
+            <b-button class="course-single__lessons-item-delete" variant="danger" @click="deleteLesson(lesson)">
+              {{ $t('common.delete') }}
+            </b-button>
             <lesson-list-item :lesson="lesson" :lesson-link="localePath({ path: `/admin/lesson/${lesson.name}` })" />
           </li>
         </ul>
@@ -156,6 +161,65 @@ export default {
         name,
         params: { courseName: this.course.name }
       })
+    },
+
+    async deleteLesson (lesson) {
+      if (!window.confirm(this.$t('admin.delete_lesson_confirmation', { name: lesson.title }))) {
+        return
+      }
+
+      const jsonBody = JSON.stringify({
+        name: lesson.name
+      })
+
+      const url = '/api/lesson/delete'
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.token}`
+          },
+          body: jsonBody
+        })
+        const data = await res.json()
+        if (data?.status === 'success') {
+          this.$root.$bvToast.toast(this.$t('notify.success_delete_lesson'), {
+            title: this.$t('notify.success_delete_lesson'),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'success'
+          })
+
+          await this.updateLessonsList()
+
+          return
+        }
+
+        throw data
+      } catch (error) {
+        if (error.errorCode) {
+          const code = String(error.errorCode).toLowerCase()
+          this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
+            title: this.$t(`notify.error.${code}`),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'danger',
+            appendToast: true
+          })
+        }
+      }
+    },
+
+    async updateLessonsList () {
+      const lessonsResponse = await this.$http.$get(`api/lesson/list-by-course/${this.course.name}`)
+      debugger
+      if (!lessonsResponse) {
+        return
+      }
+      this.courseLessons = lessonsResponse.data
     }
   }
 }
@@ -198,6 +262,22 @@ export default {
   &__lessons-title {
     margin-bottom: 2rem;
     text-align: center;
+  }
+
+  &__lessons-list {
+    margin-top: 2rem;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  &__lessons-item {
+    position: relative;
+  }
+
+  &__lessons-item-delete {
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   &__controls {

@@ -8,6 +8,7 @@ export default {
     add_lesson_btn: 'Добавить урок',
     no_lessons: 'Не найдено уроков',
     delete_course_confirmation: 'Вы точно хотите удалить курс \'{name}\' ?',
+    delete_lesson_confirmation: 'Вы точно хотите удалить урок \'{name}\' ?',
     list_courses: 'Список курсов',
     no_courses: 'Нет курсов',
     courses_loading: 'Загружается список курсов...',
@@ -111,6 +112,7 @@ export default {
     success_register: 'Успешная регистрация',
     success_add_course: 'Успешное создание курса',
     success_delete_course: 'Успешное удаление курса',
+    success_delete_lesson: 'Успешное удаление урока',
     success_edit_course: 'Успешное обновление курса',
     success_add_lesson: 'Успешное создание урока',
     error: {
@@ -120,16 +122,18 @@ export default {
       server_error_msg: 'Ошибка сервера, попробуйте позднее',
       validation_error: 'Введенные данные не соответствуют требованиям',
       validation_error_msg: 'Проверьте заполненные поля',
-      course_already_exist: 'Ошибка в создании курса',
-      course_already_exist_msg: 'Ошибка в создании курса, такой курс уже существует',
       user_or_email_already_exists_msg: 'Аккаунт с данным email уже существует',
       user_or_email_already_exists: 'Аккаунт уже существует',
       forbidden_error: 'Ошибка авторизации',
       forbidden_error_msg: 'У вас не достаточно прав или вы не авторизованы, попробуйте войти',
       course_already_exists: 'Курс уже существует',
       course_already_exists_msg: 'Пожалуйста проверьте данные, произошло дублирование курса',
+      lesson_already_exists: 'Урок уже существует',
+      lesson_already_exists_msg: 'Пожалуйста проверьте данные, произошло дублирование урока',
       course_not_found: 'Курс не найден',
-      course_not_found_mg: 'Курс не найден, пожалуйста, попробуйте позднее'
+      course_not_found_mg: 'Курс не найден, пожалуйста, попробуйте позднее',
+      lesson_not_found: 'Урок не найден',
+      lesson_not_found_msg: 'Урок не найден, попробуйте позже'
     }
   }
 }

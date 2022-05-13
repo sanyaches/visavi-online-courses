@@ -11,7 +11,7 @@
           <b-button variant="outline-info" @click="1">
             {{ $t('common.edit') }}
           </b-button>
-          <b-button variant="danger" @click="1">
+          <b-button variant="danger" @click="deleteLesson(lesson)">
             {{ $t('common.delete') }}
           </b-button>
         </b-button-group>
@@ -64,7 +64,55 @@ export default {
   },
 
   methods: {
-    //
+    async deleteLesson (lesson) {
+      if (!window.confirm(this.$t('admin.delete_lesson_confirmation', { name: lesson.title }))) {
+        return
+      }
+
+      const jsonBody = JSON.stringify({
+        name: lesson.name
+      })
+
+      const url = '/api/lesson/delete'
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.token}`
+          },
+          body: jsonBody
+        })
+        const data = await res.json()
+        if (data?.status === 'success') {
+          this.$root.$bvToast.toast(this.$t('notify.success_delete_lesson'), {
+            title: this.$t('notify.success_delete_lesson'),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'success'
+          })
+
+          this.$router.push(this.localePath({ path: `/admin/course/${this.lesson.courseName}` }))
+
+          return
+        }
+
+        throw data
+      } catch (error) {
+        if (error.errorCode) {
+          const code = String(error.errorCode).toLowerCase()
+          this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
+            title: this.$t(`notify.error.${code}`),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'danger',
+            appendToast: true
+          })
+        }
+      }
+    }
   }
 }
 </script>

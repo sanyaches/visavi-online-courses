@@ -4,7 +4,6 @@ const { Router } = require('express')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const LessonModel = require('../../models/lesson')
-const CourseModel = require('../../models/course')
 const router = Router()
 
 const jwtSecretKey = process.env.JWT_SECRET
@@ -96,6 +95,31 @@ router.post('/lesson/add', verifyToken, verifyAdminToken, async function (req, r
       return
     }
 
+    res.status(500).json({
+      status: 'error',
+      errorCode: 'SERVER_ERROR'
+    })
+  }
+})
+
+router.post('/lesson/delete', verifyToken, verifyAdminToken, async function (req, res) {
+  try {
+    const { name } = req.body
+
+    const result = await LessonModel.deleteOne({ name })
+
+    if (!result) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'LESSON_NOT_FOUND'
+      })
+      return
+    }
+
+    res.status(200).json({
+      status: 'success'
+    })
+  } catch (error) {
     res.status(500).json({
       status: 'error',
       errorCode: 'SERVER_ERROR'

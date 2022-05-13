@@ -8,6 +8,7 @@ export default {
     add_lesson_btn: 'Add lesson',
     no_lessons: 'No lessons found',
     delete_course_confirmation: 'Are you sure to delete course \'{name}\' ?',
+    delete_lesson_confirmation: 'Are you sure to delete lesson \'{name}\' ?',
     list_courses: 'List courses',
     no_courses: 'No courses',
     courses_loading: 'List courses is loading...',
@@ -111,6 +112,7 @@ export default {
     success_register: 'Successful register',
     success_add_course: 'Successful course creation',
     success_delete_course: 'Successful course delete',
+    success_delete_lesson: 'Successful lesson delete',
     success_edit_course: 'Successful course update',
     success_add_lesson: 'Successful lesson creation',
     error: {
@@ -120,8 +122,6 @@ export default {
       server_error_msg: 'Server error, try later please',
       validation_error: 'Checking data error',
       validation_error_msg: 'Please, check your form fields',
-      course_already_exist: 'Error with creation course',
-      course_already_exist_msg: 'Course with thin name already exists',
       user_or_email_already_exists_msg: 'Account with this email already exists',
       user_or_email_already_exists: 'Account already exists',
       forbidden_error: 'Authorization error',
@@ -131,7 +131,9 @@ export default {
       lesson_already_exists: 'Lesson already exists',
       lesson_already_exists_msg: 'Please check your data, probably you duplicated lessons',
       course_not_found: 'Course not found',
-      course_not_found_mg: 'Course not found, try later, please'
+      course_not_found_msg: 'Course not found, try later, please',
+      lesson_not_found: 'Lesson not found',
+      lesson_not_found_msg: 'Lesson not found, try later, please'
     }
   }
 }
