@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const CourseSchema = new mongoose.Schema({
+const SingleLessonSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -13,25 +13,27 @@ const CourseSchema = new mongoose.Schema({
   description: {
     type: String
   },
-  imageUrl: {
+  videoUrl: {
     type: String,
     required: true
   },
   thumbnailUrl: {
+    type: String
+  },
+  promoUrl: {
+    type: String
+  },
+  presentationUrl: {
     type: String,
     required: true
   },
-  price: {
-    type: Number,
-    required: true
-  },
-  pricePlus: {
+  duration: {
     type: Number
   }
 }, {
-  collection: 'courses'
+  collection: 'singleLessons'
 })
 
-const model = mongoose.model('CourseSchema', CourseSchema)
+const model = mongoose.model('SingleLessonSchema', SingleLessonSchema)
 
 module.exports = model

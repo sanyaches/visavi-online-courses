@@ -41,23 +41,6 @@ function verifyAdminToken (req, res, next) {
   }
 }
 
-async function assignLessonToCourse (lessonId, courseName) {
-  const resultCourse = await CourseModel.findOne({ name: courseName })
-
-  if (!resultCourse) {
-    return
-  }
-
-  if (!resultCourse.lessonIds || !Array.isArray(resultCourse.lessonIds)) {
-    return
-  }
-
-  const concatLessonsIds = resultCourse.lessonIds.concat(lessonId)
-  await CourseModel.updateOne({ name: courseName }, { lessonIds: concatLessonsIds })
-
-  return concatLessonsIds
-}
-
 router.post('/lesson/add', verifyToken, verifyAdminToken, async function (req, res) {
   try {
     const {
@@ -74,6 +57,7 @@ router.post('/lesson/add', verifyToken, verifyAdminToken, async function (req, r
 
     const result = await LessonModel.create({
       name,
+      courseName,
       title,
       description,
       category,
@@ -91,18 +75,9 @@ router.post('/lesson/add', verifyToken, verifyAdminToken, async function (req, r
       return
     }
 
-    const assignedLessonIds = await assignLessonToCourse(result._id.toString(), courseName)
-
-    if (!assignedLessonIds) {
-      res.status(500).json({
-        status: 'error',
-        errorCode: 'SERVER_ERROR'
-      })
-      return
-    }
-
     res.status(200).json({
-      status: 'success'
+      status: 'success',
+      data: result
     })
   } catch (error) {
     if (error.errors) {
@@ -132,16 +107,7 @@ router.get('/lesson/list-by-course/:courseName', async function (req, res) {
   try {
     const { courseName } = req.params
 
-    const resultCourse = await CourseModel.findOne({ name: courseName })
-    if (!resultCourse.lessonIds || !resultCourse.lessonIds.length) {
-      res.status(200).json({
-        status: 'success',
-        data: []
-      })
-    }
-    const lessonIds = resultCourse.lessonIds
-
-    const foundLessons = await LessonModel.find().where('_id').in(lessonIds).exec()
+    const foundLessons = await LessonModel.find({ courseName }).exec()
 
     if (!foundLessons) {
       res.status(500).json({

@@ -63,8 +63,7 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
         imageUrl: result.imageUrl,
         thumbnailUrl: result.thumbnailUrl,
         price: result.price,
-        pricePlus: result.pricePlus,
-        lessonIds: result.lessonIds
+        pricePlus: result.pricePlus
       }
     })
   } catch (error) {
