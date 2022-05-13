@@ -36,6 +36,17 @@
         <h2 class="course-single__lessons-title">
           {{ $t('admin.list_lessons') }}
         </h2>
+        <b-button variant="info" @click="addLesson">
+          {{ $t('admin.add_lesson_btn') }}
+        </b-button>
+        <ul v-if="courseLessons.length" class="course-single__lesson-list">
+          <li v-for="lesson in courseLessons" :key="lesson.name" class="course-single__lesson-item">
+            <lesson-list-item :lesson="lesson" :lesson-link="localePath({ path: `/admin/lesson/${lesson.name}` })" />
+          </li>
+        </ul>
+        <div v-else>
+          {{ $t('admin.no_lessons') }}
+        </div>
       </div>
     </b-container>
   </div>
@@ -43,22 +54,34 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import LessonListItem from '@/components/LessonListItem.vue'
 
 export default {
+  components: {
+    LessonListItem
+  },
+
   async asyncData (context) {
     const name = context.params.slug
     try {
       const response = await context.app.$http.$get(
           `api/course/single/${name}`
       )
-      return { course: response.data }
+      const lessonsResponse = await context.app.$http.$get(`api/lesson/list-by-course/${name}`)
+
+      return {
+        course: response.data,
+        courseLessons: lessonsResponse.data
+      }
     } catch (e) {
       context.error(e)
     }
   },
+
   data () {
     return {
-      course: {}
+      course: {},
+      courseLessons: []
     }
   },
 
@@ -125,6 +148,14 @@ export default {
           })
         }
       }
+    },
+
+    addLesson () {
+      const { name } = this.localeRoute({ path: '/admin/add-lesson' })
+      this.$router.push({
+        name,
+        params: { courseName: this.course.name }
+      })
     }
   }
 }

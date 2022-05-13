@@ -5,6 +5,8 @@ export default {
     back: 'Back'
   },
   admin: {
+    add_lesson_btn: 'Add lesson',
+    no_lessons: 'No lessons found',
     delete_course_confirmation: 'Are you sure to delete course \'{name}\' ?',
     list_courses: 'List courses',
     no_courses: 'No courses',
@@ -23,6 +25,23 @@ export default {
         thumbnail_url: 'Thumbnail URL',
         price: 'Price',
         price_plus: 'Price with extended materials'
+      },
+      submit: 'Add'
+    },
+    add_lesson: {
+      seo: {
+        title: 'Addition lesson page'
+      },
+      title: 'Add a lesson',
+      form: {
+        name: 'Name',
+        title: 'Title',
+        category: 'Category',
+        description: 'Description',
+        video_url: 'Video URL',
+        thumbnail_url: 'Thumbnail URL',
+        presentation_url: 'Presentation URL',
+        duration: 'Duration (min)'
       },
       submit: 'Add'
     },
@@ -93,6 +112,7 @@ export default {
     success_add_course: 'Successful course creation',
     success_delete_course: 'Successful course delete',
     success_edit_course: 'Successful course update',
+    success_add_lesson: 'Successful lesson creation',
     error: {
       user_not_found: 'Invalid email or password',
       user_not_found_msg: 'Account with your credentials not found',
@@ -108,6 +128,8 @@ export default {
       forbidden_error_msg: 'You don\'t have enough permissions or you\'re not authorized, login please',
       course_already_exists: 'Course already exists',
       course_already_exists_msg: 'Please check your data, you duplicate course',
+      lesson_already_exists: 'Lesson already exists',
+      lesson_already_exists_msg: 'Please check your data, probably you duplicated lessons',
       course_not_found: 'Course not found',
       course_not_found_mg: 'Course not found, try later, please'
     }

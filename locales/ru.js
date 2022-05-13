@@ -5,6 +5,8 @@ export default {
     back: 'Назад'
   },
   admin: {
+    add_lesson_btn: 'Добавить урок',
+    no_lessons: 'Не найдено уроков',
     delete_course_confirmation: 'Вы точно хотите удалить курс \'{name}\' ?',
     list_courses: 'Список курсов',
     no_courses: 'Нет курсов',
@@ -23,6 +25,23 @@ export default {
         thumbnail_url: 'Ссылка на миниатюру',
         price: 'Цена',
         price_plus: 'Цена с доп материалами'
+      },
+      submit: 'Добавить'
+    },
+    add_lesson: {
+      seo: {
+        title: 'Страница добавления курса'
+      },
+      title: 'Добавить урок',
+      form: {
+        name: 'Имя',
+        title: 'Заголовок',
+        category: 'Категория',
+        description: 'Описание',
+        video_url: 'Видео ссылка',
+        thumbnail_url: 'Ссылка на миниатюру',
+        presentation_url: 'Ссылка на презентацию',
+        duration: 'Длительность (мин)'
       },
       submit: 'Добавить'
     },
@@ -93,6 +112,7 @@ export default {
     success_add_course: 'Успешное создание курса',
     success_delete_course: 'Успешное удаление курса',
     success_edit_course: 'Успешное обновление курса',
+    success_add_lesson: 'Успешное создание урока',
     error: {
       user_not_found: 'Неверный email или пароль',
       user_not_found_msg: 'Пользователь с такими данными не найден',

@@ -62,7 +62,8 @@ export default {
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/fontawesome'
   ],
 
   /*
@@ -122,6 +123,17 @@ export default {
     config: {
       // Add native Sentry config here
       // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
+    }
+  },
+
+  fontawesome: {
+    component: 'FaIcon',
+    icons: {
+      solid: ['faCaretDown', 'faCaretLeft', 'faCaretRight', 'faCaretUp'],
+      regular: [],
+      light: [],
+      duotone: [],
+      brands: []
     }
   }
 }
