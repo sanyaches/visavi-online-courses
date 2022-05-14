@@ -66,6 +66,8 @@ export default {
     LessonListItem
   },
 
+  middleware: 'adminAuth',
+
   async asyncData (context) {
     const name = context.params.slug
     try {
@@ -215,10 +217,10 @@ export default {
 
     async updateLessonsList () {
       const lessonsResponse = await this.$http.$get(`api/lesson/list-by-course/${this.course.name}`)
-      debugger
       if (!lessonsResponse) {
         return
       }
+
       this.courseLessons = lessonsResponse.data
     }
   }

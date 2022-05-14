@@ -10,6 +10,11 @@
             {{ $t('index.admin') }}
           </nuxt-link>
         </template>
+        <template v-else-if="getIsAuthenticated">
+          <nuxt-link :to="localePath('profile')" class="button--green">
+            {{ $t('index.profile') }}
+          </nuxt-link>
+        </template>
         <template v-if="!getIsAuthenticated">
           <nuxt-link :to="localePath('login')" class="button--green">
             {{ $t('index.login') }}
@@ -27,7 +32,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Cookies from 'js-cookie'
 
 export default {
   computed: {
@@ -40,14 +44,23 @@ export default {
     }
   },
 
+  beforeMount () {
+    const token = this.$cookies.get('bearer-token')
+    if (!token) {
+      return
+    }
+    this.getProfile(token)
+  },
+
   methods: {
     ...mapActions({
-      unAuthorize: 'user/logout'
+      unAuthorize: 'user/logout',
+      getProfile: 'user/getProfile'
     }),
 
     logout () {
       this.unAuthorize()
-      Cookies.remove('bearer-token')
+      this.$cookies.remove('bearer-token')
       this.$router.push(this.localePath('login'))
     }
   }

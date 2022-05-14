@@ -72,7 +72,9 @@ export default {
   modules: [
     // Doc: https://http.nuxtjs.org
     '@nuxt/http',
+    'cookie-universal-nuxt',
     'bootstrap-vue/nuxt',
+    '@nuxtjs/axios',
     '@nuxtjs/sentry',
     [
       '@nuxtjs/i18n',

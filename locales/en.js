@@ -97,6 +97,7 @@ export default {
     admin: 'Admin',
     login: 'Login',
     logout: 'Logout',
+    profile: 'Profile',
     name: 'VISAVI'
   },
   profile: {

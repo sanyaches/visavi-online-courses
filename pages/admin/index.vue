@@ -32,6 +32,8 @@ import CourseListItem from '@/components/CourseListItem.vue'
 export default {
   components: { CourseListItem },
 
+  middleware: 'adminAuth',
+
   data () {
     return {
       listCourses: [],

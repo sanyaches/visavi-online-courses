@@ -64,6 +64,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  middleware: 'adminAuth',
+
   data () {
     return {
       form: {

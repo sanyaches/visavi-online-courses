@@ -44,7 +44,6 @@
 
 <script>
 import { mapActions } from 'vuex'
-import Cookies from 'js-cookie'
 
 export default {
   data () {
@@ -96,7 +95,11 @@ export default {
           })
 
           this.loginUser({ user: data.user, token: data.token })
-          Cookies.set('bearer-token', data.token, { expires: 30 })
+
+          const expiresDate = new Date(this.valueOf())
+          expiresDate.setDate(expiresDate.getDate() + 30)
+          this.$cookies.set('bearer-token', data.token, { expires: expiresDate })
+
           this.$router.push(this.localePath('profile'))
 
           return

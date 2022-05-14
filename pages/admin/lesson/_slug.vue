@@ -39,6 +39,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  middleware: 'adminAuth',
+
   async asyncData (context) {
     const name = context.params.slug
     try {
