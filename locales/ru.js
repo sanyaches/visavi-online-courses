@@ -10,7 +10,10 @@ export default {
     delete_course_confirmation: 'Вы точно хотите удалить курс \'{name}\' ?',
     delete_lesson_confirmation: 'Вы точно хотите удалить урок \'{name}\' ?',
     list_courses: 'Список курсов',
+    list_single_lessons: 'Список отдельных уроков',
     no_courses: 'Нет курсов',
+    no_single_lessons: 'Нет отдельных уроков',
+    single_lessons_loading: 'Загружается список отдельных уроков...',
     courses_loading: 'Загружается список курсов...',
     list_lessons: 'Уроки',
     add_course: {
@@ -31,7 +34,7 @@ export default {
     },
     add_lesson: {
       seo: {
-        title: 'Страница добавления курса'
+        title: 'Страница добавления урока'
       },
       title: 'Добавить урок',
       form: {
@@ -42,6 +45,24 @@ export default {
         video_url: 'Видео ссылка',
         thumbnail_url: 'Ссылка на миниатюру',
         presentation_url: 'Ссылка на презентацию',
+        duration: 'Длительность (мин)'
+      },
+      submit: 'Добавить'
+    },
+    add_single_lesson: {
+      seo: {
+        title: 'Страница добавления отдельного урока'
+      },
+      title: 'Добавить отдельный урок',
+      form: {
+        name: 'Имя',
+        title: 'Заголовок',
+        description: 'Описание',
+        video_url: 'Ссылка на видео',
+        thumbnail_url: 'Ссылка на миниатюру',
+        presentation_url: 'Ссылка на презентацию',
+        promo_url: 'Ссылка на промо-ролик',
+        price: 'Цена',
         duration: 'Длительность (мин)'
       },
       submit: 'Добавить'
@@ -62,7 +83,26 @@ export default {
       },
       submit: 'Обновить'
     },
-    add_course_button: 'Добавить новый курс'
+    edit_single_lesson: {
+      seo: {
+        title: 'Страница редактирования курса'
+      },
+      title: 'Редактировать курс',
+      form: {
+        name: 'Имя (уникальное)',
+        title: 'Заголовок',
+        description: 'Описание',
+        video_url: 'Ссылка на видео',
+        thumbnail_url: 'Ссылка на миниатюру',
+        presentation_url: 'Ссылка на презентацию',
+        promo_url: 'Ссылка на промо',
+        price: 'Цена',
+        duration: 'Длительность (мин)'
+      },
+      submit: 'Обновить'
+    },
+    add_course_button: 'Добавить новый курс',
+    add_single_lesson_button: 'Добавить новый отдельный урок'
   },
   login: {
     submit: 'Войти',
@@ -98,7 +138,15 @@ export default {
     login: 'Вход',
     logout: 'Выход',
     profile: 'Профиль',
-    name: 'VISAVI'
+    name: 'VISAVI',
+    main_title: 'Накручивай не себя а волосы',
+    want_study: 'Хочу научиться',
+    about_title: 'Кому подойдет онлайн обучение?',
+    author_title: 'Об авторе',
+    lessons_title: 'Уроки по прическам',
+    courses_title: 'Курсы',
+    faq_title: 'Вопрос-ответ',
+    contacts_title: 'Контакты'
   },
   profile: {
     welcome: 'Добро пожаловать, {name}'
@@ -108,14 +156,22 @@ export default {
     price: 'Цена: ',
     price_plus: 'Цена премиум: '
   },
+  single_lesson: {
+    price: 'Цена: '
+  },
+  single_lesson_card: {
+    buy: 'Купить'
+  },
   notify: {
     success_login: 'Успешный вход',
     success_register: 'Успешная регистрация',
     success_add_course: 'Успешное создание курса',
     success_delete_course: 'Успешное удаление курса',
     success_delete_lesson: 'Успешное удаление урока',
-    success_edit_course: 'Успешное обновление курса',
+    success_edit_course: 'Успешное обновление отдельного урока',
+    success_edit_single_lesson: 'Успешное обновление отдельного урока',
     success_add_lesson: 'Успешное создание урока',
+    success_add_single_lesson: 'Успешное создание отдельного урока',
     error: {
       user_not_found: 'Неверный email или пароль',
       user_not_found_msg: 'Пользователь с такими данными не найден',

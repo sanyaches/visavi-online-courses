@@ -3,7 +3,7 @@ require('dotenv').config()
 const { Router } = require('express')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
-const CourseModel = require('../../models/course')
+const SingleLessonModel = require('../../models/singleLesson')
 const router = Router()
 
 const jwtSecretKey = process.env.JWT_SECRET
@@ -40,11 +40,31 @@ function verifyAdminToken (req, res, next) {
   }
 }
 
-router.post('/course/add', verifyToken, verifyAdminToken, async function (req, res) {
+router.post('/single-lesson/add', verifyToken, verifyAdminToken, async function (req, res) {
   try {
-    const { name, title, description, imageUrl = 'api/upload/example-image.png', thumbnailUrl = 'api/upload/example-image.png', price, pricePlus } = req.body
+    const {
+      name,
+      title,
+      description,
+      videoUrl = '/api/videos/example.mp4',
+      promoUrl = '/api/videos/example.mp4',
+      thumbnailUrl = '/api/upload/example-image.png',
+      presentationUrl = '/api/upload/example-image.png',
+      duration,
+      price
+    } = req.body
 
-    const result = await CourseModel.create({ name, title, description, imageUrl, price, pricePlus, thumbnailUrl })
+    const result = await SingleLessonModel.create({
+      name,
+      title,
+      description,
+      videoUrl,
+      promoUrl,
+      presentationUrl,
+      duration,
+      thumbnailUrl,
+      price
+    })
 
     if (!result) {
       res.status(500).json({
@@ -56,14 +76,16 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
 
     res.status(200).json({
       status: 'success',
-      course: {
+      singleLesson: {
         name: result.name,
         title: result.title,
         description: result.description,
-        imageUrl: result.imageUrl,
+        videoUrl: result.videoUrl,
+        promoUrl: result.promoUrl,
+        presentationUrl: result.presentationUrl,
         thumbnailUrl: result.thumbnailUrl,
-        price: result.price,
-        pricePlus: result.pricePlus
+        duration: result.duration,
+        price: result.price
       }
     })
   } catch (error) {
@@ -78,7 +100,7 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
     if (error.code === 11000) {
       res.status(404).json({
         status: 'error',
-        errorCode: 'COURSE_ALREADY_EXISTS'
+        errorCode: 'LESSON_ALREADY_EXISTS'
       })
       return
     }
@@ -90,11 +112,30 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
   }
 })
 
-router.post('/course/edit', verifyToken, verifyAdminToken, async function (req, res) {
+router.post('/single-lesson/edit', verifyToken, verifyAdminToken, async function (req, res) {
   try {
-    const { name, title, description, imageUrl = 'api/upload/example-image.png', thumbnailUrl = 'api/upload/example-image.png', price, pricePlus } = req.body
+    const {
+      name,
+      title,
+      description,
+      videoUrl = '/api/videos/example.mp4',
+      promoUrl = '/api/videos/example.mp4',
+      thumbnailUrl = '/api/upload/example-image.png',
+      presentationUrl = '/api/upload/example-image.png',
+      duration,
+      price
+    } = req.body
 
-    const result = await CourseModel.updateOne({ name }, { title, description, imageUrl, thumbnailUrl, price, pricePlus })
+    const result = await SingleLessonModel.updateOne({ name }, {
+      title,
+      description,
+      videoUrl,
+      thumbnailUrl,
+      presentationUrl,
+      promoUrl,
+      duration,
+      price
+    })
 
     if (!result) {
       res.status(500).json({
@@ -123,16 +164,16 @@ router.post('/course/edit', verifyToken, verifyAdminToken, async function (req, 
   }
 })
 
-router.post('/course/delete', verifyToken, verifyAdminToken, async function (req, res) {
+router.post('/single-lesson/delete', verifyToken, verifyAdminToken, async function (req, res) {
   try {
     const { name } = req.body
 
-    const result = await CourseModel.deleteOne({ name })
+    const result = await SingleLessonModel.deleteOne({ name })
 
     if (!result) {
       res.status(404).json({
         status: 'error',
-        errorCode: 'COURSE_NOT_FOUND'
+        errorCode: 'LESSON_NOT_FOUND'
       })
       return
     }
@@ -148,12 +189,12 @@ router.post('/course/delete', verifyToken, verifyAdminToken, async function (req
   }
 })
 
-router.get('/course/list', async function (req, res) {
+router.get('/single-lesson/list', async function (req, res) {
   try {
     const limit = parseInt(req.query.limit, 10) || 10
     const offset = parseInt(req.query.offset, 10) || 0
 
-    const result = await CourseModel.find()
+    const result = await SingleLessonModel.find()
       .limit(limit)
       .skip(offset)
       .exec()
@@ -177,16 +218,16 @@ router.get('/course/list', async function (req, res) {
   }
 })
 
-router.get('/course/single/:courseName', async function (req, res) {
+router.get('/single-lesson/single/:lessonName', async function (req, res) {
   try {
-    const { courseName } = req.params
+    const { lessonName } = req.params
 
-    const result = await CourseModel.findOne({ name: courseName })
+    const result = await SingleLessonModel.findOne({ name: lessonName })
 
     if (!result) {
       res.status(404).json({
         status: 'error',
-        errorCode: 'COURSE_NOT_FOUND'
+        errorCode: 'LESSON_NOT_FOUND'
       })
       return
     }

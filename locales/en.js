@@ -10,8 +10,11 @@ export default {
     delete_course_confirmation: 'Are you sure to delete course \'{name}\' ?',
     delete_lesson_confirmation: 'Are you sure to delete lesson \'{name}\' ?',
     list_courses: 'List courses',
+    list_single_lessons: 'List single lessons',
     no_courses: 'No courses',
+    no_single_lessons: 'No single lessons',
     courses_loading: 'List courses is loading...',
+    single_lessons_loading: 'List single lessons is loading...',
     list_lessons: 'Lessons',
     add_course: {
       seo: {
@@ -46,6 +49,24 @@ export default {
       },
       submit: 'Add'
     },
+    add_single_lesson: {
+      seo: {
+        title: 'Addition single lesson page'
+      },
+      title: 'Add a single lesson',
+      form: {
+        name: 'Name',
+        title: 'Title',
+        description: 'Description',
+        video_url: 'Video URL',
+        thumbnail_url: 'Thumbnail URL',
+        presentation_url: 'Presentation URL',
+        promo_url: 'Promo URL',
+        price: 'Price',
+        duration: 'Duration (min)'
+      },
+      submit: 'Add'
+    },
     edit_course: {
       seo: {
         title: 'Edit course page'
@@ -62,7 +83,26 @@ export default {
       },
       submit: 'Update'
     },
-    add_course_button: 'Add new course'
+    edit_single_lesson: {
+      seo: {
+        title: 'Edit single lesson page'
+      },
+      title: 'Edit a single lesson',
+      form: {
+        name: 'Name',
+        title: 'Title',
+        description: 'Description',
+        video_url: 'Video URL',
+        thumbnail_url: 'Thumbnail URL',
+        presentation_url: 'Presentation URL',
+        promo_url: 'Promo URL',
+        price: 'Price',
+        duration: 'Duration (min)'
+      },
+      submit: 'Update'
+    },
+    add_course_button: 'Add new course',
+    add_single_lesson_button: 'Add new single lesson'
   },
   login: {
     submit: 'Log in',
@@ -98,7 +138,14 @@ export default {
     login: 'Login',
     logout: 'Logout',
     profile: 'Profile',
-    name: 'VISAVI'
+    name: 'VISAVI',
+    main_title: 'Stop brushing yourself, brush your hair',
+    want_study: 'Want to study',
+    about_title: 'Who does suit online education?',
+    author_title: 'About author',
+    lessons_title: 'Lessons',
+    courses_title: 'Courses',
+    faq_title: 'FAQ'
   },
   profile: {
     welcome: 'Welcome, {name}'
@@ -108,6 +155,12 @@ export default {
     price: 'Price: ',
     price_plus: 'Price premium: '
   },
+  single_lesson: {
+    price: 'Price: '
+  },
+  single_lesson_card: {
+    buy: 'Buy'
+  },
   notify: {
     success_login: 'Successful login',
     success_register: 'Successful register',
@@ -115,7 +168,9 @@ export default {
     success_delete_course: 'Successful course delete',
     success_delete_lesson: 'Successful lesson delete',
     success_edit_course: 'Successful course update',
+    success_edit_single_lesson: 'Successful single lesson update',
     success_add_lesson: 'Successful lesson creation',
+    success_add_single_lesson: 'Successful single lesson creation',
     error: {
       user_not_found: 'Invalid email or password',
       user_not_found_msg: 'Account with your credentials not found',

@@ -9,6 +9,7 @@ const app = express()
 const auth = require('./routes/auth')
 const course = require('./routes/course')
 const lesson = require('./routes/lesson')
+const singleLesson = require('./routes/singleLesson')
 
 // Import API Routes
 app.use(express.json())
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use(auth)
 app.use(course)
 app.use(lesson)
+app.use(singleLesson)
 
 app.use('/videos', express.static(path.join(__dirname, 'videos_public')))
 app.use('/upload', express.static(path.join(__dirname, 'upload')))
