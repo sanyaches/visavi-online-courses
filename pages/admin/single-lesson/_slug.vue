@@ -26,6 +26,10 @@
         <span>{{ $t('single_lesson.price') }}</span>
         <span>{{ singleLesson.price }}</span>
       </div>
+      <div class="single-lesson-single__access_months">
+        <span>{{ $t('single_lesson.access_months') }}</span>
+        <span>{{ singleLesson.accessMonths }}</span>
+      </div>
       <div class="single-lesson-single__description">
         <v-md-preview :text="singleLesson.description" />
       </div>
@@ -148,7 +152,8 @@ export default {
     }
   }
 
-  &__price {
+  &__price,
+  &__access_months {
     text-align: center;
     margin: 0.5rem 0;
   }

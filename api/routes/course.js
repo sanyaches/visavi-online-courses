@@ -42,9 +42,9 @@ function verifyAdminToken (req, res, next) {
 
 router.post('/course/add', verifyToken, verifyAdminToken, async function (req, res) {
   try {
-    const { name, title, description, imageUrl = 'api/upload/example-image.png', thumbnailUrl = 'api/upload/example-image.png', price, pricePlus } = req.body
+    const { name, title, description, imageUrl = 'api/upload/example-image.png', thumbnailUrl = 'api/upload/example-image.png', price, accessMonths, locale } = req.body
 
-    const result = await CourseModel.create({ name, title, description, imageUrl, price, pricePlus, thumbnailUrl })
+    const result = await CourseModel.create({ name, title, description, imageUrl, price, thumbnailUrl, accessMonths, locale })
 
     if (!result) {
       res.status(500).json({
@@ -63,7 +63,8 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
         imageUrl: result.imageUrl,
         thumbnailUrl: result.thumbnailUrl,
         price: result.price,
-        pricePlus: result.pricePlus
+        accessMonths: result.accessMonths,
+        locale: result.locale
       }
     })
   } catch (error) {
@@ -92,9 +93,9 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
 
 router.post('/course/edit', verifyToken, verifyAdminToken, async function (req, res) {
   try {
-    const { name, title, description, imageUrl = 'api/upload/example-image.png', thumbnailUrl = 'api/upload/example-image.png', price, pricePlus } = req.body
+    const { name, title, description, imageUrl = 'api/upload/example-image.png', thumbnailUrl = 'api/upload/example-image.png', price, accessMonths, locale } = req.body
 
-    const result = await CourseModel.updateOne({ name }, { title, description, imageUrl, thumbnailUrl, price, pricePlus })
+    const result = await CourseModel.updateOne({ name }, { title, description, imageUrl, thumbnailUrl, price, accessMonths, locale })
 
     if (!result) {
       res.status(500).json({

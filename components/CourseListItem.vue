@@ -13,8 +13,10 @@
         <div>
           <span>{{ $t('course.price') }}</span>
           <span>{{ course.price }}</span>
-          <span>{{ $t('course.price_plus') }}</span>
-          <span>{{ course.pricePlus }}</span>
+        </div>
+        <div>
+          <span>{{ $t('course.access_months') }}</span>
+          <span>{{ course.accessMonths }}</span>
         </div>
       </div>
     </div>

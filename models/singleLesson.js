@@ -23,16 +23,20 @@ const SingleLessonSchema = new mongoose.Schema({
   promoUrl: {
     type: String
   },
-  presentationUrl: {
-    type: String,
+  price: {
+    type: Number,
     required: true
   },
-  price: {
+  accessMonths: {
     type: Number,
     required: true
   },
   duration: {
     type: Number
+  },
+  locale: {
+    type: String,
+    required: true
   }
 }, {
   collection: 'singleLessons'

@@ -48,9 +48,14 @@
             <b-input id="course-price" v-model="form.price" required autocomplete="course-price" type="number" />
           </label>
 
-          <label for="course-price-plus">
-            <div>{{ $t('admin.edit_course.form.price_plus') }}</div>
-            <b-input id="course-price-plus" v-model="form.pricePlus" required autocomplete="course-price-plus" type="number" />
+          <label for="course-access_months">
+            <div>{{ $t('admin.edit_course.form.access_months') }}</div>
+            <b-input id="course-access_months" v-model="form.accessMonths" required autocomplete="course-access_months" type="number" />
+          </label>
+
+          <label for="course-locale">
+            <div>{{ $t('admin.edit_course.form.locale') }}</div>
+            <b-input id="course-locale" v-model="form.locale" required autocomplete="course-locale" type="text" />
           </label>
 
           <b-button type="submit" class="mt-2">
@@ -77,7 +82,8 @@ export default {
         imageUrl: '',
         thumbnailUrl: '',
         price: 0,
-        pricePlus: 0
+        accessMonths: 0,
+        locale: ''
       }
     }
   },
@@ -107,7 +113,7 @@ export default {
         imageUrl: this.form.imageUrl,
         thumbnailUrl: this.form.thumbnailUrl,
         price: this.form.price,
-        pricePlus: this.form.pricePlus
+        accessMonths: this.form.accessMonths
       })
 
       const url = '/api/course/edit'

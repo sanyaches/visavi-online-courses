@@ -43,11 +43,6 @@
             <b-input id="single-lesson-promo-url" v-model="form.promoUrl" required autocomplete="single-lesson-promo-url" type="text" />
           </label>
 
-          <label for="single-lesson-presentation-url">
-            <div>{{ $t('admin.edit_single_lesson.form.presentation_url') }}</div>
-            <b-input id="single-lesson-presentation-url" v-model="form.presentationUrl" required autocomplete="single-lesson-presentation-url" type="text" />
-          </label>
-
           <label for="single-lesson-thumbnail-url">
             <div>{{ $t('admin.edit_single_lesson.form.thumbnail_url') }}</div>
             <b-input id="single-lesson-thumbnail-url" v-model="form.thumbnailUrl" required autocomplete="single-lesson-thumbnail-url" type="text" />
@@ -61,6 +56,16 @@
           <label for="single-lesson-duration">
             <div>{{ $t('admin.edit_single_lesson.form.duration') }}</div>
             <b-input id="single-lesson-duration" v-model="form.duration" required autocomplete="single-lesson-duration" type="number" />
+          </label>
+
+          <label for="single-lesson-access_months">
+            <div>{{ $t('admin.edit_single_lesson.form.access_months') }}</div>
+            <b-input id="single-lesson-access_months" v-model="form.accessMonths" required autocomplete="single-lesson-access_months" type="number" />
+          </label>
+
+          <label for="single-lesson-locale">
+            <div>{{ $t('admin.edit_single_lesson.form.locale') }}</div>
+            <b-input id="single-lesson-locale" v-model="form.locale" required autocomplete="single-lesson-locale" type="number" />
           </label>
 
           <b-button type="submit" class="mt-2">
@@ -86,10 +91,11 @@ export default {
         description: '',
         videoUrl: '',
         promoUrl: '',
-        presentationUrl: '',
         thumbnailUrl: '',
         duration: 0,
-        price: 0
+        accessMonths: 0,
+        price: 0,
+        locale: ''
       }
     }
   },
@@ -120,8 +126,9 @@ export default {
         thumbnailUrl: this.form.thumbnailUrl,
         price: this.form.price,
         promoUrl: this.form.promoUrl,
-        presentationUrl: this.form.presentationUrl,
-        duration: this.form.duration
+        duration: this.form.duration,
+        accessMonths: this.form.accessMonths,
+        locale: this.form.locale
       })
 
       const url = '/api/single-lesson/edit'

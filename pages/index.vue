@@ -103,7 +103,7 @@ export default {
   async asyncData (context) {
     try {
       const response = await context.app.$http.$get(
-        'api/single-lesson/list?limit=1000&offset=0'
+        'api/single-lesson/list-demo?limit=1000&offset=0'
       )
       const responseCourses = await context.app.$http.$get(
         'api/course/list?limit=1000&offset=0'

@@ -25,8 +25,13 @@ const CourseSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  pricePlus: {
-    type: Number
+  accessMonths: {
+    type: Number,
+    required: true
+  },
+  locale: {
+    type: String,
+    required: true
   }
 }, {
   collection: 'courses'

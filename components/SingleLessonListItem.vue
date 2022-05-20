@@ -14,6 +14,10 @@
           <span>{{ $t('single_lesson.price') }}</span>
           <span>{{ singleLesson.price }}</span>
         </div>
+        <div>
+          <span>{{ $t('single_lesson.access_months') }}</span>
+          <span>{{ singleLesson.accessMonths }}</span>
+        </div>
       </div>
     </div>
     <div class="single-lesson-list-item__content">

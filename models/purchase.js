@@ -5,21 +5,21 @@ const PurchasesSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  // courseType = 'singleLesson' | 'course'
+  courseType: {
+    type: String,
+    required: true
+  },
   userEmail: {
     type: String,
     required: true
   },
   startDate: {
-    type: Date,
+    type: Number,
     required: true
   },
   endDate: {
-    type: Date,
-    required: true
-  },
-  /* Type: ['can-review', 'can-certificate', 'can-watch-more-lessons'] */
-  accessType: {
-    type: Array,
+    type: Number,
     required: true
   }
 }, {

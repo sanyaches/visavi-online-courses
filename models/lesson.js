@@ -31,10 +31,6 @@ const LessonSchema = new mongoose.Schema({
   thumbnailUrl: {
     type: String
   },
-  presentationUrl: {
-    type: String,
-    required: true
-  },
   duration: {
     type: Number
   }

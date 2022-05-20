@@ -4,6 +4,9 @@ export default {
     delete: 'Удалить',
     back: 'Назад'
   },
+  files: {
+    presentation: 'Презентация'
+  },
   admin: {
     add_lesson_btn: 'Добавить урок',
     no_lessons: 'Не найдено уроков',
@@ -28,7 +31,7 @@ export default {
         image_url: 'Ссылка на изображение',
         thumbnail_url: 'Ссылка на миниатюру',
         price: 'Цена',
-        price_plus: 'Цена с доп материалами'
+        access_months: 'Месяцев доступа'
       },
       submit: 'Добавить'
     },
@@ -44,7 +47,6 @@ export default {
         description: 'Описание',
         video_url: 'Видео ссылка',
         thumbnail_url: 'Ссылка на миниатюру',
-        presentation_url: 'Ссылка на презентацию',
         duration: 'Длительность (мин)'
       },
       submit: 'Добавить'
@@ -60,10 +62,10 @@ export default {
         description: 'Описание',
         video_url: 'Ссылка на видео',
         thumbnail_url: 'Ссылка на миниатюру',
-        presentation_url: 'Ссылка на презентацию',
         promo_url: 'Ссылка на промо-ролик',
         price: 'Цена',
-        duration: 'Длительность (мин)'
+        duration: 'Длительность (мин)',
+        access_months: 'Месяцев доступа'
       },
       submit: 'Добавить'
     },
@@ -79,25 +81,25 @@ export default {
         image_url: 'Ссылка на изображение',
         thumbnail_url: 'Ссылка на миниатюру',
         price: 'Цена',
-        price_plus: 'Цена с доп материалами'
+        access_months: 'Месяцев доступа'
       },
       submit: 'Обновить'
     },
     edit_single_lesson: {
       seo: {
-        title: 'Страница редактирования курса'
+        title: 'Страница редактирования отдельного урока'
       },
-      title: 'Редактировать курс',
+      title: 'Редактировать отдельный урок',
       form: {
         name: 'Имя (уникальное)',
         title: 'Заголовок',
         description: 'Описание',
         video_url: 'Ссылка на видео',
         thumbnail_url: 'Ссылка на миниатюру',
-        presentation_url: 'Ссылка на презентацию',
         promo_url: 'Ссылка на промо',
         price: 'Цена',
-        duration: 'Длительность (мин)'
+        duration: 'Длительность (мин)',
+        access_months: 'Месяцев доступа'
       },
       submit: 'Обновить'
     },
@@ -154,10 +156,12 @@ export default {
   course: {
     description: 'Описание:',
     price: 'Цена: ',
-    price_plus: 'Цена премиум: '
+    price_plus: 'Цена премиум: ',
+    access_months: 'Длительность доступа (в месяцах): '
   },
   single_lesson: {
-    price: 'Цена: '
+    price: 'Цена: ',
+    access_months: 'Длительность доступа (в месяцах): '
   },
   single_lesson_card: {
     buy: 'Купить'

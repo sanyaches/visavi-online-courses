@@ -4,6 +4,9 @@ export default {
     delete: 'Delete',
     back: 'Back'
   },
+  files: {
+    presentation: 'Presentation'
+  },
   admin: {
     add_lesson_btn: 'Add lesson',
     no_lessons: 'No lessons found',
@@ -28,7 +31,7 @@ export default {
         image_url: 'Image URL',
         thumbnail_url: 'Thumbnail URL',
         price: 'Price',
-        price_plus: 'Price with extended materials'
+        access_months: 'Access months'
       },
       submit: 'Add'
     },
@@ -44,7 +47,6 @@ export default {
         description: 'Description',
         video_url: 'Video URL',
         thumbnail_url: 'Thumbnail URL',
-        presentation_url: 'Presentation URL',
         duration: 'Duration (min)'
       },
       submit: 'Add'
@@ -60,10 +62,10 @@ export default {
         description: 'Description',
         video_url: 'Video URL',
         thumbnail_url: 'Thumbnail URL',
-        presentation_url: 'Presentation URL',
         promo_url: 'Promo URL',
         price: 'Price',
-        duration: 'Duration (min)'
+        duration: 'Duration (min)',
+        access_months: 'Access months'
       },
       submit: 'Add'
     },
@@ -79,7 +81,7 @@ export default {
         image_url: 'Image URL',
         thumbnail_url: 'Thumbnail URL',
         price: 'Price',
-        price_plus: 'Price with extended materials'
+        access_months: 'Access months'
       },
       submit: 'Update'
     },
@@ -94,10 +96,10 @@ export default {
         description: 'Description',
         video_url: 'Video URL',
         thumbnail_url: 'Thumbnail URL',
-        presentation_url: 'Presentation URL',
         promo_url: 'Promo URL',
         price: 'Price',
-        duration: 'Duration (min)'
+        duration: 'Duration (min)',
+        access_months: 'Access months'
       },
       submit: 'Update'
     },
@@ -153,10 +155,11 @@ export default {
   course: {
     description: 'Description:',
     price: 'Price: ',
-    price_plus: 'Price premium: '
+    access_months: 'Access months: '
   },
   single_lesson: {
-    price: 'Price: '
+    price: 'Price: ',
+    access_months: 'Access months:'
   },
   single_lesson_card: {
     buy: 'Buy'

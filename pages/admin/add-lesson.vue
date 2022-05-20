@@ -41,11 +41,6 @@
             <b-input id="lesson-thumbnail-url" v-model="form.thumbnailUrl" required autocomplete="lesson-thumbnail-url" type="text" />
           </label>
 
-          <label for="lesson-presentation-url">
-            <div>{{ $t('admin.add_lesson.form.presentation_url') }}</div>
-            <b-input id="lesson-presentation-url" v-model="form.presentationUrl" required autocomplete="lesson-presentation-url" type="text" />
-          </label>
-
           <label for="lesson-duration">
             <div>{{ $t('admin.add_lesson.form.duration') }}</div>
             <b-input id="lesson-duration" v-model="form.duration" required autocomplete="lesson-duration" type="number" />
@@ -75,7 +70,6 @@ export default {
         category: '',
         videoUrl: '',
         thumbnailUrl: '',
-        presentationUrl: '',
         duration: 0
       }
     }
@@ -102,7 +96,6 @@ export default {
         category: this.form.category,
         description: this.form.description,
         thumbnailUrl: this.form.thumbnailUrl,
-        presentationUrl: this.form.presentationUrl,
         duration: this.form.duration,
         videoUrl: this.form.videoUrl
       })
