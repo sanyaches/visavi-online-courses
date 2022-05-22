@@ -4,9 +4,6 @@ export default {
     delete: 'Delete',
     back: 'Back'
   },
-  files: {
-    presentation: 'Presentation'
-  },
   admin: {
     add_lesson_btn: 'Add lesson',
     no_lessons: 'No lessons found',
@@ -31,7 +28,8 @@ export default {
         image_url: 'Image URL',
         thumbnail_url: 'Thumbnail URL',
         price: 'Price',
-        access_months: 'Access months'
+        access_months: 'Access months',
+        locale: 'Locale (en|ru|..)'
       },
       submit: 'Add'
     },
@@ -65,7 +63,8 @@ export default {
         promo_url: 'Promo URL',
         price: 'Price',
         duration: 'Duration (min)',
-        access_months: 'Access months'
+        access_months: 'Access months',
+        locale: 'Locale (en|ru|..)'
       },
       submit: 'Add'
     },
@@ -81,7 +80,8 @@ export default {
         image_url: 'Image URL',
         thumbnail_url: 'Thumbnail URL',
         price: 'Price',
-        access_months: 'Access months'
+        access_months: 'Access months',
+        locale: 'Locale (en|ru|..)'
       },
       submit: 'Update'
     },
@@ -99,7 +99,8 @@ export default {
         promo_url: 'Promo URL',
         price: 'Price',
         duration: 'Duration (min)',
-        access_months: 'Access months'
+        access_months: 'Access months',
+        locale: 'Locale (en|ru|..)'
       },
       submit: 'Update'
     },
@@ -159,7 +160,27 @@ export default {
   },
   single_lesson: {
     price: 'Price: ',
-    access_months: 'Access months:'
+    access_months: 'Access months:',
+    files_title: 'Materials',
+    files_add_button: 'Add file',
+    file_form: {
+      name: 'Filename',
+      title: 'Title',
+      resource_url: 'Link to resource',
+      submit: 'Add'
+    }
+  },
+  lesson: {
+    price: 'Price: ',
+    access_months: 'Access months:',
+    files_title: 'Materials',
+    files_add_button: 'Add file',
+    file_form: {
+      name: 'Filename',
+      title: 'Title',
+      resource_url: 'Link to resource',
+      submit: 'Add'
+    }
   },
   single_lesson_card: {
     buy: 'Buy'
@@ -174,6 +195,7 @@ export default {
     success_edit_single_lesson: 'Successful single lesson update',
     success_add_lesson: 'Successful lesson creation',
     success_add_single_lesson: 'Successful single lesson creation',
+    success_add_file: 'Successful file creation',
     error: {
       user_not_found: 'Invalid email or password',
       user_not_found_msg: 'Account with your credentials not found',
@@ -192,7 +214,9 @@ export default {
       course_not_found: 'Course not found',
       course_not_found_msg: 'Course not found, try later, please',
       lesson_not_found: 'Lesson not found',
-      lesson_not_found_msg: 'Lesson not found, try later, please'
+      lesson_not_found_msg: 'Lesson not found, try later, please',
+      file_already_exists: 'File already exists',
+      file_already_exists_msg: 'Please check your data, probably you duplicated files'
     }
   }
 }

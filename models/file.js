@@ -3,6 +3,11 @@ const mongoose = require('mongoose')
 const FileSchema = new mongoose.Schema({
   name: {
     type: String,
+    required: true,
+    unique: true
+  },
+  title: {
+    type: String,
     required: true
   },
   lessonName: {

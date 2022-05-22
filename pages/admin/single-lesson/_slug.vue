@@ -33,6 +33,39 @@
       <div class="single-lesson-single__description">
         <v-md-preview :text="singleLesson.description" />
       </div>
+      <div class="single-lesson-single__files">
+        <h2>{{ $t('single_lesson.files_title') }}</h2>
+        <b-button variant="outline-info" @click="openAddFileForm">
+          {{ $t('single_lesson.files_add_button') }}
+        </b-button>
+
+        <b-form v-if="fileFormOpen" @submit.prevent="submitFileForm">
+          <div class="single-lesson-single__file-form">
+            <label for="file-name">
+              <div>{{ $t('single_lesson.file_form.name') }}</div>
+              <b-input id="file-name" v-model="newFileForm.name" required autocomplete="file-name" type="text" />
+            </label>
+
+            <label for="file-title">
+              <div>{{ $t('single_lesson.file_form.title') }}</div>
+              <b-input id="file-title" v-model="newFileForm.title" required autocomplete="file-title" type="text" />
+            </label>
+
+            <label for="file-resource-url">
+              <div>{{ $t('single_lesson.file_form.resource_url') }}</div>
+              <b-input id="file-resource-url" v-model="newFileForm.resourceUrl" required autocomplete="file-resource-url" type="text" />
+            </label>
+
+            <b-button type="submit" class="mt-2">
+              {{ $t('single_lesson.file_form.submit') }}
+            </b-button>
+          </div>
+        </b-form>
+
+        <div v-if="files.length" class="single-lesson-single__files-list">
+          <file-card v-for="file in files" :key="file.name" :file="file" />
+        </div>
+      </div>
     </b-container>
   </div>
 </template>
@@ -51,7 +84,8 @@ export default {
       )
 
       return {
-        singleLesson: response.data
+        singleLesson: response.data.singleLesson,
+        files: response.data.files
       }
     } catch (e) {
       context.error(e)
@@ -60,7 +94,14 @@ export default {
 
   data () {
     return {
-      singleLesson: {}
+      singleLesson: {},
+      newFileForm: {
+        name: '',
+        title: '',
+        resourceUrl: ''
+      },
+      files: [],
+      fileFormOpen: false
     }
   },
 
@@ -77,6 +118,75 @@ export default {
         name,
         params: { singleLesson }
       })
+    },
+
+    openAddFileForm () {
+      this.fileFormOpen = !this.fileFormOpen
+    },
+
+    async submitFileForm () {
+      const jsonBody = JSON.stringify({
+        name: this.newFileForm.name,
+        title: this.newFileForm.title,
+        lessonName: this.singleLesson.name,
+        resourceUrl: this.newFileForm.resourceUrl
+      })
+
+      const url = '/api/single-lesson/add-file'
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.token}`
+          },
+          body: jsonBody
+        })
+        const data = await res.json()
+        if (data?.status === 'success') {
+          this.$root.$bvToast.toast(this.$t('notify.success_add_file'), {
+            title: this.$t('notify.success_add_file'),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'success'
+          })
+
+          this.files.push({
+            name: this.newFileForm.name,
+            title: this.newFileForm.title,
+            lessonName: this.lesson.name,
+            resourceUrl: this.newFileForm.resourceUrl
+          })
+
+          this.newFileForm.name = ''
+          this.newFileForm.title = ''
+          this.newFileForm.lessonName = ''
+          this.newFileForm.resourceUrl = ''
+          this.fileFormOpen = false
+
+          return
+        }
+
+        this.newFileForm.name = ''
+        this.newFileForm.title = ''
+        this.newFileForm.lessonName = ''
+        this.newFileForm.resourceUrl = ''
+
+        throw data
+      } catch (error) {
+        if (error.errorCode) {
+          const code = String(error.errorCode).toLowerCase()
+          this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
+            title: this.$t(`notify.error.${code}`),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'danger',
+            appendToast: true
+          })
+        }
+      }
     },
 
     async deleteSingleLesson (singleLesson) {
@@ -150,6 +260,20 @@ export default {
       width: 100%;
       height: auto;
     }
+  }
+
+  &__file-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+
+  &__files-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    gap: 1rem;
   }
 
   &__price,

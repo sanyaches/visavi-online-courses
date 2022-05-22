@@ -120,12 +120,14 @@ router.post('/single-lesson/add-file', verifyToken, verifyAdminToken, async func
   try {
     const {
       name,
+      title,
       lessonName,
       resourceUrl = '/api/videos/example.mp4'
     } = req.body
 
     const result = await FileModel.create({
       name,
+      title,
       lessonName,
       lessonType: 'singleLesson',
       resourceUrl
@@ -141,8 +143,9 @@ router.post('/single-lesson/add-file', verifyToken, verifyAdminToken, async func
 
     res.status(200).json({
       status: 'success',
-      singleLesson: {
+      file: {
         name: result.name,
+        title: result.title,
         lessonName: result.lessonName,
         lessonType: result.lessonType,
         resourceUrl: result.resourceUrl
@@ -351,10 +354,12 @@ router.get('/single-lesson/single/:lessonName', async function (req, res) {
       return
     }
 
-    result.files = foundFiles || []
     res.status(200).json({
       status: 'success',
-      data: result
+      data: {
+        singleLesson: result,
+        files: foundFiles
+      }
     })
   } catch (error) {
     res.status(500).json({

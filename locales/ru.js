@@ -4,9 +4,6 @@ export default {
     delete: 'Удалить',
     back: 'Назад'
   },
-  files: {
-    presentation: 'Презентация'
-  },
   admin: {
     add_lesson_btn: 'Добавить урок',
     no_lessons: 'Не найдено уроков',
@@ -31,7 +28,8 @@ export default {
         image_url: 'Ссылка на изображение',
         thumbnail_url: 'Ссылка на миниатюру',
         price: 'Цена',
-        access_months: 'Месяцев доступа'
+        access_months: 'Месяцев доступа',
+        locale: 'Локализация-язык (en|ru|..)'
       },
       submit: 'Добавить'
     },
@@ -65,7 +63,8 @@ export default {
         promo_url: 'Ссылка на промо-ролик',
         price: 'Цена',
         duration: 'Длительность (мин)',
-        access_months: 'Месяцев доступа'
+        access_months: 'Месяцев доступа',
+        locale: 'Локализация-язык (en|ru|..)'
       },
       submit: 'Добавить'
     },
@@ -81,7 +80,8 @@ export default {
         image_url: 'Ссылка на изображение',
         thumbnail_url: 'Ссылка на миниатюру',
         price: 'Цена',
-        access_months: 'Месяцев доступа'
+        access_months: 'Месяцев доступа',
+        locale: 'Локализация-язык (en|ru|..)'
       },
       submit: 'Обновить'
     },
@@ -99,7 +99,8 @@ export default {
         promo_url: 'Ссылка на промо',
         price: 'Цена',
         duration: 'Длительность (мин)',
-        access_months: 'Месяцев доступа'
+        access_months: 'Месяцев доступа',
+        locale: 'Локализация-язык (en|ru|..)'
       },
       submit: 'Обновить'
     },
@@ -161,7 +162,27 @@ export default {
   },
   single_lesson: {
     price: 'Цена: ',
-    access_months: 'Длительность доступа (в месяцах): '
+    access_months: 'Длительность доступа (в месяцах): ',
+    files_title: 'Материалы',
+    files_add_button: 'Добавить файл',
+    file_form: {
+      name: 'Имя файла',
+      title: 'Заголовок',
+      resource_url: 'Ссылка на ресурс',
+      submit: 'Добавить'
+    }
+  },
+  lesson: {
+    price: 'Цена: ',
+    access_months: 'Длительность доступа (в месяцах): ',
+    files_title: 'Материалы',
+    files_add_button: 'Добавить файл',
+    file_form: {
+      name: 'Имя файла',
+      title: 'Заголовок',
+      resource_url: 'Ссылка на ресурс',
+      submit: 'Добавить'
+    }
   },
   single_lesson_card: {
     buy: 'Купить'
@@ -176,6 +197,7 @@ export default {
     success_edit_single_lesson: 'Успешное обновление отдельного урока',
     success_add_lesson: 'Успешное создание урока',
     success_add_single_lesson: 'Успешное создание отдельного урока',
+    success_add_file: 'Успешное создание файла',
     error: {
       user_not_found: 'Неверный email или пароль',
       user_not_found_msg: 'Пользователь с такими данными не найден',
@@ -194,7 +216,9 @@ export default {
       course_not_found: 'Курс не найден',
       course_not_found_mg: 'Курс не найден, пожалуйста, попробуйте позднее',
       lesson_not_found: 'Урок не найден',
-      lesson_not_found_msg: 'Урок не найден, попробуйте позже'
+      lesson_not_found_msg: 'Урок не найден, попробуйте позже',
+      file_already_exists: 'Файл уже существует',
+      file_already_exists_msg: 'Пожалуйста проверьте данные, произошло дублирование файла'
     }
   }
 }

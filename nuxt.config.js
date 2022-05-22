@@ -129,9 +129,9 @@ export default {
   },
 
   fontawesome: {
-    component: 'FaIcon',
+    component: 'FontAwesomeIcon',
     icons: {
-      solid: ['faCaretDown', 'faCaretLeft', 'faCaretRight', 'faCaretUp'],
+      solid: ['faCaretDown', 'faCaretLeft', 'faCaretRight', 'faCaretUp', 'faFileArrowDown'],
       regular: [],
       light: [],
       duotone: [],
