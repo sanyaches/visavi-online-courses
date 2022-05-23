@@ -81,7 +81,7 @@ export default {
 
           const expiresDate = new Date(this.valueOf())
           expiresDate.setDate(expiresDate.getDate() + 30)
-          this.$cookies.set('bearer-token', data.token, { expires: expiresDate })
+          this.$cookies.set('_visavi_token', data.token, { expires: expiresDate })
 
           this.$router.push(this.localePath('profile'))
 

@@ -6,9 +6,12 @@
       </div>
       <div class="lesson-list-item__general">
         <h2>
-          <nuxt-link :to="lessonLink">
+          <nuxt-link v-if="lessonLink" :to="lessonLink">
             {{ lesson.title }}
           </nuxt-link>
+          <span v-else>
+            {{ lesson.title }}
+          </span>
         </h2>
         <div />
       </div>

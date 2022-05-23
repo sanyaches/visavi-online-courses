@@ -10,8 +10,8 @@
       <v-md-preview :text="lesson.description" />
     </div>
     <div class="single-lesson-card__control">
-      <nuxt-link to="/">
-        {{ $t('single_lesson_card.buy') }}
+      <nuxt-link :to="singleLessonLink">
+        {{ $t('single_lesson_card.learn') }}
       </nuxt-link>
     </div>
   </div>
@@ -24,7 +24,14 @@ export default {
       type: Object,
       required: true
     }
+  },
+
+  computed: {
+    singleLessonLink () {
+      return this.localePath({ path: `/single-lesson/${this.lesson.name}` })
+    }
   }
+
 }
 </script>
 

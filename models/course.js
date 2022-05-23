@@ -17,6 +17,17 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  promoUrl: {
+    type: String
+  },
+  createdAt: {
+    type: Number,
+    required: true
+  },
+  updatedAt: {
+    type: Number,
+    required: true
+  },
   thumbnailUrl: {
     type: String,
     required: true

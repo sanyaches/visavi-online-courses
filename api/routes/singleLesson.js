@@ -5,6 +5,9 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const SingleLessonModel = require('../../models/singleLesson')
 const FileModel = require('../../models/file')
+const UsersModel = require('../../models/users')
+const PurchaseModel = require('../../models/purchase')
+
 const router = Router()
 
 const jwtSecretKey = process.env.JWT_SECRET
@@ -66,6 +69,8 @@ router.post('/single-lesson/add', verifyToken, verifyAdminToken, async function 
       accessMonths,
       locale,
       thumbnailUrl,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
       price
     })
 
@@ -199,6 +204,7 @@ router.post('/single-lesson/edit', verifyToken, verifyAdminToken, async function
       duration,
       accessMonths,
       price,
+      updatedAt: Date.now(),
       locale
     })
 
@@ -260,6 +266,7 @@ router.get('/single-lesson/list-demo', async function (req, res) {
     const offset = parseInt(req.query.offset, 10) || 0
 
     const result = await SingleLessonModel.find({}, { videoUrl: 0 })
+      .sort({ createdAt: 'desc' })
       .limit(limit)
       .skip(offset)
       .exec()
@@ -289,6 +296,7 @@ router.get('/single-lesson/list', async function (req, res) {
     const offset = parseInt(req.query.offset, 10) || 0
 
     const result = await SingleLessonModel.find()
+      .sort({ createdAt: 'desc' })
       .limit(limit)
       .skip(offset)
       .exec()
@@ -338,13 +346,51 @@ router.get('/single-lesson/single-demo/:lessonName', async function (req, res) {
   }
 })
 
-//! TODO: Add check by purchase
 router.get('/single-lesson/single/:lessonName', async function (req, res) {
   try {
-    const { lessonName } = req.params
+    const checkPurchased = async (token, lessonName) => {
+      if (!token) {
+        return false
+      }
+      const user = jwt.verify(token, jwtSecretKey)
+      const query = {
+        _id: user.id
+      }
 
-    const result = await SingleLessonModel.findOne({ name: lessonName })
-    const foundFiles = await FileModel.find({ lessonName, lessonType: 'singleLesson' }).exec()
+      const userResult = await UsersModel.findOne(query)
+
+      if (!userResult || !userResult.email) {
+        return false
+      }
+
+      const purchaseSingleLesson = await PurchaseModel.findOne({
+        courseType: 'singleLesson',
+        courseName: lessonName,
+        userEmail: userResult.email
+      })
+
+      return purchaseSingleLesson
+    }
+
+    const { lessonName } = req.params
+    const bearerHeader = req.headers.authorization
+    let foundPurchase = null
+
+    if (bearerHeader) {
+      const bearer = bearerHeader.split(' ')
+      const bearerToken = bearer[1]
+
+      foundPurchase = await checkPurchased(bearerToken, lessonName)
+    }
+
+    let result
+    let foundFiles = []
+    if (foundPurchase) {
+      result = await SingleLessonModel.findOne({ name: lessonName })
+      foundFiles = await FileModel.find({ lessonName, lessonType: 'singleLesson' }).exec()
+    } else {
+      result = await SingleLessonModel.findOne({ name: lessonName }, { videoUrl: 0 })
+    }
 
     if (!result) {
       res.status(404).json({
@@ -358,7 +404,8 @@ router.get('/single-lesson/single/:lessonName', async function (req, res) {
       status: 'success',
       data: {
         singleLesson: result,
-        files: foundFiles
+        files: foundFiles,
+        purchase: foundPurchase
       }
     })
   } catch (error) {

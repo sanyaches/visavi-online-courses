@@ -58,7 +58,7 @@
 
           <label for="single-lesson-locale">
             <div>{{ $t('admin.add_single_lesson.form.locale') }}</div>
-            <b-input id="single-lesson-locale" v-model="form.locale" required autocomplete="single-lesson-locale" type="number" />
+            <b-input id="single-lesson-locale" v-model="form.locale" required autocomplete="single-lesson-locale" type="text" />
           </label>
 
           <b-button type="submit" class="mt-2">

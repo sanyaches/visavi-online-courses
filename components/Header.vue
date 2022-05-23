@@ -45,7 +45,7 @@ export default {
   },
 
   beforeMount () {
-    const token = this.$cookies.get('bearer-token')
+    const token = this.$cookies.get('_visavi_token')
     if (!token) {
       return
     }
@@ -60,8 +60,11 @@ export default {
 
     logout () {
       this.unAuthorize()
-      this.$cookies.remove('bearer-token')
-      this.$router.push(this.localePath('login'))
+
+      this.$cookies.remove('_visavi_token')
+      this.$http.setToken(false)
+
+      this.$router.push(this.localePath('/'))
     }
   }
 }

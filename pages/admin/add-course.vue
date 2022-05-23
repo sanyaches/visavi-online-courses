@@ -36,6 +36,11 @@
             <b-input id="course-thumbnail-url" v-model="form.thumbnailUrl" required autocomplete="course-thumbnail-url" type="text" />
           </label>
 
+          <label for="course-promo-url">
+            <div>{{ $t('admin.add_course.form.promo_url') }}</div>
+            <b-input id="course-promo-url" v-model="form.promoUrl" required autocomplete="course-promo-url" type="text" />
+          </label>
+
           <label for="course-price">
             <div>{{ $t('admin.add_course.form.price') }}</div>
             <b-input id="course-price" v-model="form.price" required autocomplete="course-price" type="number" />
@@ -76,7 +81,8 @@ export default {
         thumbnailUrl: '',
         price: 0,
         accessMonths: 0,
-        locale: ''
+        locale: '',
+        promoUrl: ''
       }
     }
   },
@@ -103,7 +109,8 @@ export default {
         thumbnailUrl: this.form.thumbnailUrl,
         price: this.form.price,
         accessMonths: this.form.accessMonths,
-        locale: this.form.locale
+        locale: this.form.locale,
+        promoUrl: this.form.promoUrl
       })
 
       const url = '/api/course/add'

@@ -55,7 +55,7 @@ async function verifyUserToken (req, res, next) {
   next()
 }
 
-router.post('/purchase/add', verifyToken, verifyUserToken, async function (req, res) {
+router.post('/purchases/add', verifyToken, verifyUserToken, async function (req, res) {
   try {
     const {
       courseName,
@@ -63,6 +63,8 @@ router.post('/purchase/add', verifyToken, verifyUserToken, async function (req, 
       accessMonths
     } = req.body
     const userEmail = req.email
+
+    await PurchaseModel.deleteOne({ courseName, courseType, userEmail })
 
     const startDateMs = Date.now()
 
@@ -134,15 +136,9 @@ router.get('/purchases/purchases-by-user', verifyToken, verifyUserToken, async f
       return
     }
 
-    const dateNowMs = Date.now()
-    const extendedResultByExpired = result.map(purchase => ({
-      ...purchase,
-      expired: purchase.endDate < dateNowMs
-    }))
-
     res.status(200).json({
       status: 'success',
-      data: extendedResultByExpired
+      data: result
     })
   } catch (error) {
     res.status(500).json({

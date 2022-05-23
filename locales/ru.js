@@ -27,6 +27,7 @@ export default {
         description: 'Описание',
         image_url: 'Ссылка на изображение',
         thumbnail_url: 'Ссылка на миниатюру',
+        promo_url: 'Ссылка на промо',
         price: 'Цена',
         access_months: 'Месяцев доступа',
         locale: 'Локализация-язык (en|ru|..)'
@@ -79,6 +80,7 @@ export default {
         description: 'Описание',
         image_url: 'Ссылка на изображение',
         thumbnail_url: 'Ссылка на миниатюру',
+        promo_url: 'Ссылка на промо',
         price: 'Цена',
         access_months: 'Месяцев доступа',
         locale: 'Локализация-язык (en|ru|..)'
@@ -157,14 +159,21 @@ export default {
   course: {
     description: 'Описание:',
     price: 'Цена: ',
-    price_plus: 'Цена премиум: ',
-    access_months: 'Длительность доступа (в месяцах): '
+    access_months: 'Длительность доступа (в месяцах): ',
+    buy: 'Купить',
+    buy_again: 'Доступ истек, купить снова',
+    watch: 'К урокам',
+    expired_at: 'Доступ закончится:'
   },
   single_lesson: {
     price: 'Цена: ',
     access_months: 'Длительность доступа (в месяцах): ',
     files_title: 'Материалы',
     files_add_button: 'Добавить файл',
+    buy: 'Купить',
+    buy_again: 'Доступ истек, купить снова',
+    watch: 'Куплено, к просмотру',
+    expired_at: 'Доступ закончится:',
     file_form: {
       name: 'Имя файла',
       title: 'Заголовок',
@@ -185,7 +194,12 @@ export default {
     }
   },
   single_lesson_card: {
-    buy: 'Купить'
+    buy: 'Купить',
+    learn: 'Подробнеe'
+  },
+  course_card: {
+    buy: 'Купить',
+    learn: 'Подробнеe'
   },
   notify: {
     success_login: 'Успешный вход',
@@ -198,6 +212,9 @@ export default {
     success_add_lesson: 'Успешное создание урока',
     success_add_single_lesson: 'Успешное создание отдельного урока',
     success_add_file: 'Успешное создание файла',
+    register_then_buy_msg: 'Перед покупкой зарегистрируйтесь или войдите',
+    register_then_buy: 'Зарегистрируйтесь или войдите',
+    success_add_purchase: 'Успешная покупка курса',
     error: {
       user_not_found: 'Неверный email или пароль',
       user_not_found_msg: 'Пользователь с такими данными не найден',

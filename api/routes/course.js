@@ -42,9 +42,31 @@ function verifyAdminToken (req, res, next) {
 
 router.post('/course/add', verifyToken, verifyAdminToken, async function (req, res) {
   try {
-    const { name, title, description, imageUrl = 'api/upload/example-image.png', thumbnailUrl = 'api/upload/example-image.png', price, accessMonths, locale } = req.body
+    const {
+      name,
+      title,
+      description,
+      imageUrl = 'api/upload/example-image.png',
+      thumbnailUrl = 'api/upload/example-image.png',
+      promoUrl,
+      price,
+      accessMonths,
+      locale
+    } = req.body
 
-    const result = await CourseModel.create({ name, title, description, imageUrl, price, thumbnailUrl, accessMonths, locale })
+    const result = await CourseModel.create({
+      name,
+      title,
+      description,
+      imageUrl,
+      price,
+      thumbnailUrl,
+      promoUrl,
+      accessMonths,
+      locale,
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    })
 
     if (!result) {
       res.status(500).json({
@@ -64,7 +86,10 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
         thumbnailUrl: result.thumbnailUrl,
         price: result.price,
         accessMonths: result.accessMonths,
-        locale: result.locale
+        locale: result.locale,
+        promoUrl: result.promoUrl,
+        createdAt: result.createdAt,
+        updatedAt: result.updatedAt
       }
     })
   } catch (error) {
@@ -93,9 +118,29 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
 
 router.post('/course/edit', verifyToken, verifyAdminToken, async function (req, res) {
   try {
-    const { name, title, description, imageUrl = 'api/upload/example-image.png', thumbnailUrl = 'api/upload/example-image.png', price, accessMonths, locale } = req.body
+    const {
+      name,
+      title,
+      description,
+      imageUrl = 'api/upload/example-image.png',
+      thumbnailUrl = 'api/upload/example-image.png',
+      promoUrl,
+      price,
+      accessMonths,
+      locale
+    } = req.body
 
-    const result = await CourseModel.updateOne({ name }, { title, description, imageUrl, thumbnailUrl, price, accessMonths, locale })
+    const result = await CourseModel.updateOne({ name }, {
+      title,
+      description,
+      imageUrl,
+      thumbnailUrl,
+      promoUrl,
+      price,
+      accessMonths,
+      locale,
+      updatedAt: Date.now()
+    })
 
     if (!result) {
       res.status(500).json({
@@ -155,6 +200,7 @@ router.get('/course/list', async function (req, res) {
     const offset = parseInt(req.query.offset, 10) || 0
 
     const result = await CourseModel.find()
+      .sort({ createdAt: 'desc' })
       .limit(limit)
       .skip(offset)
       .exec()

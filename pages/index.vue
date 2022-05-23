@@ -64,7 +64,7 @@
         </div>
         <div class="courses__list">
           <div v-for="course in courses" :key="course.name" class="courses__list-item">
-            <single-lesson-card :lesson="course" />
+            <course-card :course="course" />
           </div>
         </div>
       </b-container>

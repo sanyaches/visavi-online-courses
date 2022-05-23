@@ -27,6 +27,7 @@ export default {
         description: 'Description',
         image_url: 'Image URL',
         thumbnail_url: 'Thumbnail URL',
+        promo_url: 'Promo URL',
         price: 'Price',
         access_months: 'Access months',
         locale: 'Locale (en|ru|..)'
@@ -79,6 +80,7 @@ export default {
         description: 'Description',
         image_url: 'Image URL',
         thumbnail_url: 'Thumbnail URL',
+        promo_url: 'Promo URL',
         price: 'Price',
         access_months: 'Access months',
         locale: 'Locale (en|ru|..)'
@@ -156,13 +158,21 @@ export default {
   course: {
     description: 'Description:',
     price: 'Price: ',
-    access_months: 'Access months: '
+    access_months: 'Access months: ',
+    buy: 'Buy',
+    buy_again: 'Access expired, buy again',
+    watch: 'To lessons',
+    expired_at: 'Access will closed:'
   },
   single_lesson: {
     price: 'Price: ',
     access_months: 'Access months:',
     files_title: 'Materials',
     files_add_button: 'Add file',
+    buy: 'Buy',
+    buy_again: 'Access expired, buy again',
+    watch: 'Purchased, to watch',
+    expired_at: 'Access will closed:',
     file_form: {
       name: 'Filename',
       title: 'Title',
@@ -183,7 +193,12 @@ export default {
     }
   },
   single_lesson_card: {
-    buy: 'Buy'
+    buy: 'Buy',
+    learn: 'Learn more'
+  },
+  course_card: {
+    buy: 'Buy',
+    learn: 'Learn more'
   },
   notify: {
     success_login: 'Successful login',
@@ -196,6 +211,9 @@ export default {
     success_add_lesson: 'Successful lesson creation',
     success_add_single_lesson: 'Successful single lesson creation',
     success_add_file: 'Successful file creation',
+    register_then_buy: 'Register or login',
+    register_then_buy_msg: 'Register or login before buy',
+    success_add_purchase: 'Successful course purchase',
     error: {
       user_not_found: 'Invalid email or password',
       user_not_found_msg: 'Account with your credentials not found',
