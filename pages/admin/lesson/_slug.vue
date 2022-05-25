@@ -17,7 +17,7 @@
         </b-button-group>
       </div>
       <div class="lesson-single__video">
-        <video controls width="250">
+        <video controls>
           <source
             :src="lesson.videoUrl"
             type="video/mp4"
@@ -76,6 +76,11 @@ export default {
 
   async asyncData (context) {
     const name = context.params.slug
+    const token = context.app.$cookies.get('_visavi_token')
+    if (token) {
+      context.app.$http.setToken(token, 'Bearer')
+    }
+
     try {
       const response = await context.app.$http.$get(
           `api/lesson/single/${name}`
@@ -240,13 +245,40 @@ export default {
   }
 
   &__image {
-    width: 600px;
+    width: 720px;
     overflow: hidden;
     margin: 0 auto;
 
     img {
       width: 100%;
       height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 420px;
+    }
+
+    @media screen and (max-width: 480px) {
+      width: 320px;
+    }
+  }
+
+  &__video {
+    width: 720px;
+    overflow: hidden;
+    margin: 0 auto;
+
+    video {
+      width: 100%;
+      height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 420px;
+    }
+
+    @media screen and (max-width: 480px) {
+      width: 320px;
     }
   }
 

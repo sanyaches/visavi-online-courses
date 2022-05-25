@@ -320,32 +320,6 @@ router.get('/single-lesson/list', async function (req, res) {
   }
 })
 
-router.get('/single-lesson/single-demo/:lessonName', async function (req, res) {
-  try {
-    const { lessonName } = req.params
-
-    const result = await SingleLessonModel.findOne({ name: lessonName }, { videoUrl: 0 })
-
-    if (!result) {
-      res.status(404).json({
-        status: 'error',
-        errorCode: 'LESSON_NOT_FOUND'
-      })
-      return
-    }
-
-    res.status(200).json({
-      status: 'success',
-      data: result
-    })
-  } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      errorCode: 'SERVER_ERROR'
-    })
-  }
-})
-
 router.get('/single-lesson/single/:lessonName', async function (req, res) {
   try {
     const checkPurchased = async (token, lessonName) => {

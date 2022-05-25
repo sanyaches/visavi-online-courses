@@ -33,13 +33,13 @@
         <span>{{ $t('course.price') }}</span>
         <span>{{ course.price }}</span>
       </div>
-      <div v-if="!isPurchased" class="course-page__months">
+      <div v-if="!isPurchased" class="course-page__access-months">
         <span>{{ $t('course.access_months') }}</span>
         <span>{{ course.accessMonths }}</span>
       </div>
-      <div v-else-if="purchase" class="single-lesson-single__access_months">
+      <div v-else-if="purchase" class="course-page__access-months">
         <span>{{ $t('single_lesson.expired_at') }}</span>
-        <span>{{ new Date(purchase.endDate) }}</span>
+        <span>{{ formattedEndDate }}</span>
       </div>
       <div class="course-page__description">
         <v-md-preview :text="course.description" />
@@ -67,6 +67,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { format } from 'date-fns'
 import LessonListItem from '@/components/LessonListItem.vue'
 
 export default {
@@ -75,15 +76,20 @@ export default {
   },
 
   async asyncData (context) {
-    const name = context.params.slug
     try {
+      const name = context.params.slug
+      const token = context.app.$cookies.get('_visavi_token')
+      if (token) {
+        context.app.$http.setToken(token, 'Bearer')
+      }
       const response = await context.app.$http.$get(
           `api/course/single/${name}`
       )
       const lessonsResponse = await context.app.$http.$get(`api/lesson/list-by-course-demo/${name}`)
 
       return {
-        course: response.data,
+        course: response.data.course,
+        purchase: response.data.purchase,
         courseLessons: lessonsResponse.data
       }
     } catch (e) {
@@ -95,9 +101,7 @@ export default {
     return {
       course: {},
       courseLessons: [],
-      isPurchased: false,
-      purchase: null,
-      coursePurchase: null
+      purchase: null
     }
   },
 
@@ -106,42 +110,21 @@ export default {
       myCourses: 'user/getMyCourses',
       profile: 'user/getMe',
       token: 'user/getToken'
-    })
-  },
+    }),
+    isPurchased () {
+      return Boolean(this.purchase)
+    },
+    isExpired () {
+      const dateNowMs = Date.now()
 
-  watch: {
-    myCourses () {
-      this.updateIsPurchased()
+      return Boolean(this.purchase && this.purchase.endDate < dateNowMs)
+    },
+    formattedEndDate () {
+      return format(this.purchase.endDate, 'dd MMMM yyyy HH:mm (OOOO)')
     }
   },
 
-  beforeMount () {
-    this.updateIsPurchased()
-  },
-
   methods: {
-    updateIsPurchased () {
-      if (!this.myCourses || !this.myCourses.length) {
-        return
-      }
-
-      const foundPurchase = this.myCourses.find(purchase => purchase.courseName === this.course.name)
-      if (foundPurchase) {
-        this.coursePurchase = foundPurchase
-        this.isPurchased = true
-        this.purchase = foundPurchase
-      } else {
-        this.coursePurchase = null
-        this.isPurchased = false
-        this.purchase = null
-      }
-      if (foundPurchase && foundPurchase.expired) {
-        this.isExpired = true
-      } else {
-        this.isExpired = false
-      }
-    },
-
     async buyCourse () {
       if (!this.profile) {
         const link = this.localePath('/login')
@@ -181,8 +164,7 @@ export default {
             variant: 'success'
           })
 
-          this.isPurchased = true
-          this.isExpired = false
+          window.location.reload()
 
           return
         }
@@ -221,13 +203,21 @@ export default {
   }
 
   &__image {
-    width: 600px;
+    width: 720px;
     overflow: hidden;
     margin: 0 auto;
 
     img {
       width: 100%;
       height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 420px;
+    }
+
+    @media screen and (max-width: 480px) {
+      width: 320px;
     }
   }
 
@@ -236,7 +226,7 @@ export default {
     margin: 0.5rem 0;
   }
 
-  &__months {
+  &__access-months {
     text-align: center;
     margin: 0.5rem 0;
   }

@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const LessonModel = require('../../models/lesson')
 const FileModel = require('../../models/file')
+const UsersModel = require('../../models/users')
+const PurchaseModel = require('../../models/purchase')
 const router = Router()
 
 const jwtSecretKey = process.env.JWT_SECRET
@@ -185,8 +187,7 @@ router.post('/lesson/delete', verifyToken, verifyAdminToken, async function (req
   }
 })
 
-//! TODO: Add check by course purchase
-router.get('/lesson/list-by-course/:courseName', async function (req, res) {
+router.get('/lesson/list-by-course/:courseName', verifyToken, verifyAdminToken, async function (req, res) {
   try {
     const { courseName } = req.params
 
@@ -238,47 +239,65 @@ router.get('/lesson/list-by-course-demo/:courseName', async function (req, res) 
   }
 })
 
-router.get('/lesson/single-demo/:lessonName', async function (req, res) {
-  try {
-    const { lessonName } = req.params
-
-    const result = await LessonModel.findOne({ name: lessonName }, { videoUrl: 0 })
-
-    if (!result) {
-      res.status(404).json({
-        status: 'error',
-        errorCode: 'LESSON_NOT_FOUND'
-      })
-      return
-    }
-
-    res.status(200).json({
-      status: 'success',
-      data: result
-    })
-  } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      errorCode: 'SERVER_ERROR'
-    })
-  }
-})
-
-//! TODO: Add check by course purchase
 router.get('/lesson/single/:lessonName', async function (req, res) {
   try {
-    const { lessonName } = req.params
+    const checkPurchased = async (token, courseName) => {
+      if (!token) {
+        return false
+      }
+      const user = jwt.verify(token, jwtSecretKey)
+      const query = {
+        _id: user.id
+      }
 
+      const userResult = await UsersModel.findOne(query)
+
+      if (!userResult || !userResult.email) {
+        return false
+      }
+
+      if (userResult.isAdmin) {
+        return 'admin-access'
+      }
+
+      const purchaseCourse = await PurchaseModel.findOne({
+        courseType: 'course',
+        courseName,
+        userEmail: userResult.email
+      })
+
+      return purchaseCourse
+    }
+
+    const { lessonName } = req.params
     const result = await LessonModel.findOne({ name: lessonName })
-    const foundFiles = await FileModel.find({ lessonName, lessonType: 'lesson' }).exec()
 
     if (!result) {
-      res.status(404).json({
+      return res.status(404).json({
         status: 'error',
         errorCode: 'LESSON_NOT_FOUND'
       })
-      return
     }
+
+    const bearerHeader = req.headers.authorization
+    let foundPurchase = null
+
+    if (bearerHeader) {
+      const bearer = bearerHeader.split(' ')
+      const bearerToken = bearer[1]
+
+      foundPurchase = await checkPurchased(bearerToken, result.courseName)
+    }
+
+    if (!foundPurchase) {
+      return res.status(403).json({
+        status: 'error',
+        errorCode: 'FORBIDDEN_ERROR'
+      })
+    }
+
+    const foundFiles = await FileModel.find({ lessonName, lessonType: 'lesson' }).exec()
+
     const files = foundFiles.map(file => ({
       name: file.name,
       title: file.title,
@@ -290,7 +309,8 @@ router.get('/lesson/single/:lessonName', async function (req, res) {
       status: 'success',
       data: {
         lesson: result,
-        files
+        files,
+        purchase: foundPurchase
       }
     })
   } catch (error) {

@@ -4,6 +4,8 @@ const { Router } = require('express')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const CourseModel = require('../../models/course')
+const UsersModel = require('../../models/users')
+const PurchaseModel = require('../../models/purchase')
 const router = Router()
 
 const jwtSecretKey = process.env.JWT_SECRET
@@ -226,7 +228,40 @@ router.get('/course/list', async function (req, res) {
 
 router.get('/course/single/:courseName', async function (req, res) {
   try {
+    const checkPurchased = async (token, courseName) => {
+      if (!token) {
+        return false
+      }
+      const user = jwt.verify(token, jwtSecretKey)
+      const query = {
+        _id: user.id
+      }
+
+      const userResult = await UsersModel.findOne(query)
+
+      if (!userResult || !userResult.email) {
+        return false
+      }
+
+      const purchaseCourse = await PurchaseModel.findOne({
+        courseType: 'course',
+        courseName,
+        userEmail: userResult.email
+      })
+
+      return purchaseCourse
+    }
+
     const { courseName } = req.params
+    const bearerHeader = req.headers.authorization
+    let foundPurchase = null
+
+    if (bearerHeader) {
+      const bearer = bearerHeader.split(' ')
+      const bearerToken = bearer[1]
+
+      foundPurchase = await checkPurchased(bearerToken, courseName)
+    }
 
     const result = await CourseModel.findOne({ name: courseName })
 
@@ -239,7 +274,10 @@ router.get('/course/single/:courseName', async function (req, res) {
     }
     res.status(200).json({
       status: 'success',
-      data: result
+      data: {
+        course: result,
+        purchase: foundPurchase
+      }
     })
   } catch (error) {
     res.status(500).json({

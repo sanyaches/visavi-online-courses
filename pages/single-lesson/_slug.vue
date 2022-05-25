@@ -6,8 +6,14 @@
           {{ $t('common.back') }}
         </b-button>
       </div>
-      <div class="single-lesson-single__image">
-        <img :alt="singleLesson.description" :src="singleLesson.thumbnailUrl">
+      <div v-if="!isPurchased || isExpired" class="single-lesson-single__promo">
+        <video controls width="100%" :poster="singleLesson.thumbnailUrl">
+          <source
+            :src="singleLesson.promoUrl"
+            type="video/mp4"
+          >
+          Sorry, your browser doesn't support embedded videos.
+        </video>
       </div>
       <h1 class="single-lesson-single__title">
         {{ singleLesson.title }}
@@ -20,18 +26,16 @@
           <b-button v-if="isExpired" variant="success" @click="buySingleLesson">
             {{ $t('single_lesson.buy_again') }}
           </b-button>
-          <div v-else>
-            <div class="single-lesson-single__video">
-              <video controls width="250">
-                <source
-                  :src="singleLesson.videoUrl"
-                  type="video/mp4"
-                >
-                Sorry, your browser doesn't support embedded videos.
-              </video>
-            </div>
-          </div>
         </template>
+      </div>
+      <div v-if="isPurchased && !isExpired" class="single-lesson-single__video">
+        <video controls>
+          <source
+            :src="singleLesson.videoUrl"
+            type="video/mp4"
+          >
+          Sorry, your browser doesn't support embedded videos.
+        </video>
       </div>
       <div v-if="!isPurchased || isExpired" class="single-lesson-single__price">
         <span>{{ $t('single_lesson.price') }}</span>
@@ -43,7 +47,7 @@
       </div>
       <div v-else class="single-lesson-single__access_months">
         <span>{{ $t('single_lesson.expired_at') }}</span>
-        <span>{{ new Date(purchase.endDate) }}</span>
+        <span>{{ formattedEndDate }}</span>
       </div>
       <div class="single-lesson-single__description">
         <v-md-preview :text="singleLesson.description" />
@@ -61,6 +65,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { format } from 'date-fns'
 
 export default {
   async asyncData (context) {
@@ -104,6 +109,9 @@ export default {
       const dateNowMs = Date.now()
 
       return Boolean(this.purchase && this.purchase.endDate < dateNowMs)
+    },
+    formattedEndDate () {
+      return format(this.purchase.endDate, 'dd MMMM yyyy HH:mm (OOOO)')
     }
   },
 
@@ -147,8 +155,7 @@ export default {
             variant: 'success'
           })
 
-          this.isPurchased = true
-          this.isExpired = false
+          window.location.reload()
 
           return
         }
@@ -186,14 +193,41 @@ export default {
     margin-bottom: 1rem;
   }
 
-  &__image {
-    width: 600px;
+  &__promo {
+    width: 720px;
     overflow: hidden;
     margin: 0 auto;
 
     img {
       width: 100%;
       height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 420px;
+    }
+
+    @media screen and (max-width: 480px) {
+      width: 320px;
+    }
+  }
+
+  &__video {
+    width: 720px;
+    overflow: hidden;
+    margin: 0 auto;
+
+    video {
+      width: 100%;
+      height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 420px;
+    }
+
+    @media screen and (max-width: 480px) {
+      width: 320px;
     }
   }
 

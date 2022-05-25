@@ -168,7 +168,7 @@ export default {
   single_lesson: {
     price: 'Цена: ',
     access_months: 'Длительность доступа (в месяцах): ',
-    files_title: 'Материалы',
+    files_title: 'Материалы к уроку',
     files_add_button: 'Добавить файл',
     buy: 'Купить',
     buy_again: 'Доступ истек, купить снова',
@@ -184,7 +184,7 @@ export default {
   lesson: {
     price: 'Цена: ',
     access_months: 'Длительность доступа (в месяцах): ',
-    files_title: 'Материалы',
+    files_title: 'Материалы к уроку',
     files_add_button: 'Добавить файл',
     file_form: {
       name: 'Имя файла',
