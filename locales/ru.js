@@ -154,7 +154,13 @@ export default {
     contacts_title: 'Контакты'
   },
   profile: {
-    welcome: 'Добро пожаловать, {name}'
+    welcome: 'Добро пожаловать, {name}',
+    lessons_title: 'Уроки по прическам',
+    courses_title: 'Курсы',
+    no_lessons: 'У вас нет купленных уроков.',
+    no_courses: 'У вас нет купленных курсов.',
+    see_lessons: 'Смотреть уроки',
+    see_courses: 'Смотреть курсы'
   },
   course: {
     description: 'Описание:',

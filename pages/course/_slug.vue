@@ -6,12 +6,18 @@
           {{ $t('common.back') }}
         </b-button>
       </div>
-      <div class="course-page__image">
-        <img :alt="course.description" :src="course.thumbnailUrl">
-      </div>
       <h1 class="course-page__title">
         {{ course.title }}
       </h1>
+      <div class="course-page__promo mb-2">
+        <video controls :poster="course.thumbnailUrl">
+          <source
+            :src="course.promoUrl"
+            type="video/mp4"
+          >
+          Sorry, your browser doesn't support embedded videos.
+        </video>
+      </div>
       <div class="course-page__purchase">
         <b-button v-if="!isPurchased" variant="success" @click="buyCourse">
           {{ $t('course.buy') }}
@@ -202,12 +208,12 @@ export default {
     margin-bottom: 1rem;
   }
 
-  &__image {
+  &__promo {
     width: 720px;
     overflow: hidden;
     margin: 0 auto;
 
-    img {
+    video {
       width: 100%;
       height: auto;
     }

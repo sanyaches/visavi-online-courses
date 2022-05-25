@@ -153,7 +153,13 @@ export default {
     faq_title: 'FAQ'
   },
   profile: {
-    welcome: 'Welcome, {name}'
+    welcome: 'Welcome, {name}',
+    lessons_title: 'Lessons',
+    courses_title: 'Courses',
+    no_lessons: 'You don\'t have a purchased lessons.',
+    no_courses: 'You don\'t have a purchased courses.',
+    see_lessons: 'See lessons',
+    see_courses: 'See courses'
   },
   course: {
     description: 'Description:',

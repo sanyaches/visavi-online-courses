@@ -160,6 +160,7 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 2rem;
+    gap: 2rem;
   }
 
   &__list-item {
@@ -175,6 +176,7 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 2rem;
+    gap: 2rem;
   }
 
   &__list-item {

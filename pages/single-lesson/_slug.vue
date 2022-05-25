@@ -7,7 +7,7 @@
         </b-button>
       </div>
       <div v-if="!isPurchased || isExpired" class="single-lesson-single__promo">
-        <video controls width="100%" :poster="singleLesson.thumbnailUrl">
+        <video controls :poster="singleLesson.thumbnailUrl">
           <source
             :src="singleLesson.promoUrl"
             type="video/mp4"
@@ -198,7 +198,7 @@ export default {
     overflow: hidden;
     margin: 0 auto;
 
-    img {
+    video {
       width: 100%;
       height: auto;
     }
