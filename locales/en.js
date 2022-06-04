@@ -120,7 +120,9 @@ export default {
       password: 'Password'
     },
     to_register: 'Have no account?',
-    to_register_link: 'Register'
+    to_register_link: 'Register',
+    to_recovery: 'Forget password?',
+    to_recovery_link: 'Recover password by email'
   },
   register: {
     submit: 'Register',
@@ -137,6 +139,22 @@ export default {
     },
     to_login: 'Do you already have an account?',
     to_login_link: 'Login'
+  },
+  recovery: {
+    title: 'Recover your password',
+    submit: 'Send recovering request',
+    check_email: 'Recovery request was created, check your email',
+    form: {
+      email: 'Account email'
+    }
+  },
+  restore: {
+    title: 'Restore your password',
+    submit: 'Send request',
+    check_email: 'Recovery request was created, check your email',
+    form: {
+      email: 'Account email'
+    }
   },
   index: {
     admin: 'Admin',
@@ -158,6 +176,7 @@ export default {
     courses_title: 'Courses',
     no_lessons: 'You don\'t have a purchased lessons.',
     no_courses: 'You don\'t have a purchased courses.',
+    change_password: 'Change your password',
     see_lessons: 'See lessons',
     see_courses: 'See courses'
   },
@@ -217,6 +236,7 @@ export default {
     success_add_lesson: 'Successful lesson creation',
     success_add_single_lesson: 'Successful single lesson creation',
     success_add_file: 'Successful file creation',
+    success_recovery: 'Successful recovery request',
     register_then_buy: 'Register or login',
     register_then_buy_msg: 'Register or login before buy',
     success_add_purchase: 'Successful course purchase',
@@ -239,6 +259,10 @@ export default {
       course_not_found_msg: 'Course not found, try later, please',
       lesson_not_found: 'Lesson not found',
       lesson_not_found_msg: 'Lesson not found, try later, please',
+      expired_link_error: 'Recovery password link is expired, try new one',
+      expired_link_error_msg: 'Please, try to create new recovery password link',
+      passwords_not_matched: 'Passwords not matched',
+      passwords_not_matched_msg: 'Please, check your data, passwords should be equal',
       file_already_exists: 'File already exists',
       file_already_exists_msg: 'Please check your data, probably you duplicated files'
     }

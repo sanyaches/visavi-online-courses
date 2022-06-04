@@ -120,7 +120,9 @@ export default {
       password: 'Пароль'
     },
     to_register: 'Нет аккаунта?',
-    to_register_link: 'Зарегистрироваться'
+    to_register_link: 'Зарегистрироваться',
+    to_recovery: 'Забыли пароль?',
+    to_recovery_link: 'Восстановить по email'
   },
   register: {
     submit: 'Регистрация',
@@ -138,6 +140,17 @@ export default {
     to_login: 'Уже имеется аккаунт?',
     to_login_link: 'Войти'
   },
+  recovery: {
+    title: 'Восстановить пароль',
+    seo: {
+      title: 'Восстановить пароль'
+    },
+    submit: 'Отправить запрос на восстановление',
+    check_email: 'Запрос на восстановление успешно создан, проверьте ваш email',
+    form: {
+      email: 'Email учетной записи'
+    }
+  },
   index: {
     admin: 'Админ',
     login: 'Вход',
@@ -153,12 +166,35 @@ export default {
     faq_title: 'Вопрос-ответ',
     contacts_title: 'Контакты'
   },
+  change: {
+    form: {
+      password: 'Новый пароль',
+      repeat_password: 'Повторите пароль'
+    },
+    seo: {
+      title: 'Изменить пароль'
+    },
+    submit: 'Изменить пароль',
+    title: 'Изменить пароль'
+  },
+  restore: {
+    form: {
+      password: 'Новый пароль',
+      repeat_password: 'Повторите пароль'
+    },
+    seo: {
+      title: 'Переустановить пароль'
+    },
+    submit: 'Переустановить пароль',
+    title: 'Переустановить пароль'
+  },
   profile: {
     welcome: 'Добро пожаловать, {name}',
     lessons_title: 'Уроки по прическам',
     courses_title: 'Курсы',
     no_lessons: 'У вас нет купленных уроков.',
     no_courses: 'У вас нет купленных курсов.',
+    change_password: 'Изменить пароль',
     see_lessons: 'Смотреть уроки',
     see_courses: 'Смотреть курсы'
   },
@@ -218,6 +254,7 @@ export default {
     success_add_lesson: 'Успешное создание урока',
     success_add_single_lesson: 'Успешное создание отдельного урока',
     success_add_file: 'Успешное создание файла',
+    success_recovery: 'Успешный запрос на восстановление пароля',
     register_then_buy_msg: 'Перед покупкой зарегистрируйтесь или войдите',
     register_then_buy: 'Зарегистрируйтесь или войдите',
     success_add_purchase: 'Успешная покупка курса',
@@ -240,6 +277,10 @@ export default {
       course_not_found_mg: 'Курс не найден, пожалуйста, попробуйте позднее',
       lesson_not_found: 'Урок не найден',
       lesson_not_found_msg: 'Урок не найден, попробуйте позже',
+      expired_link_error: 'Срок действия ссылки на восстановление пароля истек',
+      expired_link_error_msg: 'Попробуйте создать новый запрос на восстановление пароля',
+      passwords_not_matched: 'Пароли не совпадают',
+      passwords_not_matched_msg: 'Пожалуйста, проверьте введенные данные, пароли должны совпадать',
       file_already_exists: 'Файл уже существует',
       file_already_exists_msg: 'Пожалуйста проверьте данные, произошло дублирование файла'
     }

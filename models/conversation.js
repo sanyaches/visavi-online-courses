@@ -5,7 +5,12 @@ const ConversationSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  lessonId: {
+  lessonName: {
+    type: String,
+    required: true
+  },
+  // Type = 'singleLesson' | 'lesson'
+  lessonType: {
     type: String,
     required: true
   },

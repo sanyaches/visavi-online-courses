@@ -1,36 +1,24 @@
 <template>
-  <div class="login-page mt-4">
+  <div class="restore-page mt-4">
     <b-container>
-      <h1>{{ $t('login.title') }}</h1>
+      <h1>{{ $t('restore.title') }}</h1>
 
-      <b-form @submit.prevent="submitLogin">
-        <div class="login__form">
-          <label for="email">
-            <div>{{ $t('login.form.email') }}</div>
-            <b-input id="email" v-model="form.email" required autocomplete="email" type="text" />
-          </label>
+      <b-form @submit.prevent="submitRestore">
+        <div class="restore__form">
           <label for="password">
-            <div>{{ $t('login.form.password') }}</div>
+            <div>{{ $t('restore.form.password') }}</div>
             <b-input id="password" v-model="form.password" required autocomplete="password" type="password" />
           </label>
+          <label for="repeat-password">
+            <div>{{ $t('restore.form.repeat_password') }}</div>
+            <b-input id="repeat-password" v-model="form.repeatPassword" required type="password" />
+          </label>
+
           <b-button type="submit" class="mt-2">
-            {{ $t('login.submit') }}
+            {{ $t('restore.submit') }}
           </b-button>
         </div>
       </b-form>
-
-      <div class="mt-2">
-        {{ $t('login.to_register') }}
-        <nuxt-link :to="localePath('register')">
-          {{ $t('login.to_register_link') }}
-        </nuxt-link>
-      </div>
-      <div class="mt-2">
-        {{ $t('login.to_recovery') }}
-        <nuxt-link :to="localePath({ path: 'recovery-password' })">
-          {{ $t('login.to_recovery_link') }}
-        </nuxt-link>
-      </div>
     </b-container>
   </div>
 </template>
@@ -42,29 +30,43 @@ export default {
   data () {
     return {
       form: {
-        email: '',
-        password: ''
+        password: '',
+        repeatPassword: ''
       },
-      isLoggedIn: false
+      email: '',
+      key: ''
     }
   },
 
   head () {
     return {
-      title: this.$t('login.seo.title')
+      title: this.$t('restore.seo.title')
     }
+  },
+
+  beforeMount () {
+    if (!window || !window.location.search) {
+      return
+    }
+
+    const params = new URLSearchParams(window.location.search)
+    this.email = params.get('email')
+    this.key = params.get('key')
   },
 
   methods: {
     ...mapActions({
-      loginUser: 'user/login',
-      authenticate: 'user/authenticate'
+      loginUser: 'user/login'
     }),
 
-    async submitLogin () {
-      const jsonBody = JSON.stringify({ email: this.form.email, password: this.form.password })
+    async submitRestore () {
+      const jsonBody = JSON.stringify({
+        password: this.form.password,
+        email: this.email,
+        key: this.key
+      })
 
-      const url = '/api/auth/login'
+      const url = '/api/auth/restore-password'
       try {
         const res = await fetch(url, {
           method: 'POST',
@@ -76,8 +78,8 @@ export default {
         })
         const data = await res.json()
         if (data?.status === 'success') {
-          this.$root.$bvToast.toast(this.$t('notify.success_login'), {
-            title: this.$t('notify.success_login'),
+          this.$root.$bvToast.toast(this.$t('notify.success_restore'), {
+            title: this.$t('notify.success_restore'),
             toaster: 'b-toaster-top-right',
             solid: true,
             variant: 'success'
@@ -106,9 +108,6 @@ export default {
             appendToast: true
           })
         }
-        if (error.errorCode !== 'USER_NOT_FOUND') {
-          this.$sentry.captureException(new Error(error?.errorCode || error?.message))
-        }
       }
     }
   }
@@ -116,8 +115,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-page {
-  .login__form {
+.restore-page {
+  .restore__form {
     display: flex;
     flex-direction: column;
   }

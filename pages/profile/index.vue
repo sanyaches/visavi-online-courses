@@ -3,7 +3,11 @@
     <b-container>
       <div v-if="getIsAuthenticated" class="mt-4">
         <h1>{{ getWelcomeText }}</h1>
-
+        <div class="profile-password">
+          <nuxt-link :to="localePath({path: 'change-password'})">
+            {{ $t('profile.change_password') }}
+          </nuxt-link>
+        </div>
         <div class="profile-lessons">
           <div class="profile-lessons__header text-center">
             <h2>

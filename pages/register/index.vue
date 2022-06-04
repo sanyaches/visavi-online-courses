@@ -51,7 +51,9 @@ export default {
       form: {
         email: '',
         password: '',
-        repeatPassword: ''
+        repeatPassword: '',
+        firstName: '',
+        lastName: ''
       }
     }
   },
@@ -68,15 +70,18 @@ export default {
     }),
 
     async submitRegister () {
-      const jsonBody = JSON.stringify({
-        lastName: this.form.lastName,
-        firstName: this.form.firstName,
-        password: this.form.password,
-        email: this.form.email
-      })
-
-      const url = '/api/auth/register'
       try {
+        if (this.form.repeatPassword !== this.form.password) {
+          throw new Error('passwords_not_matched')
+        }
+        const jsonBody = JSON.stringify({
+          lastName: this.form.lastName,
+          firstName: this.form.firstName,
+          password: this.form.password,
+          email: this.form.email
+        })
+
+        const url = '/api/auth/register'
         const res = await fetch(url, {
           method: 'POST',
           headers: {
@@ -107,8 +112,8 @@ export default {
 
         throw data
       } catch (error) {
-        if (error.errorCode) {
-          const code = String(error.errorCode).toLowerCase()
+        if (error.errorCode || error.message) {
+          const code = String(error.errorCode).toLowerCase() || error.message
           this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
             title: this.$t(`notify.error.${code}`),
             toaster: 'b-toaster-top-right',
