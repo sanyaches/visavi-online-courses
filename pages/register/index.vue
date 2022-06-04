@@ -72,7 +72,8 @@ export default {
     async submitRegister () {
       try {
         if (this.form.repeatPassword !== this.form.password) {
-          throw new Error('passwords_not_matched')
+          // eslint-disable-next-line no-throw-literal
+          throw { errorCode: 'PASSWORDS_NOT_MATCHED' }
         }
         const jsonBody = JSON.stringify({
           lastName: this.form.lastName,
@@ -112,7 +113,7 @@ export default {
 
         throw data
       } catch (error) {
-        if (error.errorCode || error.message) {
+        if (error.errorCode) {
           const code = String(error.errorCode).toLowerCase() || error.message
           this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
             title: this.$t(`notify.error.${code}`),
@@ -122,7 +123,7 @@ export default {
             appendToast: true
           })
         }
-        if (!(['USER_OR_EMAIL_ALREADY_EXISTS', 'VALIDATION_ERROR'].includes(error.errorCode))) {
+        if (!(['USER_OR_EMAIL_ALREADY_EXISTS', 'VALIDATION_ERROR', 'PASSWORDS_NOT_MATCHED'].includes(error.errorCode))) {
           this.$sentry.captureException(new Error(error?.errorCode || error?.message))
         }
       }

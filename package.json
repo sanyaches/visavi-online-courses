@@ -32,7 +32,8 @@
     "mongoose": "6.3.0",
     "nodemailer": "^6.7.5",
     "nuxt": "2.15.8",
-    "portal-vue": "2.1.7"
+    "portal-vue": "2.1.7",
+    "shaka-player": "^3.0.8"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "6.1.1",

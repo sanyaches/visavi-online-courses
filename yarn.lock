@@ -4587,6 +4587,11 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
+eme-encryption-scheme-polyfill@^2.0.1:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/eme-encryption-scheme-polyfill/-/eme-encryption-scheme-polyfill-2.0.4.tgz#7d818302af3f3b19d5974255dcc92dc087413845"
+  integrity sha512-MHYJX1v145Pjj2YJTrVVuJOYyXrxGVy8LWf6kV5M4jrV/GyoeuJKyTuD+GaD+VAiE8Ip+MptiH4dXk6ZVmMNow==
+
 emoji-regex@^7.0.1:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
@@ -9753,6 +9758,13 @@ sha.js@^2.4.0, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+shaka-player@^3.0.8:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/shaka-player/-/shaka-player-3.0.8.tgz#32e4c321b80012bca9db9a20b7ec63eefd7df512"
+  integrity sha512-4nROuGUhmtOTERWVO31pp/hvtdCy/kW/Ys6KQwqRhFeCsZsU1/8768dJUyXKqNnbYybKIvuv6LqO8egkXy6TjA==
+  dependencies:
+    eme-encryption-scheme-polyfill "^2.0.1"
 
 shebang-command@^2.0.0:
   version "2.0.0"

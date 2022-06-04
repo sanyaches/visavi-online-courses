@@ -29,13 +29,12 @@
         </template>
       </div>
       <div v-if="isPurchased && !isExpired" class="single-lesson-single__video">
-        <video controls>
-          <source
-            :src="singleLesson.videoUrl"
-            type="video/mp4"
-          >
-          Sorry, your browser doesn't support embedded videos.
-        </video>
+        <!-- //! TODO: mdp file manifest problems need to create normal files, workable -->
+        <video-player
+          :license-server="licenseServer"
+          :manifest-url="singleLesson.videoUrl"
+          :poster-url="singleLesson.thumbnailUrl"
+        />
       </div>
       <div v-if="!isPurchased || isExpired" class="single-lesson-single__price">
         <span>{{ $t('single_lesson.price') }}</span>
@@ -66,8 +65,13 @@
 <script>
 import { mapGetters } from 'vuex'
 import { format } from 'date-fns'
+import VideoPlayer from '@/components/VideoPlayer.vue'
 
 export default {
+  components: {
+    VideoPlayer
+  },
+
   async asyncData (context) {
     const name = context.params.slug
     try {
@@ -93,7 +97,8 @@ export default {
     return {
       singleLesson: {},
       files: [],
-      purchase: null
+      purchase: null,
+      licenseServer: 'https://widevine-proxy.appspot.com/proxy'
     }
   },
 

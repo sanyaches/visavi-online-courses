@@ -12,13 +12,10 @@
       </h1>
 
       <div class="lesson-page__video">
-        <video controls>
-          <source
-            :src="lesson.videoUrl"
-            type="video/mp4"
-          >
-          Sorry, your browser doesn't support embedded videos.
-        </video>
+        <video-player
+          :manifest-url="lesson.videoUrl"
+          :poster-url="lesson.thumbnailUrl"
+        />
       </div>
 
       <div class="lesson-page__description">
@@ -37,7 +34,13 @@
 </template>
 
 <script>
+import VideoPlayer from '@/components/VideoPlayer.vue'
+
 export default {
+  components: {
+    VideoPlayer
+  },
+
   async asyncData (context) {
     const name = context.params.slug
     const token = context.app.$cookies.get('_visavi_token')
