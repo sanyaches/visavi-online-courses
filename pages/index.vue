@@ -1,23 +1,34 @@
 <template>
   <div class="main">
     <div class="hero">
-      <b-container>
+      <div class="hero__container">
         <div class="hero__header">
-          <h1 class="hero__title">
-            {{ $t('index.main_title') }}
-          </h1>
-          <div>
-            <div class="links">
+          <div class="hero__title">
+            <h1> {{ $t('index.main_title_subtitle') }} </h1>
+            <div class="hero__main-title">
+              {{ $t('index.main_title') }}
+              <br>
+              {{ $t('index.main_title_second') }}
+            </div>
+            <div class="hero__button">
               <nuxt-link
                 to="/#main-single-lessons"
-                class="button--green"
+                class="button button--beige button button--large"
               >
                 {{ $t('index.want_study') }}
               </nuxt-link>
             </div>
           </div>
+          <div class="hero__image">
+            <img src="@/assets/images/hero-image.png">
+          </div>
+          <div class="hero__description">
+            <h4>Hey there</h4>
+            <p>Creativity, fantasy, ideal <br> there are no limits</p>
+            <p>And for more <br> ambitious - to become <br> a real trendsetter</p>
+          </div>
         </div>
-      </b-container>
+      </div>
     </div>
 
     <div class="about">
@@ -129,14 +140,131 @@ export default {
 
 <style scoped lang="scss">
 .hero {
-  padding: 4rem 0;
+  padding: 6rem 0;
+  background: #b6a498;
+
+  @media screen and (max-width: 1050px) {
+    padding: 1rem 0 3rem;
+  }
+
+  &__container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1480px;
+
+    @media screen and (max-width: 1550px) {
+      max-width: 1200px;
+    }
+
+    @media screen and (max-width: 1250px) {
+      max-width: 1024px;
+    }
+
+    @media screen and (max-width: 1050px) {
+      max-width: 100%;
+    }
+  }
 
   &__header {
     text-align: center;
+    display: flex;
+    justify-content: flex-start;
+
+    @media screen and (max-width: 1050px) {
+      flex-direction: column;
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    margin-top: 1.5rem;
+
+    @media screen and (max-width: 1050px) {
+      margin-top: 0.5rem;
+    }
+  }
+
+  &__image {
+    margin-left: 3rem;
+
+    @media screen and (max-width: 1550px) {
+      margin-left: 1.5rem;
+    }
+
+    @media screen and (max-width: 1050px) {
+      margin-left: 0;
+    }
+
+    @media screen and (max-width: 480px) {
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  h1 {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+
+    @media screen and (max-width: 1050px) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__main-title {
+    color: #ffffff;
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-family: 'Cormorant SC', serif;
+    font-weight: 700;
+
+    @media screen and (max-width: 1050px) {
+      font-size: 2.4rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1.8rem;
+    }
   }
 
   &__title {
     margin-bottom: 2rem;
+    padding-top: 3rem;
+
+    @media screen and (max-width: 1050px) {
+      padding-top: 0;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    margin-left: 3rem;
+
+    h4 {
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    p:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+
+    @media screen and (max-width: 1550px) {
+      margin-left: 1.5rem;
+    }
+
+    @media screen and (max-width: 1250px) {
+      display: none;
+    }
   }
 }
 

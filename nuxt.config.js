@@ -31,6 +31,11 @@ export default {
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        {
+          rel: 'stylesheet',
+          href:
+            'https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@700&family=Raleway:wght@400;500;700&display=swap'
+        },
         ...i18nHead.link
       ]
     }
