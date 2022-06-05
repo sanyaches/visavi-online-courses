@@ -170,7 +170,25 @@ export default {
     author_title: 'About author',
     lessons_title: 'Lessons',
     courses_title: 'Courses',
-    faq_title: 'FAQ'
+    faq_title: 'FAQ',
+    about: {
+      item_1: {
+        title: 'Choose a service',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+      },
+      item_2: {
+        title: 'Choose a service',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+      },
+      item_3: {
+        title: 'Choose a service',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+      },
+      item_4: {
+        title: 'Choose a service',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+      }
+    }
   },
   profile: {
     welcome: 'Welcome, {name}',

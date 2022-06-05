@@ -166,7 +166,25 @@ export default {
     main_title_subtitle: 'Онлайн обучение по прическам',
     courses_title: 'Курсы',
     faq_title: 'Вопрос-ответ',
-    contacts_title: 'Контакты'
+    contacts_title: 'Контакты',
+    about: {
+      item_1: {
+        title: 'Для новичков',
+        description: 'Для новичков идеально подойдет, так как материал курсов переработан так, чтобы было понятно с любым уровнем подготовки'
+      },
+      item_2: {
+        title: 'Для работающих мастеров',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+      },
+      item_3: {
+        title: 'Для новичков',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+      },
+      item_4: {
+        title: 'Для новичков',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+      }
+    }
   },
   change: {
     form: {

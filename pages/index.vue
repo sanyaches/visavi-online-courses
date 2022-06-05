@@ -34,9 +34,57 @@
     <div class="about">
       <b-container>
         <div class="about__header">
-          <h2>
+          <h2 class="about__title">
             {{ $t('index.about_title') }}
           </h2>
+        </div>
+
+        <div class="about__list">
+          <div class="about__list-item">
+            <div class="about__list-item-number">
+              01
+            </div>
+            <div class="about__list-item-content">
+              <h3 class="about__list-item-title">
+                {{ $t('index.about.item_1.title') }}
+              </h3>
+
+              <p>{{ $t('index.about.item_1.description') }}</p>
+            </div>
+          </div>
+          <div class="about__list-item">
+            <div class="about__list-item-number">
+              02
+            </div>
+            <div class="about__list-item-content">
+              <h3 class="about__list-item-title">
+                {{ $t('index.about.item_2.title') }}
+              </h3>
+              <p>{{ $t('index.about.item_2.description') }}</p>
+            </div>
+          </div>
+          <div class="about__list-item">
+            <div class="about__list-item-number">
+              03
+            </div>
+            <div class="about__list-item-content">
+              <h3 class="about__list-item-title">
+                {{ $t('index.about.item_3.title') }}
+              </h3>
+              <p>{{ $t('index.about.item_3.description') }}</p>
+            </div>
+          </div>
+          <div class="about__list-item">
+            <div class="about__list-item-number">
+              04
+            </div>
+            <div class="about__list-item-content">
+              <h3 class="about__list-item-title">
+                {{ $t('index.about.item_4.title') }}
+              </h3>
+              <p>{{ $t('index.about.item_4.description') }}</p>
+            </div>
+          </div>
         </div>
       </b-container>
     </div>
@@ -144,7 +192,7 @@ export default {
   background: #b6a498;
 
   @media screen and (max-width: 1050px) {
-    padding: 1rem 0 3rem;
+    padding: 2rem 0 3rem;
   }
 
   &__container {
@@ -271,8 +319,63 @@ export default {
 .about {
   padding: 4rem 0;
 
-  &__header {
-    text-align: center;
+  @media screen and (max-width: 991px) {
+    padding: 3rem 0;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-family: 'Cormorant SC', serif;
+    font-weight: 700;
+
+    @media screen and (max-width: 991px) {
+      font-size: 1.7rem;
+    }
+  }
+
+  &__list {
+    display: flex;
+    gap: 2rem;
+    padding-top: 5rem;
+
+    @media screen and (max-width: 991px) {
+      flex-wrap: wrap;
+      gap: 3.5rem;
+      padding-top: 4rem;
+    }
+  }
+
+  &__list-item {
+    position: relative;
+    z-index: 2;
+  }
+
+  &__list-item-number {
+    position: absolute;
+    opacity: 0.3;
+    z-index: 1;
+    top: -4rem;
+    left: 0;
+    color: #b6a498;
+    font-size: 8rem;
+    line-height: 100%;
+    font-weight: 600;
+    font-family: 'Cormorant SC', serif;
+
+    @media screen and (max-width: 991px) {
+      top: -5.5rem;
+      font-size: 9rem;
+    }
+  }
+
+  &__list-item-title {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+
+    @media screen and (max-width: 991px) {
+      font-size: 1.3rem;
+    }
   }
 }
 
