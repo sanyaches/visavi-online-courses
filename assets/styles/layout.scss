@@ -11,6 +11,7 @@ html {
 
 body {
   font-family: 'Raleway', sans-serif;
+  overflow-x: hidden;
 }
 
 *,
@@ -53,10 +54,12 @@ body {
   padding: 0.5rem 0.8rem;
   border: none;
   transition: background-color 0.3s ease-in;
+  text-align: center;
 }
 
 .button.button--large {
-  padding: 1rem 1.4rem;
+  padding: 0.8rem 1.2rem;
+  font-size: 1.2rem;
   border: none;
   transition: background-color 0.3s ease-in;
 }
