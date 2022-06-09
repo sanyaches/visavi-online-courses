@@ -162,8 +162,9 @@ export default {
     logout: 'Logout',
     profile: 'Profile',
     name: 'VISAVI',
-    main_title: 'Stop brushing yourself,',
-    main_title_second: 'brush your hair',
+    main_title: 'Stop brushing ',
+    main_title_second: 'yourself,',
+    main_title_third: 'brush your hair',
     main_title_subtitle: 'Online hairstyle education',
     want_study: 'Want to study',
     about_title: 'Who does suit online education?',
@@ -177,6 +178,11 @@ export default {
     lessons_title: 'Lessons',
     courses_title: 'Courses',
     faq_title: 'FAQ',
+    right_side: {
+      title: 'Hey there',
+      first_paragraph: 'Creativity, fantasy, ideal <br> there are no limits',
+      second_paragraph: 'And for more <br> ambitious - to become <br> a real trendsetter'
+    },
     about: {
       item_1: {
         title: 'Choose a service',

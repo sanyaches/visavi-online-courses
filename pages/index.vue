@@ -9,23 +9,34 @@
               {{ $t('index.main_title') }}
               <br>
               {{ $t('index.main_title_second') }}
+              <br>
+              {{ $t('index.main_title_third') }}
             </div>
             <div class="hero__button">
               <nuxt-link
                 to="/#main-single-lessons"
-                class="button button--beige button button--large"
+                class="button button--brown-dark button button--large"
               >
                 {{ $t('index.want_study') }}
               </nuxt-link>
             </div>
           </div>
           <div class="hero__image">
-            <img src="@/assets/images/hero-image.png">
+            <div class="hero__image-circle" />
+            <img src="@/assets/images/hero-image123.png">
           </div>
           <div class="hero__description">
-            <h4>Hey there</h4>
-            <p>Creativity, fantasy, ideal <br> there are no limits</p>
-            <p>And for more <br> ambitious - to become <br> a real trendsetter</p>
+            <h4>{{ $t('index.right_side.title') }}</h4>
+            <p>
+              {{ $t('index.right_side.first_paragraph') }}
+              <br>
+              {{ $t('index.right_side.first_paragraph2') }}
+            </p>
+            <p>
+              {{ $t('index.right_side.second_paragraph') }}
+              <br>
+              {{ $t('index.right_side.second_paragraph2') }}
+            </p>
           </div>
         </div>
       </div>
@@ -244,8 +255,9 @@ export default {
 
 <style scoped lang="scss">
 .hero {
-  padding: 6rem 0;
+  padding: 1rem 0 6rem;
   background: #b6a498;
+  overflow: hidden;
 
   @media screen and (max-width: 1050px) {
     padding: 2rem 0 3rem;
@@ -277,14 +289,19 @@ export default {
     display: flex;
     justify-content: flex-start;
 
+    @media screen and (max-width: 1250px) {
+      justify-content: center;
+    }
+
     @media screen and (max-width: 1050px) {
       flex-direction: column;
     }
   }
 
   &__button {
-    display: inline-flex;
-    margin-top: 1.5rem;
+    display: flex;
+    margin-top: 2.5rem;
+    justify-content: center;
 
     @media screen and (max-width: 1050px) {
       margin-top: 0.5rem;
@@ -292,27 +309,67 @@ export default {
   }
 
   &__image {
-    margin-left: 3rem;
+    position: relative;
 
     @media screen and (max-width: 1550px) {
-      margin-left: 1.5rem;
-    }
+      width: 480px;
 
-    @media screen and (max-width: 1050px) {
-      margin-left: 0;
-    }
-
-    @media screen and (max-width: 480px) {
       img {
         width: 100%;
         height: auto;
       }
     }
+
+    @media screen and (max-width: 1050px) {
+      width: 320px;
+      margin: 0 auto;
+    }
+
+    @media screen and (max-width: 480px) {
+      width: 275px;
+    }
+  }
+
+  &__image-circle {
+    position: absolute;
+    top: 30px;
+    left: -125px;
+    width: 850px;
+    height: 850px;
+    border: 1px solid #33333327;
+    border-radius: 50%;
+    z-index: 0;
+
+    @media screen and (max-width: 1550px) {
+      width: 700px;
+      height: 700px;
+      left: -100px;
+      top: 20px;
+    }
+
+    @media screen and (max-width: 1250px) {
+      left: -220px;
+      top: 10px;
+    }
+
+    @media screen and (max-width: 1050px) {
+      width: 600px;
+      height: 600px;
+      left: -140px;
+      top: -80px;
+    }
+
+    @media screen and (max-width: 480px) {
+      width: 400px;
+      height: 400px;
+      left: -100px;
+      top: -80px;
+    }
   }
 
   h1 {
     font-size: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 
     @media screen and (max-width: 1050px) {
       margin-bottom: 0.5rem;
@@ -323,11 +380,13 @@ export default {
     color: #ffffff;
     font-size: 3rem;
     text-transform: uppercase;
-    font-family: 'Cormorant SC', serif;
-    font-weight: 700;
+    font-family: 'Alegreya SC', serif;
+    font-weight: 500;
+    text-align: left;
+    line-height: 125%;
 
     @media screen and (max-width: 1050px) {
-      font-size: 2.4rem;
+      text-align: center;
     }
 
     @media screen and (max-width: 480px) {
@@ -336,21 +395,35 @@ export default {
   }
 
   &__title {
-    margin-bottom: 2rem;
-    padding-top: 3rem;
+    padding-top: 10rem;
+    margin-right: 2rem;
+    margin-left: auto;
+    z-index: 2;
+
+    @media screen and (max-width: 1550px) {
+      padding-top: 6rem;
+    }
+
+    @media screen and (max-width: 1250px) {
+      margin-left: 0;
+    }
 
     @media screen and (max-width: 1050px) {
       padding-top: 0;
       margin-bottom: 1rem;
+      margin-right: 0;
     }
+
   }
 
   &__description {
+    z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: left;
     margin-left: 3rem;
+    width: 25%;
 
     h4 {
       margin-bottom: 2rem;

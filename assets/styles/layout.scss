@@ -57,6 +57,13 @@ body {
   text-align: center;
 }
 
+a.button {
+  &:hover {
+    text-decoration: none;
+    color: initial;
+  }
+}
+
 .button.button--large {
   padding: 0.8rem 1.2rem;
   font-size: 1.2rem;
@@ -70,6 +77,15 @@ body {
 
   &:hover, &:active, &:focus {
     background-color: #d6c3b5;
+  }
+}
+
+.button--brown-dark {
+  color: #d3c4b9;
+  background-color: #917C6F;
+
+  &:hover, &:active, &:focus {
+    background-color: #a08d81;
   }
 }
 

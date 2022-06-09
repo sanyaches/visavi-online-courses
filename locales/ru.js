@@ -157,8 +157,9 @@ export default {
     logout: 'Выйти',
     profile: 'Профиль',
     name: 'VISAVI',
-    main_title: 'Накручивай не себя,',
-    main_title_second: 'а волосы',
+    main_title: 'Накручивай',
+    main_title_second: 'не себя,',
+    main_title_third: 'а волосы',
     want_study: 'Перейти к обучению',
     about_title: 'Кому подойдет онлайн обучение?',
     author_title: 'Об авторе курсов',
@@ -173,6 +174,13 @@ export default {
     courses_title: 'Курсы',
     faq_title: 'Вопрос-ответ',
     contacts_title: 'Контакты',
+    right_side: {
+      title: 'Привет всем',
+      first_paragraph: 'Креатив, фантазия, идеал',
+      first_paragraph2: 'здесь нет предела',
+      second_paragraph: 'И для большей амбиции -',
+      second_paragraph2: 'стань реальным задающим тренды'
+    },
     about: {
       item_1: {
         title: 'Для новичков',

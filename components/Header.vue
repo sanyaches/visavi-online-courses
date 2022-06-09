@@ -3,7 +3,7 @@
     <div class="header__container">
       <div class="header__content">
         <nuxt-link :to="localePath('/')" @click.native="dropdownActive = false">
-          <img src="/logo.png" alt="">
+          <img src="@/assets/images/logo2.png">
         </nuxt-link>
         <div class="header__menu">
           <div
