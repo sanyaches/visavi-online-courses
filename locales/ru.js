@@ -157,18 +157,18 @@ export default {
     logout: 'Выйти',
     profile: 'Профиль',
     name: 'VISAVI',
-    main_title: 'Накручивай',
-    main_title_second: 'не себя,',
-    main_title_third: 'а волосы',
+    main_title: 'Накручивай не',
+    main_title_second: 'себя, а волосы',
+    main_title_third: '',
     want_study: 'Перейти к обучению',
     about_title: 'Кому подойдет онлайн обучение?',
-    author_title: 'Об авторе курсов',
+    author_title: 'Об авторе обучения',
     author_signature: 'Viktoria Kosto',
     author_want_study: 'Учиться по курсам Виктории',
-    author_description_1: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
-    author_description_2: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
-    author_description_3: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
-    author_description_mobile: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
+    author_description_1: 'Привет! Меня зовут Виктория Косто - я стилист по причёскам и преподаватель базового курса и уроков повышения для работающих мастеров. В эту профессию я пришла из-за большой любви к красивому и прекрасному.',
+    author_description_2: ' Я отношусь к своей работе с максимальной ответственностью и творчеством, поэтому сама регулярно повышаю свои знания и навыки. ',
+    author_description_3: 'В причёсках я очень ценю лёгкость, лаконичность и чистоту. Мне очень нравится вдохновлять клиентов и учеников через свой подход к работе. В своих онлайн-уроках я научу вас правильно и бережно работать с волосами, а также создавать максимально стойкие, легкие, чистые и красивые причёски.',
+    author_description_mobile: 'Привет! Меня зовут Виктория Косто - я стилист по причёскам и преподаватель базового курса и уроков повышения для работающих мастеров. В своих онлайн-уроках я научу вас правильно и бережно работать с волосами, а также создавать максимально стойкие, легкие, чистые и красивые причёски.',
     lessons_title: 'Уроки по прическам',
     main_title_subtitle: 'Онлайн обучение по прическам',
     courses_title: 'Курсы',
@@ -183,20 +183,24 @@ export default {
     },
     about: {
       item_1: {
-        title: 'Для новичков',
-        description: 'Для новичков идеально подойдет, так как материал курсов переработан так, чтобы было понятно с любым уровнем подготовки'
+        title: 'Работающим',
+        title_second_line: 'мастерам',
+        description: 'Кто ищет вдохновения и уникальный стиль в работе'
       },
       item_2: {
-        title: 'Для работающих мастеров',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+        title: 'Мастерам',
+        title_second_line: 'визажистам',
+        description: 'Кто хочет научиться работать с волосами, делать востребованные стильные образы и увеличить свой доход'
       },
       item_3: {
-        title: 'Для новичков',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+        title: 'Новичкам',
+        title_second_line: 'в прическах',
+        description: 'Кто в профессии недавно и хочет преумножить свои знания и закрыть пробелы'
       },
       item_4: {
-        title: 'Для новичков',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+        title: 'Мастерам',
+        title_second_line: 'парикмахерам',
+        description: 'Кто хочет изучить новые техники работы с волосами и расширить свой спектр услуг'
       }
     }
   },

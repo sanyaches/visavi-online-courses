@@ -6,11 +6,9 @@
           <div class="hero__title">
             <h1> {{ $t('index.main_title_subtitle') }} </h1>
             <div class="hero__main-title">
-              {{ $t('index.main_title') }}
+              <span>{{ $t('index.main_title') }}</span>
               <br>
-              {{ $t('index.main_title_second') }}
-              <br>
-              {{ $t('index.main_title_third') }}
+              <span class="second">{{ $t('index.main_title_second') }}</span>
             </div>
             <div class="hero__button">
               <nuxt-link
@@ -22,8 +20,8 @@
             </div>
           </div>
           <div class="hero__image">
-            <div class="hero__image-circle" />
             <img src="@/assets/images/hero-image123.png">
+            <div class="hero__image-circle" />
           </div>
           <div class="hero__description">
             <h4>{{ $t('index.right_side.title') }}</h4>
@@ -58,6 +56,8 @@
             <div class="about__list-item-content">
               <h3 class="about__list-item-title">
                 {{ $t('index.about.item_1.title') }}
+                <br>
+                {{ $t('index.about.item_1.title_second_line') }}
               </h3>
 
               <p>{{ $t('index.about.item_1.description') }}</p>
@@ -70,6 +70,8 @@
             <div class="about__list-item-content">
               <h3 class="about__list-item-title">
                 {{ $t('index.about.item_2.title') }}
+                <br>
+                {{ $t('index.about.item_2.title_second_line') }}
               </h3>
               <p>{{ $t('index.about.item_2.description') }}</p>
             </div>
@@ -81,6 +83,8 @@
             <div class="about__list-item-content">
               <h3 class="about__list-item-title">
                 {{ $t('index.about.item_3.title') }}
+                <br>
+                {{ $t('index.about.item_3.title_second_line') }}
               </h3>
               <p>{{ $t('index.about.item_3.description') }}</p>
             </div>
@@ -92,6 +96,8 @@
             <div class="about__list-item-content">
               <h3 class="about__list-item-title">
                 {{ $t('index.about.item_4.title') }}
+                <br>
+                {{ $t('index.about.item_4.title_second_line') }}
               </h3>
               <p>{{ $t('index.about.item_4.description') }}</p>
             </div>
@@ -129,7 +135,8 @@
             </div>
           </div>
           <div class="author__image">
-            <img src="@/assets/images/author-image.png">
+            <img src="@/assets/images/viktoriia.png">
+            <div class="author__image-circle" />
             <div class="author__signature">
               <div>Viktoria</div>
               <div>Kosto</div>
@@ -151,7 +158,8 @@
               </div>
             </div>
             <div class="author__image">
-              <img src="@/assets/images/author-image.png">
+              <img src="@/assets/images/viktoriia.png">
+              <div class="author__image-circle" />
             </div>
           </div>
           <div class="author__button">
@@ -310,6 +318,7 @@ export default {
 
   &__image {
     position: relative;
+    z-index: 2;
 
     @media screen and (max-width: 1550px) {
       width: 480px;
@@ -338,7 +347,7 @@ export default {
     height: 850px;
     border: 1px solid #33333327;
     border-radius: 50%;
-    z-index: 0;
+    z-index: -1;
 
     @media screen and (max-width: 1550px) {
       width: 700px;
@@ -385,6 +394,10 @@ export default {
     text-align: left;
     line-height: 125%;
 
+    .second {
+      margin-left: 2rem;
+    }
+
     @media screen and (max-width: 1050px) {
       text-align: center;
     }
@@ -423,7 +436,7 @@ export default {
     justify-content: center;
     text-align: left;
     margin-left: 3rem;
-    width: 25%;
+    width: 17%;
 
     h4 {
       margin-bottom: 2rem;
@@ -469,14 +482,15 @@ export default {
   }
 
   &__list {
-    display: flex;
-    gap: 2rem;
+    display: grid;
+    grid-gap: 2rem;
     padding-top: 5rem;
+    grid-template-columns : 1fr 1fr 1fr 1fr;
 
     @media screen and (max-width: 991px) {
-      flex-wrap: wrap;
-      gap: 3.5rem;
+      grid-template-columns : 1fr;
       padding-top: 4rem;
+      grid-gap: 4rem;
     }
   }
 
@@ -489,7 +503,7 @@ export default {
     position: absolute;
     opacity: 0.3;
     z-index: 1;
-    top: -4rem;
+    top: -4.5rem;
     left: 0;
     color: #b6a498;
     font-size: 8rem;
@@ -516,6 +530,7 @@ export default {
 
 .author {
   padding: 2rem 0;
+  overflow: hidden;
 
   &__title {
     text-transform: uppercase;
@@ -571,6 +586,7 @@ export default {
   &__image {
     position: relative;
     margin-left: 3rem;
+    z-index: 2;
 
     .mobile & {
       margin-left: 5px;
@@ -582,12 +598,44 @@ export default {
         margin-top: 0;
       }
 
+      @media screen and (max-width: 370px) {
+        min-width: 140px;
+        margin-top: 0;
+      }
+
       img {
         width: 100%;
         height: auto;
       }
     }
+  }
 
+  &__image-circle {
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    width: 560px;
+    height: 560px;
+    border: 1px solid #33333327;
+    border-radius: 50%;
+    z-index: -1;
+
+    @media screen and (max-width: 991px) {
+      width: 340px;
+      height: 340px;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 230px;
+      height: 230px;
+      top: 15px;
+    }
+
+    @media screen and (max-width: 370px) {
+      width: 160px;
+      height: 160px;
+      top: 25px;
+    }
   }
 
   &__signature {

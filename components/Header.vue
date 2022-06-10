@@ -3,7 +3,7 @@
     <div class="header__container">
       <div class="header__content">
         <nuxt-link :to="localePath('/')" @click.native="dropdownActive = false">
-          <img src="@/assets/images/logo2.png">
+          <img src="@/assets/images/logo.png">
         </nuxt-link>
         <div class="header__menu">
           <div
@@ -138,6 +138,12 @@ export default {
 
     @media screen and (max-width: 1050px) {
       padding: 0.5rem 0;
+    }
+  }
+
+  &__menu-burger {
+    .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+      background-color: #3b3737;
     }
   }
 
