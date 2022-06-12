@@ -25,6 +25,11 @@
             <div>{{ $t('register.form.repeat_password') }}</div>
             <b-input id="repeat-password" v-model="form.repeatPassword" required type="password" />
           </label>
+          <label for="confirm-agreement">
+            <b-checkbox id="confirm-agreement" v-model="form.confirmAgreement" style="display: inline-block;" required />
+            <span>{{ $t('register.form.confirm_agreement') }}</span>
+            <a href="/platform-rules" target="_blank">{{ $t('register.form.confirm_agreement_link') }}</a>
+          </label>
 
           <b-button type="submit" class="mt-2">
             {{ $t('register.submit') }}
@@ -53,7 +58,8 @@ export default {
         password: '',
         repeatPassword: '',
         firstName: '',
-        lastName: ''
+        lastName: '',
+        confirmAgreement: false
       }
     }
   },
@@ -71,6 +77,10 @@ export default {
 
     async submitRegister () {
       try {
+        if (!this.form.confirmAgreement) {
+          // eslint-disable-next-line no-throw-literal
+          throw { errorCode: 'NEED_AGREEMENT_CONFIRMATION' }
+        }
         if (this.form.repeatPassword !== this.form.password) {
           // eslint-disable-next-line no-throw-literal
           throw { errorCode: 'PASSWORDS_NOT_MATCHED' }
@@ -123,7 +133,7 @@ export default {
             appendToast: true
           })
         }
-        if (!(['USER_OR_EMAIL_ALREADY_EXISTS', 'VALIDATION_ERROR', 'PASSWORDS_NOT_MATCHED'].includes(error.errorCode))) {
+        if (!(['USER_OR_EMAIL_ALREADY_EXISTS', 'VALIDATION_ERROR', 'PASSWORDS_NOT_MATCHED', 'NEED_AGREEMENT_CONFIRMATION'].includes(error.errorCode))) {
           this.$sentry.captureException(new Error(error?.errorCode || error?.message))
         }
       }

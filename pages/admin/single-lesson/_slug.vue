@@ -17,7 +17,13 @@
         </b-button-group>
       </div>
       <div class="single-lesson-single__image">
-        <img :alt="singleLesson.description" :src="singleLesson.thumbnailUrl">
+        <video controls :poster="singleLesson.thumbnailUrl">
+          <source
+            :src="singleLesson.promoUrl"
+            type="video/mp4"
+          >
+          Sorry, your browser doesn't support embedded videos.
+        </video>
       </div>
       <h1 class="single-lesson-single__title">
         {{ singleLesson.title }}

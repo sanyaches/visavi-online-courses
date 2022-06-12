@@ -50,9 +50,12 @@ router.post('/single-lesson/add', verifyToken, verifyAdminToken, async function 
       name,
       title,
       description,
+      shortDescription,
       videoUrl = '/api/videos/example.mp4',
       promoUrl = '/api/videos/example.mp4',
       thumbnailUrl = '/api/upload/example-image.png',
+      cardImageFirst = '/api/upload/single-photo.png',
+      cardImageSecond = '/api/upload/single-photo.png',
       duration,
       accessMonths,
       locale,
@@ -63,12 +66,15 @@ router.post('/single-lesson/add', verifyToken, verifyAdminToken, async function 
       name,
       title,
       description,
+      shortDescription,
       videoUrl,
       promoUrl,
       duration,
       accessMonths,
       locale,
       thumbnailUrl,
+      cardImageFirst,
+      cardImageSecond,
       createdAt: Date.now(),
       updatedAt: Date.now(),
       price
@@ -88,9 +94,12 @@ router.post('/single-lesson/add', verifyToken, verifyAdminToken, async function 
         name: result.name,
         title: result.title,
         description: result.description,
+        shortDescription: result.shortDescription,
         videoUrl: result.videoUrl,
         promoUrl: result.promoUrl,
         thumbnailUrl: result.thumbnailUrl,
+        cardImageFirst: result.cardImageFirst,
+        cardImageSecond: result.cardImageSecond,
         duration: result.duration,
         accessMonths: result.accessMonths,
         locale: result.locale,
@@ -186,9 +195,12 @@ router.post('/single-lesson/edit', verifyToken, verifyAdminToken, async function
       name,
       title,
       description,
+      shortDescription,
       videoUrl = '/api/videos/example.mp4',
       promoUrl = '/api/videos/example.mp4',
       thumbnailUrl = '/api/upload/example-image.png',
+      cardImageFirst = '/api/upload/single-photo.png',
+      cardImageSecond = '/api/upload/single-photo.png',
       duration,
       accessMonths,
       price,
@@ -198,8 +210,11 @@ router.post('/single-lesson/edit', verifyToken, verifyAdminToken, async function
     const result = await SingleLessonModel.updateOne({ name }, {
       title,
       description,
+      shortDescription,
       videoUrl,
       thumbnailUrl,
+      cardImageFirst,
+      cardImageSecond,
       promoUrl,
       duration,
       accessMonths,
@@ -335,6 +350,10 @@ router.get('/single-lesson/single/:lessonName', async function (req, res) {
 
       if (!userResult || !userResult.email) {
         return false
+      }
+
+      if (userResult.isAdmin) {
+        return 'admin-access'
       }
 
       const purchaseSingleLesson = await PurchaseModel.findOne({

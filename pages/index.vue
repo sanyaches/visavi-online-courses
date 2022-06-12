@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="hero__image">
-            <img src="@/assets/images/hero-image123.png">
+            <img src="@/assets/images/hero-image.png">
             <div class="hero__image-circle" />
           </div>
           <div class="hero__description">
@@ -176,14 +176,97 @@
 
     <div id="main-single-lessons" class="lessons">
       <b-container>
-        <div class="lessons__header text-center">
-          <h2>
+        <div class="lessons__header">
+          <h2 class="lessons__title">
             {{ $t('index.lessons_title') }}
           </h2>
         </div>
         <div class="lessons__list">
-          <div v-for="lesson in singleLessons" :key="lesson.name" class="lessons__list-item">
+          <div
+            v-for="lesson in singleLessons"
+            :key="lesson.name"
+            class="lessons__list-item"
+          >
             <single-lesson-card :lesson="lesson" />
+            <div class="lessons__poloska-bleat" />
+          </div>
+        </div>
+      </b-container>
+    </div>
+
+    <div class="benefits">
+      <b-container>
+        <div class="benefits__header">
+          <h2 class="benefits__title">
+            {{ $t('index.benefits.title') }}
+          </h2>
+        </div>
+        <div class="benefits__list">
+          <div class="benefits__item">
+            <div class="benefits__item-icon">
+              <font-awesome-icon icon="fa-regular fa-clock" />
+            </div>
+            <div class="benefits__item-title">
+              {{ $t('index.benefits.list.first.title') }}
+            </div>
+            <div class="benefits__item-description">
+              {{ $t('index.benefits.list.first.content') }}
+            </div>
+          </div>
+          <div class="benefits__item">
+            <div class="benefits__item-icon">
+              <font-awesome-icon icon="fa-regular fa-money-bill-1" />
+            </div>
+            <div class="benefits__item-title">
+              {{ $t('index.benefits.list.second.title') }}
+            </div>
+            <div class="benefits__item-description">
+              {{ $t('index.benefits.list.second.content') }}
+            </div>
+          </div>
+          <div class="benefits__item">
+            <div class="benefits__item-icon">
+              <font-awesome-icon icon="fa-regular fa-star" />
+            </div>
+            <div class="benefits__item-title">
+              {{ $t('index.benefits.list.third.title') }}
+            </div>
+            <div class="benefits__item-description">
+              {{ $t('index.benefits.list.third.content') }}
+            </div>
+          </div>
+          <div class="benefits__item">
+            <div class="benefits__item-icon">
+              <font-awesome-icon icon="fa-regular fa-eye" />
+            </div>
+            <div class="benefits__item-title">
+              {{ $t('index.benefits.list.fourth.title') }}
+            </div>
+            <div class="benefits__item-description">
+              {{ $t('index.benefits.list.fourth.content') }}
+            </div>
+          </div>
+          <div class="benefits__item">
+            <div class="benefits__item-icon">
+              <font-awesome-icon icon="fa-solid fa-arrow-trend-up" />
+            </div>
+            <div class="benefits__item-title">
+              {{ $t('index.benefits.list.fifth.title') }}
+            </div>
+            <div class="benefits__item-description">
+              {{ $t('index.benefits.list.fifth.content') }}
+            </div>
+          </div>
+          <div class="benefits__item">
+            <div class="benefits__item-icon">
+              <font-awesome-icon icon="fa-regular fa-comment-dots" />
+            </div>
+            <div class="benefits__item-title">
+              {{ $t('index.benefits.list.sixth.title') }}
+            </div>
+            <div class="benefits__item-description">
+              {{ $t('index.benefits.list.sixth.content') }}
+            </div>
           </div>
         </div>
       </b-container>
@@ -191,14 +274,14 @@
 
     <div id="main-courses" class="courses">
       <b-container>
-        <div class="courses__header text-center">
-          <h2>
+        <div class="courses__header">
+          <h2 class="courses__title">
             {{ $t('index.courses_title') }}
           </h2>
         </div>
         <div class="courses__list">
           <div v-for="course in courses" :key="course.name" class="courses__list-item">
-            <course-card :course="course" />
+            <course-card-main :course="course" />
           </div>
         </div>
       </b-container>
@@ -206,20 +289,118 @@
 
     <div class="faq">
       <b-container>
-        <div class="faq__header text-center">
-          <h2>
+        <div class="faq__header">
+          <h2 class="faq__title">
             {{ $t('index.faq_title') }}
           </h2>
+        </div>
+        <div class="faq__list">
+          <div class="accordion" role="tablist">
+            <b-card no-body class="mb-3">
+              <b-card-header header-tag="header" class="faq__question" role="tab">
+                <b-button v-b-toggle.accordion-1 class="faq__question-button" block>
+                  <div class="faq__question-title">
+                    {{ $t('index.faq.first.question') }}
+                  </div>
+                  <font-awesome-icon class="faq__question-icon open-icon" icon="fa-solid fa-plus" />
+                  <font-awesome-icon class="faq__question-icon close-icon" icon="fa-solid fa-xmark" />
+                </b-button>
+              </b-card-header>
+              <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+                <b-card-body class="faq__answer">
+                  {{ $t('index.faq.first.answer') }}
+                </b-card-body>
+              </b-collapse>
+            </b-card>
+
+            <b-card no-body class="mb-3">
+              <b-card-header header-tag="header" class="faq__question" role="tab">
+                <b-button v-b-toggle.accordion-2 class="faq__question-button" block>
+                  <div class="faq__question-title">
+                    {{ $t('index.faq.second.question') }}
+                  </div>
+                  <font-awesome-icon class="faq__question-icon open-icon" icon="fa-solid fa-plus" />
+                  <font-awesome-icon class="faq__question-icon close-icon" icon="fa-solid fa-xmark" />
+                </b-button>
+              </b-card-header>
+              <b-collapse id="accordion-2" visible accordion="my-accordion" role="tabpanel">
+                <b-card-body class="faq__answer">
+                  {{ $t('index.faq.second.answer') }}
+                </b-card-body>
+              </b-collapse>
+            </b-card>
+
+            <b-card no-body class="mb-3">
+              <b-card-header header-tag="header" class="faq__question" role="tab">
+                <b-button v-b-toggle.accordion-3 class="faq__question-button" block>
+                  <div class="faq__question-title">
+                    {{ $t('index.faq.third.question') }}
+                  </div>
+                  <font-awesome-icon class="faq__question-icon open-icon" icon="fa-solid fa-plus" />
+                  <font-awesome-icon class="faq__question-icon close-icon" icon="fa-solid fa-xmark" />
+                </b-button>
+              </b-card-header>
+              <b-collapse id="accordion-3" visible accordion="my-accordion" role="tabpanel">
+                <b-card-body class="faq__answer">
+                  {{ $t('index.faq.third.answer') }}
+                </b-card-body>
+              </b-collapse>
+            </b-card>
+
+            <b-card no-body class="mb-3">
+              <b-card-header header-tag="header" class="faq__question" role="tab">
+                <b-button v-b-toggle.accordion-4 class="faq__question-button" block>
+                  <div class="faq__question-title">
+                    {{ $t('index.faq.fourth.question') }}
+                  </div>
+                  <font-awesome-icon class="faq__question-icon open-icon" icon="fa-solid fa-plus" />
+                  <font-awesome-icon class="faq__question-icon close-icon" icon="fa-solid fa-xmark" />
+                </b-button>
+              </b-card-header>
+              <b-collapse id="accordion-4" visible accordion="my-accordion" role="tabpanel">
+                <b-card-body class="faq__answer">
+                  {{ $t('index.faq.fourth.answer') }}
+                </b-card-body>
+              </b-collapse>
+            </b-card>
+
+            <b-card no-body class="mb-3">
+              <b-card-header header-tag="header" class="faq__question" role="tab">
+                <b-button v-b-toggle.accordion-5 class="faq__question-button" block>
+                  <div class="faq__question-title">
+                    {{ $t('index.faq.fifth.question') }}
+                  </div>
+                  <font-awesome-icon class="faq__question-icon open-icon" icon="fa-solid fa-plus" />
+                  <font-awesome-icon class="faq__question-icon close-icon" icon="fa-solid fa-xmark" />
+                </b-button>
+              </b-card-header>
+              <b-collapse id="accordion-5" visible accordion="my-accordion" role="tabpanel">
+                <b-card-body class="faq__answer">
+                  {{ $t('index.faq.fifth.answer') }}
+                </b-card-body>
+              </b-collapse>
+            </b-card>
+          </div>
         </div>
       </b-container>
     </div>
 
     <div class="contacts">
       <b-container>
-        <div class="contacts__header text-center">
-          <h2>
-            {{ $t('index.contacts_title') }}
-          </h2>
+        <div class="contacts__title">
+          {{ $t('index.contacts_title') }}
+        </div>
+        <div class="contacts__socials">
+          <div class="social">
+            <a target="_blank" href="https://instagram.com/vi.kosto">
+              <font-awesome-icon class="social-icon" icon="fa-brands fa-instagram" />
+            </a>
+          </div>
+          <div class="social">
+            <a target="_blank" href="https://t.me/vi_kosto/">
+              <font-awesome-icon class="social-icon" icon="fa-brands fa-telegram" />
+            </a>
+          </div>
         </div>
       </b-container>
     </div>
@@ -411,7 +592,7 @@ export default {
     padding-top: 10rem;
     margin-right: 2rem;
     margin-left: auto;
-    z-index: 2;
+    z-index: 3;
 
     @media screen and (max-width: 1550px) {
       padding-top: 6rem;
@@ -521,6 +702,10 @@ export default {
     font-weight: 600;
     text-transform: uppercase;
     font-size: 1.5rem;
+
+    @media screen and (max-width: 1199px) {
+      font-size: 1.4rem;
+    }
 
     @media screen and (max-width: 991px) {
       font-size: 1.3rem;
@@ -670,41 +855,361 @@ export default {
 
 .lessons {
   padding: 4rem 0;
+  position: relative;
+
+  @media screen and (max-width: 991px) {
+    padding: 1.5rem 0;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-family: 'Cormorant SC', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+
+    @media screen and (max-width: 991px) {
+      font-size: 2.2rem;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1.6rem;
+    }
+  }
 
   &__list {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     flex-wrap: wrap;
     margin-top: 2rem;
-    gap: 2rem;
+    column-gap: 3rem;
+    row-gap: 350px;
+    margin-bottom: 300px;
+
+    @media screen and (max-width: 991px) {
+      display: block;
+      margin-bottom: 0;
+    }
   }
 
   &__list-item {
-    width: 20rem;
+    z-index: 2;
+
+    &:nth-child(3n-2) {
+      .lessons__poloska-bleat {
+        display: block;
+
+        @media screen and (max-width: 991px) {
+          display: none;
+        }
+      }
+    }
+
+    @media screen and (max-width: 991px) {
+      &:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  &__poloska-bleat {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    display: none;
+    height: 300px;
+    width: 100%;
+    background-color: #b6a498;
+  }
+}
+
+.benefits {
+  padding: 4rem 0;
+
+  @media screen and (max-width: 991px) {
+    padding: 1.5rem 0 2.5rem;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-family: 'Cormorant SC', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+
+    @media screen and (max-width: 991px) {
+      text-align: center;
+      font-size: 2.2rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__list {
+    display: grid;
+    column-gap: 4rem;
+    row-gap: 3rem;
+    padding-top: 4rem;
+    grid-template-columns : 1fr 1fr 1fr;
+
+    @media screen and (max-width: 991px) {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 2rem;
+      row-gap: 2rem;
+      padding-top: 2rem;
+    }
+  }
+
+  &__item {
+    @media screen and (max-width: 991px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  &__item-icon {
+    font-size: 3rem;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #b6a498;
+    width: 80px;
+    height: 80px;
+    line-height: 1;
+
+    @media screen and (max-width: 991px) {
+      width: 60px;
+      height: 60px;
+      font-size: 2rem;
+    }
+  }
+
+  &__item-title {
+    margin-top: 2rem;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    @media screen and (max-width: 991px) {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  &__item-description {
+    margin-top: 0.6rem;
+
+    @media screen and (max-width: 991px) {
+      margin-top: 0.3rem;
+      display: none;
+    }
   }
 }
 
 .courses {
   padding: 4rem 0;
+  background-color: #b6a498;
 
-   &__list {
+  @media screen and (max-width: 991px) {
+    padding: 3rem 0;
+  }
+
+  &__title {
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'Cormorant SC', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+
+    @media screen and (max-width: 991px) {
+      text-align: center;
+      font-size: 2.2rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 2rem;
+    }
+  }
+
+  &__list {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-    gap: 2rem;
+    gap: 4rem;
+    justify-content: center;
+    padding-top: 4rem;
+
+    @media screen and (max-width: 991px) {
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      padding-top: 2rem;
+    }
   }
 
   &__list-item {
-    width: 20rem;
+    width: 340px;
+
+    @media screen and (max-width: 400px) {
+      width: 100%;
+    }
   }
 }
 
 .faq {
   padding: 4rem 0;
+
+  @media screen and (max-width: 991px) {
+    padding: 2.5rem 0 1rem;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-family: 'Cormorant SC', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+
+    @media screen and (max-width: 991px) {
+      text-align: center;
+      font-size: 2.2rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 2rem;
+    }
+  }
+
+  &__list {
+    margin-top: 2rem;
+  }
+
+  &__question {
+    padding: 0;
+  }
+
+  &__question-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    border-radius: 0;
+    box-sizing: border-box;
+    border: 1px solid #b6a498;
+
+    @media screen and (max-width: 991px) {
+      padding: 0.6rem 2rem;
+    }
+
+    &.not-collapsed {
+      background-color: #b6a498;
+    }
+
+    &:not(:disabled):not(.disabled):active {
+      background-color: #cabaaf;
+    }
+
+    &.btn-secondary:not(:disabled):not(.disabled):active:focus,
+    &.btn-secondary:focus {
+      box-shadow: none;
+    }
+
+    &.collapsed {
+      background-color: #fff;
+      color: #b6a498;
+    }
+  }
+
+  &__question-button.not-collapsed .open-icon {
+    display: none;
+  }
+
+  &__question-button.collapsed .close-icon {
+    display: none;
+  }
+
+  &__question-button.not-collapsed .close-icon {
+    display: block;
+  }
+
+  &__question-icon {
+    font-size: 1.6rem;
+  }
+
+  &__question-title {
+    font-weight: 600;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    text-align: left;
+    margin-right: 0.3rem;
+
+    @media screen and (max-width: 991px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__answer {
+    background-color: #b6a498;
+    color: #fff;
+    padding: 0.5rem 2rem 1.5rem;
+    font-size: 1.2rem;
+
+    @media screen and (max-width: 991px) {
+      font-size: 1rem;
+      padding: 0.5rem 2rem 1rem;
+    }
+  }
 }
 
 .contacts {
-  padding: 4rem 0;
+  padding: 2rem 0 4rem;
+  background-color: #b6a49833;
+
+  &__title {
+    text-transform: uppercase;
+    font-family: 'Cormorant SC', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+
+    @media screen and (max-width: 991px) {
+      text-align: center;
+      font-size: 2.2rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 2rem;
+    }
+  }
+
+  &__socials {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .social a {
+    display: flex;
+    align-items: center;
+  }
+
+  .social-icon {
+    font-size: 4rem;
+    color: #b6a498;
+  }
+
+  .social-text {
+    font-size: 2.4rem;
+    color: #b6a498;
+  }
 }
 </style>

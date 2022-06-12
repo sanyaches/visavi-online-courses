@@ -26,6 +26,11 @@
             <v-md-editor id="single-lesson-description" v-model="form.description" height="400px" />
           </label>
 
+          <label for="single-lesson-short-description">
+            <div>{{ $t('admin.add_single_lesson.form.short_description') }}</div>
+            <v-md-editor id="single-lesson-short-description" v-model="form.shortDescription" height="300px" />
+          </label>
+
           <label for="single-lesson-video-url">
             <div>{{ $t('admin.add_single_lesson.form.video_url') }}</div>
             <b-input id="single-lesson-video-url" v-model="form.videoUrl" required autocomplete="single-lesson-video-url" type="text" />
@@ -39,6 +44,16 @@
           <label for="single-lesson-thumbnail-url">
             <div>{{ $t('admin.add_single_lesson.form.thumbnail_url') }}</div>
             <b-input id="single-lesson-thumbnail-url" v-model="form.thumbnailUrl" required autocomplete="single-lesson-thumbnail-url" type="text" />
+          </label>
+
+          <label for="single-lesson-card-image-first">
+            <div>{{ $t('admin.add_single_lesson.form.card_image_first') }}</div>
+            <b-input id="single-lesson-card-image-first" v-model="form.cardImageFirst" required autocomplete="single-lesson-card-image-first" type="text" />
+          </label>
+
+          <label for="single-lesson-card-image-second">
+            <div>{{ $t('admin.add_single_lesson.form.card_image_second') }}</div>
+            <b-input id="single-lesson-card-image-second" v-model="form.cardImageSecond" required autocomplete="single-lesson-card-image-second" type="text" />
           </label>
 
           <label for="single-lesson-price">
@@ -82,9 +97,12 @@ export default {
         name: '',
         title: '',
         description: '',
+        shortDescription: '',
         videoUrl: '',
         promoUrl: '',
         thumbnailUrl: '',
+        cardImageFirst: '',
+        cardImageSecond: '',
         duration: 0,
         accessMonths: 0,
         price: 0,
@@ -111,8 +129,11 @@ export default {
         name: this.form.name,
         title: this.form.title,
         description: this.form.description,
+        shortDescription: this.form.shortDescription,
         videoUrl: this.form.videoUrl,
         thumbnailUrl: this.form.thumbnailUrl,
+        cardImageFirst: this.form.cardImageFirst,
+        cardImageSecond: this.form.cardImageSecond,
         price: this.form.price,
         promoUrl: this.form.promoUrl,
         duration: this.form.duration,

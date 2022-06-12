@@ -137,11 +137,15 @@ export default {
   fontawesome: {
     component: 'FontAwesomeIcon',
     icons: {
-      solid: ['faCaretDown', 'faCaretLeft', 'faCaretRight', 'faCaretUp', 'faFileArrowDown'],
-      regular: [],
+      solid: [
+        'faCaretDown', 'faCaretLeft', 'faCaretRight',
+        'faCaretUp', 'faFileArrowDown', 'faClock',
+        'faArrowTrendUp', 'faXmark', 'faPlus'
+      ],
+      regular: ['faClock', 'faMoneyBill1', 'faEye', 'faShareFromSquare', 'faStar', 'faCommentDots', 'faBarChart', 'faChartBar'],
       light: [],
       duotone: [],
-      brands: []
+      brands: ['faInstagram', 'faTelegram']
     }
   }
 }

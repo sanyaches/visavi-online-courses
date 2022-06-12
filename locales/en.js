@@ -2,7 +2,28 @@ export default {
   common: {
     edit: 'Edit',
     delete: 'Delete',
-    back: 'Back'
+    back: 'Back',
+    currency: 'RUB'
+  },
+  agreement: {
+    title: 'Agreement with terms of the online-platform vikosto',
+    paragraph: {
+      first: `
+        Исключительные права на интернет-платформу, расположенную по адресу www.vikosto.ru (далее - Платформа),
+        а также на все объекты, размещенные на Платформе, в том числе элементы дизайна, рисунки,
+        изображения, видео, фотографии, тексты, описания,
+        являющиеся объектами интеллектуальной собственности, принадлежат Савкиной Виктории Денисовне.
+      `,
+      second: `
+        Платформа признается составным произведением, то есть произведением, состоящим из
+        множества материалов, представляющим собой результат творческого труда. Составные произведения являются объектами авторского права и подлежат правовой охране как результат интеллектуальной деятельности.
+      `,
+      third: `
+        Использование результатов интеллектуальной деятельности или средства индивидуализации,
+        осуществляемое без согласия правообладателя, является незаконным и влечет ответственность,
+        установленную действующим законодательством (п.1 ст.1229 Гражданского кодекса РФ).
+      `
+    }
   },
   admin: {
     add_lesson_btn: 'Add lesson',
@@ -25,8 +46,11 @@ export default {
         name: 'Name',
         title: 'Title',
         description: 'Description',
+        short_description: 'Description for main page (short)',
         image_url: 'Image URL',
         thumbnail_url: 'Thumbnail URL',
+        card_image_first: 'Image link main page first',
+        card_image_second: 'Image link main page second',
         promo_url: 'Promo URL',
         price: 'Price',
         access_months: 'Access months',
@@ -59,8 +83,11 @@ export default {
         name: 'Name',
         title: 'Title',
         description: 'Description',
+        short_description: 'Description for main page (short)',
         video_url: 'Video URL',
         thumbnail_url: 'Thumbnail URL',
+        card_image_first: 'Image link main page first',
+        card_image_second: 'Image link main page second',
         promo_url: 'Promo URL',
         price: 'Price',
         duration: 'Duration (min)',
@@ -78,8 +105,11 @@ export default {
         name: 'Name (unique)',
         title: 'Title',
         description: 'Description',
+        short_description: 'Description for main page (short)',
         image_url: 'Image URL',
         thumbnail_url: 'Thumbnail URL',
+        card_image_first: 'Image link main page first',
+        card_image_second: 'Image link main page second',
         promo_url: 'Promo URL',
         price: 'Price',
         access_months: 'Access months',
@@ -96,8 +126,11 @@ export default {
         name: 'Name',
         title: 'Title',
         description: 'Description',
+        short_description: 'Description for main page (short)',
         video_url: 'Video URL',
         thumbnail_url: 'Thumbnail URL',
+        card_image_first: 'Image link main page first',
+        card_image_second: 'Image link main page second',
         promo_url: 'Promo URL',
         price: 'Price',
         duration: 'Duration (min)',
@@ -135,7 +168,9 @@ export default {
       repeat_password: 'Repeat password',
       first_name: 'First name',
       last_name: 'Last name',
-      email: 'Email'
+      email: 'Email',
+      confirm_agreement: 'Agree with platform rules',
+      confirm_agreement_link: 'Agreement link'
     },
     to_login: 'Do you already have an account?',
     to_login_link: 'Login'
@@ -161,7 +196,7 @@ export default {
     login: 'Login',
     logout: 'Logout',
     profile: 'Profile',
-    name: 'VISAVI',
+    name: 'VIKOSTO',
     main_title: 'Stop brushing ',
     main_title_second: 'yourself,',
     main_title_third: 'brush your hair',
@@ -175,9 +210,10 @@ export default {
     author_description_2: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
     author_description_3: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
     author_description_mobile: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
-    lessons_title: 'Lessons',
-    courses_title: 'Courses',
+    lessons_title: 'Hairstyle lessons',
+    courses_title: 'Hairstyle courses',
     faq_title: 'FAQ',
+    contacts_title: 'Socials',
     right_side: {
       title: 'Hey there',
       first_paragraph: 'Creativity, fantasy, ideal <br> there are no limits',
@@ -199,6 +235,57 @@ export default {
       item_4: {
         title: 'Choose a service',
         description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+      }
+    },
+    benefits: {
+      title: 'Why do you need online education?',
+      list: {
+        first: {
+          title: 'Время',
+          content: 'Смотрите и отрабатывайте уроки, когда и где вам будет удобно'
+        },
+        second: {
+          title: 'Экономия',
+          content: 'Онлайн уроки значительно дешевле обучения офлайн и имеют ряд весомых преимуществ'
+        },
+        third: {
+          title: 'Доступность',
+          content: 'Все подробные теоретические и практические уроки собраны в одном месте, не нужно ехать в другие города и страны'
+        },
+        fourth: {
+          title: 'Просмотры',
+          content: 'Можно пересматривать уроки сколько угодно раз, для того, чтобы уловить все тонкости и лучше усвоить материал'
+        },
+        fifth: {
+          title: 'Актуальность',
+          content: 'Онлайн-обучение включает в себя только актуальную и вдохновляющую информацию о причёсках'
+        },
+        sixth: {
+          title: 'Обратная связь',
+          content: 'Можно задавать вопросы о пройденных уроках, присылать свои отработки и получать подробный отзыв в реальном времени'
+        }
+      }
+    },
+    faq: {
+      first: {
+        question: 'Will I get a certificate after a course finishing',
+        answer: 'Of course, a student will get a certificate after watching all materials and sending results.'
+      },
+      second: {
+        question: 'Will I get a certificate after a course finishing',
+        answer: 'Of course, a student will get a certificate after watching all materials and sending results.'
+      },
+      third: {
+        question: 'Will I get a certificate after a course finishing',
+        answer: 'Of course, a student will get a certificate after watching all materials and sending results.'
+      },
+      fourth: {
+        question: 'Will I get a certificate after a course finishing',
+        answer: 'Of course, a student will get a certificate after watching all materials and sending results.'
+      },
+      fifth: {
+        question: 'Will I get a certificate after a course finishing',
+        answer: 'Of course, a student will get a certificate after watching all materials and sending results.'
       }
     }
   },
@@ -269,10 +356,13 @@ export default {
     success_add_single_lesson: 'Successful single lesson creation',
     success_add_file: 'Successful file creation',
     success_recovery: 'Successful recovery request',
+    success_change: 'Successful data changing',
     register_then_buy: 'Register or login',
     register_then_buy_msg: 'Register or login before buy',
     success_add_purchase: 'Successful course purchase',
     error: {
+      need_agreement_confirmation: 'Need to agree with platform rules',
+      need_agreement_confirmation_msg: 'Need to agree with online education platform rights and rules',
       user_not_found: 'Invalid email or password',
       user_not_found_msg: 'Account with your credentials not found',
       server_error: 'Server error',

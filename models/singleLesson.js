@@ -13,11 +13,20 @@ const SingleLessonSchema = new mongoose.Schema({
   description: {
     type: String
   },
+  shortDescription: {
+    type: String
+  },
   videoUrl: {
     type: String,
     required: true
   },
   thumbnailUrl: {
+    type: String
+  },
+  cardImageFirst: {
+    type: String
+  },
+  cardImageSecond: {
     type: String
   },
   promoUrl: {

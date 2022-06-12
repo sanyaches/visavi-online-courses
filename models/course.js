@@ -13,6 +13,9 @@ const CourseSchema = new mongoose.Schema({
   description: {
     type: String
   },
+  shortDescription: {
+    type: String
+  },
   imageUrl: {
     type: String,
     required: true
@@ -31,6 +34,12 @@ const CourseSchema = new mongoose.Schema({
   thumbnailUrl: {
     type: String,
     required: true
+  },
+  cardImageFirst: {
+    type: String
+  },
+  cardImageSecond: {
+    type: String
   },
   price: {
     type: Number,
