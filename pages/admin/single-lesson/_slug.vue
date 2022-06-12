@@ -16,7 +16,7 @@
           </b-button>
         </b-button-group>
       </div>
-      <div class="single-lesson-single__image">
+      <div class="single-lesson-single__video">
         <video controls :poster="singleLesson.thumbnailUrl">
           <source
             :src="singleLesson.promoUrl"
@@ -26,7 +26,9 @@
         </video>
       </div>
       <h1 class="single-lesson-single__title">
-        {{ singleLesson.title }}
+        <span>{{ singleLesson.title.split(' | ')[0] }}</span>
+        <br>
+        <span>{{ singleLesson.title.split(' | ')[1] }}</span>
       </h1>
       <div class="single-lesson-single__price">
         <span>{{ $t('single_lesson.price') }}</span>
@@ -261,12 +263,12 @@ export default {
     margin: 1rem 0;
   }
 
-  &__image {
-    width: 600px;
+  &__video {
+    width: 700px;
     overflow: hidden;
     margin: 0 auto;
 
-    img {
+    video {
       width: 100%;
       height: auto;
     }

@@ -257,7 +257,13 @@ router.get('/lesson/single/:lessonName', async function (req, res) {
       }
 
       if (userResult.isAdmin) {
-        return 'admin-access'
+        return {
+          courseName,
+          courseType: 'course',
+          endDate: Date.now() + 100000000,
+          startDate: Date.now() - 100000000,
+          userEmail: userResult.email
+        }
       }
 
       const purchaseCourse = await PurchaseModel.findOne({

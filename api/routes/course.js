@@ -258,6 +258,16 @@ router.get('/course/single/:courseName', async function (req, res) {
         return false
       }
 
+      if (userResult.isAdmin) {
+        return {
+          courseName,
+          courseType: 'course',
+          endDate: Date.now() + 100000000,
+          startDate: Date.now() - 100000000,
+          userEmail: userResult.email
+        }
+      }
+
       const purchaseCourse = await PurchaseModel.findOne({
         courseType: 'course',
         courseName,
