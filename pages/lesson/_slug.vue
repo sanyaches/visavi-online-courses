@@ -21,7 +21,9 @@
       </div>
 
       <div class="lesson-page__files">
-        <h2>{{ $t('lesson.files_title') }}</h2>
+        <h2 class="lesson-page__files-title">
+          {{ $t('lesson.files_title') }}
+        </h2>
 
         <div v-if="files.length" class="lesson-page__files-list">
           <file-card v-for="file in files" :key="file.name" :file="file" />
@@ -61,13 +63,20 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .lesson-page {
   padding: 2rem 0;
 
   &__title {
     text-align: center;
     margin: 1rem 0;
+
+    @media screen and (max-width: 991px) {
+      font-size: 2rem;
+    }
+    @media screen and (max-width: 480px) {
+      font-size: 1.8rem;
+    }
   }
 
   &__image {
@@ -93,7 +102,6 @@ export default {
     width: 720px;
     overflow: hidden;
     margin: 0 auto;
-    display: flex;
     justify-content: center;
 
     video {
@@ -101,12 +109,25 @@ export default {
       height: auto;
     }
 
+    @media screen and (max-width: 991px) {
+      display: flex;
+    }
+
     @media screen and (max-width: 768px) {
       width: 420px;
+
+      iframe {
+        height: 240px;
+      }
     }
 
     @media screen and (max-width: 480px) {
-      width: 320px;
+      width: 100%;
+      justify-content: flex-start;
+
+      iframe {
+        height: auto;
+      }
     }
   }
 
@@ -118,9 +139,22 @@ export default {
     gap: 1rem;
   }
 
+  &__files-title {
+    @media screen and (max-width: 991px) {
+      font-size: 1.6rem;
+    }
+    @media screen and (max-width: 480px) {
+      font-size: 1.5rem;
+    }
+  }
+
   &__description {
     font-size: 1.2rem;
     margin-top: 2rem;
+
+    .github-markdown-body {
+      padding: 0.8rem 0;
+    }
   }
 }
 </style>
