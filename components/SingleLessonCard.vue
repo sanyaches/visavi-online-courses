@@ -1,176 +1,92 @@
 <template>
   <div class="single-lesson-card">
-    <div class="single-lesson-card__container">
-      <div class="single-lesson-card__image" @click="$router.push(singleLessonLink)" @mouseenter="image = 'second'" @mouseleave="image = 'first'">
-        <img class="bottom" :src="lesson.cardImageSecond">
-        <img class="top" :src="lesson.cardImageFirst">
-        <div class="single-lesson-card__price">
-          {{ lesson.price }}
-          <br>
-          <span class="currency">
-            {{ $t('common.currency') }}
-          </span>
-        </div>
-      </div>
-      <div class="single-lesson-card__content">
-        <div class="single-lesson-card__title">
-          <nuxt-link :to="singleLessonLink">
-            <span>{{ lesson.title.split(' | ')[0] }}</span>
-            <br>
-            <span>{{ lesson.title.split(' | ')[1] }}</span>
-          </nuxt-link>
-        </div>
-        <div class="single-lesson-card__description">
-          <v-md-preview :text="lesson.shortDescription" />
-        </div>
-      </div>
+    <div class="single-lesson-card__image">
+      <img :alt="lesson.shortDescription" :src="lesson.thumbnailUrl">
+    </div>
+    <div class="single-lesson-card__title ">
+      <nuxt-link :to="singleLessonLink" class="anchor--raw">
+        <span>{{ lesson.title.split(' | ')[0] }}</span>
+        <br>
+        <span>{{ lesson.title.split(' | ')[1] }}</span>
+      </nuxt-link>
+    </div>
+    <div class="single-lesson-card__access-months">
+      <span>{{ $t('single_lesson_card.expired_at') }}</span>
+      <span>{{ formattedEndDate }}</span>
+    </div>
+    <div class="single-lesson-card__description">
+      <v-md-preview :text="lesson.shortDescription" />
+    </div>
+    <div class="single-lesson-card__control">
+      <nuxt-link :to="singleLessonLink">
+        {{ $t('single_lesson_card.learn') }}
+      </nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
+import { format } from 'date-fns'
+
 export default {
   props: {
     lesson: {
       type: Object,
       required: true
-    }
-  },
-
-  data () {
-    return {
-      image: 'first'
+    },
+    purchase: {
+      type: Object,
+      default: null
     }
   },
 
   computed: {
     singleLessonLink () {
       return this.localePath({ path: `/single-lesson/${this.lesson.name}` })
+    },
+    formattedEndDate () {
+      return format(this.purchase.endDate, 'dd MMMM yyyy HH:mm (OOOO)')
     }
   }
-
 }
 </script>
 
 <style lang="scss">
 .single-lesson-card {
-  position: relative;
-  padding-top: 400px;
-
-  @media screen and (max-width: 1199px) {
-    padding-top: 340px;
-  }
-
-  @media screen and (max-width: 991px) {
-    padding-top: 0;
-  }
-
-  &__container {
-    display: flex;
-    flex-direction: column;
-    height: max-content;
-    width: 100%;
-    position: absolute;
-    z-index: 2;
-    top: 3rem;
-
-    @media screen and (max-width: 991px) {
-      top: 0;
-      position: static;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1rem;
+  background: var(--color-gray-1);
+  padding: 1rem;
+  justify-content: space-between;
+  height: 100%;
+  text-align: center;
 
   &__image {
-    width: 100%;
-    height: 400px;
-    position: relative;
-    cursor: pointer;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 
     img {
-      position: absolute;
-      left: 0;
-      transition: opacity 1s ease-in-out;
       width: 100%;
-      height: 100%;
-    }
-
-    &:hover .top {
-      opacity: 0;
-    }
-
-    @media screen and (max-width: 1199px) {
-      height: 330px;
-      margin-bottom: 1.5rem;
-    }
-
-    @media screen and (max-width: 991px) {
-      height: 500px;
-      width: 420px;
-      margin: 0 auto 1.5rem;
-    }
-
-    @media screen and (max-width: 480px) {
-      height: 380px;
-      width: 285px;
-      margin: 0 auto 1.5rem;
-    }
-  }
-
-  &__price {
-    font-size: 2.2rem;
-    position: absolute;
-    right: 0.5rem;
-    top: 0.5rem;
-    color: #fff;
-    text-align: right;
-    font-weight: 700;
-    line-height: 100%;
-    font-family: 'Alegreya SC', serif;
-
-    span.currency {
-      text-transform: uppercase;
-      font-size: 1.3rem;
-    }
-  }
-
-  &__content {
-    padding-right: 1rem;
-
-    @media screen and (max-width: 991px) {
-      text-align: center;
-      padding-right: 0;
+      height: auto;
     }
   }
 
   &__title {
-    text-transform: uppercase;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #fff;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
 
-    a, a:hover, a:active, a:visited {
-      color: inherit
-    }
-
-    @media screen and (max-width: 1199px) {
-      font-size: 1.3rem;
-    }
-
-    @media screen and (max-width: 991px) {
-      color: initial;
-    }
+  &__access-months {
+    margin-top: 0.5rem;
   }
 
   &__description {
-    .github-markdown-body {
-      padding: 1rem 0;
-      font-family: 'Raleway', sans-serif;
-      color: #fff;
+    text-align: left;
+    margin-top: 0.5rem;
 
-      @media screen and (max-width: 991px) {
-        color: initial;
-      }
+    .github-markdown-body {
+      padding: 0.6rem 0.4rem;
     }
   }
 }

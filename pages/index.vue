@@ -24,7 +24,7 @@
             <div class="hero__image-circle" />
           </div>
           <div class="hero__description">
-            <h4>{{ $t('index.right_side.title') }}</h4>
+            <!-- <h4>{{ $t('index.right_side.title') }}</h4>
             <p>
               {{ $t('index.right_side.first_paragraph') }}
               <br>
@@ -34,7 +34,7 @@
               {{ $t('index.right_side.second_paragraph') }}
               <br>
               {{ $t('index.right_side.second_paragraph2') }}
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
@@ -187,7 +187,7 @@
             :key="lesson.name"
             class="lessons__list-item"
           >
-            <single-lesson-card :lesson="lesson" />
+            <single-lesson-card-main :lesson="lesson" />
             <div class="lessons__poloska-bleat" />
           </div>
         </div>
@@ -402,19 +402,33 @@
             </a>
           </div>
         </div>
+        <div class="contacts__contacts">
+          <h3>{{ $t('index.contacts_contacts') }}</h3>
+          <div>
+            <a href="mailto:vi.kosto@yandex.ru" class="anchor anchor--raw">vi.kosto@yandex.ru</a>
+          </div>
+          <div>
+            <a href="tel:+79877887381" class="anchor anchor--raw">+7 (987) 788 7381</a>
+          </div>
+          <div>Савкина Виктория Денисовна</div>
+          <div>ИНН: 561019006810</div>
+        </div>
+
+        <div class="contacts__documents mt-5">
+          <nuxt-link :to="localePath('/privacy-policy')" class="anchor anchor--raw" style="font-size: 1.1rem; margin-right: 1rem;">
+            {{ $t('index.privacy_policy') }}
+          </nuxt-link>
+          <nuxt-link :to="localePath('/offer')" class="anchor anchor--raw" style="font-size: 1.1rem;">
+            {{ $t('index.public_offer') }}
+          </nuxt-link>
+        </div>
       </b-container>
     </div>
   </div>
 </template>
 
 <script>
-import SingleLessonCard from '@/components/SingleLessonCard.vue'
-
 export default {
-  components: {
-    SingleLessonCard
-  },
-
   async asyncData (context) {
     try {
       const response = await context.app.$http.$get(
@@ -1210,6 +1224,10 @@ export default {
   .social-text {
     font-size: 2.4rem;
     color: #b6a498;
+  }
+
+  &__contacts {
+    margin-top: 3rem;
   }
 }
 </style>

@@ -140,9 +140,13 @@ export default {
       solid: [
         'faCaretDown', 'faCaretLeft', 'faCaretRight',
         'faCaretUp', 'faFileArrowDown', 'faClock',
-        'faArrowTrendUp', 'faXmark', 'faPlus'
+        'faArrowTrendUp', 'faXmark', 'faPlus', 'faUser', 'faCheck'
       ],
-      regular: ['faClock', 'faMoneyBill1', 'faEye', 'faShareFromSquare', 'faStar', 'faCommentDots', 'faBarChart', 'faChartBar'],
+      regular: [
+        'faClock', 'faMoneyBill1', 'faEye',
+        'faShareFromSquare', 'faStar', 'faCommentDots',
+        'faBarChart', 'faChartBar'
+      ],
       light: [],
       duotone: [],
       brands: ['faInstagram', 'faTelegram']

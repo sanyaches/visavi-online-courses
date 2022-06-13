@@ -28,7 +28,9 @@
           <label for="confirm-agreement">
             <b-checkbox id="confirm-agreement" v-model="form.confirmAgreement" style="display: inline-block;" required />
             <span>{{ $t('register.form.confirm_agreement') }}</span>
-            <a href="/platform-rules" target="_blank">{{ $t('register.form.confirm_agreement_link') }}</a>
+            (<a href="/offer" target="_blank">{{ $t('register.form.confirm_agreement_link') }}</a>)
+            <span>{{ $t('register.form.confirm_privacy') }}</span>
+            (<a href="/privacy-policy" target="_blank">{{ $t('register.form.confirm_privacy_link') }}</a>)
           </label>
 
           <b-button type="submit" class="mt-2">

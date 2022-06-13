@@ -17,16 +17,16 @@
           <div class="profile-lessons__list">
             <template v-if="purchaseSingleLessonsKeys.length">
               <div v-for="singleLessonKey in purchaseSingleLessonsKeys" :key="singleLessonKey" class="profile-lessons__list-item">
-                <single-lesson-card :lesson="singleLessonsDictionary[singleLessonKey]" />
+                <single-lesson-card :lesson="singleLessonsDictionary[singleLessonKey]" :purchase="purchasesSingleLessons[singleLessonKey]" />
               </div>
             </template>
             <div v-else>
               <span>{{ $t('profile.no_lessons') }}</span>
-              <nuxt-link to="/#main-single-lessons">
-                {{ $t('profile.see_lessons') }}
-              </nuxt-link>
             </div>
           </div>
+          <nuxt-link to="/#main-single-lessons">
+            {{ $t('profile.see_lessons') }}
+          </nuxt-link>
         </div>
 
         <div class="profile-courses">
@@ -38,16 +38,16 @@
           <div class="profile-courses__list">
             <template v-if="purchaseCoursesKeys.length">
               <div v-for="courseKey in purchaseCoursesKeys" :key="courseKey" class="profile-courses__list-item">
-                <course-card :course="coursesDictionary[courseKey]" />
+                <course-card :course="coursesDictionary[courseKey]" :purchase="purchasesCourses[courseKey]" />
               </div>
             </template>
             <div v-else>
               <span>{{ $t('profile.no_courses') }}</span>
-              <nuxt-link to="/#main-courses">
-                {{ $t('profile.see_courses') }}
-              </nuxt-link>
             </div>
           </div>
+          <nuxt-link to="/#main-courses">
+            {{ $t('profile.see_courses') }}
+          </nuxt-link>
         </div>
       </div>
       <h2 v-else>
@@ -120,6 +120,31 @@ export default {
       return this.mySingleLessons.map(item => item.courseName)
     },
 
+    purchasesSingleLessons () {
+      if (!this.mySingleLessons || !this.mySingleLessons.length) {
+        return []
+      }
+      const purchasesSingleLessons = {}
+      this.mySingleLessons.forEach((item) => {
+        purchasesSingleLessons[item.courseName] = item
+      })
+
+      return purchasesSingleLessons
+    },
+
+    purchasesCourses () {
+      if (!this.myCourses || !this.myCourses.length) {
+        return []
+      }
+
+      const purchasesCourses = {}
+      this.myCourses.forEach((item) => {
+        purchasesCourses[item.courseName] = item
+      })
+
+      return purchasesCourses
+    },
+
     coursesDictionary () {
       if (!this.courses || !this.courses.length) {
         return {}
@@ -153,14 +178,22 @@ export default {
 
 <style lang="scss" scoped>
 .profile-lessons {
-  padding: 4rem 0;
+  padding: 4rem 0 2rem;
 
   &__list {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
     margin-top: 2rem;
     gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 2rem;
+
+    @media screen and (max-width: 991px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__list-item {
@@ -169,14 +202,22 @@ export default {
 }
 
 .profile-courses {
-  padding: 4rem 0;
+  padding: 2rem 0 4rem;
 
    &__list {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
     margin-top: 2rem;
     gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 2rem;
+
+    @media screen and (max-width: 991px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__list-item {

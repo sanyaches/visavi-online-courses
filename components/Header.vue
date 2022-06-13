@@ -5,14 +5,24 @@
         <nuxt-link :to="localePath('/')" @click.native="dropdownActive = false">
           <img src="@/assets/images/logo.png">
         </nuxt-link>
-        <div class="header__menu">
-          <div
-            class="hamburger hamburger--squeeze header__menu-burger"
-            :class="{ 'is-active': dropdownActive }"
-            @click="dropdownActive = !dropdownActive"
-          >
-            <div class="hamburger-box">
-              <div class="hamburger-inner" />
+        <div class="header__controls">
+          <nuxt-link v-if="getIsAuthenticated" v-b-tooltip.hover :title="profileTitle" :to="localePath('profile')" class="header__profile anchor anchor--raw">
+            <div class="header__profile-icon">
+              <font-awesome-icon icon="fa-solid fa-user" />
+            </div>
+            <!-- <div class="header__profile-fullname">
+              {{ fullName }}
+            </div> -->
+          </nuxt-link>
+          <div class="header__menu">
+            <div
+              class="hamburger hamburger--squeeze header__menu-burger"
+              :class="{ 'is-active': dropdownActive }"
+              @click="dropdownActive = !dropdownActive"
+            >
+              <div class="hamburger-box">
+                <div class="hamburger-inner" />
+              </div>
             </div>
           </div>
         </div>
@@ -20,6 +30,11 @@
           <div v-if="dropdownActive" class="header__dropdown-menu">
             <div class="header__dropdown-menu-content">
               <template v-if="isAdmin">
+                <div class="header__dropdown-menu-item">
+                  <nuxt-link :to="localePath('profile')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                    {{ $t('index.profile') }}
+                  </nuxt-link>
+                </div>
                 <div class="header__dropdown-menu-item">
                   <nuxt-link :to="localePath('admin')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
                     {{ $t('index.admin') }}
@@ -37,6 +52,11 @@
                 <div class="header__dropdown-menu-item">
                   <nuxt-link :to="localePath('login')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
                     {{ $t('index.login') }}
+                  </nuxt-link>
+                </div>
+                <div class="header__dropdown-menu-item">
+                  <nuxt-link :to="localePath('register')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                    {{ $t('index.register') }}
                   </nuxt-link>
                 </div>
               </template>
@@ -72,6 +92,20 @@ export default {
     }),
     isAdmin () {
       return this.getMe?.isAdmin
+    },
+    fullName () {
+      if (!this.getMe) {
+        return ''
+      }
+
+      return `${this.getMe.firstName} ${this.getMe.lastName}`
+    },
+    profileTitle () {
+      if (!this.getMe) {
+        return ''
+      }
+
+      return `${this.$t('index.profile_tooltip')} ${this.getMe.firstName} ${this.getMe.lastName}`
     }
   },
 
@@ -139,6 +173,45 @@ export default {
     @media screen and (max-width: 1050px) {
       padding: 0.5rem 0;
     }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__profile-fullname {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    font-size: 1.3rem;
+
+    @media screen and (max-width: 480px) {
+      max-width: 140px;
+      font-size: 1.2rem;
+    }
+
+    @media screen and (max-width: 360px) {
+      max-width: 125px;
+    }
+  }
+
+  &__profile {
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 0.4rem;
+  }
+
+   &__profile-icon {
+    font-size: 1.5rem;
+    background-color: #917C6F;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0 0.5rem;
   }
 
   &__menu-burger {

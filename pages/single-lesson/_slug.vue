@@ -1,45 +1,45 @@
 <template>
   <div class="single-lesson-single">
     <b-container>
-      <div>
-        <b-button @click="$router.go(-1)">
-          {{ $t('common.back') }}
-        </b-button>
-      </div>
       <div v-if="!isPurchased || isExpired" class="single-lesson-single__promo">
-        <video controls :poster="singleLesson.thumbnailUrl">
-          <source
-            :src="singleLesson.promoUrl"
-            type="video/mp4"
+        <div class="single-lesson-single__promo-background">
+          <video
+            class="single-lesson-single__promo-video"
+            :poster="singleLesson.thumbnailUrl"
+            frameborder="0"
+            allowfullscreen=""
+            autoplay="autoplay"
+            loop="loop"
+            muted=""
+            preload="yes"
+            playsinline=""
           >
-          Sorry, your browser doesn't support embedded videos.
-        </video>
-      </div>
-      <h1 class="single-lesson-single__title">
-        {{ singleLesson.title }}
-      </h1>
-      <div class="single-lesson-single__purchase">
-        <b-button v-if="!isPurchased" variant="success" @click="buySingleLesson">
-          {{ $t('single_lesson.buy') }}
-        </b-button>
-        <template v-else>
-          <b-button v-if="isExpired" variant="success" @click="buySingleLesson">
-            {{ $t('single_lesson.buy_again') }}
-          </b-button>
-        </template>
+            <source :src="singleLesson.promoUrl" type="video/mp4">
+          </video>
+        </div>
+        <div class="single-lesson-single__promo-content">
+          <div class="single-lesson-single__promo-content-background" />
+          <div class="single-lesson-single__promo-text" style="color: black;">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, rem quibusdam. Rerum, sapiente dolore praesentium placeat perspiciatis eum, hic consectetur, itaque ex enim sequi obcaecati culpa veniam similique quidem? Atque!
+          </div>
+        </div>
       </div>
       <div v-if="isPurchased && !isExpired" class="single-lesson-single__video">
-        <!-- //! TODO: mdp file manifest problems need to create normal files, workable -->
-        <video-player
-          :license-server="licenseServer"
-          :manifest-url="singleLesson.videoUrl"
-          :poster-url="singleLesson.thumbnailUrl"
+        <iframe
+          :src="singleLesson.videoUrl"
+          width="640"
+          height="360"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
         />
       </div>
-      <div v-if="!isPurchased || isExpired" class="single-lesson-single__price">
-        <span>{{ $t('single_lesson.price') }}</span>
-        <span>{{ singleLesson.price }}</span>
-      </div>
+      <h1 class="single-lesson-single__title">
+        <span>{{ singleLesson.title.split(' | ')[0] }}</span>
+        <br>
+        <span>{{ singleLesson.title.split(' | ')[1] }}</span>
+      </h1>
+
       <div v-if="!isPurchased" class="single-lesson-single__access_months">
         <span>{{ $t('single_lesson.access_months') }}</span>
         <span>{{ singleLesson.accessMonths }}</span>
@@ -47,6 +47,22 @@
       <div v-else class="single-lesson-single__access_months">
         <span>{{ $t('single_lesson.expired_at') }}</span>
         <span>{{ formattedEndDate }}</span>
+      </div>
+
+      <div class="single-lesson-single__purchase">
+        <b-button v-if="!isPurchased" class="button button--brown-dark button button--large" @click="buySingleLesson">
+          {{ $t('single_lesson.buy') }}
+        </b-button>
+        <template v-else>
+          <b-button v-if="isExpired" class="button button--brown-dark button button--large" @click="buySingleLesson">
+            {{ $t('single_lesson.buy_again') }}
+          </b-button>
+        </template>
+      </div>
+
+      <div v-if="!isPurchased || isExpired" class="single-lesson-single__price">
+        <span>{{ $t('single_lesson.price') }}</span>
+        <span>{{ singleLesson.price }}</span>
       </div>
       <div class="single-lesson-single__description">
         <v-md-preview :text="singleLesson.description" />
@@ -65,13 +81,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { format } from 'date-fns'
-import VideoPlayer from '@/components/VideoPlayer.vue'
 
 export default {
-  components: {
-    VideoPlayer
-  },
-
   async asyncData (context) {
     const name = context.params.slug
     try {
@@ -131,13 +142,32 @@ export default {
           solid: true,
           variant: 'info'
         })
-      }
 
-      const url = '/api/purchases/add'
+        return
+      }
+      const getFullName = (profile) => {
+        return [profile.firstName, profile.lastName]
+          .filter(Boolean)
+          .join(' ')
+      }
+      const userEmail = this.profile.email
+      const amount = this.singleLesson.price
+      const from = getFullName(this.profile)
+      const lessonName = this.singleLesson.name
+      const lessonTitle = this.singleLesson.title
+      const paymentMessage = this.$t('single_lesson.payment_message', { from, email: userEmail, amount, lessonName: lessonTitle })
+
+      const url = '/api/payment/pay'
+
       const jsonBody = JSON.stringify({
-        courseName: this.singleLesson.name,
+        courseName: lessonName,
         courseType: 'singleLesson',
-        accessMonths: this.singleLesson.accessMonths
+        accessMonths: this.singleLesson.accessMonths,
+        // amount: this.singleLesson.price,
+        amount: 2,
+        paymentMessage,
+        token: this.token,
+        userEmail
       })
 
       try {
@@ -146,8 +176,7 @@ export default {
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
             Accept: 'application/json',
-            Authorization: `Bearer ${this.token}`,
-            email: this.profile.email
+            Authorization: `Bearer ${this.token}`
           },
           body: jsonBody
         })
@@ -162,6 +191,9 @@ export default {
 
           window.location.reload()
 
+          return
+        } else if (data?.status === 'redirect') {
+          window.location.assign(data.url)
           return
         }
 
@@ -195,11 +227,12 @@ export default {
   &__purchase {
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
 
   &__promo {
-    width: 720px;
+    position: relative;
+    height: 600px;
     overflow: hidden;
     margin: 0 auto;
 
@@ -217,10 +250,39 @@ export default {
     }
   }
 
+  &__promo-background {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__promo-video {
+    width:100%;
+    position:absolute;
+    top:50%;
+    z-index:1;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__promo-content {
+    position: relative;
+  }
+
+  &__promo-content-background {
+    position:absolute;
+    width: 100%;
+    top: -300px;
+    height: 300px;
+    background: linear-gradient(to bottom, rgba(241, 241, 241, 0), rgba(241, 241, 241, 0.7), rgba(241, 241, 241, 0.9), #fff);
+    z-index: 3;
+  }
+
   &__video {
     width: 720px;
     overflow: hidden;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
 
     video {
       width: 100%;

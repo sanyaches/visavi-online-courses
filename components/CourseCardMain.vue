@@ -6,27 +6,70 @@
     <div class="course-card__description">
       <ul v-if="course.name==='course-silver'">
         <li class="course-card__benefit">
-          Lol
-        </li>
-        <li class="course-card__benefit is-disabled">
-          Kek
+          <b>{{ $t('course.silver.benefits.1.bold_text') }}</b>
+          <span>{{ $t('course.silver.benefits.1.text') }}</span>
         </li>
         <li class="course-card__benefit">
-          Cheburek
+          <span>{{ $t('course.silver.benefits.2.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <b>{{ $t('course.silver.benefits.3.bold_text') }}</b>
+          <span>{{ $t('course.silver.benefits.3.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>{{ $t('course.silver.benefits.4.text') }}</span>
+        </li>
+        <li class="course-card__benefit is-disabled">
+          <span>{{ $t('course.silver.benefits.5.text') }}</span>
+        </li>
+        <li class="course-card__benefit is-disabled">
+          <span>{{ $t('course.silver.benefits.6.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>{{ $t('course.silver.benefits.7.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>{{ $t('course.silver.benefits.8.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <b>{{ $t('course.silver.benefits.9.bold_text') }}</b>
+          <span>{{ $t('course.silver.benefits.9.text') }}</span>
         </li>
       </ul>
       <ul v-else-if="course.name==='course-gold'">
         <li class="course-card__benefit">
-          Loler
+          <b>{{ $t('course.gold.benefits.1.bold_text') }}</b>
+          <span>{{ $t('course.gold.benefits.1.text') }}</span>
         </li>
         <li class="course-card__benefit">
-          Keker
+          <span>{{ $t('course.gold.benefits.2.text') }}</span>
         </li>
         <li class="course-card__benefit">
-          Chebureker
+          <b>{{ $t('course.gold.benefits.3.bold_text') }}</b>
+          <span>{{ $t('course.gold.benefits.3.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>{{ $t('course.gold.benefits.4.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>{{ $t('course.gold.benefits.5.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>{{ $t('course.gold.benefits.6.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>{{ $t('course.gold.benefits.7.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>{{ $t('course.gold.benefits.8.text') }}</span>
+        </li>
+        <li class="course-card__benefit">
+          <b>{{ $t('course.gold.benefits.9.bold_text') }}</b>
+          <span>{{ $t('course.gold.benefits.9.text') }}</span>
         </li>
       </ul>
     </div>
+
     <div class="course-card__footer">
       <div class="course-card__price">
         <span>{{ course.price }}</span>
@@ -37,8 +80,13 @@
           {{ $t('course_card.learn') }}
         </nuxt-link>
 
-        <nuxt-link :to="courseLink" class="button button--brown-dark button button--large">
+        <b-button v-if="!thisPurchase || isExpired" class="button button--brown-dark button button--large" @click="buyCourse">
           {{ $t('course_card.buy') }}
+        </b-button>
+
+        <nuxt-link v-else :to="courseLink" class="button button--brown-dark button button--large">
+          <font-awesome-icon icon="fa-solid fa-check" />
+          {{ $t('course_card.bought') }}
         </nuxt-link>
       </div>
     </div>
@@ -46,6 +94,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     course: {
@@ -55,8 +105,110 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      profile: 'user/getMe',
+      token: 'user/getToken',
+      myCourses: 'user/getMyCourses'
+    }),
+    thisPurchase () {
+      if (!this.myCourses || !this.myCourses.length) {
+        return null
+      }
+
+      return this.myCourses.find(course => course.courseName === this.course.name) || null
+    },
+    isExpired () {
+      if (!this.thisPurchase || !this.thisPurchase.endDate) {
+        return false
+      }
+
+      return Date.now() > this.thisPurchase.endDate
+    },
     courseLink () {
       return this.localePath({ path: `/course/${this.course.name}` })
+    }
+  },
+
+  methods: {
+    async buyCourse () {
+      if (!this.profile) {
+        const link = this.localePath('/login')
+        this.$root.$bvToast.toast(this.$t('notify.register_then_buy_msg'), {
+          title: this.$t('notify.register_then_buy'),
+          href: link,
+          toaster: 'b-toaster-top-right',
+          solid: true,
+          variant: 'info'
+        })
+
+        return
+      }
+
+      const getFullName = (profile) => {
+        return [profile.firstName, profile.lastName]
+          .filter(Boolean)
+          .join(' ')
+      }
+      const userEmail = this.profile.email
+      const amount = this.course.price
+      const from = getFullName(this.profile)
+      const courseName = this.course.name
+      const courseTitle = this.course.title
+      const paymentMessage = this.$t('course.payment_message', { from, email: userEmail, amount, courseName: courseTitle })
+
+      const url = '/api/payment/pay'
+
+      const jsonBody = JSON.stringify({
+        courseName,
+        courseType: 'course',
+        accessMonths: this.course.accessMonths,
+        // amount: this.course.price,
+        amount: 2,
+        paymentMessage,
+        token: this.token,
+        userEmail
+      })
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.token}`
+          },
+          body: jsonBody
+        })
+        const data = await res.json()
+        if (data?.status === 'success') {
+          this.$root.$bvToast.toast(this.$t('notify.success_add_purchase'), {
+            title: this.$t('notify.success_add_purchase'),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'success'
+          })
+
+          window.location.reload()
+
+          return
+        } else if (data?.status === 'redirect') {
+          window.location.assign(data.url)
+          return
+        }
+
+        throw data
+      } catch (error) {
+        if (error.errorCode) {
+          const code = String(error.errorCode).toLowerCase()
+          this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
+            title: this.$t(`notify.error.${code}`),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'danger',
+            appendToast: true
+          })
+        }
+      }
     }
   }
 }
@@ -90,12 +242,17 @@ export default {
   }
 
   &__description ul {
-    margin-bottom: 3rem;
+    margin-bottom: 0;
     padding-left: 1rem;
   }
 
   li.course-card__benefit {
-    padding: 0.8rem 0;
+    padding: 0.4rem 0;
+    line-height: 120%;
+
+    b {
+      font-size: 1.4rem;
+    }
 
     &::marker {
       color: #b3795a;
@@ -135,6 +292,10 @@ export default {
 
     .button:not(:last-child) {
       margin-bottom: 0.6rem;
+    }
+
+    .button {
+      border-radius: 0;
     }
   }
 }

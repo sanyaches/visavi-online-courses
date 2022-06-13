@@ -23,8 +23,8 @@ export const mutations = {
     state.coursePurchases = coursePurchases
   },
 
-  setSingleLessonPurchases (state, singleLessonsPurchases) {
-    state.singleLessonsPurchases = singleLessonsPurchases
+  setSingleLessonPurchases (state, singleLessonPurchases) {
+    state.singleLessonPurchases = singleLessonPurchases
   }
 }
 

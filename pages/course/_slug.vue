@@ -1,11 +1,6 @@
 <template>
   <div class="course-page">
     <b-container>
-      <div>
-        <b-button @click="$router.go(-1)">
-          {{ $t('common.back') }}
-        </b-button>
-      </div>
       <h1 class="course-page__title">
         {{ course.title }}
       </h1>
@@ -18,18 +13,26 @@
           Sorry, your browser doesn't support embedded videos.
         </video>
       </div>
+      <div v-if="!isPurchased" class="course-page__access-months">
+        <span>{{ $t('course.access_months') }}</span>
+        <span>{{ course.accessMonths }}</span>
+      </div>
+      <div v-else-if="purchase" class="course-page__access-months">
+        <span>{{ $t('course.expired_at') }}</span>
+        <span>{{ formattedEndDate }}</span>
+      </div>
       <div class="course-page__purchase">
-        <b-button v-if="!isPurchased" variant="success" @click="buyCourse">
+        <b-button v-if="!isPurchased" class="button button--brown-dark button button--large" @click="buyCourse">
           {{ $t('course.buy') }}
         </b-button>
         <template v-else>
-          <b-button v-if="isExpired" variant="success" @click="buyCourse">
+          <b-button v-if="isExpired" class="button button--brown-dark button button--large" @click="buyCourse">
             {{ $t('course.buy_again') }}
           </b-button>
           <nuxt-link
             v-else
             to="#course-page-lessons"
-            class="button--green"
+            class="button button--brown button button--large"
           >
             {{ $t('course.watch') }}
           </nuxt-link>
@@ -38,14 +41,6 @@
       <div v-if="!isPurchased || isExpired" class="course-page__price">
         <span>{{ $t('course.price') }}</span>
         <span>{{ course.price }}</span>
-      </div>
-      <div v-if="!isPurchased" class="course-page__access-months">
-        <span>{{ $t('course.access_months') }}</span>
-        <span>{{ course.accessMonths }}</span>
-      </div>
-      <div v-else-if="purchase" class="course-page__access-months">
-        <span>{{ $t('single_lesson.expired_at') }}</span>
-        <span>{{ formattedEndDate }}</span>
       </div>
       <div class="course-page__description">
         <v-md-preview :text="course.description" />
@@ -141,13 +136,33 @@ export default {
           solid: true,
           variant: 'info'
         })
+
+        return
       }
 
-      const url = '/api/purchases/add'
+      const getFullName = (profile) => {
+        return [profile.firstName, profile.lastName]
+          .filter(Boolean)
+          .join(' ')
+      }
+      const userEmail = this.profile.email
+      const amount = this.course.price
+      const from = getFullName(this.profile)
+      const courseName = this.course.name
+      const courseTitle = this.course.title
+      const paymentMessage = this.$t('course.payment_message', { from, email: userEmail, amount, courseName: courseTitle })
+
+      const url = '/api/payment/pay'
+
       const jsonBody = JSON.stringify({
-        courseName: this.course.name,
+        courseName,
         courseType: 'course',
-        accessMonths: this.course.accessMonths
+        accessMonths: this.course.accessMonths,
+        // amount: this.course.price,
+        amount: 2,
+        paymentMessage,
+        token: this.token,
+        userEmail
       })
 
       try {
@@ -156,8 +171,7 @@ export default {
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
             Accept: 'application/json',
-            Authorization: `Bearer ${this.token}`,
-            email: this.profile.email
+            Authorization: `Bearer ${this.token}`
           },
           body: jsonBody
         })
@@ -172,6 +186,9 @@ export default {
 
           window.location.reload()
 
+          return
+        } else if (data?.status === 'redirect') {
+          window.location.assign(data.url)
           return
         }
 
@@ -205,7 +222,7 @@ export default {
   &__purchase {
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
 
   &__promo {

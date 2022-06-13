@@ -1,20 +1,18 @@
 <template>
   <div class="lesson-page">
     <b-container>
-      <div>
-        <b-button @click="$router.go(-1)">
-          {{ $t('common.back') }}
-        </b-button>
-      </div>
-
       <h1 class="lesson-page__title">
         {{ lesson.title }}
       </h1>
 
       <div class="lesson-page__video">
-        <video-player
-          :manifest-url="lesson.videoUrl"
-          :poster-url="lesson.thumbnailUrl"
+        <iframe
+          :src="lesson.videoUrl"
+          width="640"
+          height="360"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
         />
       </div>
 
@@ -34,13 +32,7 @@
 </template>
 
 <script>
-import VideoPlayer from '@/components/VideoPlayer.vue'
-
 export default {
-  components: {
-    VideoPlayer
-  },
-
   async asyncData (context) {
     const name = context.params.slug
     const token = context.app.$cookies.get('_visavi_token')
@@ -101,6 +93,8 @@ export default {
     width: 720px;
     overflow: hidden;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
 
     video {
       width: 100%;
