@@ -10,7 +10,7 @@
             allowfullscreen=""
             autoplay="autoplay"
             loop="loop"
-            muted="yes"
+            muted
             preload="yes"
             playsinline=""
           >
@@ -81,7 +81,7 @@
             allowfullscreen=""
             autoplay="autoplay"
             loop="loop"
-            muted="yes"
+            muted
             preload="yes"
             playsinline=""
           >
@@ -163,18 +163,55 @@
 
       <div id="course-page-lessons" class="course-page__lessons">
         <h2 class="course-page__lessons-title">
-          {{ $t('admin.list_lessons') }}
+          {{ $t('course.list_lessons') }}
         </h2>
-        <ul v-if="courseLessons.length" class="course-page__lessons-list">
-          <li v-for="lesson in courseLessons" :key="lesson.name" class="course-page__lessons-item">
-            <lesson-list-item
-              :lesson="lesson"
-              :lesson-link="isPurchased ? localePath({ path: `/lesson/${lesson.name}` }) : null"
-            />
-          </li>
-        </ul>
-        <div v-else>
-          {{ $t('admin.no_lessons') }}
+
+        <div class="course-page__lessons-container">
+          <div v-if="theoryLessons.length">
+            <h3 class="course-page__category-title">
+              {{ $t('course.category_theory') }}
+            </h3>
+            <ul class="course-page__lessons-list">
+              <li v-for="lesson in theoryLessons" :key="lesson.name" class="course-page__lessons-item">
+                <lesson-list-item
+                  :lesson="lesson"
+                  :lesson-link="isPurchased ? localePath({ path: `/lesson/${lesson.name}` }) : null"
+                />
+              </li>
+            </ul>
+          </div>
+
+          <div v-if="practiceLessons.length">
+            <h3 class="course-page__category-title">
+              {{ $t('course.category_practice') }}
+            </h3>
+            <ul class="course-page__lessons-list">
+              <li v-for="lesson in practiceLessons" :key="lesson.name" class="course-page__lessons-item">
+                <lesson-list-item
+                  :lesson="lesson"
+                  :lesson-link="isPurchased ? localePath({ path: `/lesson/${lesson.name}` }) : null"
+                />
+              </li>
+            </ul>
+          </div>
+
+          <div v-if="bonusLessons.length" class="mt-3">
+            <h3 class="course-page__category-title">
+              {{ $t('course.category_bonus') }}
+            </h3>
+            <ul class="course-page__lessons-list">
+              <li v-for="lesson in bonusLessons" :key="lesson.name" class="course-page__lessons-item">
+                <lesson-list-item
+                  :lesson="lesson"
+                  :lesson-link="isPurchased ? localePath({ path: `/lesson/${lesson.name}` }) : null"
+                />
+              </li>
+            </ul>
+          </div>
+
+          <div v-if="!theoryLessons.length && !practiceLessons.length && !bonusLessons.length">
+            {{ $t('course.no_lessons') }}
+          </div>
         </div>
       </div>
     </b-container>
@@ -243,6 +280,27 @@ export default {
       return formatDuration({
         months: this.course.accessMonths
       }, { locale: this.$i18n.locale === 'ru' ? ru : enUS })
+    },
+    theoryLessons () {
+      if (!this.courseLessons || !this.courseLessons.length) {
+        return []
+      }
+
+      return this.courseLessons.filter(lesson => lesson.category === 'theory')
+    },
+    practiceLessons () {
+      if (!this.courseLessons || !this.courseLessons.length) {
+        return []
+      }
+
+      return this.courseLessons.filter(lesson => lesson.category === 'practice')
+    },
+    bonusLessons () {
+      if (!this.courseLessons || !this.courseLessons.length) {
+        return []
+      }
+
+      return this.courseLessons.filter(lesson => lesson.category === 'bonus')
     }
   },
 
@@ -651,6 +709,24 @@ export default {
         padding-right: 1rem;
         font-size: 1rem;
       }
+    }
+  }
+
+  &__category-title {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #b6a498;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+
+    @media screen and (max-width: 991px) {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__lessons-container {
+    div:not(:last-child) {
+      margin-bottom: 1rem;
     }
   }
 

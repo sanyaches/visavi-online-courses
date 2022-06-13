@@ -402,6 +402,10 @@ export default {
     see_courses: 'Смотреть все курсы'
   },
   course: {
+    list_lessons: 'Уроки',
+    category_theory: 'Теоретические уроки',
+    category_practice: 'Практические уроки',
+    category_bonus: 'Бонусные уроки',
     description: 'Описание:',
     about: 'О курсе',
     access_months: 'Длительность доступа:',

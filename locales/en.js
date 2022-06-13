@@ -396,6 +396,10 @@ export default {
     see_courses: 'See courses'
   },
   course: {
+    list_lessons: 'Lessons',
+    category_theory: 'Theoretical lessons',
+    category_practice: 'Practical lessons',
+    category_bonus: 'Bonus lessons',
     description: 'Description:',
     price: 'Price: ',
     about: 'About course',

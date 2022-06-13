@@ -21,7 +21,7 @@ const LessonSchema = new mongoose.Schema({
     type: String
   },
   /**
-   * Category: 'theory' | 'practice' | 'promotion'
+   * Category: 'theory' | 'practice' | 'bonus'
    */
   category: {
     type: String,
