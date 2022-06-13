@@ -5,19 +5,18 @@
         <img :alt="lesson.description" :src="lesson.thumbnailUrl">
       </div>
       <div class="lesson-list-item__general">
-        <h2>
-          <nuxt-link v-if="lessonLink" :to="lessonLink">
+        <h2 class="lesson-list-item__title">
+          <nuxt-link v-if="lessonLink" :to="lessonLink" class="anchor--raw">
             {{ lesson.title }}
           </nuxt-link>
           <span v-else>
             {{ lesson.title }}
           </span>
         </h2>
-        <div />
+        <div class="lesson-list-item__content">
+          <v-md-preview :text="lesson.shortDescription" />
+        </div>
       </div>
-    </div>
-    <div class="lesson-list-item__content">
-      <v-md-preview :text="lesson.description" />
     </div>
   </div>
 </template>
@@ -37,7 +36,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .lesson-list-item {
   border-radius: 1rem;
   border: 1px solid var(--border-color);
@@ -45,23 +44,56 @@ export default {
 
   &__header {
     display: flex;
+    padding: 0.8rem 0;
   }
 
   &__image {
-    width: 16rem;
+    min-width: 20rem;
+    width: 20rem;
 
     img {
       width: 100%;
       height: auto;
     }
+
+    @media screen and (max-width: 991px) {
+      min-width: 15rem;
+      width: 15rem;
+    }
   }
 
   &__general {
     margin-left: 1rem;
+    padding: 0 0.8rem;
+
+    @media screen and (max-width: 991px) {
+      padding: 0;
+    }
+
+    @media screen and (max-width: 480x) {
+      .anchor {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  &__title {
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Cormorant SC', serif;
+
+    @media screen and (max-width: 991px) {
+      font-size: 1.3rem;
+    }
   }
 
   &__content {
     margin-top: 1rem;
+
+    .github-markdown-body {
+      padding: 0;
+    }
   }
 
   @media screen and (max-width: 768px) {

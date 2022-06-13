@@ -18,7 +18,7 @@
       <v-md-preview :text="course.shortDescription" />
     </div>
     <div class="course-card__control">
-      <nuxt-link :to="courseLink">
+      <nuxt-link :to="courseLink" class="anchor anchor--raw">
         {{ $t('course_card.learn') }}
       </nuxt-link>
     </div>
@@ -57,7 +57,7 @@ export default {
   flex-direction: column;
   align-items: center;
   border-radius: 1rem;
-  background: var(--color-gray-1);
+  background: #b6a498;
   padding: 1rem;
   justify-content: space-between;
   height: 100%;

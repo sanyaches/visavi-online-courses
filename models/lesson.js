@@ -17,6 +17,9 @@ const LessonSchema = new mongoose.Schema({
   description: {
     type: String
   },
+  shortDescription: {
+    type: String
+  },
   /**
    * Category: 'theory' | 'practice' | 'promotion'
    */

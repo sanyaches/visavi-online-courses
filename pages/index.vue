@@ -1164,10 +1164,14 @@ export default {
     font-size: 1.4rem;
     text-transform: uppercase;
     text-align: left;
-    margin-right: 0.3rem;
+    margin-right: 0.6rem;
 
     @media screen and (max-width: 991px) {
       font-size: 1.2rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1rem;
     }
   }
 

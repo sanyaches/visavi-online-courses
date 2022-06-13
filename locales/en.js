@@ -147,6 +147,7 @@ export default {
         title: 'Title',
         category: 'Category',
         description: 'Description',
+        short_description: 'Short description',
         video_url: 'Video URL',
         thumbnail_url: 'Thumbnail URL',
         duration: 'Duration (min)'
@@ -354,24 +355,33 @@ export default {
     },
     faq: {
       first: {
-        question: 'Will I get a certificate after a course finishing',
-        answer: 'Of course, a student will get a certificate after watching all materials and sending results.'
+        question: 'Когда можно приступить к обучению ?',
+        answer: 'После оплаты у вас сразу же появляется доступ к приобретенным урокам и материалам, то есть вы можете приступить к обучению сразу же.'
       },
       second: {
-        question: 'Will I get a certificate after a course finishing',
-        answer: 'Of course, a student will get a certificate after watching all materials and sending results.'
+        question: 'Обязательно ли присылать отработки ?',
+        answer: 'Отработки присылать не обязательно. Но для того, чтобы хорошо усвоить материал уроков, рекомендуется выполнять отработки. У вас в доступе будет обратная связь, где мы сможем разобрать все вопросы по вашей отработке, если они будут.'
       },
       third: {
-        question: 'Will I get a certificate after a course finishing',
-        answer: 'Of course, a student will get a certificate after watching all materials and sending results.'
+        question: 'На сколько остается доступ к материалам ?',
+        answer: `Доступ ко всем материалам уроков и к курсу SILVER у вас будет на 3 месяца.
+          Если вы приобрели курс GOLD, то доступ к урокам сохраняется 6 месяцев.
+          PDF-материалы к урокам остаются у вас навсегда после скачивания.`
       },
       fourth: {
-        question: 'Will I get a certificate after a course finishing',
-        answer: 'Of course, a student will get a certificate after watching all materials and sending results.'
+        question: 'Будет ли обратная связь ?',
+        answer: `
+          Каждый продукт включает в себя обратную связь от Виктории, чтобы ваше обучение прошло
+          максимально результативно. Доступ к обратной связи у вас будет от 1 до 2 месяцев в
+          зависимости от приобретенного тарифа.
+        `
       },
       fifth: {
-        question: 'Will I get a certificate after a course finishing',
-        answer: 'Of course, a student will get a certificate after watching all materials and sending results.'
+        question: 'Получу ли я сертификат ?',
+        answer: `
+          Сертификат получат все! Он гарантированно придёт вам на почту через месяц после приобретения обучения.
+          Если вы пришлете все отработки по приобретённому обучению, то сертификат получите намного раньше.
+        `
       }
     }
   },
@@ -388,7 +398,18 @@ export default {
   course: {
     description: 'Description:',
     price: 'Price: ',
-    access_months: 'Access months: ',
+    about: 'About course',
+    access_months: 'Access duration:',
+    duration: 'Lessons count:',
+    give_certificate: 'Grant',
+    give_feedback: 'Provide',
+    feedback: 'feedback',
+    description_title: 'About course',
+    watch_title: 'Watch promo',
+    homework: 'Send homework',
+    materials: 'To lessons',
+    certificate: 'e-certificate',
+    months: '(in months)',
     buy: 'Buy',
     buy_again: 'Access expired, buy again',
     watch: 'To lessons',
@@ -423,7 +444,18 @@ export default {
   },
   single_lesson: {
     price: 'Price: ',
-    access_months: 'Access months:',
+    about: 'About lesson',
+    access_months: 'Access duration:',
+    duration: 'Lesson duration:',
+    give_certificate: 'Grant',
+    give_feedback: 'Provide',
+    feedback: 'feedback',
+    description_title: 'About lesson',
+    watch_title: 'Watch lesson',
+    homework: 'Send homework',
+    materials: 'To materials',
+    certificate: 'e-certificate',
+    months: '(in months)',
     files_title: 'Materials',
     files_add_button: 'Add file',
     buy: 'Buy',

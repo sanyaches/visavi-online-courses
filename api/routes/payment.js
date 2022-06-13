@@ -37,7 +37,6 @@ router.post('/payment/pay', function (req, res) {
           if (err) {
             console.error(err)
             error = new Error('Get instance_id failed.')
-            debugger
             return
           }
 
@@ -59,7 +58,6 @@ router.post('/payment/pay', function (req, res) {
               if (err) {
                 console.error(err)
                 error = Error('Get request_id failed.')
-                debugger
                 return
               }
               requestId = data.request_id
@@ -74,9 +72,7 @@ router.post('/payment/pay', function (req, res) {
                   if (err) {
                     console.error(err)
                     error = new Error('Get acs_url failed.')
-                    debugger
                   } else {
-                    debugger
                     console.warn('processCallbackData', data)
                     callback(data)
                   }
@@ -175,7 +171,6 @@ router.post('/payment/check', function (req, res) {
           if (err) {
             console.error(err)
             error = new Error('Get instance_id failed.')
-            debugger
             return
           }
 
@@ -193,9 +188,7 @@ router.post('/payment/check', function (req, res) {
               if (err) {
                 console.error(err)
                 error = new Error('Get acs_url failed.')
-                debugger
               } else {
-                debugger
                 console.warn('processCallbackData', data)
                 callback(data)
               }

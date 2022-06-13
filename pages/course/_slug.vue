@@ -1,46 +1,161 @@
 <template>
   <div class="course-page">
     <b-container>
-      <h1 class="course-page__title">
-        {{ course.title }}
-      </h1>
-      <div class="course-page__promo mb-2">
-        <video controls :poster="course.thumbnailUrl">
-          <source
-            :src="course.promoUrl"
-            type="video/mp4"
+      <div v-if="!isPurchased || isExpired" class="course-page__promo">
+        <div class="course-page__promo-background">
+          <video
+            class="course-page__promo-video"
+            :poster="course.thumbnailUrl"
+            frameborder="0"
+            allowfullscreen=""
+            autoplay="autoplay"
+            loop="loop"
+            muted="yes"
+            preload="yes"
+            playsinline=""
           >
-          Sorry, your browser doesn't support embedded videos.
-        </video>
+            <source :src="course.promoUrl" type="video/mp4">
+          </video>
+        </div>
+        <div class="course-page__promo-content">
+          <div class="course-page__promo-content-background">
+            <div class="course-page__promo-text">
+              <div class="course-page__promo-header">
+                <h1 class="course-page__title">
+                  {{ course.title }}
+                </h1>
+                <div class="course-page__image">
+                  <img :src="course.thumbnailUrl">
+                </div>
+                <div class="course-page__price">
+                  <span>{{ course.price }}</span>
+                  <br>
+                  <span class="currency">{{ $t('common.currency') }}</span>
+                </div>
+              </div>
+              <div class="course-page__benefits">
+                <div class="course-page__benefit">
+                  <font-awesome-icon icon="fa-solid fa-clock" class="course-page__benefit-icon" />
+                  <div class="course-page__benefit-text">
+                    {{ $t('course.duration') }}
+                    <br>
+                    {{ courseLessons.length }}
+                  </div>
+                </div>
+                <div class="course-page__benefit">
+                  <font-awesome-icon icon="fa-solid fa-key" class="course-page__benefit-icon" />
+                  <div class="course-page__benefit-text">
+                    <span>{{ $t('course.access_months') }}</span>
+                    <br>
+                    <span>{{ formattedMonths }}</span>
+                  </div>
+                </div>
+                <div class="course-page__benefit">
+                  <font-awesome-icon icon="fa-solid fa-scroll" class="course-page__benefit-icon" />
+                  <div class="course-page__benefit-text">
+                    <span>{{ $t('course.give_certificate') }}</span>
+                    <br>
+                    <span>{{ $t('course.certificate') }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="course-page__control">
+                <nuxt-link class="button button--brown button button--large" to="#about">
+                  {{ $t('course.about') }}
+                </nuxt-link>
+                <b-button class="button button--brown-dark button button--large" @click="buyCourse">
+                  {{ $t('course.buy') }}
+                </b-button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div v-if="!isPurchased" class="course-page__access-months">
-        <span>{{ $t('course.access_months') }}</span>
-        <span>{{ course.accessMonths }}</span>
-      </div>
-      <div v-else-if="purchase" class="course-page__access-months">
-        <span>{{ $t('course.expired_at') }}</span>
-        <span>{{ formattedEndDate }}</span>
-      </div>
-      <div class="course-page__purchase">
-        <b-button v-if="!isPurchased" class="button button--brown-dark button button--large" @click="buyCourse">
-          {{ $t('course.buy') }}
-        </b-button>
-        <template v-else>
-          <b-button v-if="isExpired" class="button button--brown-dark button button--large" @click="buyCourse">
-            {{ $t('course.buy_again') }}
-          </b-button>
-          <nuxt-link
-            v-else
-            to="#course-page-lessons"
-            class="button button--brown button button--large"
+
+      <div v-else class="course-page__promo">
+        <div class="course-page__promo-background">
+          <video
+            class="course-page__promo-video"
+            :poster="course.thumbnailUrl"
+            frameborder="0"
+            allowfullscreen=""
+            autoplay="autoplay"
+            loop="loop"
+            muted="yes"
+            preload="yes"
+            playsinline=""
           >
-            {{ $t('course.watch') }}
-          </nuxt-link>
-        </template>
+            <source :src="course.promoUrl" type="video/mp4">
+          </video>
+        </div>
+        <div class="course-page__promo-content">
+          <div class="course-page__promo-content-background">
+            <div class="course-page__promo-text">
+              <div class="course-page__promo-header">
+                <h1 class="course-page__title">
+                  {{ course.title }}
+                </h1>
+                <div class="course-page__image">
+                  <img :src="course.thumbnailUrl">
+                </div>
+              </div>
+              <div class="course-page__benefits">
+                <div class="course-page__benefit">
+                  <font-awesome-icon icon="fa-solid fa-comment-dots" class="course-page__benefit-icon" />
+                  <div class="course-page__benefit-text">
+                    <span>{{ $t('course.give_feedback') }}</span>
+                    <br>
+                    <span>{{ $t('course.feedback') }}</span>
+                  </div>
+                </div>
+                <div class="course-page__benefit">
+                  <font-awesome-icon icon="fa-solid fa-key" class="course-page__benefit-icon" />
+                  <div class="course-page__benefit-text">
+                    <span>{{ $t('course.expired_at') }}</span>
+                    <br>
+                    <span>{{ formattedEndDate }}</span>
+                  </div>
+                </div>
+                <div class="course-page__benefit">
+                  <font-awesome-icon icon="fa-solid fa-scroll" class="course-page__benefit-icon" />
+                  <div class="course-page__benefit-text">
+                    <span>{{ $t('course.give_certificate') }}</span>
+                    <br>
+                    <span>{{ $t('course.certificate') }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="course-page__control">
+                <nuxt-link class="button button--brown button button--large" to="#about">
+                  {{ $t('course.about') }}
+                </nuxt-link>
+                <nuxt-link class="button button--brown-dark button button--large" to="#course-page-lessons">
+                  {{ $t('course.materials') }}
+                </nuxt-link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div v-if="!isPurchased || isExpired" class="course-page__price">
-        <span>{{ $t('course.price') }}</span>
-        <span>{{ course.price }}</span>
+
+      <div class="course-page__watch">
+        {{ $t('course.watch_title') }}
+      </div>
+      <div id="player" class="course-page__video">
+        <iframe
+          :src="course.promoUrl"
+          width="720"
+          height="400"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+        />
+      </div>
+
+      <div id="about" class="course-page__description-title">
+        <h2>
+          {{ $t('course.description_title') }}
+        </h2>
       </div>
       <div class="course-page__description">
         <v-md-preview :text="course.description" />
@@ -68,7 +183,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { format } from 'date-fns'
+import { format, formatDuration } from 'date-fns'
+import { ru, enUS } from 'date-fns/locale'
 import LessonListItem from '@/components/LessonListItem.vue'
 
 export default {
@@ -122,6 +238,11 @@ export default {
     },
     formattedEndDate () {
       return format(this.purchase.endDate, 'dd MMMM yyyy HH:mm (OOOO)')
+    },
+    formattedMonths () {
+      return formatDuration({
+        months: this.course.accessMonths
+      }, { locale: this.$i18n.locale === 'ru' ? ru : enUS })
     }
   },
 
@@ -210,13 +331,43 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .course-page {
   padding: 2rem 0;
 
   &__title {
     text-align: center;
-    margin: 1rem 0;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 2rem;
+
+    @media screen and (max-width: 991px) {
+      font-size: 1.4rem;
+      text-align: center;
+    }
+  }
+
+  &__image {
+    height: 325px;
+    display: none;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    @media screen and (max-width: 991px) {
+      display: flex;
+    }
+
+    @media screen and (max-width: 768px) {
+      height: 210px;
+    }
+
+    @media screen and (max-width: 768px) {
+      height: 160px;
+    }
   }
 
   &__purchase {
@@ -226,13 +377,23 @@ export default {
   }
 
   &__promo {
-    width: 720px;
+    position: relative;
+    height: 600px;
     overflow: hidden;
     margin: 0 auto;
+
+    @media screen and (max-width: 991px) {
+      position: static;
+      height: auto;
+    }
 
     video {
       width: 100%;
       height: auto;
+
+      @media screen and (max-width: 991px) {
+        display: none;
+      }
     }
 
     @media screen and (max-width: 768px) {
@@ -240,16 +401,184 @@ export default {
     }
 
     @media screen and (max-width: 480px) {
-      width: 320px;
+      width: 340px;
+    }
+
+    @media screen and (max-width: 360px) {
+      width: 300px;
+    }
+  }
+
+  &__promo-background {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__promo-video {
+    width:100%;
+    position:absolute;
+    top:50%;
+    z-index:1;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__promo-content {
+    position: relative;
+
+    @media screen and (max-width: 991px) {
+      position: static;
+    }
+  }
+
+  &__promo-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 1rem;
+
+    @media screen and (max-width: 991px) {
+      flex-direction: column;
+      gap: 1rem;
     }
   }
 
   &__price {
-    text-align: center;
-    margin: 0.5rem 0;
+    font-size: 2.8rem;
+    text-align: right;
+    font-weight: 800;
+    line-height: 100%;
+    font-family: 'Alegreya SC', serif;
+
+    span.currency {
+      text-transform: uppercase;
+      font-size: 1.6rem;
+    }
+
+    &.play {
+      font-size: 5rem;
+    }
+
+    @media screen and (max-width: 991px) {
+      font-size: 2rem;
+      text-align: center;
+
+      &.play {
+        font-size: 4rem;
+        display: none;
+      }
+    }
   }
 
-  &__access-months {
+  &__promo-content-background {
+    position:absolute;
+    width: 100%;
+    top: -400px;
+    height: 400px;
+    background: linear-gradient(to bottom, rgba(241, 241, 241, 0),  rgba(241, 241, 241, 0.8), rgba(241, 241, 241, 0.9), #fff);
+    z-index: 3;
+    padding: 5rem 0rem 0rem;
+
+    @media screen and (max-width: 991px) {
+      position: static;
+      height: auto;
+      padding: 1rem 0;
+      top: 0;
+      background: transparent;
+    }
+  }
+
+  &__promo-text {
+    padding: 0 2rem;
+  }
+
+  &__benefits {
+    padding: 1rem;
+    border-top: 1px solid #b6a498;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+
+    @media screen and (max-width: 991px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  &__benefit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__benefit-icon {
+    font-size: 3rem;
+    color: #584f48;
+
+    @media screen and (max-width: 991px) {
+      font-size: 2rem;
+    }
+  }
+
+  &__benefit-text {
+    padding-top: 0.6rem;
+    text-align: center;
+  }
+
+  &__control {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    @media screen and (max-width: 991px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  &__video {
+    display: none;
+    width: 720px;
+    overflow: hidden;
+    margin: 0 auto;
+    justify-content: center;
+
+    video {
+      width: 100%;
+      height: auto;
+    }
+
+    @media screen and (max-width: 991px) {
+      display: flex;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 420px;
+
+      iframe {
+        height: 240px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      justify-content: flex-start;
+
+      iframe {
+        height: auto;
+      }
+    }
+  }
+
+  &__file-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+
+  &__access_months {
     text-align: center;
     margin: 0.5rem 0;
   }
@@ -268,20 +597,8 @@ export default {
     text-align: center;
   }
 
-  &__lessons-list {
+  &__lessons-item:not(:first-child) {
     margin-top: 2rem;
-    padding-left: 0;
-    list-style: none;
-  }
-
-  &__lessons-item {
-    position: relative;
-  }
-
-  &__lessons-item-delete {
-    position: absolute;
-    right: 0;
-    top: 0;
   }
 
   &__controls {
@@ -289,6 +606,69 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  &__watch {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 2rem 0 1rem;
+    display: none;
+
+    @media screen and (max-width: 991px) {
+      display: block;
+    }
+  }
+
+  &__description-title {
+    margin-top: 2rem;
+
+    h2 {
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-family: 'Cormorant SC', serif;
+    }
+
+    @media screen and (max-width: 991px) {
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  &__description {
+    .github-markdown-body {
+      font-family: inherit;
+      padding: 1rem 0;
+      text-align: justify;
+      font-size: 1.2rem;
+      padding-right: 4rem;
+
+      @media screen and (max-width: 991px) {
+        padding: 0.5rem 0;
+        padding-right: 1rem;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  &__lessons-title {
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Cormorant SC', serif;
+
+    @media screen and (max-width: 991px) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__lessons-list {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
   }
 }
 </style>

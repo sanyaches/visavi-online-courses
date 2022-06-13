@@ -26,6 +26,11 @@
             <v-md-editor id="lesson-description" v-model="form.description" height="400px" />
           </label>
 
+          <label for="lesson-short-description">
+            <div>{{ $t('admin.add_lesson.form.short_description') }}</div>
+            <v-md-editor id="lesson-short-description" v-model="form.shortDescription" height="300px" />
+          </label>
+
           <label for="lesson-category">
             <div>{{ $t('admin.add_lesson.form.category') }}</div>
             <b-input id="lesson-category" v-model="form.category" required autocomplete="lesson-category" type="text" />
@@ -67,6 +72,7 @@ export default {
         name: '',
         title: '',
         description: '',
+        shortDescription: '',
         category: '',
         videoUrl: '',
         thumbnailUrl: '',
@@ -95,6 +101,7 @@ export default {
         title: this.form.title,
         category: this.form.category,
         description: this.form.description,
+        shortDescription: this.form.shortDescription,
         thumbnailUrl: this.form.thumbnailUrl,
         duration: this.form.duration,
         videoUrl: this.form.videoUrl

@@ -138,9 +138,9 @@ export default {
     component: 'FontAwesomeIcon',
     icons: {
       solid: [
-        'faCaretDown', 'faCaretLeft', 'faCaretRight',
-        'faCaretUp', 'faFileArrowDown', 'faClock',
-        'faArrowTrendUp', 'faXmark', 'faPlus', 'faUser', 'faCheck'
+        'faCaretDown', 'faCaretLeft', 'faCaretRight', 'faCommentDots',
+        'faCaretUp', 'faFileArrowDown', 'faClock', 'faScroll', 'faCirclePlay',
+        'faArrowTrendUp', 'faXmark', 'faPlus', 'faUser', 'faCheck', 'faKey'
       ],
       regular: [
         'faClock', 'faMoneyBill1', 'faEye',
