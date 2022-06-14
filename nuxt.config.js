@@ -57,7 +57,11 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    { src: '~/plugins/vue-markdown.js', mode: 'client' }
+    { src: '~/plugins/vue-markdown.js', mode: 'client' },
+    {
+      src: '~plugins/metrika.js',
+      ssr: false
+    }
   ],
 
   /*
