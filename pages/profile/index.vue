@@ -4,7 +4,7 @@
       <div v-if="getIsAuthenticated" class="mt-4">
         <h1>{{ getWelcomeText }}</h1>
         <div class="profile-password">
-          <nuxt-link :to="localePath({path: 'change-password'})">
+          <nuxt-link :to="localePath({path: 'change-password'})" class="anchor anchor--small anchor--brown">
             {{ $t('profile.change_password') }}
           </nuxt-link>
         </div>
@@ -24,7 +24,7 @@
               <span>{{ $t('profile.no_lessons') }}</span>
             </div>
           </div>
-          <nuxt-link to="/#main-single-lessons">
+          <nuxt-link to="/#main-single-lessons" class="anchor anchor--small anchor--brown">
             {{ $t('profile.see_lessons') }}
           </nuxt-link>
         </div>
@@ -45,7 +45,7 @@
               <span>{{ $t('profile.no_courses') }}</span>
             </div>
           </div>
-          <nuxt-link to="/#main-courses">
+          <nuxt-link to="/#main-courses" class="anchor anchor--small anchor--brown">
             {{ $t('profile.see_courses') }}
           </nuxt-link>
         </div>
@@ -124,6 +124,7 @@ export default {
       if (!this.mySingleLessons || !this.mySingleLessons.length) {
         return []
       }
+
       const purchasesSingleLessons = {}
       this.mySingleLessons.forEach((item) => {
         purchasesSingleLessons[item.courseName] = item
@@ -178,7 +179,26 @@ export default {
 
 <style lang="scss" scoped>
 .profile-lessons {
-  padding: 4rem 0 2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  padding: 2rem 1.5rem 4rem;
+  margin-top: 3rem;
+
+  &__header h2 {
+    text-transform: uppercase;
+    font-family: 'Cormorant SC', serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+
+    @media screen and (max-width: 991px) {
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1.6rem;
+    }
+  }
 
   &__list {
     display: grid;
@@ -187,22 +207,47 @@ export default {
     grid-template-columns: 1fr 1fr 1fr;
     margin-bottom: 2rem;
 
-    @media screen and (max-width: 991px) {
+     @media screen and (max-width: 1199px) {
       grid-template-columns: 1fr 1fr;
     }
 
-    @media screen and (max-width: 480px) {
-      grid-template-columns: 1fr;
+    @media screen and (max-width: 991px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 
   &__list-item {
     width: 20rem;
+
+    @media screen and (max-width: 991px) {
+      width: auto;
+    }
   }
 }
 
 .profile-courses {
-  padding: 2rem 0 4rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  padding: 2rem 1.5rem 4rem;
+  margin-top: 3rem;
+
+  &__header h2 {
+    text-transform: uppercase;
+    font-family: 'Cormorant SC', serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+
+    @media screen and (max-width: 991px) {
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1.6rem;
+    }
+  }
 
    &__list {
     display: grid;
@@ -211,17 +256,23 @@ export default {
     grid-template-columns: 1fr 1fr 1fr;
     margin-bottom: 2rem;
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1199px) {
       grid-template-columns: 1fr 1fr;
     }
 
-    @media screen and (max-width: 480px) {
-      grid-template-columns: 1fr;
+    @media screen and (max-width: 991px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 
   &__list-item {
     width: 20rem;
+
+    @media screen and (max-width: 991px) {
+      width: auto;
+    }
   }
 }
 </style>

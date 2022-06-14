@@ -224,7 +224,7 @@ export default {
   },
   login: {
     submit: 'Log in',
-    title: 'Login to visavi',
+    title: 'Login',
     seo: {
       title: 'Log in page'
     },
@@ -239,9 +239,9 @@ export default {
   },
   register: {
     submit: 'Register',
-    title: 'Register in visavi',
+    title: 'Register an account',
     seo: {
-      title: 'Register in visavi'
+      title: 'Register an account'
     },
     form: {
       password: 'Password',

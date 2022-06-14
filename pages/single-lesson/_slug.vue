@@ -211,7 +211,7 @@ export default {
   async asyncData (context) {
     const name = context.params.slug
     try {
-      const token = context.app.$cookies.get('_visavi_token')
+      const token = context.app.$cookies.get('_vikosto_token')
       if (token) {
         context.app.$http.setToken(token, 'Bearer')
       }
@@ -298,8 +298,8 @@ export default {
         courseName: lessonName,
         courseType: 'singleLesson',
         accessMonths: this.singleLesson.accessMonths,
-        amount: this.singleLesson.price,
-        // amount: 2,
+        // amount: this.singleLesson.price,
+        amount: 2,
         paymentMessage,
         token: this.token,
         userEmail

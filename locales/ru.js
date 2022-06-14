@@ -207,7 +207,7 @@ export default {
   },
   login: {
     submit: 'Войти',
-    title: 'Вход в visavi',
+    title: 'Вход в личный кабинет',
     seo: {
       title: 'Страница входа'
     },
@@ -222,9 +222,9 @@ export default {
   },
   register: {
     submit: 'Регистрация',
-    title: 'Регистрация в visavi',
+    title: 'Регистрация аккаунта',
     seo: {
-      title: 'Регистрация visavi'
+      title: 'Регистрация аккаунта'
     },
     form: {
       password: 'Пароль',
@@ -260,7 +260,6 @@ export default {
     profile: 'Профиль',
     register: 'Регистрация',
     profile_tooltip: 'Перейти в профиль',
-    name: 'VISAVI',
     main_title: 'Накручивай не',
     main_title_second: 'себя, а волосы',
     main_title_third: '',

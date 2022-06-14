@@ -190,7 +190,7 @@ router.post('/auth/recovery-password', async function (req, res) {
     const mailOptions = {
       from: emailAdmin,
       to: email,
-      subject: 'Восстановление пароля на онлайн платформе visavi',
+      subject: 'Восстановление пароля на онлайн платформе vikosto',
       html: `<h1>Восстановление пароля</h1>
       <div>
         <span>Ссылка на восстановление пароля:</span>

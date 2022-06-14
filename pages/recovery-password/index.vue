@@ -10,7 +10,7 @@
             <b-input id="email" v-model="form.email" required autocomplete="email" type="text" />
           </label>
 
-          <b-button type="submit" class="mt-2">
+          <b-button type="submit" class="mt-2 button button--brown">
             {{ $t('recovery.submit') }}
           </b-button>
         </div>

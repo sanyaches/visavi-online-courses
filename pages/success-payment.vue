@@ -24,7 +24,7 @@ export default {
     const { request_id, course_type, course_name, access_months, email } = this.$route.query
 
     const url = '/api/payment/check'
-    const token = this.$cookies.get('_visavi_token')
+    const token = this.$cookies.get('_vikosto_token')
     const jsonBody = JSON.stringify({
       courseName: course_name,
       courseType: course_type,

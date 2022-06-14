@@ -10,7 +10,7 @@
             allowfullscreen=""
             autoplay="autoplay"
             loop="loop"
-            muted
+            muted=""
             preload="yes"
             playsinline=""
           >
@@ -81,7 +81,7 @@
             allowfullscreen=""
             autoplay="autoplay"
             loop="loop"
-            muted
+            muted=""
             preload="yes"
             playsinline=""
           >
@@ -232,7 +232,7 @@ export default {
   async asyncData (context) {
     try {
       const name = context.params.slug
-      const token = context.app.$cookies.get('_visavi_token')
+      const token = context.app.$cookies.get('_vikosto_token')
       if (token) {
         context.app.$http.setToken(token, 'Bearer')
       }
@@ -337,8 +337,8 @@ export default {
         courseName,
         courseType: 'course',
         accessMonths: this.course.accessMonths,
-        amount: this.course.price,
-        // amount: 2,
+        // amount: this.course.price,
+        amount: 2,
         paymentMessage,
         token: this.token,
         userEmail

@@ -76,7 +76,7 @@ export default {
 
   async asyncData (context) {
     const name = context.params.slug
-    const token = context.app.$cookies.get('_visavi_token')
+    const token = context.app.$cookies.get('_vikosto_token')
     if (token) {
       context.app.$http.setToken(token, 'Bearer')
     }

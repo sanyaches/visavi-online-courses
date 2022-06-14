@@ -28,20 +28,20 @@
           <label for="confirm-agreement">
             <b-checkbox id="confirm-agreement" v-model="form.confirmAgreement" style="display: inline-block;" required />
             <span>{{ $t('register.form.confirm_agreement') }}</span>
-            (<a href="/offer" target="_blank">{{ $t('register.form.confirm_agreement_link') }}</a>)
+            (<a href="/offer" target="_blank" class="anchor anchor--small anchor--brown">{{ $t('register.form.confirm_agreement_link') }}</a>)
             <span>{{ $t('register.form.confirm_privacy') }}</span>
-            (<a href="/privacy-policy" target="_blank">{{ $t('register.form.confirm_privacy_link') }}</a>)
+            (<a href="/privacy-policy" target="_blank" class="anchor anchor--small anchor--brown">{{ $t('register.form.confirm_privacy_link') }}</a>)
           </label>
 
-          <b-button type="submit" class="mt-2">
+          <b-button type="submit" class="mt-2 button button--brown">
             {{ $t('register.submit') }}
           </b-button>
         </div>
       </b-form>
 
-      <div class="mt-2">
+      <div class="mt-4 text-center">
         {{ $t('register.to_login') }}
-        <nuxt-link :to="localePath('login')">
+        <nuxt-link :to="localePath('login')" class="anchor anchor--small anchor--brown">
           {{ $t('register.to_login_link') }}
         </nuxt-link>
       </div>
@@ -116,7 +116,7 @@ export default {
 
           const expiresDate = new Date(this.valueOf())
           expiresDate.setDate(expiresDate.getDate() + 30)
-          this.$cookies.set('_visavi_token', data.token, { expires: expiresDate })
+          this.$cookies.set('_vikosto_token', data.token, { expires: expiresDate })
 
           this.$router.push(this.localePath('profile'))
 

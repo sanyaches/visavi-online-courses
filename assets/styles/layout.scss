@@ -115,10 +115,14 @@ a.button {
 }
 
 .anchor--brown {
-  color: #b6a498;
+  color: #918277;
+
+  &:hover, &:focus, &:active {
+    color: #b6a498;
+  }
 }
 
-.achor.anchor--small {
+.anchor.anchor--small {
   font-size: 1.2rem;
 }
 

@@ -14,7 +14,7 @@
             <b-input id="repeat-password" v-model="form.repeatPassword" required type="password" />
           </label>
 
-          <b-button type="submit" class="mt-2">
+          <b-button type="submit" class="mt-2 button button--brown">
             {{ $t('change.submit') }}
           </b-button>
         </div>

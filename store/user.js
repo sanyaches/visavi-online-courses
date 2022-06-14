@@ -52,7 +52,7 @@ export const getters = {
 
 export const actions = {
   nuxtServerInit ({ commit }, { app }) {
-    const token = app.$cookies.get('_visavi_token')
+    const token = app.$cookies.get('_vikosto_token')
 
     if (token) {
       app.$http.setToken(token, 'Bearer')

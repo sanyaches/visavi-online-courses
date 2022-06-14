@@ -14,7 +14,7 @@
             <b-input id="repeat-password" v-model="form.repeatPassword" required type="password" />
           </label>
 
-          <b-button type="submit" class="mt-2">
+          <b-button type="submit" class="mt-2 button button--brown">
             {{ $t('restore.submit') }}
           </b-button>
         </div>
@@ -89,7 +89,7 @@ export default {
 
           const expiresDate = new Date(this.valueOf())
           expiresDate.setDate(expiresDate.getDate() + 30)
-          this.$cookies.set('_visavi_token', data.token, { expires: expiresDate })
+          this.$cookies.set('_vikosto_token', data.token, { expires: expiresDate })
 
           this.$router.push(this.localePath('profile'))
 

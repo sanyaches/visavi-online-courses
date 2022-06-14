@@ -13,21 +13,21 @@
             <div>{{ $t('login.form.password') }}</div>
             <b-input id="password" v-model="form.password" required autocomplete="password" type="password" />
           </label>
-          <b-button type="submit" class="mt-2">
+          <b-button type="submit" class="mt-2 button button--brown">
             {{ $t('login.submit') }}
           </b-button>
         </div>
       </b-form>
 
-      <div class="mt-2">
+      <div class="mt-4 text-center">
         {{ $t('login.to_register') }}
-        <nuxt-link :to="localePath('register')">
+        <nuxt-link :to="localePath('register')" class="anchor anchor--small anchor--brown">
           {{ $t('login.to_register_link') }}
         </nuxt-link>
       </div>
-      <div class="mt-2">
+      <div class="mt-2 text-center">
         {{ $t('login.to_recovery') }}
-        <nuxt-link :to="localePath({ path: 'recovery-password' })">
+        <nuxt-link :to="localePath({ path: 'recovery-password' })" class="anchor anchor--small anchor--brown">
           {{ $t('login.to_recovery_link') }}
         </nuxt-link>
       </div>
@@ -87,7 +87,7 @@ export default {
 
           const expiresDate = new Date(this.valueOf())
           expiresDate.setDate(expiresDate.getDate() + 30)
-          this.$cookies.set('_visavi_token', data.token, { expires: expiresDate })
+          this.$cookies.set('_vikosto_token', data.token, { expires: expiresDate })
 
           this.$router.push(this.localePath('profile'))
 
