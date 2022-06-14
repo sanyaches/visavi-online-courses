@@ -79,9 +79,9 @@ export default {
 
     try {
       const response = await context.app.$http.$get(
-          `api/course/single/${name}`
+          `${context.env.baseUrl}/api/course/single/${name}`
       )
-      const lessonsResponse = await context.app.$http.$get(`api/lesson/list-by-course/${name}`)
+      const lessonsResponse = await context.app.$http.$get(`${context.env.baseUrl}/api/lesson/list-by-course/${name}`)
 
       return {
         course: response.data.course,
@@ -223,7 +223,7 @@ export default {
     },
 
     async updateLessonsList () {
-      const lessonsResponse = await this.$http.$get(`api/lesson/list-by-course/${this.course.name}`)
+      const lessonsResponse = await this.$http.$get(`${process.env.baseUrl}/api/lesson/list-by-course/${this.course.name}`)
       if (!lessonsResponse) {
         return
       }

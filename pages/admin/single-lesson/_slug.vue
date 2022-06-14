@@ -92,7 +92,7 @@ export default {
     }
     try {
       const response = await context.app.$http.$get(
-          `api/single-lesson/single/${name}`
+          `${context.env.baseUrl}/api/single-lesson/single/${name}`
       )
 
       return {

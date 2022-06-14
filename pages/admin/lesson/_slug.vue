@@ -83,7 +83,7 @@ export default {
 
     try {
       const response = await context.app.$http.$get(
-          `api/lesson/single/${name}`
+          `${context.env.baseUrl}/api/lesson/single/${name}`
       )
       return {
         lesson: response.data.lesson,

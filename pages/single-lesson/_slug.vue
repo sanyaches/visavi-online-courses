@@ -216,7 +216,7 @@ export default {
         context.app.$http.setToken(token, 'Bearer')
       }
       const response = await context.app.$http.$get(
-          `api/single-lesson/single/${name}`
+          `${context.env.baseUrl}/api/single-lesson/single/${name}`
       )
 
       return {

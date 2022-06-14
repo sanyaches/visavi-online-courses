@@ -8,6 +8,10 @@ export default {
   */
   target: 'server',
 
+  env: {
+    baseUrl: process.env.BASE_URL
+  },
+
   /*
   ** Headers of the page
   ** See https://nuxtjs.org/api/configuration-head
@@ -80,7 +84,7 @@ export default {
     'cookie-universal-nuxt',
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
-    // '@nuxtjs/sentry',
+    '@nuxtjs/sentry',
     [
       '@nuxtjs/i18n',
       {
@@ -111,10 +115,10 @@ export default {
   /*
   ** For deployment you might want to edit host and port
   */
-  // server: {
-  //  port: 8000, // default: 3000
-  //  host: '0.0.0.0' // default: localhost
-  // },
+  server: {
+    port: 3000,
+    host: '0.0.0.0'
+  },
 
   /*
   ** Build configuration
