@@ -298,8 +298,8 @@ export default {
         courseName: lessonName,
         courseType: 'singleLesson',
         accessMonths: this.singleLesson.accessMonths,
-        // amount: this.singleLesson.price,
-        amount: 2,
+        amount: this.singleLesson.price,
+        // amount: 2,
         paymentMessage,
         token: this.token,
         userEmail
