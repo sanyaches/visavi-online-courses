@@ -493,13 +493,13 @@ export default {
   },
   single_lesson_card: {
     buy: 'Купить',
-    learn: 'К обучению',
+    learn: 'Подробнее',
     expired_at: 'Доступ закончится:'
   },
   course_card: {
     buy: 'Купить',
     bought: 'Куплен',
-    learn: 'К обучению',
+    learn: 'Подробнее',
     expired_at: 'Доступ закончится:'
   },
   notify: {

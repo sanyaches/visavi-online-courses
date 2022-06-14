@@ -147,9 +147,14 @@ export default {
     font-size: 1.6rem;
     font-weight: 600;
     color: #fff;
+    text-decoration: underline;
 
-    a, a:hover, a:active, a:visited {
-      color: inherit
+    a:visited {
+      color: #fff;
+    }
+
+    a:hover, a:active {
+      color: #f4e6dc;
     }
 
     @media screen and (max-width: 1199px) {
@@ -158,6 +163,14 @@ export default {
 
     @media screen and (max-width: 991px) {
       color: initial;
+
+      a:visited {
+        color: initial;
+      }
+
+      a:hover, a:active {
+        color: #b6a498;
+      }
     }
   }
 
