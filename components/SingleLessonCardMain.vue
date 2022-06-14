@@ -149,7 +149,7 @@ export default {
     color: #fff;
     text-decoration: underline;
 
-    a:visited {
+    a, a:visited {
       color: #fff;
     }
 
@@ -162,14 +162,14 @@ export default {
     }
 
     @media screen and (max-width: 991px) {
-      color: initial;
+      color: #212529;
 
-      a:visited {
-        color: initial;
+      a, a:visited {
+        color: #212529;
       }
 
       a:hover, a:active {
-        color: #b6a498;
+        color: #938378;
       }
     }
   }
