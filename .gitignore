@@ -94,6 +94,5 @@ sw.*
 *.env
 
 # Uploads
-videos_protected/
-api/upload/
-api/videos_public/
+# api/upload/
+# api/videos_public/
