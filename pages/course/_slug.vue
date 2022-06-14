@@ -147,7 +147,7 @@
           width="720"
           height="400"
           frameborder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
+          allow="fullscreen; picture-in-picture"
           allowfullscreen
         />
       </div>

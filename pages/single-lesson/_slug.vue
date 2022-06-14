@@ -10,7 +10,7 @@
             allowfullscreen=""
             autoplay="autoplay"
             loop="loop"
-            muted="yes"
+            muted=""
             preload="yes"
             playsinline=""
           >
@@ -75,7 +75,7 @@
       </div>
 
       <div v-else class="single-lesson-single__promo">
-        <div class="single-lesson-single__promo-background">
+        <div class="single-lesson-single__promo-background mobile">
           <video
             class="single-lesson-single__promo-video"
             :poster="singleLesson.thumbnailUrl"
@@ -83,7 +83,7 @@
             allowfullscreen=""
             autoplay="autoplay"
             loop="loop"
-            muted="yes"
+            muted=""
             preload="yes"
             playsinline=""
           >
@@ -165,6 +165,22 @@
           />
         </div>
       </template>
+
+      <div v-else class="single-lesson-single__promo-watch">
+        <div class="single-lesson-single__watch">
+          {{ $t('course.watch_title') }}
+        </div>
+        <div id="player" class="single-lesson-single__video">
+          <iframe
+            :src="singleLesson.promoUrl"
+            width="720"
+            height="400"
+            frameborder="0"
+            allow="fullscreen; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
+      </div>
 
       <div id="about" class="single-lesson-single__description-title">
         <h2>
@@ -609,6 +625,14 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  &__promo-watch {
+    display: none;
+
+    @media screen and (max-width: 991px) {
+      display: block;
+    }
   }
 
   &__watch {
