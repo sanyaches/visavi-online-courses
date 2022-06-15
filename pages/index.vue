@@ -452,6 +452,12 @@ export default {
       singleLessons: [],
       courses: []
     }
+  },
+
+  head () {
+    return {
+      title: this.$t('index.seo.title')
+    }
   }
 }
 </script>

@@ -75,7 +75,7 @@
       </div>
 
       <div v-else class="single-lesson-single__promo">
-        <div class="single-lesson-single__promo-background mobile">
+        <div class="single-lesson-single__promo-background">
           <video
             class="single-lesson-single__promo-video"
             :poster="singleLesson.thumbnailUrl"
@@ -154,14 +154,13 @@
         <div class="single-lesson-single__watch">
           {{ $t('single_lesson.watch_title') }}
         </div>
-        <div id="player" class="single-lesson-single__video">
+        <div id="player" class="single-lesson-single__video" style="padding:56.25% 0 0 0;position:relative;">
           <iframe
             :src="singleLesson.videoUrl"
-            width="720"
-            height="400"
             frameborder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
+            style="position:absolute;top:0;left:0;width:100%;height:100%;"
           />
         </div>
       </template>
@@ -170,15 +169,20 @@
         <div class="single-lesson-single__watch">
           {{ $t('course.watch_title') }}
         </div>
-        <div id="player" class="single-lesson-single__video">
-          <iframe
-            :src="singleLesson.promoUrl"
-            width="720"
-            height="400"
+        <div class="single-lesson-single__video">
+          <video
+            :poster="singleLesson.thumbnailUrl"
             frameborder="0"
-            allow="fullscreen; picture-in-picture"
-            allowfullscreen
-          />
+            allowfullscreen=""
+            autoplay="autoplay"
+            controls
+            loop="loop"
+            muted=""
+            preload="yes"
+            playsinline=""
+          >
+            <source :src="singleLesson.promoUrl" type="video/mp4">
+          </video>
         </div>
       </div>
 
@@ -234,6 +238,12 @@ export default {
       singleLesson: {},
       files: [],
       purchase: null
+    }
+  },
+
+  head () {
+    return {
+      title: this.$t('single_lesson.seo.title', { title: this.singleLesson.title })
     }
   },
 
@@ -558,32 +568,23 @@ export default {
   }
 
   &__video {
-    width: 720px;
     overflow: hidden;
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    width: 720px;
 
     video {
       width: 100%;
       height: auto;
     }
 
-    @media screen and (max-width: 768px) {
-      width: 420px;
-
-      iframe {
-        height: 240px;
-      }
+    @media screen and (max-width: 991px) {
+      width: 100%;
     }
 
     @media screen and (max-width: 480px) {
-      width: 100%;
       justify-content: flex-start;
-
-      iframe {
-        height: auto;
-      }
     }
   }
 

@@ -262,7 +262,6 @@ export default {
     profile_tooltip: 'Перейти в профиль',
     main_title: 'Накручивай не',
     main_title_second: 'себя, а волосы',
-    main_title_third: '',
     want_study: 'Перейти к обучению',
     about_title: 'Кому подойдет онлайн обучение?',
     author_title: 'Об авторе обучения',
@@ -366,6 +365,9 @@ export default {
           Если вы пришлете все отработки по приобретённому обучению, то сертификат получите намного раньше.
         `
       }
+    },
+    seo: {
+      title: 'Онлайн обучение по прическам - vikosto'
     }
   },
   change: {
@@ -401,6 +403,10 @@ export default {
     see_courses: 'Смотреть все курсы'
   },
   course: {
+    seo: {
+      title: '{title} - онлайн обучение прическам - vikosto'
+    },
+    no_lessons: 'В курсе пока нет уроков',
     list_lessons: 'Уроки',
     category_theory: 'Теоретические уроки',
     category_practice: 'Практические уроки',
@@ -452,6 +458,9 @@ export default {
     payment_message: 'Оплата {amount} рублей от {from} (email: {email}), за курс "{courseName}"'
   },
   single_lesson: {
+    seo: {
+      title: '{title} - онлайн обучение прическам - vikosto'
+    },
     price: 'Цена: ',
     about: 'Об уроке',
     access_months: 'Длительность доступа:',

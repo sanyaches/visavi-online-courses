@@ -283,9 +283,8 @@ export default {
     register: 'Register',
     profile_tooltip: 'To profile',
     name: 'VIKOSTO',
-    main_title: 'Stop brushing ',
-    main_title_second: 'yourself,',
-    main_title_third: 'brush your hair',
+    main_title: 'Hairstyles',
+    main_title_second: 'for everyone',
     main_title_subtitle: 'Online hairstyle education',
     want_study: 'Want to study',
     about_title: 'Who does suit online education?',
@@ -383,6 +382,9 @@ export default {
           Если вы пришлете все отработки по приобретённому обучению, то сертификат получите намного раньше.
         `
       }
+    },
+    seo: {
+      title: 'Online hairstyles education - vikosto'
     }
   },
   profile: {
@@ -396,6 +398,10 @@ export default {
     see_courses: 'See courses'
   },
   course: {
+    seo: {
+      title: '{title} - online hairstyles education - vikosto'
+    },
+    no_lessons: 'There are no lessons now',
     list_lessons: 'Lessons',
     category_theory: 'Theoretical lessons',
     category_practice: 'Practical lessons',
@@ -447,6 +453,9 @@ export default {
     payment_message: 'Payment {amount} rubles from {from} (email: {email}), for a course "{courseName}"'
   },
   single_lesson: {
+    seo: {
+      title: '{title} - online hairstyles education - vikosto'
+    },
     price: 'Price: ',
     about: 'About lesson',
     access_months: 'Access duration:',

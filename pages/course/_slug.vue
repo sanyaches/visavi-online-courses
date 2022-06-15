@@ -259,6 +259,12 @@ export default {
     }
   },
 
+  head () {
+    return {
+      title: this.$t('course.seo.title', { title: this.course.title })
+    }
+  },
+
   computed: {
     ...mapGetters({
       myCourses: 'user/getMyCourses',
