@@ -1,6 +1,14 @@
 <template>
   <div class="single-lesson-single">
-    <b-container>
+    <b-button v-if="!isPurchased || isExpired" class="single-lesson-single__buy-button" @click="buySingleLesson">
+      <div>
+        {{ $t('single_lesson.buy_button') }}
+        <br>
+        {{ $t('single_lesson.buy_course_button') }}
+      </div>
+    </b-button>
+
+    <b-container class="promo-container">
       <div v-if="!isPurchased || isExpired" class="single-lesson-single__promo">
         <div class="single-lesson-single__promo-background">
           <video
@@ -149,7 +157,9 @@
           </div>
         </div>
       </div>
+    </b-container>
 
+    <b-container>
       <template v-if="isPurchased && !isExpired">
         <div class="single-lesson-single__watch">
           {{ $t('single_lesson.watch_title') }}
@@ -164,27 +174,6 @@
           />
         </div>
       </template>
-
-      <div v-else class="single-lesson-single__promo-watch">
-        <div class="single-lesson-single__watch">
-          {{ $t('course.watch_title') }}
-        </div>
-        <div class="single-lesson-single__video">
-          <video
-            :poster="singleLesson.thumbnailUrl"
-            frameborder="0"
-            allowfullscreen=""
-            autoplay="autoplay"
-            controls
-            loop="loop"
-            muted=""
-            preload="yes"
-            playsinline=""
-          >
-            <source :src="singleLesson.promoUrl" type="video/mp4">
-          </video>
-        </div>
-      </div>
 
       <div id="about" class="single-lesson-single__description-title">
         <h2>
@@ -362,7 +351,83 @@ export default {
 
 <style lang="scss">
 .single-lesson-single {
-  padding: 2rem 0;
+  padding: 0 0 6rem;
+
+  &__buy-button {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    width: 5rem;
+    height: 5rem;
+    padding: 0.5rem 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #b6a498;
+    border-radius: 50%;
+    font-size: 1rem;
+    opacity: 0.9;
+    z-index: 1000000;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    outline: none;
+    border: none;
+    transition: all 0.4s;
+    animation: pulse 2s infinite;
+
+    &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
+      background-color: #d1bdb0;
+    }
+
+    @media screen and (min-width: 768px) {
+      bottom: 2.5rem;
+      left: 2.5rem;
+      width: 8rem;
+      height: 8rem;
+      font-size: 1.4rem;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.9);
+    }
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 40px rgba(182, 164, 152, 0.3);
+    }
+    100% {
+      transform: scale(0.9);
+      box-shadow: 0 0 0 0 rgba(182, 164, 152, 0.3);
+    }
+  }
+
+  @media screen and (max-width: 980px) {
+    @keyframes pulse {
+      0% {
+        transform: scale(0.9);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 20px rgba(182, 164, 152, 0.3);
+      }
+      100% {
+        transform: scale(0.9);
+        box-shadow: 0 0 0 0 rgba(182, 164, 152, 0.3);
+      }
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    padding: 0 0 6rem;
+
+    .container.promo-container {
+      margin: 0;
+      padding: 0;
+      max-width: 100%;
+    }
+  }
 
   &__title {
     text-align: center;
@@ -371,9 +436,16 @@ export default {
     font-weight: 700;
     font-size: 2rem;
 
+    @media screen and (max-width: 1200px) {
+      font-size: 1.8rem;
+    }
+
     @media screen and (max-width: 991px) {
       font-size: 1.4rem;
-      text-align: center;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1rem;
     }
   }
 
@@ -384,10 +456,6 @@ export default {
     img {
       width: 100%;
       height: auto;
-    }
-
-    @media screen and (max-width: 991px) {
-      display: flex;
     }
 
     @media screen and (max-width: 768px) {
@@ -412,8 +480,12 @@ export default {
     margin: 0 auto;
 
     @media screen and (max-width: 991px) {
-      position: static;
-      height: auto;
+      .container {
+        margin: 0;
+        padding: 0;
+      }
+
+      height: 60vh;
     }
 
     video {
@@ -421,20 +493,8 @@ export default {
       height: auto;
 
       @media screen and (max-width: 991px) {
-        display: none;
+        width: 100vh;
       }
-    }
-
-    @media screen and (max-width: 768px) {
-      width: 420px;
-    }
-
-    @media screen and (max-width: 480px) {
-      width: 340px;
-    }
-
-    @media screen and (max-width: 360px) {
-      width: 300px;
     }
   }
 
@@ -447,16 +507,32 @@ export default {
     width:100%;
     position:absolute;
     top:50%;
-    z-index:1;
     left: 50%;
+    z-index:1;
     transform: translate(-50%, -50%);
+
+    @media screen and (max-width: 991px) {
+      width: 100vh;
+      top: 0;
+      transform: translate(-50%, 0);
+    }
   }
 
   &__promo-content {
     position: relative;
 
-    @media screen and (max-width: 991px) {
-      position: static;
+    @media screen and (max-width: 1200px) {
+      .button.button--large {
+        font-size: 1.1rem;
+        padding: 0.3rem 0.5rem;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .button.button--large {
+        font-size: 1rem;
+        padding: 0.3rem 0.5rem;
+      }
     }
   }
 
@@ -466,11 +542,6 @@ export default {
     justify-content: space-between;
     gap: 2rem;
     margin-bottom: 1rem;
-
-    @media screen and (max-width: 991px) {
-      flex-direction: column;
-      gap: 1rem;
-    }
   }
 
   &__price {
@@ -489,13 +560,35 @@ export default {
       font-size: 5rem;
     }
 
+    @media screen and (max-width: 1200px) {
+      font-size: 2.2rem;
+
+      &.play {
+        font-size: 4.4rem;
+      }
+
+      span.currency {
+        font-size: 1.4rem;
+      }
+    }
+
     @media screen and (max-width: 991px) {
       font-size: 2rem;
-      text-align: center;
 
       &.play {
         font-size: 4rem;
-        display: none;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1.6rem;
+
+      span.currency {
+        font-size: 1.2rem;
+      }
+
+      &.play {
+        font-size: 2rem;
       }
     }
   }
@@ -509,17 +602,18 @@ export default {
     z-index: 3;
     padding: 5rem 0rem 0rem;
 
-    @media screen and (max-width: 991px) {
-      position: static;
-      height: auto;
-      padding: 1rem 0;
-      top: 0;
-      background: transparent;
+    @media screen and (max-width: 480px) {
+      top: -360px;
+      height: 350px;
     }
   }
 
   &__promo-text {
     padding: 0 2rem;
+
+    @media screen and (max-width: 480px) {
+      padding: 0 1rem;
+    }
   }
 
   &__benefits {
@@ -530,8 +624,8 @@ export default {
     gap: 2rem;
 
     @media screen and (max-width: 991px) {
-      grid-template-columns: 1fr;
       gap: 1rem;
+      padding: 0.5rem;
     }
   }
 
@@ -545,14 +639,26 @@ export default {
     font-size: 3rem;
     color: #584f48;
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: 1200px) {
       font-size: 2rem;
+    }
+
+    @media screen and (max-width: 991px) {
+      font-size: 1.4rem;
     }
   }
 
   &__benefit-text {
     padding-top: 0.6rem;
     text-align: center;
+
+    @media screen and (max-width: 1200px) {
+      font-size: 0.8rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 0.7rem;
+    }
   }
 
   &__control {
@@ -562,7 +668,6 @@ export default {
     gap: 2rem;
 
     @media screen and (max-width: 991px) {
-      grid-template-columns: 1fr;
       gap: 1rem;
     }
   }
@@ -570,7 +675,6 @@ export default {
   &__video {
     overflow: hidden;
     margin: 0 auto;
-    display: flex;
     justify-content: center;
     width: 720px;
 
@@ -628,20 +732,13 @@ export default {
     align-items: center;
   }
 
-  &__promo-watch {
-    display: none;
-
-    @media screen and (max-width: 991px) {
-      display: block;
-    }
-  }
-
   &__watch {
     text-transform: uppercase;
     font-size: 1.4rem;
     font-weight: 700;
     text-align: center;
     margin: 2rem 0 1rem;
+    display: none;
   }
 
   &__description-title {

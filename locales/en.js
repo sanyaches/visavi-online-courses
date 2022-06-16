@@ -401,6 +401,8 @@ export default {
     seo: {
       title: '{title} - online hairstyles education - vikosto'
     },
+    buy_button: 'Buy',
+    buy_course_button: 'Course',
     no_lessons: 'There are no lessons now',
     list_lessons: 'Lessons',
     category_theory: 'Theoretical lessons',
@@ -456,6 +458,8 @@ export default {
     seo: {
       title: '{title} - online hairstyles education - vikosto'
     },
+    buy_button: 'Buy',
+    buy_course_button: 'lesson',
     price: 'Price: ',
     about: 'About lesson',
     access_months: 'Access duration:',

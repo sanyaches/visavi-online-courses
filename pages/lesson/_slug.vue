@@ -5,14 +5,13 @@
         {{ lesson.title }}
       </h1>
 
-      <div class="lesson-page__video">
+      <div class="lesson-page__video" style="padding:56.25% 0 0 0;position:relative;">
         <iframe
           :src="lesson.videoUrl"
-          width="640"
-          height="360"
           frameborder="0"
           allow="autoplay; fullscreen; picture-in-picture"
           allowfullscreen
+          style="position:absolute;top:0;left:0;width:100%;height:100%;"
         />
       </div>
 

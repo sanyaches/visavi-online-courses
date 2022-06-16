@@ -406,6 +406,8 @@ export default {
     seo: {
       title: '{title} - онлайн обучение прическам - vikosto'
     },
+    buy_button: 'Купить',
+    buy_course_button: 'Курс',
     no_lessons: 'В курсе пока нет уроков',
     list_lessons: 'Уроки',
     category_theory: 'Теоретические уроки',
@@ -420,7 +422,7 @@ export default {
     give_feedback: 'Предоставляется',
     feedback: 'обратная связь',
     homework: 'Прислать отработку',
-    materials: 'К урокам',
+    materials: 'Смотреть',
     description_title: 'О курсе',
     give_certificate: 'Выдается',
     certificate: 'электронный сертификат',
@@ -461,6 +463,8 @@ export default {
     seo: {
       title: '{title} - онлайн обучение прическам - vikosto'
     },
+    buy_button: 'Купить',
+    buy_course_button: 'урок',
     price: 'Цена: ',
     about: 'Об уроке',
     access_months: 'Длительность доступа:',
