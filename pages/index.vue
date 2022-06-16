@@ -12,7 +12,7 @@
             </div>
             <div class="hero__button">
               <nuxt-link
-                to="/#main-single-lessons"
+                to="#main-single-lessons"
                 class="button button--brown-dark button button--large"
               >
                 {{ $t('index.want_study') }}
@@ -126,7 +126,7 @@
               </p>
               <div class="author__button">
                 <nuxt-link
-                  to="/#main-single-lessons"
+                  to="#main-courses"
                   class="button button--beige button button--large"
                 >
                   {{ $t('index.author_want_study') }}
@@ -164,7 +164,7 @@
           </div>
           <div class="author__button">
             <nuxt-link
-              to="/#main-single-lessons"
+              to="#main-courses"
               class="button button--beige button button--large"
             >
               {{ $t('index.author_want_study') }}

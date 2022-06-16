@@ -135,11 +135,11 @@ export default {
         const link = this.localePath('/login')
         this.$root.$bvToast.toast(this.$t('notify.register_then_buy_msg'), {
           title: this.$t('notify.register_then_buy'),
-          href: link,
           toaster: 'b-toaster-top-right',
           solid: true,
           variant: 'info'
         })
+        this.$router.push(link)
 
         return
       }
