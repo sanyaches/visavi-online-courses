@@ -15,7 +15,7 @@
         />
       </div>
 
-      <div class="my-4 text-center">
+      <div v-if="lesson.category === 'practice'" class="my-4 text-center">
         <nuxt-link class="button button--brown button button--large" to="#chat-container">
           {{ $t('lesson.chat_link') }}
         </nuxt-link>
