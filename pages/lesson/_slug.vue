@@ -15,6 +15,12 @@
         />
       </div>
 
+      <div class="my-4 text-center">
+        <nuxt-link class="button button--brown button button--large" to="#chat-container">
+          {{ $t('lesson.chat_link') }}
+        </nuxt-link>
+      </div>
+
       <div class="lesson-page__description">
         <v-md-preview :text="lesson.description" />
       </div>
@@ -28,11 +34,24 @@
           <file-card v-for="file in files" :key="file.name" :file="file" />
         </div>
       </div>
+
+      <div v-if="lesson.category === 'practice'" class="lesson-page__chat">
+        <h2 class="lesson-page__chat-title">
+          {{ $t('lesson.chat_title') }}
+        </h2>
+        <p v-if="chatLoading">
+          {{ $t('lesson.chat_loading') }}
+        </p>
+        <div id="chat-container" class="lesson-page__chat-container" />
+      </div>
     </b-container>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-undef */
+import { mapGetters } from 'vuex'
+
 export default {
   async asyncData (context) {
     const name = context.params.slug
@@ -46,7 +65,11 @@ export default {
       )
       return {
         lesson: response.data.lesson,
-        files: response.data.files
+        files: response.data.files,
+        APP_ID: context.env.COMETCHAT_APP_ID,
+        AUTH_KEY: context.env.COMETCHAT_AUTH_KEY,
+        APP_REGION: context.env.COMETCHAT_REGION,
+        WIDGET_ID: context.env.COMETCHAT_WIDGET_ID
       }
     } catch (e) {
       context.error(e)
@@ -56,7 +79,96 @@ export default {
   data () {
     return {
       lesson: {},
-      files: []
+      files: [],
+      APP_ID: '',
+      AUTH_KEY: '',
+      APP_REGION: '',
+      WIDGET_ID: '',
+      chatLoading: false
+    }
+  },
+
+  computed: {
+    ...mapGetters({
+      profile: 'user/getMe',
+      token: 'user/getToken'
+    })
+  },
+
+  mounted () {
+    if (this.lesson.category !== 'practice') {
+      return
+    }
+
+    if (!this.profile || !this.profile.id || !this.profile.firstName) {
+      this.unsubscribe = this.$store.subscribe((mutation, state) => {
+        if (mutation.type === 'user/setUser') {
+          const { user } = state.user
+          if (user.id) {
+            this.initChat(user)
+          }
+        }
+      })
+    } else {
+      this.initChat(this.profile)
+    }
+  },
+
+  beforeDestroy () {
+    if (this.unsubscribe) {
+      this.unsubscribe()
+    }
+  },
+
+  methods: {
+    initChat (user) {
+      try {
+        const UID = user.id
+        const name = user.firstName
+        const chatLocale = 'ru'
+
+        if (!window.CometChatWidget) {
+          return
+        }
+
+        this.chatLoading = true
+
+        CometChatWidget.init({
+          appID: this.APP_ID,
+          appRegion: this.APP_REGION,
+          authKey: this.AUTH_KEY
+        }).then((response) => {
+          const chatUser = new CometChatWidget.CometChat.User(UID)
+          chatUser.setName(name)
+
+          CometChatWidget.createOrUpdateUser(chatUser).then((user) => {
+            CometChatWidget.login({
+              uid: UID
+            }).then((loggedInUser) => {
+              CometChatWidget.launch({
+                widgetID: this.WIDGET_ID,
+                target: '#chat-container',
+                roundedCorners: 'true',
+                height: '100%',
+                width: '100%',
+                defaultID: '1',
+                defaultType: 'user'
+              }).then(() => {
+                setTimeout(() => {
+                  CometChatWidget.localize(chatLocale)
+                  this.chatLoading = false
+                }, 1000)
+              }).catch(() => {
+                this.chatLoading = false
+              })
+            })
+          })
+        }).catch((e) => {
+          console.error(e)
+        })
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 }
@@ -153,6 +265,31 @@ export default {
 
     .github-markdown-body {
       padding: 0.8rem 0;
+    }
+  }
+
+  &__chat-title {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Cormorant SC', serif;
+  }
+
+  &__chat {
+    margin: 2rem 0;
+  }
+
+  &__chat-container {
+    margin-top: 1rem;
+    width: 100%;
+    height: 60vh;
+
+    .app__messenger {
+      z-index: 20;
+    }
+
+    @media screen and (max-width: 400px) {
+      height: 70vh;
     }
   }
 }

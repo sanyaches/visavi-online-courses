@@ -2,6 +2,9 @@
   <div class="mt-4">
     <b-container>
       <div>
+        <h2>Chat</h2>
+        <div id="chat-container" class="my-2 admin-chat" />
+
         <h1>{{ $t('admin.list_courses') }}</h1>
 
         <nuxt-link :to="localePath({path: 'admin/add-course'})" class="button--green mb-4">
@@ -52,6 +55,7 @@
 </template>
 
 <script>
+/* eslint-disable no-undef */
 import CourseListItem from '@/components/CourseListItem.vue'
 import SingleLessonListItem from '@/components/SingleLessonListItem.vue'
 
@@ -63,12 +67,29 @@ export default {
 
   middleware: 'adminAuth',
 
+  asyncData (context) {
+    try {
+      return {
+        APP_ID: context.env.COMETCHAT_APP_ID,
+        APP_REGION: context.env.COMETCHAT_REGION,
+        ADMIN_WIDGET_ID: context.env.COMETCHAT_ADMIN_WIDGET_ID,
+        ADMIN_AUTH_KEY: context.env.COMETCHAT_ADMIN_AUTH_KEY
+      }
+    } catch (e) {
+      context.error(e)
+    }
+  },
+
   data () {
     return {
       listCourses: [],
       listSingleLessons: [],
       coursesLoading: false,
-      singleLessonsLoading: false
+      singleLessonsLoading: false,
+      APP_ID: '',
+      APP_REGION: '',
+      ADMIN_WIDGET_ID: '',
+      ADMIN_AUTH_KEY: ''
     }
   },
 
@@ -77,7 +98,51 @@ export default {
     this.loadSingleLessons()
   },
 
+  mounted () {
+    this.loadCourses()
+    this.loadSingleLessons()
+    this.initChat()
+  },
+
   methods: {
+    initChat () {
+      try {
+        if (!window.CometChatWidget) {
+          return
+        }
+
+        CometChatWidget.init({
+          appID: this.APP_ID,
+          appRegion: this.APP_REGION
+        }).then((response) => {
+          const chatLocale = 'ru'
+          CometChatWidget.localize(chatLocale)
+
+          CometChatWidget.login({
+            authToken: this.ADMIN_AUTH_KEY
+          }).then((loggedInUser) => {
+            CometChatWidget.launch({
+              widgetID: this.ADMIN_WIDGET_ID,
+              target: '#chat-container',
+              roundedCorners: 'true',
+              height: '100%',
+              width: '100%',
+              defaultID: 'superhero1',
+              defaultType: 'user'
+            }).then(() => {
+              setTimeout(() => {
+                CometChatWidget.localize(chatLocale)
+              }, 500)
+            })
+          })
+        }).catch((e) => {
+          console.error(e)
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    },
+
     async loadCourses () {
       try {
         this.coursesLoading = true
@@ -124,3 +189,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.admin-chat {
+  width: 100%;
+  height: 60vh;
+
+  .app__messenger {
+    z-index: 20;
+  }
+
+  @media screen and (max-width: 400px) {
+    height: 70vh;
+  }
+}
+</style>

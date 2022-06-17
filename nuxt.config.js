@@ -9,7 +9,13 @@ export default {
   target: 'server',
 
   env: {
-    baseUrl: process.env.BASE_URL
+    baseUrl: process.env.BASE_URL,
+    COMETCHAT_APP_ID: process.env.COMETCHAT_APP_ID,
+    COMETCHAT_AUTH_KEY: process.env.COMETCHAT_AUTH_KEY,
+    COMETCHAT_REGION: process.env.COMETCHAT_REGION,
+    COMETCHAT_WIDGET_ID: process.env.COMETCHAT_WIDGET_ID,
+    COMETCHAT_ADMIN_WIDGET_ID: process.env.COMETCHAT_ADMIN_WIDGET_ID,
+    COMETCHAT_ADMIN_AUTH_KEY: process.env.COMETCHAT_ADMIN_AUTH_KEY
   },
 
   /*
@@ -41,6 +47,12 @@ export default {
             'https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Cormorant+SC:wght@500;700&family=Kaisei+Decol:wght@500;700&family=Raleway:wght@400;500;600;700&family=Zen+Antique&display=swap'
         },
         ...i18nHead.link
+      ],
+      script: [
+        {
+          defer: true,
+          src: 'https://widget-js.cometchat.io/v3/cometchatwidget.js'
+        }
       ]
     }
   },

@@ -341,6 +341,7 @@ router.get('/auth/get-profile', verifyToken, async function (req, res) {
     res.status(200).json({
       status: 'success',
       user: {
+        id: result.id,
         firstName: result.firstName,
         lastName: result.lastName,
         email: result.email,

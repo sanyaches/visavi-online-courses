@@ -485,7 +485,10 @@ export default {
       resource_url: 'Link to resource',
       submit: 'Add'
     },
-    payment_message: 'Payment {amount} rubles from {from} (email: {email}), for a lesson "{lessonName}"'
+    payment_message: 'Payment {amount} rubles from {from} (email: {email}), for a lesson "{lessonName}"',
+    chat_title: 'Lesson discussion',
+    chat_loading: 'Chat is loading...',
+    chat_start: 'You can send your homework in convenient format: video or photo'
   },
   lesson: {
     price: 'Price: ',
@@ -497,7 +500,11 @@ export default {
       title: 'Title',
       resource_url: 'Link to resource',
       submit: 'Add'
-    }
+    },
+    chat_link: 'Send homework',
+    chat_title: 'Lesson discussion',
+    chat_loading: 'Chat is loading...',
+    chat_start: 'You can send your homework in convenient format: video or photo'
   },
   single_lesson_card: {
     buy: 'Buy',

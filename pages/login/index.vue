@@ -89,7 +89,11 @@ export default {
           expiresDate.setDate(expiresDate.getDate() + 30)
           this.$cookies.set('_vikosto_token', data.token, { expires: expiresDate })
 
-          this.$router.push(this.localePath('profile'))
+          if (data.user.isAdmin) {
+            this.$router.push(this.localePath('admin'))
+          } else {
+            this.$router.push(this.localePath('profile'))
+          }
 
           return
         }

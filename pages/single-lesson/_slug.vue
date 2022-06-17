@@ -149,9 +149,6 @@
                 <nuxt-link v-if="files.length" class="button button--brown-dark button button--large" to="#materials">
                   {{ $t('single_lesson.materials') }}
                 </nuxt-link>
-                <!-- <nuxt-link class="button button--brown button button--large" to="#homework">
-                  {{ $t('single_lesson.homework') }}
-                </nuxt-link> -->
               </div>
             </div>
           </div>
@@ -173,6 +170,12 @@
             style="position:absolute;top:0;left:0;width:100%;height:100%;"
           />
         </div>
+
+        <div class="my-4 text-center">
+          <nuxt-link class="button button--brown button button--large" to="#chat-container">
+            {{ $t('single_lesson.homework') }}
+          </nuxt-link>
+        </div>
       </template>
 
       <div id="about" class="single-lesson-single__description-title">
@@ -184,18 +187,29 @@
         <v-md-preview :text="singleLesson.description" />
       </div>
 
-      <div v-if="purchase && files.length" id="materials" class="single-lesson-single__files">
+      <div v-if="isPurchased && !isExpired && files.length" id="materials" class="single-lesson-single__files">
         <h2>{{ $t('single_lesson.files_title') }}</h2>
 
         <div class="single-lesson-single__files-list">
           <file-card v-for="file in files" :key="file.name" :file="file" />
         </div>
       </div>
+
+      <div v-if="isPurchased && !isExpired" class="single-lesson-single__chat">
+        <h2 class="single-lesson-single__chat-title">
+          {{ $t('single_lesson.chat_title') }}
+        </h2>
+        <p v-if="chatLoading">
+          {{ $t('single_lesson.chat_loading') }}
+        </p>
+        <div id="chat-container" class="single-lesson-single__chat-container" />
+      </div>
     </b-container>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-undef */
 import { mapGetters } from 'vuex'
 import { format, formatDuration } from 'date-fns'
 import { ru, enUS } from 'date-fns/locale'
@@ -215,7 +229,11 @@ export default {
       return {
         singleLesson: response.data.singleLesson,
         files: response.data.files,
-        purchase: response.data.purchase
+        purchase: response.data.purchase,
+        APP_ID: context.env.COMETCHAT_APP_ID,
+        AUTH_KEY: context.env.COMETCHAT_AUTH_KEY,
+        APP_REGION: context.env.COMETCHAT_REGION,
+        WIDGET_ID: context.env.COMETCHAT_WIDGET_ID
       }
     } catch (e) {
       context.error(e)
@@ -226,7 +244,12 @@ export default {
     return {
       singleLesson: {},
       files: [],
-      purchase: null
+      purchase: null,
+      APP_ID: '',
+      AUTH_KEY: '',
+      APP_REGION: '',
+      WIDGET_ID: '',
+      chatLoading: false
     }
   },
 
@@ -262,6 +285,31 @@ export default {
       return formatDuration({
         months: this.singleLesson.accessMonths
       }, { locale: this.$i18n.locale === 'ru' ? ru : enUS })
+    }
+  },
+
+  mounted () {
+    if (!this.isPurchased || this.isExpired) {
+      return
+    }
+
+    if (!this.profile || !this.profile.id || !this.profile.firstName) {
+      this.unsubscribe = this.$store.subscribe((mutation, state) => {
+        if (mutation.type === 'user/setUser') {
+          const { user } = state.user
+          if (user.id) {
+            this.initChat(user)
+          }
+        }
+      })
+    } else {
+      this.initChat(this.profile)
+    }
+  },
+
+  beforeDestroy () {
+    if (this.unsubscribe) {
+      this.unsubscribe()
     }
   },
 
@@ -343,6 +391,55 @@ export default {
             appendToast: true
           })
         }
+      }
+    },
+    initChat (user) {
+      try {
+        const UID = user.id
+        const name = user.firstName
+        const chatLocale = 'ru'
+
+        if (!window.CometChatWidget) {
+          return
+        }
+
+        this.chatLoading = true
+
+        CometChatWidget.init({
+          appID: this.APP_ID,
+          appRegion: this.APP_REGION,
+          authKey: this.AUTH_KEY
+        }).then((response) => {
+          const chatUser = new CometChatWidget.CometChat.User(UID)
+          chatUser.setName(name)
+
+          CometChatWidget.createOrUpdateUser(chatUser).then((user) => {
+            CometChatWidget.login({
+              uid: UID
+            }).then((loggedInUser) => {
+              CometChatWidget.launch({
+                widgetID: this.WIDGET_ID,
+                target: '#chat-container',
+                roundedCorners: 'true',
+                height: '100%',
+                width: '100%',
+                defaultID: '1',
+                defaultType: 'user'
+              }).then(() => {
+                setTimeout(() => {
+                  CometChatWidget.localize(chatLocale)
+                  this.chatLoading = false
+                }, 1000)
+              }).catch(() => {
+                this.chatLoading = false
+              })
+            })
+          })
+        }).catch((e) => {
+          console.error(e)
+        })
+      } catch (e) {
+        console.error(e)
       }
     }
   }
@@ -782,6 +879,31 @@ export default {
 
     @media screen and (max-width: 991px) {
       font-size: 1.6rem;
+    }
+  }
+
+  &__chat-title {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Cormorant SC', serif;
+  }
+
+  &__chat {
+    margin: 2rem 0;
+  }
+
+  &__chat-container {
+    margin-top: 1rem;
+    width: 100%;
+    height: 60vh;
+
+    .app__messenger {
+      z-index: 20;
+    }
+
+    @media screen and (max-width: 400px) {
+      height: 70vh;
     }
   }
 }

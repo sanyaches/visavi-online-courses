@@ -490,7 +490,10 @@ export default {
       resource_url: 'Ссылка на ресурс',
       submit: 'Добавить'
     },
-    payment_message: 'Оплата {amount} рублей от {from} (email: {email}), за урок "{lessonName}"'
+    payment_message: 'Оплата {amount} рублей от {from} (email: {email}), за урок "{lessonName}"',
+    chat_title: 'Обсуждение урока',
+    chat_loading: 'Чат загружается...',
+    chat_start: 'Здесь вы можете прислать отработку в удобном формате: фото или видео'
   },
   lesson: {
     price: 'Цена: ',
@@ -502,7 +505,11 @@ export default {
       title: 'Заголовок',
       resource_url: 'Ссылка на ресурс',
       submit: 'Добавить'
-    }
+    },
+    chat_link: 'Прислать отработку',
+    chat_title: 'Обсуждение урока',
+    chat_loading: 'Чат загружается...',
+    chat_start: 'Здесь вы можете прислать отработку в удобном формате: фото или видео'
   },
   single_lesson_card: {
     buy: 'Купить',
