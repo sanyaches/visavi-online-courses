@@ -100,7 +100,7 @@ export default {
     'cookie-universal-nuxt',
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
-    // '@nuxtjs/sentry',
+    '@nuxtjs/sentry',
     [
       '@nuxtjs/i18n',
       {
