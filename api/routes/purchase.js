@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
+const { sendEmail } = require('../sendEmail.js')
 const router = Router()
 
 const jwtSecretKey = process.env.JWT_SECRET
@@ -100,6 +101,20 @@ router.post('/purchases/add', verifyToken, verifyUserToken, async function (req,
         startDate: result.startDate,
         endDate: result.endDate
       }
+    })
+
+    sendEmail(`
+      <h1>У нас покупочка!</h1>
+      <div>
+        Кто-то купил на сайте, ура!
+      </div>
+      <p>Тип урока: ${result.courseType}</p>
+      <p>Имя урока: ${result.courseName}</p>
+      <p>Почта  пользователя: ${result.userEmail}</p>
+      <p>Месяцев доступа: ${accessMonths}</p>
+    `, {
+      toEmail: 'vi.kosto@yandex.ru',
+      subject: 'Новая покупка на сайте www.vikosto.net'
     })
   } catch (error) {
     if (error.errors) {

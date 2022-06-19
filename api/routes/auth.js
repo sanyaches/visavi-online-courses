@@ -1,3 +1,4 @@
+
 require('dotenv').config()
 
 const nodemailer = require('nodemailer')
@@ -5,6 +6,7 @@ const { Router } = require('express')
 const mongoose = require('mongoose')
 const CryptoJS = require('crypto-js')
 const jwt = require('jsonwebtoken')
+const { sendEmail } = require('../sendEmail.js')
 const { getSaltedHash } = require('../../lib/hash_operations')
 const UsersModel = require('../../models/users')
 const router = Router()
@@ -294,6 +296,19 @@ router.post('/auth/register', async function (req, res) {
         isAdmin: result.isAdmin
       },
       token
+    })
+
+    sendEmail(`
+      <h1>Новый пользователь!</h1>
+      <div>
+        Кто-то зарегистрировался, ура!
+      </div>
+      <p>Имя: ${result.firstName}</p>
+      <p>Фамилия: ${result.lastName}</p>
+      <p>Почта: ${result.email}</p>
+    `, {
+      toEmail: 'vi.kosto@yandex.ru',
+      subject: 'Новый пользователь на сайте vikosto.net'
     })
   } catch (error) {
     if (error.errors) {

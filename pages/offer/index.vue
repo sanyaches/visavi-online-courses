@@ -10,13 +10,13 @@
         <br>
         Индивидуальный предприниматель Савкина Виктория Денисовна, именуемая в дальнейшем «Исполнитель»,
         предлагает любому физическому лицу, достигшему совершеннолетия,
-        в дальнейшем именуемым «Пользователь», платные информационные услуги на сайте https://vikosto.net
+        в дальнейшем именуемым «Пользователь», платные информационные услуги на сайте https://www.vikosto.net
         (далее – «сайт»).
         <br>
         <br>
         Настоящее предложение является публичной офертой (далее – «Договор»),
         полным и безоговорочным принятием (акцептом) условий которой считается регистрация на сайте
-        <a href="https://vikosto.net/" target="_blank" style="" rel="noopener">https://vikosto.net/</a>
+        <a href="https://www.vikosto.net/" target="_blank" style="" rel="noopener">https://www.vikosto.net/</a>
         с подтверждением согласия с действующей офертой. <br><br> <br><br> 1. ПРЕДМЕТ ДОГОВОРА <br><br>
         1.1. Исполнитель оказывает Пользователю услуги, связанные с предоставлением доступа
         к информационным материалам в электронной форме (теоретические уроки, видеоуроки и т.д.),
@@ -49,7 +49,7 @@
         <br><br> 2.6. Если иное не вытекает из содержания определенной услуги и не указано на сайте,
         Услуги оказываются Пользователям круглосуточно, семь дней в неделю, включая выходные и праздничные дни.
         Исполнитель или владелец сайта
-        <a href="https://vikosto.net/" target="_blank" rel="noopener">https://vikosto.net/</a>
+        <a href="https://www.vikosto.net/" target="_blank" rel="noopener">https://www.vikosto.net/</a>
         вправе приостанавливать оказание Услуг всем Пользователям или отдельным Пользователям по
         причинам технологического характера (профилактические работы, обновление программного или
         аппаратного обеспечения и т.п.), а также в иных случаях, предусмотренных настоящим Договором.
@@ -116,7 +116,7 @@
         оказания Услуг, Пользователь несет ответственность согласно действующего законодательства.
         <br><br> 7. СРОК ДЕЙСТВИЯ И ИЗМЕНЕНИЕ УСЛОВИЙ ПУБЛИЧНОЙ ОФЕРТЫ
         <br><br> 7.1. Данная редакция Публичной Оферты вступает в силу с момента опубликования в
-        сети Интернет на сайте <a href="https://vikosto.net/" target="_blank" rel="noopener">https://vikosto.net/</a>
+        сети Интернет на сайте <a href="https://www.vikosto.net/" target="_blank" rel="noopener">https://www.vikosto.net/</a>
         и действует до момента отзыва Исполнителем.
         <br><br> 7.2. Исполнитель оставляет за собой право внести изменения в условия
         Публичной Оферты и/или отозвать Публичную Оферту в любой момент по своему усмотрению.
@@ -228,7 +228,7 @@
         без использования средств автоматизации. Цели сбора, а также основные направления деятельности
         в области обработки и защиты персональных данных подробнее изложены в Политике Исполнителя,
         доступной для ознакомления по адресу
-        <a href="https://vikosto.net/privacy-policy" target="_blank" rel="noopener">https://vikosto.net/privacy-policy</a>
+        <a href="https://www.vikosto.net/privacy-policy" target="_blank" rel="noopener">https://www.vikosto.net/privacy-policy</a>
         <br><br> 12.3.3 Путем акцепта оферты пользователь также дает явное согласие на получение
         рекламно-информационных сообщений и материалов, рассылаемых по электронной почте,
         мобильному телефону, SMS, в том числе от партнеров Исполнителя. Указанное согласие действует
@@ -253,9 +253,9 @@
         <br><br> ИНН: 561019006810
         <br><br> Тел. +7 987 788 73 81
         <br><br> E-mail: vi.kosto@yandex.ru
-        <br><br> <a href="https://vikosto.net/" target="_blank" rel="noopener">https://vikosto.net/</a>
-        <br><br> <a href="https://vikosto.net/privacy-policy" target="_blank" rel="noopener">https://vikosto.net/privacy-policy</a>
-        <br><br><a href="https://vikosto.net/offer" target="_blank" rel="noopener">https://vikosto.net/offer</a>
+        <br><br> <a href="https://www.vikosto.net/" target="_blank" rel="noopener">https://www.vikosto.net/</a>
+        <br><br> <a href="https://www.vikosto.net/privacy-policy" target="_blank" rel="noopener">https://www.vikosto.net/privacy-policy</a>
+        <br><br><a href="https://www.vikosto.net/offer" target="_blank" rel="noopener">https://www.vikosto.net/offer</a>
         <br><br>
       </div>
     </b-container>
