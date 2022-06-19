@@ -273,7 +273,15 @@ export default {
       email: 'Account email'
     }
   },
+  offer: {
+    title: 'Finish buying',
+    text: 'You recently wanted to buy: {title}',
+    access: 'Access: {access}',
+    proceed: 'Pay'
+  },
   index: {
+    courses: 'Courses',
+    lessons: 'Lessons',
     privacy_policy: 'Privacy policy',
     public_offer: 'Terms of service',
     admin: 'Admin',
@@ -426,6 +434,7 @@ export default {
     buy_again: 'Access expired, buy again',
     watch: 'To lessons',
     expired_at: 'Access will closed:',
+    open_access: 'Open an access',
     silver: {
       benefits: {
         1: { bold_text: '3', text: 'месяца доступ к урокам' },
@@ -479,6 +488,7 @@ export default {
     buy_again: 'Access expired, buy again',
     watch: 'Purchased, to watch',
     expired_at: 'Access will closed:',
+    open_access: 'Open an access',
     file_form: {
       name: 'Filename',
       title: 'Title',

@@ -139,6 +139,19 @@ export default {
           solid: true,
           variant: 'info'
         })
+        const expiresDate = new Date()
+        expiresDate.setDate(expiresDate.getDate() + 30)
+
+        const cookieString = JSON.stringify({
+          lessonType: 'course',
+          name: this.course.name,
+          imageUrl: this.course.thumbnailUrl,
+          title: this.course.title,
+          price: this.course.price,
+          accessMonths: this.course.accessMonths
+        })
+
+        this.$cookies.set('_vikosto_offer', cookieString, { expires: expiresDate })
         this.$router.push(link)
 
         return

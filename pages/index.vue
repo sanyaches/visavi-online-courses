@@ -287,7 +287,7 @@
       </b-container>
     </div>
 
-    <div class="faq">
+    <div id="main-faq" class="faq">
       <b-container>
         <div class="faq__header">
           <h2 class="faq__title">

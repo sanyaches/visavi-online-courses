@@ -104,7 +104,7 @@ export default {
       this.unsubscribe = this.$store.subscribe((mutation, state) => {
         if (mutation.type === 'user/setUser') {
           const { user } = state.user
-          if (user.id) {
+          if (user?.id) {
             this.initChat(user)
           }
         }

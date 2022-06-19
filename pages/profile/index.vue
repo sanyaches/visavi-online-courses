@@ -54,11 +54,38 @@
         Loading...
       </h2>
     </b-container>
+
+    <b-modal id="bv-modal-offer" hide-footer @hide="clearOffer">
+      <template #modal-title>
+        {{ $t('offer.title') }}
+      </template>
+      <div class="d-block text-center">
+        <div class="d-block">
+          <img :src="offer.imageUrl" class="w-100">
+        </div>
+        <h3 class="mt-3">
+          {{ $t('offer.text', { title: preparedTitle }) }}
+        </h3>
+        <div class="profile-offer__price">
+          <span>{{ offer.price }}</span>
+          <br>
+          <span class="currency">{{ $t('common.currency') }}</span>
+        </div>
+        <div class="profile-offer__access">
+          {{ $t('offer.access', { access: formattedMonths }) }}
+        </div>
+      </div>
+      <b-button class="mt-3 button button--large button--brown-dark" block @click="acceptOffer">
+        {{ $t('offer.proceed') }}
+      </b-button>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { formatDuration } from 'date-fns'
+import { ru, enUS } from 'date-fns/locale'
 
 const getFullName = (firstName, lastName) => {
   return [firstName, lastName].filter(Boolean).join(' ')
@@ -88,13 +115,15 @@ export default {
   data () {
     return {
       singleLessons: [],
-      courses: []
+      courses: [],
+      offer: {}
     }
   },
 
   computed: {
     ...mapGetters({
       getMe: 'user/getMe',
+      token: 'user/getToken',
       getIsAuthenticated: 'user/getIsAuthenticated',
       myCourses: 'user/getMyCourses',
       mySingleLessons: 'user/getMySingleLessons'
@@ -172,6 +201,94 @@ export default {
       }
 
       return dictionary
+    },
+
+    formattedMonths () {
+      return formatDuration({
+        months: this.offer?.accessMonths
+      }, { locale: this.$i18n.locale === 'ru' ? ru : enUS })
+    },
+
+    preparedTitle () {
+      if (!this.offer || !this.offer.title) {
+        return ''
+      }
+
+      return this.offer.title.split(' | ').join(' ')
+    }
+  },
+
+  mounted () {
+    const offer = this.$cookies.get('_vikosto_offer')
+
+    if (!offer) {
+      return
+    }
+
+    this.$bvModal.show('bv-modal-offer')
+    this.offer = offer
+  },
+
+  methods: {
+    clearOffer () {
+      this.$cookies.remove('_vikosto_offer')
+    },
+    async acceptOffer () {
+      this.clearOffer()
+
+      const getFullName = (profile) => {
+        return [profile.firstName, profile.lastName]
+          .filter(Boolean)
+          .join(' ')
+      }
+      const userEmail = this.getMe.email
+      const amount = this.offer.price
+      const from = getFullName(this.getMe)
+      const courseName = this.offer.name
+      const courseTitle = this.offer.title
+      const paymentMessage = this.$t('course.payment_message', { from, email: userEmail, amount, courseName: courseTitle })
+
+      const url = '/api/payment/pay'
+
+      const jsonBody = JSON.stringify({
+        courseName,
+        courseType: this.offer.lessonType,
+        accessMonths: this.offer.accessMonths,
+        amount: this.offer.price,
+        paymentMessage,
+        token: this.token,
+        userEmail
+      })
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.token}`
+          },
+          body: jsonBody
+        })
+        const data = await res.json()
+        if (data?.status === 'redirect') {
+          window.location.assign(data.url)
+          return
+        }
+
+        throw data
+      } catch (error) {
+        if (error.errorCode) {
+          const code = String(error.errorCode).toLowerCase()
+          this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
+            title: this.$t(`notify.error.${code}`),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'danger',
+            appendToast: true
+          })
+        }
+      }
     }
   }
 }

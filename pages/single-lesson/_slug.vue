@@ -187,6 +187,12 @@
         <v-md-preview :text="singleLesson.description" />
       </div>
 
+      <div v-if="!isPurchased || isExpired" class="single-lesson-single__offer mt-3">
+        <b-button class="button button--brown-dark button button--large" @click="buySingleLesson">
+          {{ $t('single_lesson.open_access') }}
+        </b-button>
+      </div>
+
       <div v-if="isPurchased && !isExpired && files.length" id="materials" class="single-lesson-single__files">
         <h2>{{ $t('single_lesson.files_title') }}</h2>
 
@@ -297,7 +303,7 @@ export default {
       this.unsubscribe = this.$store.subscribe((mutation, state) => {
         if (mutation.type === 'user/setUser') {
           const { user } = state.user
-          if (user.id) {
+          if (user?.id) {
             this.initChat(user)
           }
         }
@@ -323,6 +329,19 @@ export default {
           solid: true,
           variant: 'info'
         })
+        const expiresDate = new Date()
+        expiresDate.setDate(expiresDate.getDate() + 30)
+
+        const cookieString = JSON.stringify({
+          lessonType: 'single-lesson',
+          name: this.singleLesson.name,
+          imageUrl: this.singleLesson.thumbnailUrl,
+          title: this.singleLesson.title,
+          price: this.singleLesson.price,
+          accessMonths: this.singleLesson.accessMonths
+        })
+
+        this.$cookies.set('_vikosto_offer', cookieString, { expires: expiresDate })
         this.$router.push(link)
 
         return

@@ -47,6 +47,21 @@
                     {{ $t('index.profile') }}
                   </nuxt-link>
                 </div>
+                <div class="header__dropdown-menu-item">
+                  <nuxt-link :to="localePath('/#main-courses')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                    {{ $t('index.courses') }}
+                  </nuxt-link>
+                </div>
+                <div class="header__dropdown-menu-item">
+                  <nuxt-link :to="localePath('/#main-single-lessons')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                    {{ $t('index.lessons') }}
+                  </nuxt-link>
+                </div>
+                <div class="header__dropdown-menu-item">
+                  <nuxt-link :to="localePath('/#main-faq')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                    {{ $t('index.faq_title') }}
+                  </nuxt-link>
+                </div>
               </template>
               <template v-if="!getIsAuthenticated">
                 <div class="header__dropdown-menu-item">
@@ -57,6 +72,21 @@
                 <div class="header__dropdown-menu-item">
                   <nuxt-link :to="localePath('register')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
                     {{ $t('index.register') }}
+                  </nuxt-link>
+                </div>
+                <div class="header__dropdown-menu-item">
+                  <nuxt-link :to="localePath('/#main-courses')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                    {{ $t('index.courses') }}
+                  </nuxt-link>
+                </div>
+                <div class="header__dropdown-menu-item">
+                  <nuxt-link :to="localePath('/#main-single-lessons')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                    {{ $t('index.lessons') }}
+                  </nuxt-link>
+                </div>
+                <div class="header__dropdown-menu-item">
+                  <nuxt-link :to="localePath('/#main-faq')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                    {{ $t('index.faq_title') }}
                   </nuxt-link>
                 </div>
               </template>

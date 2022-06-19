@@ -224,6 +224,12 @@
             </ul>
           </div>
 
+          <div v-if="!isPurchased || isExpired" class="course-page__offer mt-3">
+            <b-button class="button button--brown-dark button button--large" @click="buyCourse">
+              {{ $t('course.open_access') }}
+            </b-button>
+          </div>
+
           <div v-if="!theoryLessons.length && !practiceLessons.length && !bonusLessons.length">
             {{ $t('course.no_lessons') }}
           </div>
@@ -335,6 +341,19 @@ export default {
           solid: true,
           variant: 'info'
         })
+        const expiresDate = new Date()
+        expiresDate.setDate(expiresDate.getDate() + 30)
+
+        const cookieString = JSON.stringify({
+          lessonType: 'course',
+          name: this.course.name,
+          imageUrl: this.course.thumbnailUrl,
+          title: this.course.title,
+          price: this.course.price,
+          accessMonths: this.course.accessMonths
+        })
+
+        this.$cookies.set('_vikosto_offer', cookieString, { expires: expiresDate })
         this.$router.push(link)
 
         return

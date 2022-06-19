@@ -114,7 +114,7 @@ export default {
 
           this.loginUser({ user: data.user, token: data.token })
 
-          const expiresDate = new Date(this.valueOf())
+          const expiresDate = new Date()
           expiresDate.setDate(expiresDate.getDate() + 30)
           this.$cookies.set('_vikosto_token', data.token, { expires: expiresDate })
 
