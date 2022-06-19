@@ -11,20 +11,19 @@
     <b-container class="promo-container">
       <div v-if="!isPurchased || isExpired" class="single-lesson-single__promo">
         <div class="single-lesson-single__promo-background">
-          <b-embed
-            type="video"
+          <video
             class="single-lesson-single__promo-video"
             :poster="singleLesson.thumbnailUrl"
             frameborder="0"
             allowfullscreen=""
             autoplay="autoplay"
             loop="loop"
-            muted=""
+            muted
             preload="yes"
-            playsinline=""
+            playsinline
           >
             <source :src="singleLesson.promoUrl" type="video/mp4">
-          </b-embed>
+          </video>
         </div>
         <div class="single-lesson-single__promo-content">
           <div class="single-lesson-single__promo-content-background">
@@ -85,20 +84,19 @@
 
       <div v-else class="single-lesson-single__promo">
         <div class="single-lesson-single__promo-background">
-          <b-embed
-            type="video"
+          <video
             class="single-lesson-single__promo-video"
             :poster="singleLesson.thumbnailUrl"
             frameborder="0"
             allowfullscreen=""
             autoplay="autoplay"
             loop="loop"
-            muted=""
+            muted
             preload="yes"
-            playsinline=""
+            playsinline
           >
             <source :src="singleLesson.promoUrl" type="video/mp4">
-          </b-embed>
+          </video>
         </div>
         <div class="single-lesson-single__promo-content">
           <div class="single-lesson-single__promo-content-background">
@@ -451,13 +449,6 @@ export default {
 <style lang="scss">
 .single-lesson-single {
   padding: 0 0 6rem;
-
-  .embed-responsive .embed-responsive-item {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    bottom: unset;
-  }
 
   &__buy-button {
     position: fixed;
