@@ -15,12 +15,12 @@
             class="single-lesson-single__promo-video"
             :poster="singleLesson.thumbnailUrl"
             frameborder="0"
-            allowfullscreen=""
+            allowfullscreen="allowfullscreen"
             autoplay="autoplay"
             loop="loop"
-            muted
+            muted="muted"
             preload="yes"
-            playsinline
+            playsinline="playsinline"
           >
             <source :src="singleLesson.promoUrl" type="video/mp4">
           </video>
@@ -88,12 +88,12 @@
             class="single-lesson-single__promo-video"
             :poster="singleLesson.thumbnailUrl"
             frameborder="0"
-            allowfullscreen=""
+            allowfullscreen="allowfullscreen"
             autoplay="autoplay"
             loop="loop"
-            muted
+            muted="muted"
             preload="yes"
-            playsinline
+            playsinline="playsinline"
           >
             <source :src="singleLesson.promoUrl" type="video/mp4">
           </video>
