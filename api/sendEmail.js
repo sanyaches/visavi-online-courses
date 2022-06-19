@@ -6,7 +6,7 @@ const emailSecret = process.env.EMAIL_SECRET
 const emailAdmin = process.env.EMAIL_ADMIN
 const emailSecretKey = process.env.EMAIL_SECRET_KEY
 
-export const async sendEmail = (htmlBody, options) => {
+export const sendEmail = (htmlBody, options) => {
   const bytes = CryptoJS.AES.decrypt(emailSecret, emailSecretKey)
   const emailPassword = bytes.toString(CryptoJS.enc.Utf8)
 
