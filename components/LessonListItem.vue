@@ -1,20 +1,32 @@
 <template>
-  <div class="lesson-list-item">
-    <div class="lesson-list-item__header">
-      <div class="lesson-list-item__image">
-        <img :alt="lesson.description" :src="lesson.thumbnailUrl">
+  <div>
+    <nuxt-link v-if="lessonLink" class="lesson-list-item link" :to="lessonLink">
+      <div class="lesson-list-item__header">
+        <div class="lesson-list-item__image">
+          <img :alt="lesson.description" :src="lesson.thumbnailUrl">
+        </div>
+        <div class="lesson-list-item__general">
+          <h2 class="lesson-list-item__title">
+            {{ lesson.title }}
+          </h2>
+          <div class="lesson-list-item__content">
+            <v-md-preview :text="lesson.shortDescription" />
+          </div>
+        </div>
       </div>
-      <div class="lesson-list-item__general">
-        <h2 class="lesson-list-item__title">
-          <nuxt-link v-if="lessonLink" :to="lessonLink" class="anchor--raw">
+    </nuxt-link>
+    <div v-else class="lesson-list-item">
+      <div class="lesson-list-item__header">
+        <div class="lesson-list-item__image">
+          <img :alt="lesson.description" :src="lesson.thumbnailUrl">
+        </div>
+        <div class="lesson-list-item__general">
+          <h2 class="lesson-list-item__title">
             {{ lesson.title }}
-          </nuxt-link>
-          <span v-else>
-            {{ lesson.title }}
-          </span>
-        </h2>
-        <div class="lesson-list-item__content">
-          <v-md-preview :text="lesson.shortDescription" />
+          </h2>
+          <div class="lesson-list-item__content">
+            <v-md-preview :text="lesson.shortDescription" />
+          </div>
         </div>
       </div>
     </div>
@@ -41,6 +53,15 @@ export default {
   border-radius: 1rem;
   border: 1px solid var(--border-color);
   padding: 0.8rem 1.6rem;
+  display: flex;
+  color: inherit;
+
+  &.link:hover,
+  &.link:focus,
+  &.link:active {
+    text-decoration: none;
+    color: inherit;
+  }
 
   &__header {
     display: flex;
@@ -86,12 +107,29 @@ export default {
     @media screen and (max-width: 991px) {
       font-size: 1.3rem;
     }
+
+    .lesson-list-item.link & {
+      text-decoration: underline;
+    }
+
+    .lesson-list-item.link:hover &,
+    .lesson-list-item.link:focus &,
+    .lesson-list-item.link:active & {
+      color: #a08d81;
+    }
   }
 
   &__content {
     margin-top: 1rem;
+    text-decoration: none;
 
     .github-markdown-body {
+      .lesson-list-item:hover &,
+      .lesson-list-item:focus &,
+      .lesson-list-item:active & {
+        text-decoration: none;
+      }
+
       padding: 0;
     }
   }

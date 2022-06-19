@@ -18,9 +18,9 @@
             allowfullscreen=""
             autoplay="autoplay"
             loop="loop"
-            muted=""
+            muted
             preload="yes"
-            playsinline=""
+            playsinline
           >
             <source :src="singleLesson.promoUrl" type="video/mp4">
           </video>
@@ -91,9 +91,9 @@
             allowfullscreen=""
             autoplay="autoplay"
             loop="loop"
-            muted=""
+            muted
             preload="yes"
-            playsinline=""
+            playsinline
           >
             <source :src="singleLesson.promoUrl" type="video/mp4">
           </video>
