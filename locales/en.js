@@ -294,6 +294,8 @@ export default {
     main_title: 'Hairstyles',
     main_title_second: 'for everyone',
     main_title_subtitle: 'Online hairstyle education',
+    main_title_mobile: 'Hairstyles',
+    main_title_second_mobile: 'for everyone',
     want_study: 'Want to study',
     about_title: 'Who does suit online education?',
     author_title: 'About course author',

@@ -5,10 +5,15 @@
         <div class="hero__header">
           <div class="hero__title">
             <h1> {{ $t('index.main_title_subtitle') }} </h1>
-            <div class="hero__main-title">
+            <div class="hero__main-title desktop">
               <span>{{ $t('index.main_title') }}</span>
               <br>
               <span class="second">{{ $t('index.main_title_second') }}</span>
+            </div>
+            <div class="hero__main-title mobile">
+              <span>{{ $t('index.main_title_mobile') }}</span>
+              <br>
+              <span class="second">{{ $t('index.main_title_second_mobile') }}</span>
             </div>
             <div class="hero__button">
               <nuxt-link
@@ -599,8 +604,24 @@ export default {
       margin-left: 2rem;
     }
 
+    &.mobile {
+      display: none;
+    }
+
     @media screen and (max-width: 1050px) {
       text-align: center;
+
+      &.desktop {
+        display: none;
+      }
+
+      .second {
+        margin-left: 0;
+      }
+
+      &.mobile {
+        display: block;
+      }
     }
 
     @media screen and (max-width: 480px) {

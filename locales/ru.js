@@ -270,6 +270,8 @@ export default {
     profile_tooltip: 'Перейти в профиль',
     main_title: 'Накручивай не',
     main_title_second: 'себя, а волосы',
+    main_title_mobile: 'Накручивай не себя,',
+    main_title_second_mobile: 'а волосы',
     want_study: 'Перейти к обучению',
     about_title: 'Кому подойдет онлайн обучение?',
     author_title: 'Об авторе обучения',
