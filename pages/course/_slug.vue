@@ -12,6 +12,7 @@
       <div v-if="!isPurchased || isExpired" class="course-page__promo">
         <div class="course-page__promo-background">
           <video
+            id="background-video"
             class="course-page__promo-video"
             :poster="course.thumbnailUrl"
             frameborder="0"
@@ -83,6 +84,7 @@
       <div v-else class="course-page__promo">
         <div class="course-page__promo-background">
           <video
+            id="background-video"
             class="course-page__promo-video"
             :poster="course.thumbnailUrl"
             frameborder="0"
@@ -330,6 +332,15 @@ export default {
 
       return this.courseLessons.filter(lesson => lesson.category === 'bonus')
     }
+  },
+
+  mounted () {
+    setTimeout(() => {
+      const videoEl = document.getElementById('background-video')
+      if (videoEl?.paused) {
+        videoEl?.play()
+      }
+    }, 2000)
   },
 
   methods: {

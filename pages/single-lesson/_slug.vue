@@ -12,6 +12,7 @@
       <div v-if="!isPurchased || isExpired" class="single-lesson-single__promo">
         <div class="single-lesson-single__promo-background">
           <video
+            id="background-video"
             class="single-lesson-single__promo-video"
             :poster="singleLesson.thumbnailUrl"
             frameborder="0"
@@ -85,6 +86,7 @@
       <div v-else class="single-lesson-single__promo">
         <div class="single-lesson-single__promo-background">
           <video
+            id="background-video"
             class="single-lesson-single__promo-video"
             :poster="singleLesson.thumbnailUrl"
             frameborder="0"
@@ -193,7 +195,6 @@
         </h2>
         <div id="player" class="single-lesson-single__video">
           <video
-            class=""
             :poster="singleLesson.thumbnailUrl"
             controls
           >
@@ -310,6 +311,13 @@ export default {
   },
 
   mounted () {
+    setTimeout(() => {
+      const videoEl = document.getElementById('background-video')
+      if (videoEl?.paused) {
+        videoEl?.play()
+      }
+    }, 2000)
+
     if (!this.isPurchased || this.isExpired) {
       return
     }
