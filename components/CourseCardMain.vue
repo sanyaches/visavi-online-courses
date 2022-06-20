@@ -76,10 +76,6 @@
         <span class="currency">{{ $t('common.currency') }}</span>
       </div>
       <div class="course-card__control">
-        <nuxt-link :to="courseLink" class="button button--brown button button--large">
-          {{ $t('course_card.learn') }}
-        </nuxt-link>
-
         <b-button v-if="!thisPurchase || isExpired" class="button button--brown-dark button button--large" @click="buyCourse">
           {{ $t('course_card.buy') }}
         </b-button>
@@ -87,6 +83,10 @@
         <nuxt-link v-else :to="courseLink" class="button button--brown-dark button button--large">
           <font-awesome-icon icon="fa-solid fa-check" />
           {{ $t('course_card.bought') }}
+        </nuxt-link>
+
+        <nuxt-link :to="courseLink" class="button button--brown button button--large">
+          {{ $t('course_card.learn') }}
         </nuxt-link>
       </div>
     </div>

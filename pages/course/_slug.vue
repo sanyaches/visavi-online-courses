@@ -68,12 +68,12 @@
                 </div>
               </div>
               <div class="course-page__control">
-                <nuxt-link class="button button--brown button button--large" to="#about">
-                  {{ $t('course.about') }}
-                </nuxt-link>
                 <b-button class="button button--brown-dark button button--large" @click="buyCourse">
                   {{ $t('course.buy') }}
                 </b-button>
+                <nuxt-link class="button button--brown button button--large" to="#about">
+                  {{ $t('course.about') }}
+                </nuxt-link>
               </div>
             </div>
           </div>
@@ -204,6 +204,7 @@
               <li v-for="lesson in practiceLessons" :key="lesson.name" class="course-page__lessons-item">
                 <lesson-list-item
                   :lesson="lesson"
+                  with-video
                   :lesson-link="isPurchased ? localePath({ path: `/lesson/${lesson.name}` }) : null"
                 />
               </li>
@@ -224,7 +225,7 @@
             </ul>
           </div>
 
-          <div v-if="!isPurchased || isExpired" class="course-page__offer mt-3">
+          <div v-if="!isPurchased || isExpired" class="course-page__offer mt-3 text-center">
             <b-button class="button button--brown-dark button button--large" @click="buyCourse">
               {{ $t('course.open_access') }}
             </b-button>

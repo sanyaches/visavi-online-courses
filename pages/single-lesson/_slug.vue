@@ -70,12 +70,12 @@
                 </div>
               </div>
               <div class="single-lesson-single__control">
-                <nuxt-link class="button button--brown button button--large" to="#about">
-                  {{ $t('single_lesson.about') }}
-                </nuxt-link>
                 <b-button class="button button--brown-dark button button--large" @click="buySingleLesson">
                   {{ $t('single_lesson.buy') }}
                 </b-button>
+                <nuxt-link class="button button--brown button button--large" to="#promo">
+                  {{ $t('single_lesson.promo') }}
+                </nuxt-link>
               </div>
             </div>
           </div>
@@ -187,10 +187,25 @@
         <v-md-preview :text="singleLesson.description" />
       </div>
 
-      <div v-if="!isPurchased || isExpired" class="single-lesson-single__offer mt-3">
-        <b-button class="button button--brown-dark button button--large" @click="buySingleLesson">
-          {{ $t('single_lesson.open_access') }}
-        </b-button>
+      <div v-if="!isPurchased || isExpired" id="promo" class="text-center">
+        <h2 class="my-3">
+          {{ $t('single_lesson.watch_promo_title') }}
+        </h2>
+        <div id="player" class="single-lesson-single__video">
+          <video
+            class=""
+            :poster="singleLesson.thumbnailUrl"
+            controls
+          >
+            <source :src="singleLesson.promoUrl" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="single-lesson-single__offer mt-3">
+          <b-button class="button button--brown-dark button button--large" @click="buySingleLesson">
+            {{ $t('single_lesson.open_access') }}
+          </b-button>
+        </div>
       </div>
 
       <div v-if="isPurchased && !isExpired && files.length" id="materials" class="single-lesson-single__files">
@@ -857,21 +872,19 @@ export default {
     display: none;
   }
 
-  &__description-title {
-    margin-top: 2rem;
-
-    h2 {
-      font-size: 2.2rem;
-      text-transform: uppercase;
-      font-weight: 700;
-      font-family: 'Cormorant SC', serif;
-    }
+  h2 {
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Cormorant SC', serif;
 
     @media screen and (max-width: 991px) {
-      h2 {
-        font-size: 1.6rem;
-      }
+      font-size: 1.6rem;
     }
+  }
+
+  &__description-title {
+    margin-top: 2rem;
   }
 
   &__description {
@@ -887,17 +900,6 @@ export default {
         padding-right: 1rem;
         font-size: 1rem;
       }
-    }
-  }
-
-  &__files h2 {
-    font-size: 2.2rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-family: 'Cormorant SC', serif;
-
-    @media screen and (max-width: 991px) {
-      font-size: 1.6rem;
     }
   }
 

@@ -18,7 +18,14 @@
     <div v-else class="lesson-list-item">
       <div class="lesson-list-item__header">
         <div class="lesson-list-item__image">
-          <img :alt="lesson.description" :src="lesson.thumbnailUrl">
+          <video
+            v-if="withVideo"
+            :poster="lesson.thumbnailUrl"
+            controls
+          >
+            <source :src="lesson.promoUrl" type="video/mp4">
+          </video>
+          <img v-else :alt="lesson.description" :src="lesson.thumbnailUrl"></img>
         </div>
         <div class="lesson-list-item__general">
           <h2 class="lesson-list-item__title">
@@ -43,6 +50,10 @@ export default {
     lessonLink: {
       type: String,
       default: ''
+    },
+    withVideo: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -71,8 +82,14 @@ export default {
   &__image {
     min-width: 20rem;
     width: 20rem;
+    margin-bottom: 0;
 
     img {
+      width: 100%;
+      height: auto;
+    }
+
+    video {
       width: 100%;
       height: auto;
     }
