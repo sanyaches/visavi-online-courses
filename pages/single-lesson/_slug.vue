@@ -313,8 +313,8 @@ export default {
   mounted () {
     setTimeout(() => {
       const videoEl = document.getElementById('background-video')
-      if (videoEl?.paused) {
-        videoEl?.play()
+      if (videoEl?.paused && typeof videoEl?.play === 'function') {
+        videoEl.play()
       }
     }, 2000)
 
