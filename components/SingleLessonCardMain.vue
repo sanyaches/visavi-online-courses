@@ -5,7 +5,8 @@
         <img class="bottom" :src="lesson.cardImageSecond">
         <img class="top" :src="lesson.cardImageFirst">
         <div class="single-lesson-card-main__price">
-          {{ lesson.price }}
+          <span class="old">{{ lesson.price }}</span>
+          <span class="new">{{ newPrice }}</span>
           <br>
           <span class="currency">
             {{ $t('common.currency') }}
@@ -46,6 +47,9 @@ export default {
   computed: {
     singleLessonLink () {
       return this.localePath({ path: `/single-lesson/${this.lesson.name}` })
+    },
+    newPrice () {
+      return Math.ceil(Math.floor(this.lesson.price * 0.7) / 10) * 10 - 10
     }
   }
 }
@@ -130,6 +134,29 @@ export default {
     span.currency {
       text-transform: uppercase;
       font-size: 1.3rem;
+    }
+
+    .old {
+      color: #bebebe;
+      font-size: 2rem;
+      position: relative;
+      opacity: 1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        height: 4px;
+        background-color: rgb(160, 130, 130);
+        top: 50%;
+        left: -10%;
+        width: 120%;
+        opacity: 0.75;
+        transform: rotate(-15deg);
+      }
+    }
+
+    .new {
+      color: #fff;
     }
   }
 

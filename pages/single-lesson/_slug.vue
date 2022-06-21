@@ -39,7 +39,8 @@
                   <img :src="singleLesson.thumbnailUrl">
                 </div>
                 <div class="single-lesson-single__price">
-                  <span>{{ singleLesson.price }}</span>
+                  <span class="old">{{ singleLesson.price }}</span>
+                  <span class="new">{{ newPrice }}</span>
                   <br>
                   <span class="currency">{{ $t('common.currency') }}</span>
                 </div>
@@ -331,6 +332,9 @@ export default {
       return formatDuration({
         months: this.singleLesson.accessMonths
       }, { locale: this.$i18n.locale === 'ru' ? ru : enUS })
+    },
+    newPrice () {
+      return Math.ceil(Math.floor(this.singleLesson.price * 0.7) / 10) * 10 - 10
     }
   },
 
@@ -384,7 +388,7 @@ export default {
           name: this.singleLesson.name,
           imageUrl: this.singleLesson.thumbnailUrl,
           title: this.singleLesson.title,
-          price: this.singleLesson.price,
+          price: this.newPrice,
           accessMonths: this.singleLesson.accessMonths
         })
 
@@ -399,7 +403,7 @@ export default {
           .join(' ')
       }
       const userEmail = this.profile.email
-      const amount = this.singleLesson.price
+      const amount = this.newPrice
       const from = getFullName(this.profile)
       const lessonName = this.singleLesson.name
       const lessonTitle = this.singleLesson.title
@@ -411,7 +415,7 @@ export default {
         courseName: lessonName,
         courseType: 'singleLesson',
         accessMonths: this.singleLesson.accessMonths,
-        amount: this.singleLesson.price,
+        amount: this.newPrice,
         // amount: 2,
         paymentMessage,
         token: this.token,
@@ -713,6 +717,25 @@ export default {
     font-weight: 800;
     line-height: 100%;
     font-family: 'Alegreya SC', serif;
+
+    .old {
+      color: #656060;
+      font-size: 0.8em;
+      position: relative;
+      opacity: 1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        height: 4px;
+        background-color: rgb(128, 107, 107);
+        top: 50%;
+        left: -10%;
+        width: 120%;
+        opacity: 0.75;
+        transform: rotate(-15deg);
+      }
+    }
 
     span.currency {
       text-transform: uppercase;
