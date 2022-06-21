@@ -394,7 +394,9 @@ export default {
       }
     },
     seo: {
-      title: 'Online hairstyles education - vikosto'
+      title: 'Online hairstyles education - vikosto',
+      description: 'Bridal and wedding hairstyles courses and lessons online - vikosto',
+      keywords: 'education online hairstyles bridal wedding courses vikosto'
     }
   },
   profile: {
@@ -409,7 +411,8 @@ export default {
   },
   course: {
     seo: {
-      title: '{title} - online hairstyles education - vikosto'
+      title: '{title} - online hairstyles education - vikosto',
+      keywords: 'vikosto online course hairstyle {words}'
     },
     buy_button: 'Buy',
     buy_course_button: 'Course',
@@ -467,7 +470,8 @@ export default {
   },
   single_lesson: {
     seo: {
-      title: '{title} - online hairstyles education - vikosto'
+      title: '{title} - online hairstyles education - vikosto',
+      keywords: 'vikosto online lesson hairstyle {words}'
     },
     buy_button: 'Buy',
     buy_course_button: 'lesson',
@@ -548,6 +552,8 @@ export default {
     register_then_buy_msg: 'Register or login before buy',
     success_add_purchase: 'Successful course purchase',
     error: {
+      payment_request_id_was_repeated: 'This payment already used',
+      payment_request_id_was_repeated_msg: 'This payment already used to buy course/lesson',
       need_agreement_confirmation: 'Need to agree with platform rules',
       need_agreement_confirmation_msg: 'Need to agree with online education platform rights and rules',
       user_not_found: 'Invalid email or password',

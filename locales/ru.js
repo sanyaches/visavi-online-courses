@@ -377,7 +377,9 @@ export default {
       }
     },
     seo: {
-      title: 'Онлайн обучение по прическам - vikosto'
+      title: 'Онлайн обучение по прическам - vikosto',
+      description: 'Уроки и курсы по свадебным и вечерним прическам онлайн, разные техники накрутки волос, элементы плетения, текстуры, обзор стайлинга и инструментов для волос',
+      keywords: 'обучение онлайн прически свадебные укладки vikosto'
     }
   },
   change: {
@@ -414,7 +416,8 @@ export default {
   },
   course: {
     seo: {
-      title: '{title} - онлайн обучение прическам - vikosto'
+      title: '{title} - онлайн обучение прическам - vikosto',
+      keywords: 'vikosto онлайн курс прически {words}'
     },
     buy_button: 'Купить',
     buy_course_button: 'Курс',
@@ -472,7 +475,8 @@ export default {
   },
   single_lesson: {
     seo: {
-      title: '{title} - онлайн обучение прическам - vikosto'
+      title: '{title} - онлайн обучение прическам - vikosto',
+      keywords: 'vikosto онлайн урок прически {words}'
     },
     buy_button: 'Купить',
     buy_course_button: 'урок',
@@ -553,6 +557,8 @@ export default {
     register_then_buy: 'Зарегистрируйтесь или войдите',
     success_add_purchase: 'Успешная покупка курса',
     error: {
+      payment_request_id_was_repeated: 'Данный платеж использован',
+      payment_request_id_was_repeated_msg: 'Данный платеж ранее был использован для приобретения курса/урока',
       need_agreement_confirmation: 'Необходимо согласие с офертой',
       need_agreement_confirmation_msg: 'Необходимо согласие с публичной офертой',
       user_not_found: 'Неверный email или пароль',

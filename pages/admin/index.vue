@@ -93,6 +93,12 @@ export default {
     }
   },
 
+  head () {
+    return {
+      meta: [{ name: 'robots', content: 'noindex, follow' }]
+    }
+  },
+
   beforeMount () {
     this.loadCourses()
     this.loadSingleLessons()

@@ -461,7 +461,32 @@ export default {
 
   head () {
     return {
-      title: this.$t('index.seo.title')
+      title: this.$t('index.seo.title'),
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.$t('index.seo.description')
+        },
+        { name: 'keywords', content: this.$t('index.seo.keywords') },
+        {
+          name: 'news_keywords',
+          content: this.$t('index.seo.keywords')
+        },
+        {
+          property: 'og:title',
+          content: this.$t('index.seo.title')
+        },
+        {
+          property: 'og:description',
+          content: this.$t('index.seo.description')
+        },
+        {
+          property: 'og:image:alt',
+          content: this.$t('index.seo.description')
+        }
+      ],
+      link: [{ rel: 'canonical', href: process.env.BASE_URL }]
     }
   }
 }

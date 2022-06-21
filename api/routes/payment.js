@@ -26,9 +26,10 @@ router.post('/payment/pay', function (req, res) {
       amount
     } = req.body
 
+    let requestId = null
+
     async function createPayment (paymentInfo, successUrl, callback) {
       let instanceId = null
-      let requestId = null
       let error = null
 
       await yandexMoney.ExternalPayment.getInstanceId(
@@ -96,7 +97,8 @@ router.post('/payment/pay', function (req, res) {
         const jsonBody = JSON.stringify({
           courseName,
           courseType,
-          accessMonths
+          accessMonths,
+          paymentRequestId: requestId
         })
 
         try {
@@ -210,7 +212,8 @@ router.post('/payment/check', function (req, res) {
         const jsonBody = JSON.stringify({
           courseName,
           courseType,
-          accessMonths
+          accessMonths,
+          paymentRequestId: requestId
         })
 
         try {
@@ -236,7 +239,10 @@ router.post('/payment/check', function (req, res) {
               }
             })
             .catch((error) => {
-              throw new Error(error)
+              if (error.response.data?.status === 'error') {
+                return res.status(404).json(error.response.data)
+              }
+              throw new Error('Add purchase error')
             })
         } catch (error) {
           return res.status(500).json({

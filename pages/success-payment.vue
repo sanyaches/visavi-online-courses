@@ -13,6 +13,12 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  head () {
+    return {
+      meta: [{ name: 'robots', content: 'noindex, follow' }]
+    }
+  },
+
   computed: {
     ...mapGetters({
       token: 'user/getToken',
@@ -74,6 +80,9 @@ export default {
           appendToast: true
         })
       }
+      setTimeout(() => {
+        window.location.assign('/')
+      }, 1000)
     }
   }
 

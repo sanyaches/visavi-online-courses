@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
+const PaymentModel = require('../../models/payment')
 const { sendEmail } = require('../sendEmail.js')
 const router = Router()
 
@@ -61,7 +62,8 @@ router.post('/purchases/add', verifyToken, verifyUserToken, async function (req,
     const {
       courseName,
       courseType,
-      accessMonths
+      accessMonths,
+      paymentRequestId
     } = req.body
     const userEmail = req.email
 
@@ -76,7 +78,16 @@ router.post('/purchases/add', verifyToken, verifyUserToken, async function (req,
 
     const endDateMs = startDateMs + difference
 
+    const paymentResult = await PaymentModel.create({
+      paymentRequestId
+    })
+
+    if (!paymentResult) {
+      throw new Error('Payment create server error')
+    }
+
     const result = await PurchaseModel.create({
+      paymentRequestId,
       courseName,
       courseType,
       userEmail,
@@ -85,11 +96,7 @@ router.post('/purchases/add', verifyToken, verifyUserToken, async function (req,
     })
 
     if (!result) {
-      res.status(500).json({
-        status: 'error',
-        errorCode: 'SERVER_ERROR'
-      })
-      return
+      throw new Error('Purchase create server error')
     }
 
     res.status(200).json({
@@ -121,6 +128,14 @@ router.post('/purchases/add', verifyToken, verifyUserToken, async function (req,
       res.status(404).json({
         status: 'error',
         errorCode: 'VALIDATION_ERROR'
+      })
+      return
+    }
+
+    if (error.code === 11000) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'PAYMENT_REQUEST_ID_WAS_REPEATED'
       })
       return
     }

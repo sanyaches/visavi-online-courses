@@ -285,7 +285,31 @@ export default {
 
   head () {
     return {
-      title: this.$t('course.seo.title', { title: this.course.title })
+      title: this.$t('course.seo.title', { title: this.course.title }),
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.course.shortDescription
+        },
+        { name: 'keywords', content: this.$t('course.seo.keywords', { words: this.course.title?.toLowerCase() }) },
+        {
+          name: 'news_keywords',
+          content: this.$t('course.seo.keywords', { words: this.course.title?.toLowerCase() })
+        },
+        {
+          property: 'og:title',
+          content: this.$t('course.seo.title', { title: this.course.title })
+        },
+        {
+          property: 'og:description',
+          content: this.course.shortDescription
+        },
+        {
+          property: 'og:image:alt',
+          content: this.course.shortDescription
+        }
+      ]
     }
   },
 

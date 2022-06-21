@@ -120,6 +120,12 @@ export default {
     }
   },
 
+  head () {
+    return {
+      meta: [{ name: 'robots', content: 'noindex, follow' }]
+    }
+  },
+
   computed: {
     ...mapGetters({
       getMe: 'user/getMe',

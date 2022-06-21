@@ -196,6 +196,7 @@ export default {
     'cookie-universal-nuxt',
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
+    '@nuxtjs/sitemap',
     '@nuxtjs/sentry',
     [
       '@nuxtjs/i18n',
@@ -230,6 +231,19 @@ export default {
   server: {
     port: 3000,
     host: '0.0.0.0'
+  },
+
+  sitemap: {
+    // config
+    hostname: process.env.BASE_URL,
+    gzip: true,
+    exclude: ['/profile', '/admin', '/success-payment', '/error-payment'],
+    cacheTime: 1000 * 60 * 1440,
+    defaults: {
+      changefreq: 'daily',
+      priority: 1,
+      lastmod: new Date()
+    }
   },
 
   /*

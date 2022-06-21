@@ -277,7 +277,31 @@ export default {
 
   head () {
     return {
-      title: this.$t('single_lesson.seo.title', { title: this.singleLesson.title })
+      title: this.$t('single_lesson.seo.title', { title: this.singleLesson.title }),
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.singleLesson.shortDescription
+        },
+        { name: 'keywords', content: this.$t('single_lesson.seo.keywords', { words: this.singleLesson.title?.toLowerCase() }) },
+        {
+          name: 'news_keywords',
+          content: this.$t('single_lesson.seo.keywords', { words: this.singleLesson.title?.toLowerCase() })
+        },
+        {
+          property: 'og:title',
+          content: this.$t('single_lesson.seo.title', { title: this.singleLesson.title })
+        },
+        {
+          property: 'og:description',
+          content: this.singleLesson.shortDescription
+        },
+        {
+          property: 'og:image:alt',
+          content: this.singleLesson.shortDescription
+        }
+      ]
     }
   },
 

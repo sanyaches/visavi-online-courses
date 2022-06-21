@@ -10,6 +10,12 @@
 
 <script>
 export default {
+  head () {
+    return {
+      meta: [{ name: 'robots', content: 'noindex, follow' }]
+    }
+  },
+
   mounted () {
     setTimeout(() => {
       window.location.href = ''
