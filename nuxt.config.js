@@ -45,7 +45,7 @@ export default {
         },
         {
           property: 'og:site_name',
-          content: i18nHead.title
+          content: 'Vikosto'
         },
         {
           property: 'og:image',
