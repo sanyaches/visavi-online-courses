@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+Host: https://www.vikosto.net
+Sitemap: https://www.vikosto.net/sitemap.xml
