@@ -166,7 +166,7 @@
         </div>
         <div id="player" class="single-lesson-single__video" style="padding:56.25% 0 0 0;position:relative;">
           <iframe
-            :src="singleLesson.videoUrl"
+            :src="videoUrl"
             frameborder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
@@ -241,18 +241,12 @@ export default {
   async asyncData (context) {
     const name = context.params.slug
     try {
-      const token = context.app.$cookies.get('_vikosto_token')
-      if (token) {
-        context.app.$http.setToken(token, 'Bearer')
-      }
       const response = await context.app.$http.$get(
           `${context.env.baseUrl}/api/single-lesson/single/${name}`
       )
 
       return {
         singleLesson: response.data.singleLesson,
-        files: response.data.files,
-        purchase: response.data.purchase,
         APP_ID: context.env.COMETCHAT_APP_ID,
         AUTH_KEY: context.env.COMETCHAT_AUTH_KEY,
         APP_REGION: context.env.COMETCHAT_REGION,
@@ -268,6 +262,7 @@ export default {
       singleLesson: {},
       files: [],
       purchase: null,
+      videoUrl: null,
       APP_ID: '',
       AUTH_KEY: '',
       APP_REGION: '',
@@ -275,6 +270,38 @@ export default {
       chatLoading: false
     }
   },
+
+  async fetch () {
+    const name = this.$route.params.slug
+    const token = this.$cookies.get('_vikosto_token')
+
+    if (!token) {
+      return
+    }
+
+    const url = `/api/single-lesson/single-extra/${name}`
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      cache: 'no-cache'
+    })
+
+    const result = await res.json()
+
+    if (result?.status === 'success') {
+      const { files, purchase, videoUrl } = result.data
+
+      this.purchase = purchase
+      this.files = files
+      this.videoUrl = videoUrl
+    }
+  },
+
+  fetchOnServer: false,
 
   head () {
     return {
@@ -339,13 +366,6 @@ export default {
   },
 
   mounted () {
-    setTimeout(() => {
-      const videoEl = document.getElementById('background-video')
-      if (videoEl?.paused && typeof videoEl?.play === 'function') {
-        videoEl.play()
-      }
-    }, 2000)
-
     if (!this.isPurchased || this.isExpired) {
       return
     }

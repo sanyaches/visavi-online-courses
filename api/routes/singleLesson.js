@@ -337,9 +337,37 @@ router.get('/single-lesson/list', async function (req, res) {
 
 router.get('/single-lesson/single/:lessonName', async function (req, res) {
   try {
-    const checkPurchased = async (token, lessonName) => {
+    const { lessonName } = req.params
+
+    const result = await SingleLessonModel.findOne({ name: lessonName }, { videoUrl: 0 })
+
+    if (!result) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'LESSON_NOT_FOUND'
+      })
+      return
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        singleLesson: result
+      }
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      errorCode: 'SERVER_ERROR'
+    })
+  }
+})
+
+router.get('/single-lesson/single-extra/:lessonName', async function (req, res) {
+  try {
+    const getPurchase = async (token, lessonName) => {
       if (!token) {
-        return false
+        return null
       }
       const user = jwt.verify(token, jwtSecretKey)
       const query = {
@@ -349,7 +377,7 @@ router.get('/single-lesson/single/:lessonName', async function (req, res) {
       const userResult = await UsersModel.findOne(query)
 
       if (!userResult || !userResult.email) {
-        return false
+        return null
       }
 
       if (userResult.isAdmin) {
@@ -373,23 +401,30 @@ router.get('/single-lesson/single/:lessonName', async function (req, res) {
 
     const { lessonName } = req.params
     const bearerHeader = req.headers.authorization
-    let foundPurchase = null
 
-    if (bearerHeader) {
-      const bearer = bearerHeader.split(' ')
-      const bearerToken = bearer[1]
-
-      foundPurchase = await checkPurchased(bearerToken, lessonName)
+    if (!bearerHeader) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'NO_TOKEN'
+      })
+      return
     }
 
-    let result
-    let foundFiles = []
-    if (foundPurchase) {
-      result = await SingleLessonModel.findOne({ name: lessonName })
-      foundFiles = await FileModel.find({ lessonName, lessonType: 'singleLesson' }).exec()
-    } else {
-      result = await SingleLessonModel.findOne({ name: lessonName }, { videoUrl: 0 })
+    const bearer = bearerHeader.split(' ')
+    const bearerToken = bearer[1]
+
+    const foundPurchase = await getPurchase(bearerToken, lessonName)
+
+    if (!foundPurchase) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'NOT_PURCHASED'
+      })
+      return
     }
+
+    const result = await SingleLessonModel.findOne({ name: lessonName })
+    const foundFiles = await FileModel.find({ lessonName, lessonType: 'singleLesson' }).exec()
 
     if (!result) {
       res.status(404).json({
@@ -402,7 +437,7 @@ router.get('/single-lesson/single/:lessonName', async function (req, res) {
     res.status(200).json({
       status: 'success',
       data: {
-        singleLesson: result,
+        videoUrl: result.videoUrl,
         files: foundFiles,
         purchase: foundPurchase
       }
