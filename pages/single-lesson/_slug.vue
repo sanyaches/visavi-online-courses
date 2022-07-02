@@ -20,7 +20,7 @@
             autoplay="autoplay"
             loop="loop"
             muted="muted"
-            preload="yes"
+            preload="auto"
             playsinline="playsinline"
           >
             <source :src="singleLesson.promoUrl" type="video/mp4">
@@ -95,7 +95,7 @@
             autoplay="autoplay"
             loop="loop"
             muted="muted"
-            preload="yes"
+            preload="auto"
             playsinline="playsinline"
           >
             <source :src="singleLesson.promoUrl" type="video/mp4">
@@ -287,7 +287,7 @@ export default {
         Accept: 'application/json',
         Authorization: `Bearer ${token}`
       },
-      cache: 'no-cache'
+      cache: 'no-store'
     })
 
     const result = await res.json()

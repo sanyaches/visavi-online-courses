@@ -83,6 +83,7 @@ export default {
             'Content-Type': 'application/json; charset=UTF-8',
             Accept: 'application/json'
           },
+          cache: 'no-store',
           body: jsonBody
         })
         const data = await res.json()

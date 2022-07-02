@@ -243,9 +243,36 @@ router.get('/course/list', async function (req, res) {
 
 router.get('/course/single/:courseName', async function (req, res) {
   try {
-    const checkPurchased = async (token, courseName) => {
+    const { courseName } = req.params
+
+    const result = await CourseModel.findOne({ name: courseName })
+
+    if (!result) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'COURSE_NOT_FOUND'
+      })
+      return
+    }
+    res.status(200).json({
+      status: 'success',
+      data: {
+        course: result
+      }
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      errorCode: 'SERVER_ERROR'
+    })
+  }
+})
+
+router.get('/course/single-extra/:courseName', async function (req, res) {
+  try {
+    const getPurchase = async (token, courseName) => {
       if (!token) {
-        return false
+        return null
       }
       const user = jwt.verify(token, jwtSecretKey)
       const query = {
@@ -255,7 +282,7 @@ router.get('/course/single/:courseName', async function (req, res) {
       const userResult = await UsersModel.findOne(query)
 
       if (!userResult || !userResult.email) {
-        return false
+        return null
       }
 
       if (userResult.isAdmin) {
@@ -279,28 +306,31 @@ router.get('/course/single/:courseName', async function (req, res) {
 
     const { courseName } = req.params
     const bearerHeader = req.headers.authorization
-    let foundPurchase = null
 
-    if (bearerHeader) {
-      const bearer = bearerHeader.split(' ')
-      const bearerToken = bearer[1]
-
-      foundPurchase = await checkPurchased(bearerToken, courseName)
-    }
-
-    const result = await CourseModel.findOne({ name: courseName })
-
-    if (!result) {
+    if (!bearerHeader) {
       res.status(404).json({
         status: 'error',
-        errorCode: 'COURSE_NOT_FOUND'
+        errorCode: 'NO_TOKEN'
       })
       return
     }
+
+    const bearer = bearerHeader.split(' ')
+    const bearerToken = bearer[1]
+
+    const foundPurchase = await getPurchase(bearerToken, courseName)
+
+    if (!foundPurchase) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'NOT_PURCHASED'
+      })
+      return
+    }
+
     res.status(200).json({
       status: 'success',
       data: {
-        course: result,
         purchase: foundPurchase
       }
     })

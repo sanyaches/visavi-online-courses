@@ -92,7 +92,8 @@ export const actions = {
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
           email: user.email
-        }
+        },
+        cache: 'no-store'
       })
       const response = await res.json()
       if (response?.status === 'success') {

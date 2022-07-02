@@ -256,10 +256,7 @@ export default {
   async asyncData (context) {
     try {
       const name = context.params.slug
-      const token = context.app.$cookies.get('_vikosto_token')
-      if (token) {
-        context.app.$http.setToken(token, 'Bearer')
-      }
+
       const response = await context.app.$http.$get(
           `${context.env.baseUrl}/api/course/single/${name}`
       )
@@ -267,7 +264,6 @@ export default {
 
       return {
         course: response.data.course,
-        purchase: response.data.purchase,
         courseLessons: lessonsResponse.data
       }
     } catch (e) {
@@ -282,6 +278,36 @@ export default {
       purchase: null
     }
   },
+
+  async fetch () {
+    const name = this.$route.params.slug
+    const token = this.$cookies.get('_vikosto_token')
+
+    if (!token) {
+      return
+    }
+
+    const url = `/api/course/single-extra/${name}`
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      cache: 'no-store'
+    })
+
+    const result = await res.json()
+
+    if (result?.status === 'success') {
+      const { purchase } = result.data
+
+      this.purchase = purchase
+    }
+  },
+
+  fetchOnServer: false,
 
   head () {
     return {
