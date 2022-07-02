@@ -7,7 +7,14 @@
         <div class="recovery__form">
           <label for="email">
             <div>{{ $t('recovery.form.email') }}</div>
-            <b-input id="email" v-model="form.email" required autocomplete="email" type="text" />
+            <b-input
+              id="email"
+              v-model="form.email"
+              :formatter="lowerCaseFormatter"
+              required
+              autocomplete="email"
+              type="text"
+            />
           </label>
 
           <b-button type="submit" class="mt-2 button button--brown">
@@ -41,6 +48,10 @@ export default {
   },
 
   methods: {
+    lowerCaseFormatter (value) {
+      return value.toLowerCase()
+    },
+
     async submitRecovery () {
       const jsonBody = JSON.stringify({
         email: this.form.email

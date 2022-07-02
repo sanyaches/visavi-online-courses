@@ -7,7 +7,14 @@
         <div class="login__form">
           <label for="email">
             <div>{{ $t('login.form.email') }}</div>
-            <b-input id="email" v-model="form.email" required autocomplete="email" type="text" />
+            <b-input
+              id="email"
+              v-model="form.email"
+              :formatter="lowerCaseFormatter"
+              required
+              autocomplete="email"
+              type="text"
+            />
           </label>
           <label for="password">
             <div>{{ $t('login.form.password') }}</div>
@@ -60,6 +67,10 @@ export default {
       loginUser: 'user/login',
       authenticate: 'user/authenticate'
     }),
+
+    lowerCaseFormatter (value) {
+      return value.toLowerCase()
+    },
 
     async submitLogin () {
       const jsonBody = JSON.stringify({ email: this.form.email, password: this.form.password })

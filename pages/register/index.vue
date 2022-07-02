@@ -7,7 +7,14 @@
         <div class="register__form">
           <label for="email">
             <div>{{ $t('register.form.email') }}</div>
-            <b-input id="email" v-model="form.email" required autocomplete="email" type="text" />
+            <b-input
+              id="email"
+              v-model="form.email"
+              :formatter="lowerCaseFormatter"
+              required
+              autocomplete="email"
+              type="text"
+            />
           </label>
           <label for="first-name">
             <div>{{ $t('register.form.first_name') }}</div>
@@ -76,6 +83,10 @@ export default {
     ...mapActions({
       loginUser: 'user/login'
     }),
+
+    lowerCaseFormatter (value) {
+      return value.toLowerCase()
+    },
 
     async submitRegister () {
       try {
