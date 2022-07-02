@@ -404,7 +404,7 @@ export default {
         expiresDate.setDate(expiresDate.getDate() + 30)
 
         const cookieString = JSON.stringify({
-          lessonType: 'single-lesson',
+          lessonType: 'singleLesson',
           name: this.singleLesson.name,
           imageUrl: this.singleLesson.thumbnailUrl,
           title: this.singleLesson.title,
