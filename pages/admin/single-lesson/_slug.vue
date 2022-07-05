@@ -70,7 +70,7 @@
           </div>
         </b-form>
 
-        <div v-if="files.length" class="single-lesson-single__files-list">
+        <div v-if="files && files.length" class="single-lesson-single__files-list">
           <file-card v-for="file in files" :key="file.name" :file="file" />
         </div>
       </div>
