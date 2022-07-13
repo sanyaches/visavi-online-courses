@@ -214,7 +214,17 @@
         <h2>{{ $t('single_lesson.files_title') }}</h2>
 
         <div class="single-lesson-single__files-list">
-          <file-card v-for="file in files" :key="file.name" :file="file" />
+          <div v-for="file in files" :key="file.name">
+            <file-card v-if="purchasedFileNames.includes(file.name)" :file="file" />
+            <div v-else>
+              Firstly, buy this file :)
+              <p>{{ file.title }}</p>
+              <p>{{ file.price }}</p>
+              <button @click="buyFile(file)">
+                Buy file {{ file.name }}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -261,6 +271,7 @@ export default {
     return {
       singleLesson: {},
       files: [],
+      filePurchases: [],
       purchase: null,
       videoUrl: null,
       APP_ID: '',
@@ -293,11 +304,12 @@ export default {
     const result = await res.json()
 
     if (result?.status === 'success') {
-      const { files, purchase, videoUrl } = result.data
+      const { files, purchase, videoUrl, filePurchases } = result.data
 
       this.purchase = purchase
       this.files = files
       this.videoUrl = videoUrl
+      this.filePurchases = filePurchases
     }
   },
 
@@ -362,6 +374,9 @@ export default {
     },
     newPrice () {
       return Math.ceil(Math.floor(this.singleLesson.price * 0.7) / 10) * 10 - 10
+    },
+    purchasedFileNames () {
+      return this.filePurchases.map(filePurchase => filePurchase.fileName)
     }
   },
 
@@ -483,6 +498,90 @@ export default {
         }
       }
     },
+
+    async buyFile (file) {
+      if (!this.profile) {
+        const link = this.localePath('/login')
+        this.$root.$bvToast.toast(this.$t('notify.register_then_buy_msg'), {
+          title: this.$t('notify.register_then_buy'),
+          toaster: 'b-toaster-top-right',
+          solid: true,
+          variant: 'info'
+        })
+        this.$router.push(link)
+
+        return
+      }
+
+      const getFullName = (profile) => {
+        return [profile.firstName, profile.lastName]
+          .filter(Boolean)
+          .join(' ')
+      }
+      const userEmail = this.profile.email
+      const amount = file.price
+      const from = getFullName(this.profile)
+      const lessonName = this.singleLesson.name
+      const fileName = file.name
+      const fileTitle = file.title
+      const paymentMessage = this.$t('course.payment_message', { from, email: userEmail, amount, courseName: fileTitle })
+
+      const url = '/api/payment/pay-file'
+
+      const jsonBody = JSON.stringify({
+        lessonName,
+        lessonType: 'singleLesson',
+        fileName,
+        accessMonths: file.accessMonths,
+        amount: file.price,
+        // amount: 2,
+        paymentMessage,
+        token: this.token,
+        userEmail
+      })
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.token}`
+          },
+          body: jsonBody
+        })
+        const data = await res.json()
+        if (data?.status === 'success') {
+          this.$root.$bvToast.toast(this.$t('notify.success_add_purchase'), {
+            title: this.$t('notify.success_add_purchase'),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'success'
+          })
+
+          window.location.reload()
+
+          return
+        } else if (data?.status === 'redirect') {
+          window.location.assign(data.url)
+          return
+        }
+
+        throw data
+      } catch (error) {
+        if (error.errorCode) {
+          const code = String(error.errorCode).toLowerCase()
+          this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
+            title: this.$t(`notify.error.${code}`),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'danger',
+            appendToast: true
+          })
+        }
+      }
+    },
+
     initChat (user) {
       try {
         const UID = user.id

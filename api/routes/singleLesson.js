@@ -7,6 +7,7 @@ const SingleLessonModel = require('../../models/singleLesson')
 const FileModel = require('../../models/file')
 const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
+const FilePurchaseModel = require('../../models/filePurchase')
 
 const router = Router()
 
@@ -136,7 +137,9 @@ router.post('/single-lesson/add-file', verifyToken, verifyAdminToken, async func
       name,
       title,
       lessonName,
-      resourceUrl = '/api/videos/example.mp4'
+      resourceUrl = '/api/videos/example.mp4',
+      needToBuy,
+      price
     } = req.body
 
     const result = await FileModel.create({
@@ -144,7 +147,9 @@ router.post('/single-lesson/add-file', verifyToken, verifyAdminToken, async func
       title,
       lessonName,
       lessonType: 'singleLesson',
-      resourceUrl
+      resourceUrl,
+      needToBuy,
+      price
     })
 
     if (!result) {
@@ -162,7 +167,9 @@ router.post('/single-lesson/add-file', verifyToken, verifyAdminToken, async func
         title: result.title,
         lessonName: result.lessonName,
         lessonType: result.lessonType,
-        resourceUrl: result.resourceUrl
+        resourceUrl: result.resourceUrl,
+        needToBuy: result.needToBuy,
+        price: result.price
       }
     })
   } catch (error) {
@@ -365,7 +372,7 @@ router.get('/single-lesson/single/:lessonName', async function (req, res) {
 
 router.get('/single-lesson/single-extra/:lessonName', async function (req, res) {
   try {
-    const getPurchase = async (token, lessonName) => {
+    const getPurchases = async (token, lessonName) => {
       if (!token) {
         return null
       }
@@ -382,11 +389,14 @@ router.get('/single-lesson/single-extra/:lessonName', async function (req, res) 
 
       if (userResult.isAdmin) {
         return {
-          courseName: lessonName,
-          courseType: 'singleLesson',
-          endDate: Date.now() + 100000000,
-          startDate: Date.now() - 100000000,
-          userEmail: userResult.email
+          lesson: {
+            courseName: lessonName,
+            courseType: 'singleLesson',
+            endDate: Date.now() + 100000000,
+            startDate: Date.now() - 100000000,
+            userEmail: userResult.email
+          },
+          files: []
         }
       }
 
@@ -396,7 +406,16 @@ router.get('/single-lesson/single-extra/:lessonName', async function (req, res) 
         userEmail: userResult.email
       })
 
-      return purchaseSingleLesson
+      const purchaseFiles = await FilePurchaseModel.find({
+        lessonType: 'singleLesson',
+        lessonName,
+        userEmail: userResult.email
+      })
+
+      return {
+        lesson: purchaseSingleLesson,
+        files: purchaseFiles
+      }
     }
 
     const { lessonName } = req.params
@@ -413,7 +432,7 @@ router.get('/single-lesson/single-extra/:lessonName', async function (req, res) 
     const bearer = bearerHeader.split(' ')
     const bearerToken = bearer[1]
 
-    const foundPurchase = await getPurchase(bearerToken, lessonName)
+    const foundPurchase = await getPurchases(bearerToken, lessonName)
 
     if (!foundPurchase) {
       res.status(404).json({
@@ -439,7 +458,8 @@ router.get('/single-lesson/single-extra/:lessonName', async function (req, res) 
       data: {
         videoUrl: result.videoUrl,
         files: foundFiles,
-        purchase: foundPurchase
+        purchase: foundPurchase.lesson,
+        filePurchases: foundPurchase.files
       }
     })
   } catch (error) {

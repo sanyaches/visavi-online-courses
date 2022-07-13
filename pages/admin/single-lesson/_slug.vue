@@ -64,6 +64,16 @@
               <b-input id="file-resource-url" v-model="newFileForm.resourceUrl" required autocomplete="file-resource-url" type="text" />
             </label>
 
+            <label for="file-need-to-buy">
+              <div>{{ $t('single_lesson.file_form.need_to_buy') }}</div>
+              <b-checkbox id="file-need-to-buy" v-model="newFileForm.needToBuy" autocomplete="file-need-to-buy" type="checkbox" />
+            </label>
+
+            <label v-if="newFileForm.needToBuy" for="file-price">
+              <div>{{ $t('single_lesson.file_form.price') }}</div>
+              <b-input id="file-price" v-model="newFileForm.price" autocomplete="file-price" type="number" />
+            </label>
+
             <b-button type="submit" class="mt-2">
               {{ $t('single_lesson.file_form.submit') }}
             </b-button>
@@ -110,7 +120,9 @@ export default {
       newFileForm: {
         name: '',
         title: '',
-        resourceUrl: ''
+        resourceUrl: '',
+        needToBuy: false,
+        price: 0
       },
       files: [],
       fileFormOpen: false
@@ -141,7 +153,9 @@ export default {
         name: this.newFileForm.name,
         title: this.newFileForm.title,
         lessonName: this.singleLesson.name,
-        resourceUrl: this.newFileForm.resourceUrl
+        resourceUrl: this.newFileForm.resourceUrl,
+        needToBuy: this.newFileForm.needToBuy,
+        price: this.newFileForm.price
       })
 
       const url = '/api/single-lesson/add-file'
@@ -169,13 +183,17 @@ export default {
             name: this.newFileForm.name,
             title: this.newFileForm.title,
             lessonName: this.lesson.name,
-            resourceUrl: this.newFileForm.resourceUrl
+            resourceUrl: this.newFileForm.resourceUrl,
+            needToBuy: this.newFileForm.needToBuy,
+            price: this.newFileForm.price
           })
 
           this.newFileForm.name = ''
           this.newFileForm.title = ''
           this.newFileForm.lessonName = ''
           this.newFileForm.resourceUrl = ''
+          this.newFileForm.needToBuy = false
+          this.newFileForm.price = 0
           this.fileFormOpen = false
 
           return
@@ -185,6 +203,8 @@ export default {
         this.newFileForm.title = ''
         this.newFileForm.lessonName = ''
         this.newFileForm.resourceUrl = ''
+        this.newFileForm.needToBuy = false
+        this.newFileForm.price = 0
 
         throw data
       } catch (error) {

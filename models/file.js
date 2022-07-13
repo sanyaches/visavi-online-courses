@@ -22,6 +22,15 @@ const FileSchema = new mongoose.Schema({
   resourceUrl: {
     type: String,
     required: true
+  },
+  needToBuy: {
+    type: Boolean
+  },
+  price: {
+    type: Number
+  },
+  accessMonths: {
+    type: Number
   }
 }, {
   collection: 'files'

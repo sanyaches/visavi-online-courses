@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
+const FilePurchaseModel = require('../../models/filePurchase')
 const PaymentModel = require('../../models/payment')
 const { sendEmail } = require('../sendEmail.js')
 const router = Router()
@@ -30,42 +31,16 @@ function verifyToken (req, res, next) {
   }
 }
 
-async function verifyUserToken (req, res, next) {
-  if (!req.token) {
-    return res.status(403).json({
-      status: 'error',
-      errorCode: 'FORBIDDEN_ERROR'
-    })
-  }
-
-  const user = jwt.verify(req.token, jwtSecretKey)
-  const query = {
-    _id: user.id
-  }
-
-  const userResult = await UsersModel.findOne(query)
-  const userEmail = req.headers.email
-
-  if (userResult.email !== userEmail) {
-    return res.status(403).json({
-      status: 'error',
-      errorCode: 'FORBIDDEN_ERROR'
-    })
-  }
-
-  req.email = userEmail
-  next()
-}
-
-router.post('/purchases/add', verifyToken, verifyUserToken, async function (req, res) {
+router.post('/purchases/add', verifyToken, async function (req, res) {
   try {
     const {
       courseName,
       courseType,
       accessMonths,
-      paymentRequestId
+      paymentRequestId,
+      isFree = false
     } = req.body
-    const userEmail = req.email
+    const userEmail = req.headers.email
 
     await PurchaseModel.deleteOne({ courseName, courseType, userEmail })
 
@@ -78,16 +53,17 @@ router.post('/purchases/add', verifyToken, verifyUserToken, async function (req,
 
     const endDateMs = startDateMs + difference
 
-    const paymentResult = await PaymentModel.create({
-      paymentRequestId
-    })
+    if (!isFree) {
+      const paymentResult = await PaymentModel.create({
+        paymentRequestId
+      })
 
-    if (!paymentResult) {
-      throw new Error('Payment create server error')
+      if (!paymentResult) {
+        throw new Error('Payment create server error')
+      }
     }
 
     const result = await PurchaseModel.create({
-      paymentRequestId,
       courseName,
       courseType,
       userEmail,
@@ -147,11 +123,103 @@ router.post('/purchases/add', verifyToken, verifyUserToken, async function (req,
   }
 })
 
-router.get('/purchases/purchases-by-user', verifyToken, verifyUserToken, async function (req, res) {
+router.post('/purchases/add-file', verifyToken, async function (req, res) {
+  try {
+    const {
+      lessonName,
+      lessonType,
+      fileName,
+      accessMonths,
+      paymentRequestId
+    } = req.body
+    const userEmail = req.headers.email
+
+    await FilePurchaseModel.deleteOne({ lessonName, lessonType, fileName, userEmail })
+
+    const startDateMs = Date.now()
+
+    const firstDate = new Date(startDateMs)
+    const secondDate = new Date(startDateMs)
+    secondDate.setMonth(secondDate.getMonth() + Number(accessMonths))
+    const difference = secondDate - firstDate
+
+    const endDateMs = startDateMs + difference
+
+    const paymentResult = await PaymentModel.create({
+      paymentRequestId
+    })
+
+    if (!paymentResult) {
+      throw new Error('Payment create server error')
+    }
+
+    const result = await FilePurchaseModel.create({
+      lessonName,
+      lessonType,
+      fileName,
+      userEmail,
+      startDate: startDateMs,
+      endDate: endDateMs
+    })
+
+    if (!result) {
+      throw new Error('Purchase create server error')
+    }
+
+    res.status(200).json({
+      status: 'success',
+      purchase: {
+        courseName: result.courseName,
+        courseType: result.courseType,
+        userEmail: result.userEmail,
+        startDate: result.startDate,
+        endDate: result.endDate
+      }
+    })
+
+    sendEmail(`
+      <h1>У нас покупочка файла!</h1>
+      <div>
+        Кто-то купил на сайте, ура!
+      </div>
+      <p>Тип урока: ${result.lessonType}</p>
+      <p>Имя урока: ${result.lessonName}</p>
+      <p>Имя файла: ${result.fileName}</p>
+      <p>Почта  пользователя: ${result.userEmail}</p>
+      <p>Месяцев доступа: ${accessMonths}</p>
+    `, {
+      toEmail: 'vi.kosto@yandex.ru',
+      subject: 'Новая покупка на сайте www.vikosto.net'
+    })
+  } catch (error) {
+    if (error.errors) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'VALIDATION_ERROR'
+      })
+      return
+    }
+
+    if (error.code === 11000) {
+      res.status(404).json({
+        status: 'error',
+        errorCode: 'PAYMENT_REQUEST_ID_WAS_REPEATED'
+      })
+      return
+    }
+
+    res.status(500).json({
+      status: 'error',
+      errorCode: 'SERVER_ERROR'
+    })
+  }
+})
+
+router.get('/purchases/purchases-by-user', verifyToken, async function (req, res) {
   try {
     const limit = parseInt(req.query.limit, 10) || 1000
     const offset = parseInt(req.query.offset, 10) || 0
-    const userEmail = req.email
+    const userEmail = req.headers.email
 
     const result = await PurchaseModel.find({ userEmail })
       .limit(limit)

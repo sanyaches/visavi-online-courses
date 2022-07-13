@@ -27,11 +27,14 @@ export default {
   },
 
   async mounted () {
-    const { request_id, course_type, course_name, access_months, email } = this.$route.query
+    const { request_id, course_type, course_name, access_months, email, file_name, lesson_name, lesson_type } = this.$route.query
 
-    const url = '/api/payment/check'
+    let url = '/api/payment/check'
+    if (file_name && !course_name) {
+      url = '/api/payment/check-file'
+    }
     const token = this.$cookies.get('_vikosto_token')
-    const jsonBody = JSON.stringify({
+    let jsonBody = JSON.stringify({
       courseName: course_name,
       courseType: course_type,
       token,
@@ -39,6 +42,17 @@ export default {
       userEmail: email,
       requestId: request_id
     })
+    if (file_name && !course_name) {
+      jsonBody = JSON.stringify({
+        fileName: file_name,
+        lessonType: lesson_type,
+        lessonName: lesson_name,
+        token,
+        accessMonths: access_months,
+        userEmail: email,
+        requestId: request_id
+      })
+    }
     try {
       const res = await fetch(url, {
         method: 'POST',
