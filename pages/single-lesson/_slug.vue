@@ -576,8 +576,8 @@ export default {
         lessonType: 'singleLesson',
         fileName,
         accessMonths: file.accessMonths,
-        // amount: file.price,
-        amount: 2,
+        amount: file.price,
+        // amount: 2,
         paymentMessage,
         token: this.token,
         userEmail

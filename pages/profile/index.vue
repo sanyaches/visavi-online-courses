@@ -66,11 +66,16 @@
         <h3 class="mt-3">
           {{ $t('offer.text', { title: preparedTitle }) }}
         </h3>
-        <div class="profile-offer__price">
+
+        <div v-if="offer.price > 0" class="profile-offer__price">
           <span>{{ offer.price }}</span>
           <br>
           <span class="currency">{{ $t('common.currency') }}</span>
         </div>
+        <div v-else class="profile-offer__price">
+          {{ $t('common.free') }}
+        </div>
+
         <div class="profile-offer__access">
           {{ $t('offer.access', { access: formattedMonths }) }}
         </div>
@@ -260,8 +265,8 @@ export default {
         courseName,
         courseType: this.offer.lessonType,
         accessMonths: this.offer.accessMonths,
-        // amount: this.offer.price,
-        amount: 2,
+        amount: this.offer.price,
+        // amount: 2,
         paymentMessage,
         token: this.token,
         userEmail
