@@ -376,7 +376,18 @@ export default {
       return Math.ceil(Math.floor(this.singleLesson.price * 0.7) / 10) * 10 - 10
     },
     purchasedFileNames () {
-      return this.filePurchases.map(filePurchase => filePurchase.fileName)
+      const purchasedNames = this.filePurchases.map(filePurchase => filePurchase.fileName)
+      const purchasedFileNames = []
+
+      this.files.forEach((file) => {
+        if (!file.needToBuy) {
+          purchasedFileNames.push(file.name)
+        } else if (purchasedNames.includes(file.name)) {
+          purchasedFileNames.push(file.name)
+        }
+      })
+
+      return purchasedFileNames
     }
   },
 
