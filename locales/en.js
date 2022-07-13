@@ -1,5 +1,6 @@
 export default {
   common: {
+    free: 'Free',
     edit: 'Edit',
     delete: 'Delete',
     back: 'Back',
@@ -493,6 +494,9 @@ export default {
     files_title: 'Materials',
     files_add_button: 'Add file',
     buy: 'Buy',
+    buy_free: 'Open access',
+    buy_free_button: 'Open',
+    buy_free_course_button: 'access',
     buy_again: 'Access expired, buy again',
     watch: 'Purchased, to watch',
     expired_at: 'Access will closed:',

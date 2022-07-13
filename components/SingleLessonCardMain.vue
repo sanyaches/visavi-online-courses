@@ -4,13 +4,16 @@
       <div class="single-lesson-card-main__image" @click="$router.push(singleLessonLink)" @mouseenter="image = 'second'" @mouseleave="image = 'first'">
         <img class="bottom" :src="lesson.cardImageSecond">
         <img class="top" :src="lesson.cardImageFirst">
-        <div class="single-lesson-card-main__price">
+        <div v-if="lesson.price > 0" class="single-lesson-card-main__price">
           <span class="old">{{ lesson.price }}</span>
           <span class="new">{{ newPrice }}</span>
           <br>
           <span class="currency">
             {{ $t('common.currency') }}
           </span>
+        </div>
+        <div v-else class="single-lesson-card-main__price">
+          {{ $t('common.free') }}
         </div>
       </div>
       <div class="single-lesson-card-main__content">

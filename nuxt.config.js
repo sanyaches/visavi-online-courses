@@ -270,7 +270,8 @@ export default {
       solid: [
         'faCaretDown', 'faCaretLeft', 'faCaretRight', 'faCommentDots',
         'faCaretUp', 'faFileArrowDown', 'faClock', 'faScroll', 'faCirclePlay',
-        'faArrowTrendUp', 'faXmark', 'faPlus', 'faUser', 'faCheck', 'faKey'
+        'faArrowTrendUp', 'faXmark', 'faPlus', 'faUser', 'faCheck', 'faKey',
+        'faStar', 'faClipboardList'
       ],
       regular: [
         'faClock', 'faMoneyBill1', 'faEye',

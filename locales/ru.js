@@ -1,5 +1,6 @@
 export default {
   common: {
+    free: 'Бесплатно',
     edit: 'Редактировать',
     delete: 'Удалить',
     back: 'Назад',
@@ -498,6 +499,9 @@ export default {
     files_title: 'Материалы к уроку',
     files_add_button: 'Добавить файл',
     buy: 'Купить',
+    buy_free: 'Открыть доступ',
+    buy_free_button: 'Открыть',
+    buy_free_course_button: 'доступ',
     buy_again: 'Доступ истек, купить снова',
     watch: 'Куплено, к просмотру',
     expired_at: 'Доступ закончится:',

@@ -1,10 +1,15 @@
 <template>
   <div class="single-lesson-single">
     <b-button v-if="!isPurchased || isExpired" class="single-lesson-single__buy-button" @click="buySingleLesson">
-      <div>
+      <div v-if="singleLesson.price > 0">
         {{ $t('single_lesson.buy_button') }}
         <br>
         {{ $t('single_lesson.buy_course_button') }}
+      </div>
+      <div v-else>
+        {{ $t('single_lesson.buy_free_button') }}
+        <br>
+        {{ $t('single_lesson.buy_free_course_button') }}
       </div>
     </b-button>
 
@@ -38,11 +43,14 @@
                 <div class="single-lesson-single__image">
                   <img :src="singleLesson.thumbnailUrl">
                 </div>
-                <div class="single-lesson-single__price">
+                <div v-if="singleLesson.price > 0" class="single-lesson-single__price">
                   <span class="old">{{ singleLesson.price }}</span>
                   <span class="new">{{ newPrice }}</span>
                   <br>
                   <span class="currency">{{ $t('common.currency') }}</span>
+                </div>
+                <div v-else class="single-lesson-single__price">
+                  {{ $t('common.free') }}
                 </div>
               </div>
               <div class="single-lesson-single__benefits">
@@ -54,7 +62,7 @@
                     {{ formattedTime }}
                   </div>
                 </div>
-                <div class="single-lesson-single__benefit">
+                <div v-if="singleLesson.price > 0" class="single-lesson-single__benefit">
                   <font-awesome-icon icon="fa-solid fa-key" class="single-lesson-single__benefit-icon" />
                   <div class="single-lesson-single__benefit-text">
                     <span>{{ $t('single_lesson.access_months') }}</span>
@@ -62,7 +70,7 @@
                     <span>{{ formattedMonths }}</span>
                   </div>
                 </div>
-                <div class="single-lesson-single__benefit">
+                <div v-if="singleLesson.price > 0" class="single-lesson-single__benefit">
                   <font-awesome-icon icon="fa-solid fa-scroll" class="single-lesson-single__benefit-icon" />
                   <div class="single-lesson-single__benefit-text">
                     <span>{{ $t('single_lesson.give_certificate') }}</span>
@@ -73,7 +81,7 @@
               </div>
               <div class="single-lesson-single__control">
                 <b-button class="button button--brown-dark button button--large" @click="buySingleLesson">
-                  {{ $t('single_lesson.buy') }}
+                  {{ singleLesson.price > 0 ? $t('single_lesson.buy') : $t('single_lesson.buy_free') }}
                 </b-button>
                 <nuxt-link class="button button--brown button button--large" to="#promo">
                   {{ $t('single_lesson.promo') }}
@@ -120,7 +128,7 @@
                 </div>
               </div>
               <div class="single-lesson-single__benefits">
-                <div class="single-lesson-single__benefit">
+                <div v-if="singleLesson.price > 0" class="single-lesson-single__benefit">
                   <font-awesome-icon icon="fa-solid fa-comment-dots" class="single-lesson-single__benefit-icon" />
                   <div class="single-lesson-single__benefit-text">
                     <span>{{ $t('single_lesson.give_feedback') }}</span>
@@ -136,7 +144,7 @@
                     <span>{{ formattedEndDate }}</span>
                   </div>
                 </div>
-                <div class="single-lesson-single__benefit">
+                <div v-if="singleLesson.price > 0" class="single-lesson-single__benefit">
                   <font-awesome-icon icon="fa-solid fa-scroll" class="single-lesson-single__benefit-icon" />
                   <div class="single-lesson-single__benefit-text">
                     <span>{{ $t('single_lesson.give_certificate') }}</span>
@@ -174,7 +182,7 @@
           />
         </div>
 
-        <div class="my-4 text-center">
+        <div v-if="singleLesson.price > 0" class="my-4 text-center">
           <nuxt-link class="button button--brown button button--large" to="#chat-container">
             {{ $t('single_lesson.homework') }}
           </nuxt-link>
@@ -216,19 +224,43 @@
         <div class="single-lesson-single__files-list">
           <div v-for="file in files" :key="file.name">
             <file-card v-if="purchasedFileNames.includes(file.name)" :file="file" />
-            <div v-else>
-              Firstly, buy this file :)
-              <p>{{ file.title }}</p>
-              <p>{{ file.price }}</p>
-              <button @click="buyFile(file)">
-                Buy file {{ file.name }}
-              </button>
+            <div v-else class="file-offer">
+              <div class="file-offer__content">
+                <div class="file-offer__image">
+                  <img src="@/assets/images/guide.jpg" :alt="file.title">
+                </div>
+                <div class="file-offer__main-content">
+                  <div class="file-offer__title">
+                    {{ file.title }}
+                  </div>
+                  <div class="file-offer__benefits">
+                    <div class="file-offer__benefit">
+                      <font-awesome-icon icon="fa-solid fa-check" class="file-offer__benefit-icon" />
+                      <p>Качественные и проверенные стайлинг и инструменты </p>
+                    </div>
+                    <div class="file-offer__benefit">
+                      <font-awesome-icon icon="fa-solid fa-clipboard-list" class="file-offer__benefit-icon" />
+                      <p>Полное описание продуктов, как использовать, где купить и сколько стоит</p>
+                    </div>
+                    <div class="file-offer__benefit">
+                      <font-awesome-icon icon="fa-solid fa-star" class="file-offer__benefit-icon" />
+                      <p>Подходит как для мастеров, так и для тех, кто любит делать укладки для себя</p>
+                    </div>
+                  </div>
+                  <p class="file-offer__price">
+                    {{ file.price }} {{ $t('common.currency') }}
+                  </p>
+                  <b-button class="button button--brown-dark button button--large" @click="buyFile(file)">
+                    {{ $t('single_lesson.buy') }}
+                  </b-button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div v-if="isPurchased && !isExpired" class="single-lesson-single__chat">
+      <div v-if="isPurchased && !isExpired && singleLesson.price > 0" class="single-lesson-single__chat">
         <h2 class="single-lesson-single__chat-title">
           {{ $t('single_lesson.chat_title') }}
         </h2>
@@ -544,8 +576,8 @@ export default {
         lessonType: 'singleLesson',
         fileName,
         accessMonths: file.accessMonths,
-        amount: file.price,
-        // amount: 2,
+        // amount: file.price,
+        amount: 2,
         paymentMessage,
         token: this.token,
         userEmail
@@ -595,6 +627,10 @@ export default {
 
     initChat (user) {
       try {
+        if (this.singleLesson.price <= 0) {
+          return
+        }
+
         const UID = user.id
         const name = user.firstName
         const chatLocale = 'ru'
@@ -647,6 +683,93 @@ export default {
 </script>
 
 <style lang="scss">
+.file-offer {
+  &__content {
+    display: flex;
+    padding: 1rem 0;
+
+    @media screen and (max-width: 991px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+
+    @media screen and (max-width: 1200px) {
+      font-size: 1.5rem;
+    }
+
+    @media screen and (max-width: 991px) {
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1rem;
+    }
+  }
+
+  &__image {
+    width: 15rem;
+    margin-right: 5rem;
+
+    @media screen and (max-width: 991px) {
+      margin-right: 0;
+      margin-bottom: 2rem;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__benefit {
+    display: flex;
+    align-items: center;
+  }
+
+  &__benefits {
+    margin-bottom: 1.2rem;
+  }
+
+  &__benefit:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  &__benefit p {
+    margin-bottom: 0;
+  }
+
+  &__benefit-icon {
+    font-size: 2.4rem;
+    margin-right: 1rem;
+    width: 3rem;
+  }
+
+  &__price {
+    font-size: 1.3rem;
+    font-weight: 600;
+
+    @media screen and (max-width: 991px) {
+      text-align: center;
+    }
+  }
+
+  .button {
+    @media screen and (max-width: 991px) {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
 .single-lesson-single {
   padding: 0 0 6rem;
 

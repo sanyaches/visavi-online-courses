@@ -49,6 +49,9 @@ router.post('/purchases/add', verifyToken, async function (req, res) {
     const firstDate = new Date(startDateMs)
     const secondDate = new Date(startDateMs)
     secondDate.setMonth(secondDate.getMonth() + Number(accessMonths))
+    if (accessMonths < 1) {
+      secondDate.setDate(secondDate.getDate() + Number(accessMonths * 30))
+    }
     const difference = secondDate - firstDate
 
     const endDateMs = startDateMs + difference
