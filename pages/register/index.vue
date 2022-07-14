@@ -99,10 +99,10 @@ export default {
           throw { errorCode: 'PASSWORDS_NOT_MATCHED' }
         }
         const jsonBody = JSON.stringify({
-          lastName: this.form.lastName,
-          firstName: this.form.firstName,
+          lastName: this.form.lastName.trim(),
+          firstName: this.form.firstName.trim(),
           password: this.form.password,
-          email: this.form.email
+          email: this.form.email.trim()
         })
 
         const url = '/api/auth/register'

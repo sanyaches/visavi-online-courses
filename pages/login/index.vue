@@ -73,7 +73,7 @@ export default {
     },
 
     async submitLogin () {
-      const jsonBody = JSON.stringify({ email: this.form.email, password: this.form.password })
+      const jsonBody = JSON.stringify({ email: this.form.email.trim(), password: this.form.password })
 
       const url = '/api/auth/login'
       try {
