@@ -287,6 +287,20 @@ export default {
           window.location.assign(data.url)
           return
         }
+        if (data?.status === 'success' && data?.pageUrl) {
+          this.$root.$bvToast.toast(this.$t('notify.success_add_purchase'), {
+            title: this.$t('notify.success_add_purchase'),
+            toaster: 'b-toaster-top-right',
+            solid: true,
+            variant: 'success'
+          })
+
+          setTimeout(() => {
+            window.location.assign(data.pageUrl)
+          }, 700)
+
+          return
+        }
 
         throw data
       } catch (error) {
