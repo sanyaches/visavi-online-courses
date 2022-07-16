@@ -384,15 +384,6 @@ export default {
     }
   },
 
-  mounted () {
-    setTimeout(() => {
-      const videoEl = document.getElementById('background-video')
-      if (videoEl?.paused && typeof videoEl?.play === 'function') {
-        videoEl.play()
-      }
-    }, 2000)
-  },
-
   methods: {
     async buyCourse () {
       if (!this.profile) {
