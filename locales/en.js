@@ -404,8 +404,10 @@ export default {
     welcome: 'Welcome, {name}',
     lessons_title: 'Lessons',
     courses_title: 'Courses',
-    no_lessons: 'You don\'t have a purchased lessons.',
-    no_courses: 'You don\'t have a purchased courses.',
+    certificates_title: 'Certificates',
+    no_lessons: 'You don\'t have purchased lessons.',
+    no_courses: 'You don\'t have purchased courses.',
+    no_certificates: 'You don\'t have certificates.',
     change_password: 'Change your password',
     see_lessons: 'See lessons',
     see_courses: 'See courses'

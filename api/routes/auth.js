@@ -86,6 +86,7 @@ router.post('/auth/login', async function (req, res) {
     res.status(200).json({
       status: 'success',
       user: {
+        id: result.id,
         email: result.email,
         firstName: result.firstName,
         lastName: result.lastName,
@@ -290,6 +291,7 @@ router.post('/auth/register', async function (req, res) {
     res.status(200).json({
       status: 'success',
       user: {
+        id: result.id,
         firstName: result.firstName,
         lastName: result.lastName,
         email: result.email,

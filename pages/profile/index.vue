@@ -49,6 +49,24 @@
             {{ $t('profile.see_courses') }}
           </nuxt-link>
         </div>
+
+        <div class="profile-courses">
+          <div class="profile-courses__header text-center">
+            <h2>
+              {{ $t('profile.certificates_title') }}
+            </h2>
+          </div>
+          <div>
+            <template v-if="myCertificates.length">
+              <div class="profile-courses__files-list">
+                <file-card v-for="file in myCertificates" :key="file.name" :file="file" />
+              </div>
+            </template>
+            <div v-else>
+              <span>{{ $t('profile.no_certificates') }}</span>
+            </div>
+          </div>
+        </div>
       </div>
       <h2 v-else>
         Loading...
@@ -137,7 +155,8 @@ export default {
       token: 'user/getToken',
       getIsAuthenticated: 'user/getIsAuthenticated',
       myCourses: 'user/getMyCourses',
-      mySingleLessons: 'user/getMySingleLessons'
+      mySingleLessons: 'user/getMySingleLessons',
+      myCertificates: 'user/getCertificates'
     }),
 
     getWelcomeText () {
@@ -367,6 +386,14 @@ export default {
     @media screen and (max-width: 991px) {
       width: auto;
     }
+  }
+
+  &__files-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    gap: 1rem;
   }
 }
 

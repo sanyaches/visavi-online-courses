@@ -3,7 +3,8 @@ export const state = () => ({
   token: null,
   isAuthenticated: false,
   coursePurchases: [],
-  singleLessonPurchases: []
+  singleLessonPurchases: [],
+  certificates: []
 })
 
 export const mutations = {
@@ -25,6 +26,10 @@ export const mutations = {
 
   setSingleLessonPurchases (state, singleLessonPurchases) {
     state.singleLessonPurchases = singleLessonPurchases
+  },
+
+  setCertificates (state, certificates) {
+    state.certificates = certificates
   }
 }
 
@@ -47,6 +52,10 @@ export const getters = {
 
   getMySingleLessons (state) {
     return state.singleLessonPurchases
+  },
+
+  getCertificates (state) {
+    return state.certificates
   }
 }
 
@@ -63,6 +72,7 @@ export const actions = {
     commit('setIsAuthenticated', true)
     commit('setToken', token)
     dispatch('loadPurchases', { user, token })
+    dispatch('loadCertificates', { user, token })
   },
 
   logout ({ dispatch, commit }) {
@@ -70,11 +80,16 @@ export const actions = {
     commit('setIsAuthenticated', false)
     commit('setToken', null)
     dispatch('unloadPurchases')
+    dispatch('unloadCertificates')
   },
 
   unloadPurchases ({ commit }) {
     commit('setCoursePurchases', [])
     commit('setSingleLessonPurchases', [])
+  },
+
+  unloadCertificates ({ commit }) {
+    commit('setCertificates', [])
   },
 
   async loadPurchases ({ commit }, { user, token }) {
@@ -107,7 +122,33 @@ export const actions = {
         commit('setSingleLessonPurchases', purchasesWithExpired.filter(item => item.courseType === 'singleLesson'))
       }
     } catch (error) {
-      return null
+      console.error(error)
+    }
+  },
+
+  async loadCertificates ({ commit }, { user, token }) {
+    if (!user.id || !token) {
+      return
+    }
+
+    const urlCertificates = `/api/certificate/list-by-user-id/${user.id}`
+
+    try {
+      const certificatesRes = await fetch(urlCertificates, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        cache: 'no-store'
+      })
+      const certificatesResponse = await certificatesRes.json()
+      if (certificatesResponse?.status === 'success') {
+        commit('setCertificates', certificatesResponse.data.certificates)
+      }
+    } catch (error) {
+      console.error(error)
     }
   },
 

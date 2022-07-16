@@ -409,8 +409,10 @@ export default {
     welcome: 'Добро пожаловать, {name}',
     lessons_title: 'Уроки по прическам',
     courses_title: 'Курсы',
+    certificates_title: 'Сертификаты',
     no_lessons: 'У вас нет купленных уроков.',
     no_courses: 'У вас нет купленных курсов.',
+    no_certificates: 'У вас нет сертификатов.',
     change_password: 'Изменить пароль',
     see_lessons: 'Смотреть все уроки',
     see_courses: 'Смотреть все курсы'
