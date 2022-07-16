@@ -1,5 +1,11 @@
 <template>
   <div class="lesson-page">
+    <nuxt-link v-if="lesson.category === 'practice'" class="lesson-page__link-chat" :to="localePath('/homework-discussion')">
+      {{ $t('lesson.link_chat_1') }}
+      <br>
+      {{ $t('lesson.link_chat_2') }}
+    </nuxt-link>
+
     <b-container>
       <h1 class="lesson-page__title">
         {{ lesson.title }}
@@ -16,7 +22,7 @@
       </div>
 
       <div v-if="lesson.category === 'practice'" class="my-4 text-center">
-        <nuxt-link class="button button--brown button button--large" to="#chat-container">
+        <nuxt-link class="button button--brown button button--large" :to="localePath('/homework-discussion')">
           {{ $t('lesson.chat_link') }}
         </nuxt-link>
       </div>
@@ -34,23 +40,12 @@
           <file-card v-for="file in files" :key="file.name" :file="file" />
         </div>
       </div>
-
-      <div v-if="lesson.category === 'practice'" class="lesson-page__chat">
-        <h2 class="lesson-page__chat-title">
-          {{ $t('lesson.chat_title') }}
-        </h2>
-        <p v-if="chatLoading">
-          {{ $t('lesson.chat_loading') }}
-        </p>
-        <div id="chat-container" class="lesson-page__chat-container" />
-      </div>
     </b-container>
   </div>
 </template>
 
 <script>
 /* eslint-disable no-undef */
-import { mapGetters } from 'vuex'
 
 export default {
   async asyncData (context) {
@@ -61,15 +56,11 @@ export default {
     }
     try {
       const response = await context.app.$http.$get(
-          `${context.env.baseUrl}/api/lesson/single/${name}`
+        `${context.env.baseUrl}/api/lesson/single/${name}`
       )
       return {
         lesson: response.data.lesson,
-        files: response.data.files,
-        APP_ID: context.env.COMETCHAT_APP_ID,
-        AUTH_KEY: context.env.COMETCHAT_AUTH_KEY,
-        APP_REGION: context.env.COMETCHAT_REGION,
-        WIDGET_ID: context.env.COMETCHAT_WIDGET_ID
+        files: response.data.files
       }
     } catch (e) {
       context.error(e)
@@ -79,96 +70,7 @@ export default {
   data () {
     return {
       lesson: {},
-      files: [],
-      APP_ID: '',
-      AUTH_KEY: '',
-      APP_REGION: '',
-      WIDGET_ID: '',
-      chatLoading: false
-    }
-  },
-
-  computed: {
-    ...mapGetters({
-      profile: 'user/getMe',
-      token: 'user/getToken'
-    })
-  },
-
-  mounted () {
-    if (this.lesson.category !== 'practice') {
-      return
-    }
-
-    if (!this.profile || !this.profile.id || !this.profile.firstName) {
-      this.unsubscribe = this.$store.subscribe((mutation, state) => {
-        if (mutation.type === 'user/setUser') {
-          const { user } = state.user
-          if (user?.id) {
-            this.initChat(user)
-          }
-        }
-      })
-    } else {
-      this.initChat(this.profile)
-    }
-  },
-
-  beforeDestroy () {
-    if (this.unsubscribe) {
-      this.unsubscribe()
-    }
-  },
-
-  methods: {
-    initChat (user) {
-      try {
-        const UID = user.id
-        const name = user.firstName
-        const chatLocale = 'ru'
-
-        if (!window.CometChatWidget) {
-          return
-        }
-
-        this.chatLoading = true
-
-        CometChatWidget.init({
-          appID: this.APP_ID,
-          appRegion: this.APP_REGION,
-          authKey: this.AUTH_KEY
-        }).then((response) => {
-          const chatUser = new CometChatWidget.CometChat.User(UID)
-          chatUser.setName(name)
-
-          CometChatWidget.createOrUpdateUser(chatUser).then((user) => {
-            CometChatWidget.login({
-              uid: UID
-            }).then((loggedInUser) => {
-              CometChatWidget.launch({
-                widgetID: this.WIDGET_ID,
-                target: '#chat-container',
-                roundedCorners: 'true',
-                height: '100%',
-                width: '100%',
-                defaultID: '1',
-                defaultType: 'user'
-              }).then(() => {
-                setTimeout(() => {
-                  CometChatWidget.localize(chatLocale)
-                  this.chatLoading = false
-                }, 1000)
-              }).catch(() => {
-                this.chatLoading = false
-              })
-            })
-          })
-        }).catch((e) => {
-          console.error(e)
-        })
-      } catch (e) {
-        console.error(e)
-      }
+      files: []
     }
   }
 }
@@ -177,6 +79,77 @@ export default {
 <style lang="scss">
 .lesson-page {
   padding: 2rem 0;
+
+  &__link-chat {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    width: 5.5rem;
+    height: 5.5rem;
+    padding: 0.5rem 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #b6a498;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    z-index: 1000000;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    outline: none;
+    border: none;
+    transition: all 0.4s;
+    animation: pulse 2s infinite;
+
+    &:hover, &:active, &:focus, &:not(:disabled):not(.disabled):active {
+      background-color: #d1bdb0;
+    }
+
+    &:hover, &:visited, &:active, &:focus {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    @media screen and (min-width: 768px) {
+      bottom: 2.5rem;
+      left: 2.5rem;
+      width: 8.5rem;
+      height: 8.5rem;
+      font-size: 1.3rem;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.9);
+    }
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 40px rgba(182, 164, 152, 0.3);
+    }
+    100% {
+      transform: scale(0.9);
+      box-shadow: 0 0 0 0 rgba(182, 164, 152, 0.3);
+    }
+  }
+
+  @media screen and (max-width: 980px) {
+    @keyframes pulse {
+      0% {
+        transform: scale(0.9);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 20px rgba(182, 164, 152, 0.3);
+      }
+      100% {
+        transform: scale(0.9);
+        box-shadow: 0 0 0 0 rgba(182, 164, 152, 0.3);
+      }
+    }
+  }
 
   &__title {
     text-align: center;

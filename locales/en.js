@@ -512,7 +512,13 @@ export default {
     payment_message: 'Payment {amount} rubles from {from} (email: {email}), for a lesson "{lessonName}"',
     chat_title: 'Lesson discussion',
     chat_loading: 'Chat is loading...',
-    chat_start: 'You can send your homework in convenient format: video or photo'
+    chat_start: 'You can send your homework in convenient format: video or photo',
+    link_chat_1: 'Send',
+    link_chat_2: 'homework'
+  },
+  chat: {
+    chat_title: 'Homework discussion',
+    chat_loading: 'Chat is loading...'
   },
   lesson: {
     price: 'Price: ',
@@ -528,7 +534,9 @@ export default {
     chat_link: 'Send homework',
     chat_title: 'Lesson discussion',
     chat_loading: 'Chat is loading...',
-    chat_start: 'You can send your homework in convenient format: video or photo'
+    chat_start: 'You can send your homework in convenient format: video or photo',
+    link_chat_1: 'Send',
+    link_chat_2: 'homework'
   },
   single_lesson_card: {
     buy: 'Buy',

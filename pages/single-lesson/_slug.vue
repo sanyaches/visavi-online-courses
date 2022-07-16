@@ -12,6 +12,11 @@
         {{ $t('single_lesson.buy_free_course_button') }}
       </div>
     </b-button>
+    <nuxt-link v-else-if="singleLesson.price > 0" class="single-lesson-single__link-chat" :to="localePath('/homework-discussion')">
+      {{ $t('single_lesson.link_chat_1') }}
+      <br>
+      {{ $t('single_lesson.link_chat_2') }}
+    </nuxt-link>
 
     <b-container class="promo-container">
       <div v-if="!isPurchased || isExpired" class="single-lesson-single__promo">
@@ -183,7 +188,7 @@
         </div>
 
         <div v-if="singleLesson.price > 0" class="my-4 text-center">
-          <nuxt-link class="button button--brown button button--large" to="#chat-container">
+          <nuxt-link class="button button--brown button button--large" :to="localePath('/homework-discussion')">
             {{ $t('single_lesson.homework') }}
           </nuxt-link>
         </div>
@@ -259,16 +264,6 @@
           </div>
         </div>
       </div>
-
-      <div v-if="isPurchased && !isExpired && singleLesson.price > 0" class="single-lesson-single__chat">
-        <h2 class="single-lesson-single__chat-title">
-          {{ $t('single_lesson.chat_title') }}
-        </h2>
-        <p v-if="chatLoading">
-          {{ $t('single_lesson.chat_loading') }}
-        </p>
-        <div id="chat-container" class="single-lesson-single__chat-container" />
-      </div>
     </b-container>
   </div>
 </template>
@@ -288,11 +283,7 @@ export default {
       )
 
       return {
-        singleLesson: response.data.singleLesson,
-        APP_ID: context.env.COMETCHAT_APP_ID,
-        AUTH_KEY: context.env.COMETCHAT_AUTH_KEY,
-        APP_REGION: context.env.COMETCHAT_REGION,
-        WIDGET_ID: context.env.COMETCHAT_WIDGET_ID
+        singleLesson: response.data.singleLesson
       }
     } catch (e) {
       context.error(e)
@@ -305,12 +296,7 @@ export default {
       files: [],
       filePurchases: [],
       purchase: null,
-      videoUrl: null,
-      APP_ID: '',
-      AUTH_KEY: '',
-      APP_REGION: '',
-      WIDGET_ID: '',
-      chatLoading: false
+      videoUrl: null
     }
   },
 
@@ -420,31 +406,6 @@ export default {
       })
 
       return purchasedFileNames
-    }
-  },
-
-  mounted () {
-    if (!this.isPurchased || this.isExpired) {
-      return
-    }
-
-    if (!this.profile || !this.profile.id || !this.profile.firstName) {
-      this.unsubscribe = this.$store.subscribe((mutation, state) => {
-        if (mutation.type === 'user/setUser') {
-          const { user } = state.user
-          if (user?.id) {
-            this.initChat(user)
-          }
-        }
-      })
-    } else {
-      this.initChat(this.profile)
-    }
-  },
-
-  beforeDestroy () {
-    if (this.unsubscribe) {
-      this.unsubscribe()
     }
   },
 
@@ -623,60 +584,6 @@ export default {
           })
         }
       }
-    },
-
-    initChat (user) {
-      try {
-        if (this.singleLesson.price <= 0) {
-          return
-        }
-
-        const UID = user.id
-        const name = user.firstName
-        const chatLocale = 'ru'
-
-        if (!window.CometChatWidget) {
-          return
-        }
-
-        this.chatLoading = true
-
-        CometChatWidget.init({
-          appID: this.APP_ID,
-          appRegion: this.APP_REGION,
-          authKey: this.AUTH_KEY
-        }).then((response) => {
-          const chatUser = new CometChatWidget.CometChat.User(UID)
-          chatUser.setName(name)
-
-          CometChatWidget.createOrUpdateUser(chatUser).then((user) => {
-            CometChatWidget.login({
-              uid: UID
-            }).then((loggedInUser) => {
-              CometChatWidget.launch({
-                widgetID: this.WIDGET_ID,
-                target: '#chat-container',
-                roundedCorners: 'true',
-                height: '100%',
-                width: '100%',
-                defaultID: '1',
-                defaultType: 'user'
-              }).then(() => {
-                setTimeout(() => {
-                  CometChatWidget.localize(chatLocale)
-                  this.chatLoading = false
-                }, 1000)
-              }).catch(() => {
-                this.chatLoading = false
-              })
-            })
-          })
-        }).catch((e) => {
-          console.error(e)
-        })
-      } catch (e) {
-        console.error(e)
-      }
     }
   }
 }
@@ -773,12 +680,11 @@ export default {
 .single-lesson-single {
   padding: 0 0 6rem;
 
-  &__buy-button {
+  &__buy-button,
+  &__link-chat {
     position: fixed;
     bottom: 1.5rem;
     left: 1.5rem;
-    width: 5rem;
-    height: 5rem;
     padding: 0.5rem 0.5rem;
     display: flex;
     align-items: center;
@@ -807,6 +713,28 @@ export default {
       height: 8rem;
       font-size: 1.4rem;
     }
+  }
+
+  &__link-chat {
+    width: 5.5rem;
+    height: 5.5rem;
+    font-size: 0.9rem;
+
+    @media screen and (min-width: 768px) {
+      font-size: 1.3rem;
+      width: 8.5rem;
+      height: 8.5rem;
+    }
+
+    &:hover, &:visited, &:active, &:focus {
+      text-decoration: none;
+      color: #fff;
+    }
+  }
+
+  &__buy-button {
+     width: 5rem;
+    height: 5rem;
   }
 
   @keyframes pulse {
@@ -1208,31 +1136,6 @@ export default {
         padding-right: 1rem;
         font-size: 1rem;
       }
-    }
-  }
-
-  &__chat-title {
-    font-size: 1.6rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-family: 'Cormorant SC', serif;
-  }
-
-  &__chat {
-    margin: 2rem 0;
-  }
-
-  &__chat-container {
-    margin-top: 1rem;
-    width: 100%;
-    height: 60vh;
-
-    .app__messenger {
-      z-index: 20;
-    }
-
-    @media screen and (max-width: 400px) {
-      height: 70vh;
     }
   }
 }
