@@ -566,6 +566,7 @@ export default {
     success_add_single_lesson: 'Успешное создание отдельного урока',
     success_add_file: 'Успешное создание файла',
     success_recovery: 'Успешный запрос на восстановление пароля',
+    success_restore: 'Успешное восстановление пароля',
     success_change: 'Успешное изменение данных',
     register_then_buy_msg: 'Перед покупкой зарегистрируйтесь или войдите',
     register_then_buy: 'Зарегистрируйтесь или войдите',

@@ -279,12 +279,15 @@ export default {
     title: 'Change password'
   },
   restore: {
-    title: 'Restore your password',
-    submit: 'Send request',
-    check_email: 'Recovery request was created, check your email',
     form: {
-      email: 'Account email'
-    }
+      password: 'New password',
+      repeat_password: 'Repeat new password'
+    },
+    seo: {
+      title: 'Restore password'
+    },
+    submit: 'Send request',
+    title: 'Restore your password'
   },
   offer: {
     title: 'Finish buying',
@@ -578,6 +581,7 @@ export default {
     success_add_single_lesson: 'Successful single lesson creation',
     success_add_file: 'Successful file creation',
     success_recovery: 'Successful recovery request',
+    success_restore: 'Successful password restore',
     success_change: 'Successful data changing',
     register_then_buy: 'Register or login',
     register_then_buy_msg: 'Register or login before buy',
