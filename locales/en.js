@@ -33,75 +33,76 @@ export default {
     }
   },
   privacy_policy: {
-    title: 'Политика конфиденциальности на платформе vikosto',
+    title: 'Privacy Policy on the vikosto platform',
     paragraph: {
       first: `
-        Общие положения
+        General Terms
 
-        Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных Савкина Виктория Денисовна, ИНН: 561019006810 (далее – Оператор).
-        Оператор ставит своей важнейшей целью и условием осуществления своей деятельности соблюдение прав и свобод человека и гражданина при обработке его персональных данных, в том числе защиты прав на неприкосновенность частной жизни, личную и семейную тайну.
-        Настоящая политика Оператора в отношении обработки персональных данных (далее – Политика) применяется ко всей информации, которую Оператор может получить о посетителях веб-сайта https://www.vikosto.net.
+        This personal data processing policy is made in accordance with the requirements of the Federal Law of 27.07.2006. №152-FZ "On Personal Data" and determines the order of processing personal data and measures to ensure the security of personal data Savkina Victoria Denisovna, TIN: 561019006810 (hereinafter - the operator).
+        The Operator's main purpose and condition of carrying out its activities is observance of human and citizen's rights and freedoms when processing his/her personal data, including protection of rights to privacy, personal and family secrets.
+        This Operator's policy regarding processing of personal data (hereinafter - the Policy) applies to all information that the Operator can obtain about the visitors of the https://www.vikosto.net website.
       `,
       second: `
-        Основные понятия, используемые в Политике
-        Автоматизированная обработка персональных данных – обработка персональных данных с помощью средств вычислительной техники;
-        Блокирование персональных данных – временное прекращение обработки персональных данных (за исключением случаев, если обработка необходима для уточнения персональных данных);
-        Веб-сайт – совокупность графических и информационных материалов, а также программ для ЭВМ и баз данных, обеспечивающих их доступность в сети интернет по сетевому адресу https://www.vikosto.net;
-        Информационная система персональных данных — совокупность содержащихся в базах данных персональных данных, и обеспечивающих их обработку информационных технологий и технических средств;
-        Обезличивание персональных данных — действия, в результате которых невозможно определить без использования дополнительной информации принадлежность персональных данных конкретному Пользователю или иному субъекту персональных данных;
-        Обработка персональных данных – любое действие (операция) или совокупность действий (операций), совершаемых с использованием средств автоматизации или без использования таких средств с персональными данными, включая сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (распространение, предоставление, доступ), обезличивание, блокирование, удаление, уничтожение персональных данных;
-        Оператор – государственный орган, муниципальный орган, юридическое или физическое лицо, самостоятельно или совместно с другими лицами организующие и (или) осуществляющие обработку персональных данных, а также определяющие цели обработки персональных данных, состав персональных данных, подлежащих обработке, действия (операции), совершаемые с персональными данными;
-        Персональные данные – любая информация, относящаяся прямо или косвенно к определенному или определяемому Пользователю веб-сайта https://www.vikosto.net;
-        Пользователь – любой посетитель веб-сайта https://www.vikosto.net;
-        Предоставление персональных данных – действия, направленные на раскрытие персональных данных определенному лицу или определенному кругу лиц;
-        Распространение персональных данных – любые действия, направленные на раскрытие персональных данных неопределенному кругу лиц (передача персональных данных) или на ознакомление с персональными данными неограниченного круга лиц, в том числе обнародование персональных данных в средствах массовой информации, размещение в информационно-телекоммуникационных сетях или предоставление доступа к персональным данным каким-либо иным способом;
-        Трансграничная передача персональных данных – передача персональных данных на территорию иностранного государства органу власти иностранного государства, иностранному физическому или иностранному юридическому лицу;
-        Уничтожение персональных данных – любые действия, в результате которых персональные данные уничтожаются безвозвратно с невозможностью дальнейшего восстановления содержания персональных данных в информационной системе персональных данных и (или) результате которых уничтожаются материальные носители персональных данных.
+        Basic concepts used in this Policy
+
+        Automated processing of personal data - processing of personal data by computer equipment;
+        Blocking of personal data - temporary termination of processing of personal data (except in cases where processing is necessary to clarify personal data);
+        Website means a set of graphic and informational materials, as well as computer programs and databases, ensuring their availability on the Internet at the network address https://www.vikosto.net;
+        Information system of personal data - a set of personal data contained in databases of personal data, and information technologies and technical means, providing their processing;
+        Personal data depersonalization - actions, as a result of which it is impossible to determine without the use of additional information what personal data belongs to a particular User or other subject of personal data;
+        Processing of personal data - any action (operation) or a set of actions (operations), performed with or without the use of automation with personal data, including collection, recording, systematization, accumulation, storage, clarification (updating, modification), extraction, use, transfer (distribution, provision, access), anonymization, blocking, removal, destruction of personal data;
+        Operator - state body, municipal authority, legal or natural person, independently or together with other persons organizing and (or) carrying out processing of personal data, as well as defining the purpose of processing personal data, the composition of personal data to be processed, actions (operations) performed with personal data;
+        Personal data - any information relating directly or indirectly to a particular or definable User of the https://www.vikosto.net website;
+        User - any visitor to https://www.vikosto.net website;
+        Provision of personal data - actions aimed at disclosure of personal data to a certain person or a certain circle of persons;
+        Dissemination of personal data - any action aimed at disclosure of personal data to an indefinite range of persons (transfer of personal data) or to familiarize with personal data to an unlimited number of persons, including publication of personal data in the media, placing in information and telecommunications networks or providing access to personal data in any other way;
+        Trans-border transfer of personal data - transfer of personal data to a foreign country to a foreign authority, a foreign individual or a foreign legal entity;
+        Destruction of personal data - any actions, as a result of which personal data is destroyed irretrievably with impossibility of further restoration of personal data content in information system of personal data and (or) as a result of which tangible carriers of personal data are destroyed.
       `,
       third: `
-        Оператор может обрабатывать следующие персональные данные Пользователя
+        The operator can process the following personal data of the User
 
-        Фамилия, имя, отчество;
-        Электронный адрес;
-        Номера телефонов;
-        Также на сайте происходит сбор и обработка обезличенных данных о посетителях (в т.ч. файлов «cookie») с помощью сервисов интернет-статистики (Яндекс Метрика и Гугл Аналитика и других).
-        Вышеперечисленные данные далее по тексту Политики объединены общим понятием Персональные данные.
+        Surname, first name, patronymic;
+        E-mail address;
+        Phone numbers;
+        The site also collects and processes impersonal data about visitors (including cookies) using Internet statistical services (Yandex Metrika and Google Analytics and others).
+        The above-mentioned data hereinafter in the text of the Policy is combined with the general concept of Personal Data.
       `,
       fourth: `
-        Цели обработки персональных данных
+        Purposes of personal data processing
 
-        Цель обработки персональных данных Пользователя — заключение, исполнение и прекращение гражданско-правовых договоров; предоставление доступа Пользователю к сервисам, информации и/или материалам, содержащимся на веб-сайте.
-        Также Оператор имеет право направлять Пользователю уведомления о новых продуктах и услугах, специальных предложениях и различных событиях. Пользователь всегда может отказаться от получения информационных сообщений, направив Оператору письмо на адрес электронной почты vi.kosto@yandex.ru с пометкой «Отказ от уведомлениях о новых продуктах и услугах и специальных предложениях».
-        Обезличенные данные Пользователей, собираемые с помощью сервисов интернет-статистики, служат для сбора информации о действиях Пользователей на сайте, улучшения качества сайта и его содержания.
+        The purpose of processing of the User's personal data is the conclusion, execution and termination of civil law contracts; providing the User with access to services, information and/or materials contained on the website.
+        Also the Operator has the right to send the User notifications about new products and services, special offers and various events. The User can always refuse to receive information messages by sending a letter to the Operator to the address vi.kosto@yandex.ru with the note "Refuse notifications about new products and services and special offers".
+        User's impersonal data collected via Internet statistic services serves to collect information about the User's actions on the site, improve the quality of the site and its content.
       `,
       fifth: `
-        Правовые основания обработки персональных данных
+        Legal basis for processing personal data
 
-        Оператор обрабатывает персональные данные Пользователя только в случае их заполнения и/или отправки Пользователем самостоятельно через специальные формы, расположенные на сайте https://www.vikosto.net. Заполняя соответствующие формы и/или отправляя свои персональные данные Оператору, Пользователь выражает свое согласие с данной Политикой.
-        Оператор обрабатывает обезличенные данные о Пользователе в случае, если это разрешено в настройках браузера Пользователя (включено сохранение файлов «cookie» и использование технологии JavaScript).
+        The Operator processes the User's personal data only in case the User fills them in and/or sends them by himself through the special forms located on the website https://www.vikosto.net. By filling out the relevant forms and/or sending his personal data to the Operator the User expresses his consent to this Policy.
+        The Operator processes anonymized data about the User in case it is allowed in the settings of the User's browser (the saving of "cookie" files and the use of JavaScript technology are enabled).
       `,
       sixth: `
-        Порядок сбора, хранения, передачи и других видов обработки персональных данных
+        Procedure for collecting, storing, transferring and other processing of personal data
 
-        Безопасность персональных данных, которые обрабатываются Оператором, обеспечивается путем реализации правовых, организационных и технических мер, необходимых для выполнения в полном объеме требований действующего законодательства в области защиты персональных данных.
+        The security of personal data processed by the Operator is ensured by implementing legal, organizational and technical measures necessary to comply fully with the requirements of applicable laws in the field of personal data protection.
 
-        Оператор обеспечивает сохранность персональных данных и принимает все возможные меры, исключающие доступ к персональным данным неуполномоченных лиц.
-        Персональные данные Пользователя никогда, ни при каких условиях не будут переданы третьим лицам, за исключением случаев, связанных с исполнением действующего законодательства.
-        В случае выявления неточностей в персональных данных, Пользователь может актуализировать их самостоятельно, путем направления Оператору уведомление на адрес электронной почты Оператора vi.kosto@yandex.ru с пометкой «Актуализация персональных данных».
-        Срок обработки персональных данных является неограниченным. Пользователь может в любой момент отозвать свое согласие на обработку персональных данных, направив Оператору уведомление посредством электронной почты на электронный адрес Оператора vi.kosto@yandex.ru с пометкой «Отзыв согласия на обработку персональных данных».
+        The operator ensures the safety of personal data and takes all possible measures to exclude access to personal data by unauthorized persons.
+        The User's personal data will never, under no circumstances be transferred to third parties, except in cases related to the execution of the current legislation.
+        In case of identification of inaccuracies in personal data, the User may update them independently, by sending a notice to the Operator's e-mail address vi.kosto@yandex.ru with a note "Updating of personal data".
+        The period of processing of personal data is unlimited. The User may withdraw their consent to the processing of personal data at any time by sending a notice to the Operator via e-mail to the Operator's e-mail address vi.kosto@yandex.ru marked "Withdrawal of consent to the processing of personal data".
       `,
       seventh: `
-        Трансграничная передача персональных данных
+        Cross-border transfer of personal data
 
-        Оператор до начала осуществления трансграничной передачи персональных данных обязан убедиться в том, что иностранным государством, на территорию которого предполагается осуществлять передачу персональных данных, обеспечивается надежная защита прав субъектов персональных данных.
-        Трансграничная передача персональных данных на территории иностранных государств, не отвечающих вышеуказанным требованиям, может осуществляться только в случае наличия согласия в письменной форме субъекта персональных данных на трансграничную передачу его персональных данных и/или исполнения договора, стороной которого является субъект персональных данных.
+        Before transborder transfer of personal data, the operator shall make sure that the foreign country, to the territory of which the transfer of personal data is intended, provides reliable protection of personal data subjects rights.
+        Transborder transfer of personal data to foreign countries that do not meet the above requirements may be performed only if the personal data subject consents in writing to the transborder transfer of his/her personal data and/or execution of an agreement to which the personal data subject is a party.
       `,
       eighth: `
-        Заключительные положения
+        Final Terms
 
-        Пользователь может получить любые разъяснения по интересующим вопросам, касающимся обработки его персональных данных, обратившись к Оператору с помощью электронной почты vi.kosto@yandex.ru.
-        В данном документе будут отражены любые изменения политики обработки персональных данных Оператором. Политика действует бессрочно до замены ее новой версией.
-        Актуальная версия Политики в свободном доступе расположена в сети Интернет по адресу https://www.vikosto.net/privacy-policy.
+        The user can get any clarifications on the questions of interest concerning the processing of his personal data by contacting the Operator by e-mail at vi.kosto@yandex.ru.
+        This document will reflect any changes in the Operator's personal data processing policy. The Policy is valid indefinitely until replaced by a new version.
+        The current version of the Policy is freely available on the Internet at https://www.vikosto.net/privacy-policy.
       `
     }
   },
@@ -266,6 +267,17 @@ export default {
       email: 'Account email'
     }
   },
+  change: {
+    form: {
+      password: 'New password',
+      repeat_password: 'Repeat password'
+    },
+    seo: {
+      title: 'Change password'
+    },
+    submit: 'Change password',
+    title: 'Change password'
+  },
   restore: {
     title: 'Restore your password',
     submit: 'Send request',
@@ -292,20 +304,20 @@ export default {
     register: 'Register',
     profile_tooltip: 'To profile',
     name: 'VIKOSTO',
-    main_title: 'Hairstyles',
-    main_title_second: 'for everyone',
+    main_title: 'Rather updo',
+    main_title_second: 'than wind up',
     main_title_subtitle: 'Online hairstyle education',
-    main_title_mobile: 'Hairstyles',
-    main_title_second_mobile: 'for everyone',
+    main_title_mobile: 'Rather updo',
+    main_title_second_mobile: 'than wind up',
     want_study: 'Want to study',
     about_title: 'Who does suit online education?',
     author_title: 'About course author',
     author_signature: 'Viktoria Kosto',
-    author_want_study: 'Study by Viktoria courses',
-    author_description_1: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
-    author_description_2: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
-    author_description_3: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
-    author_description_mobile: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis soluta obcaecati deleniti enim omnis eaque ipsa fuga? Eos perferendis tempora dolorem repellendus error porro aspernatur, voluptates perspiciatis optio ut unde.',
+    author_want_study: 'Study by Viktoria\'s courses',
+    author_description_1: 'Hi, my name is Victoria Kosto - I am a hairstylist and teacher of the basic course and refresher classes for working masters.I came to this profession because of my great love for beauty and beauty.',
+    author_description_2: 'I treat my work with maximum responsibility and creativity, so I myself regularly improve my knowledge and skills.',
+    author_description_3: 'In hairstyles I appreciate lightness, brevity and purity. I love to inspire clients and students through my approach to my work. In my online lessons I will teach you how to work properly and gently with hair, and how to create the most permanent, easy, clean and beautiful hairstyles.',
+    author_description_mobile: 'Hi! My name is Victoria Costo - I am a hairstylist and teacher of the basic course and refresher lessons for working masters. In my online lessons, I will teach you how to work properly and gently with your hair and create the most permanent, easy, clean and beautiful hairstyles.',
     lessons_title: 'Hairstyle lessons',
     courses_title: 'Hairstyle courses',
     faq_title: 'FAQ',
@@ -318,79 +330,84 @@ export default {
     },
     about: {
       item_1: {
-        title: 'Choose a service',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+        title: 'For hairstylists',
+        title_second_line: 'already',
+        description: 'Who is looking for an inspiration and unique style of works'
       },
       item_2: {
-        title: 'Choose a service',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+        title: 'For makeup',
+        title_second_line: 'artists',
+        description: 'Who wants to learn how to work with hair, make trendy stylish images and increase their income'
       },
       item_3: {
-        title: 'Choose a service',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+        title: 'For beginners',
+        title_second_line: 'in the profession',
+        description: 'Who is new to the profession and wants to increase their knowledge and close the gaps'
       },
       item_4: {
-        title: 'Choose a service',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nulla molestiae facilis veniam.'
+        title: 'For hairdressers',
+        title_second_line: 'universal',
+        description: 'Who wants to learn new techniques of working with hair and expand their range of services'
       }
     },
     benefits: {
-      title: 'Why do you need online education?',
+      title: 'Why do you need this online education?',
       list: {
         first: {
-          title: 'Время',
-          content: 'Смотрите и отрабатывайте уроки, когда и где вам будет удобно'
+          title: 'Time',
+          content: 'Watch and practice your lessons when and where it\'s convenient'
         },
         second: {
-          title: 'Экономия',
-          content: 'Онлайн уроки значительно дешевле обучения офлайн и имеют ряд весомых преимуществ'
+          title: 'Saving',
+          content: 'Online lessons are much cheaper than offline training and have a number of significant advantages'
         },
         third: {
-          title: 'Доступность',
-          content: 'Все подробные теоретические и практические уроки собраны в одном месте, не нужно ехать в другие города и страны'
+          title: 'Availability',
+          content: 'All detailed theoretical and practical lessons in one place, no need to travel to other cities and countries'
         },
         fourth: {
-          title: 'Просмотры',
-          content: 'Можно пересматривать уроки сколько угодно раз, для того, чтобы уловить все тонкости и лучше усвоить материал'
+          title: 'Viewings',
+          content: 'You can review the lessons as many times as you want in order to grasp all the details and learn the materials better'
         },
         fifth: {
-          title: 'Актуальность',
-          content: 'Онлайн-обучение включает в себя только актуальную и вдохновляющую информацию о причёсках'
+          title: 'Relevance',
+          content: 'Online training includes only current and inspiring information about hairstyles'
         },
         sixth: {
-          title: 'Обратная связь',
-          content: 'Можно задавать вопросы о пройденных уроках, присылать свои отработки и получать подробный отзыв в реальном времени'
+          title: 'Feedback',
+          content: 'You can ask questions about the lessons, send in your work and get detailed feedback in personal chat with tutor'
         }
       }
     },
     faq: {
       first: {
-        question: 'Когда можно приступить к обучению ?',
-        answer: 'После оплаты у вас сразу же появляется доступ к приобретенным урокам и материалам, то есть вы можете приступить к обучению сразу же.'
+        question: 'When can I start training ?',
+        answer: 'After payment, you immediately have access to the purchased lessons and materials, it means you can start learning right away.'
       },
       second: {
-        question: 'Обязательно ли присылать отработки ?',
-        answer: 'Отработки присылать не обязательно. Но для того, чтобы хорошо усвоить материал уроков, рекомендуется выполнять отработки. У вас в доступе будет обратная связь, где мы сможем разобрать все вопросы по вашей отработке, если они будут.'
+        question: 'Is it necessary to send a homework?',
+        answer: 'You do not need to send your homework. But in order to learn the lessons well, it is recommended to send homework. You will have feedback available where we can discuss any questions you may have about your practice.'
       },
       third: {
-        question: 'На сколько остается доступ к материалам ?',
-        answer: `Доступ ко всем материалам уроков и к курсу SILVER у вас будет на 3 месяца.
-          Если вы приобрели курс GOLD, то доступ к урокам сохраняется 6 месяцев.
-          PDF-материалы к урокам остаются у вас навсегда после скачивания.`
+        question: 'How long access to the material remains?',
+        answer: `You will have access to all of the lessons and the SILVER course for 3 months.
+          If you purchased the GOLD course, you will have access to the lessons for 6 months.
+          The PDFs of the lessons stay with you forever after you download them.`
       },
       fourth: {
-        question: 'Будет ли обратная связь ?',
+        question: 'Will there be any feedback?',
         answer: `
-          Каждый продукт включает в себя обратную связь от Виктории, чтобы ваше обучение прошло
-          максимально результативно. Доступ к обратной связи у вас будет от 1 до 2 месяцев в
-          зависимости от приобретенного тарифа.
+          Each product includes feedback from Victoria to ensure that your training is as effective as possible.
+          You will have access to feedback for 1 to 2 months,
+          depending on the plan you purchased.
         `
       },
       fifth: {
-        question: 'Получу ли я сертификат ?',
+        question: 'Will I get a certificate?',
         answer: `
-          Сертификат получат все! Он гарантированно придёт вам на почту через месяц после приобретения обучения.
-          Если вы пришлете все отработки по приобретённому обучению, то сертификат получите намного раньше.
+          Everyone gets a certificate! It's guaranteed to receive in your email one month after you purchase the training.
+          If you send all the homework what you've done on the training you've purchased,
+          you'll receive your certificate much sooner.
         `
       }
     },
