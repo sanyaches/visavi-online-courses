@@ -222,7 +222,11 @@ export default {
       submit: 'Update'
     },
     add_course_button: 'Add new course',
-    add_single_lesson_button: 'Add new single lesson'
+    add_single_lesson_button: 'Add new single lesson',
+    to_purchases: 'See all user course purchases',
+    purchases: {
+      title: 'List user course purchases'
+    }
   },
   login: {
     submit: 'Log in',

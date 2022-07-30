@@ -2,6 +2,9 @@
   <div class="mt-4">
     <b-container>
       <div>
+        <nuxt-link :to="localePath('/admin/purchases')">
+          {{ $t('admin.to_purchases') }}
+        </nuxt-link>
         <h2>Chat</h2>
         <div id="chat-container" class="my-2 admin-chat" />
 

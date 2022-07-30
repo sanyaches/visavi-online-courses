@@ -204,7 +204,11 @@ export default {
       submit: 'Обновить'
     },
     add_course_button: 'Добавить новый курс',
-    add_single_lesson_button: 'Добавить новый отдельный урок'
+    add_single_lesson_button: 'Добавить новый отдельный урок',
+    to_purchases: 'Смотреть все покупки курсов пользователей',
+    purchases: {
+      title: 'Список покупок курсов пользователей'
+    }
   },
   login: {
     submit: 'Войти',

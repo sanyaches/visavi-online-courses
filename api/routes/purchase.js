@@ -31,6 +31,19 @@ function verifyToken (req, res, next) {
   }
 }
 
+function verifyAdminToken (req, res, next) {
+  const user = jwt.verify(req.token, jwtSecretKey)
+
+  if (user.isAdmin) {
+    next()
+  } else {
+    res.status(403).json({
+      status: 'error',
+      errorCode: 'FORBIDDEN_ERROR'
+    })
+  }
+}
+
 router.post('/purchases/add', verifyToken, async function (req, res) {
   try {
     const {
@@ -240,6 +253,37 @@ router.get('/purchases/purchases-by-user', verifyToken, async function (req, res
     res.status(200).json({
       status: 'success',
       data: result
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      errorCode: 'SERVER_ERROR'
+    })
+  }
+})
+
+router.get('/purchases/list', verifyToken, verifyAdminToken, async function (req, res) {
+  try {
+    const limit = parseInt(req.query.limit, 10) || 1000
+    const offset = parseInt(req.query.offset, 10) || 0
+
+    const result = await PurchaseModel.find()
+      .sort({ startDate: 'asc' })
+      .limit(limit)
+      .skip(offset)
+      .exec()
+
+    if (!result) {
+      res.status(500).json({
+        status: 'error',
+        errorCode: 'SERVER_ERROR'
+      })
+      return
+    }
+
+    res.status(200).json({
+      status: 'success',
+      purchases: result
     })
   } catch (error) {
     res.status(500).json({
