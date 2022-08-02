@@ -13,6 +13,7 @@ const singleLesson = require('./routes/singleLesson')
 const purchase = require('./routes/purchase')
 const payment = require('./routes/payment')
 const certificate = require('./routes/certificate')
+const email = require('./routes/email')
 
 // Import API Routes
 app.use(express.json())
@@ -24,6 +25,7 @@ app.use(singleLesson)
 app.use(purchase)
 app.use(payment)
 app.use(certificate)
+app.use(email)
 
 app.use('/videos', express.static(path.join(__dirname, 'videos_public')))
 app.use('/upload', express.static(path.join(__dirname, 'upload')))

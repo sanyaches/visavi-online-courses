@@ -262,6 +262,18 @@ export default {
     access: 'Доступ: {access}',
     proceed: 'Оплатить'
   },
+  checkout: {
+    title: 'Оформление покупки',
+    name: 'Вы приобретаете: {title}',
+    access: 'Доступ: {access}',
+    price: 'Цена',
+    proceed: 'Оплатить',
+    coupon: {
+      title: 'Промокод для покупки',
+      code: 'Введите промокод',
+      apply: 'Применить промокод'
+    }
+  },
   index: {
     courses: 'Курсы',
     lessons: 'Уроки',

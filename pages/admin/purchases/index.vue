@@ -17,13 +17,13 @@
           :items="items"
           :fields="fields"
           :current-page="currentPage"
-          per-page="5"
+          per-page="10"
         />
         <b-pagination
           v-model="currentPage"
           class="mt-2"
           :total-rows="rowsCount"
-          per-page="5"
+          per-page="10"
           aria-controls="admin-purchases"
         />
       </template>

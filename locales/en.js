@@ -299,6 +299,18 @@ export default {
     access: 'Access: {access}',
     proceed: 'Pay'
   },
+  checkout: {
+    title: 'Purchase processing',
+    name: 'You are getting: {title}',
+    access: 'Access: {access}',
+    price: 'Price',
+    proceed: 'Pay',
+    coupon: {
+      title: 'Promocode for buying',
+      code: 'Enter promocode',
+      apply: 'Apply promocode'
+    }
+  },
   index: {
     courses: 'Courses',
     lessons: 'Lessons',
