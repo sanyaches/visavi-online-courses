@@ -628,7 +628,7 @@ export default {
       order_not_found: 'Order not found',
       order_not_found_msg: 'Oreder with this number does not exist',
       payment_not_valid: 'Payment not paid',
-      payment_not_valid_: 'Please, try to pay again or reach me by contacts',
+      payment_not_valid_msg: 'Please, try to pay again or reach me by contacts',
       expired_link_error: 'Recovery password link is expired, try new one',
       expired_link_error_msg: 'Please, try to create new recovery password link',
       passwords_not_matched: 'Passwords not matched',

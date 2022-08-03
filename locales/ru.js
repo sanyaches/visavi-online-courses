@@ -613,7 +613,7 @@ export default {
       order_not_found: 'Заказ не найден',
       order_not_found_msg: 'Заказа с таким номером не существует',
       payment_not_valid: 'Платеж не оплачен',
-      payment_not_valid_: 'Попробуйте купить снова или свяжитесь с нами',
+      payment_not_valid_msg: 'Попробуйте купить снова или свяжитесь с нами',
       expired_link_error: 'Срок действия ссылки на восстановление пароля истек',
       expired_link_error_msg: 'Попробуйте создать новый запрос на восстановление пароля',
       passwords_not_matched: 'Пароли не совпадают',
