@@ -285,9 +285,7 @@ export default {
         courseType: this.offer.lessonType,
         accessMonths: this.offer.accessMonths,
         amount: this.offer.price,
-        // amount: 2,
         paymentMessage,
-        token: this.token,
         userEmail
       })
 

@@ -4,22 +4,42 @@ require('dotenv').config()
 const axios = require('axios')
 const { Router } = require('express')
 const mongoose = require('mongoose')
-const yandexMoney = require('yandex-money-sdk')
+const { YooCheckout } = require('@a2seven/yoo-checkout')
+const uuid4 = require('uuid4')
+const OrderModel = require('../../models/order')
 const router = Router()
 
-const clientId = process.env.CLIENT_ID_YM
-const walletNumber = process.env.YM_WALLET
+const shopId = process.env.YK_SHOP_ID
+const secretKey = process.env.YK_API_KEY
+const idempotenceKey = '1872542f-fce3-46ed-8239-ccb505701076'
 const baseUrl = process.env.BASE_URL
+
+const checkout = new YooCheckout({ shopId, secretKey })
 
 const url = process.env.MONGO_URL
 mongoose.connect(url)
 
-router.post('/payment/pay', function (req, res) {
+function verifyToken (req, res, next) {
+  const bearerHeader = req.headers.authorization
+
+  if (bearerHeader) {
+    const bearer = bearerHeader.split(' ')
+    const bearerToken = bearer[1]
+    req.token = bearerToken
+    next()
+  } else {
+    res.status(403).json({
+      status: 'error',
+      errorCode: 'FORBIDDEN_ERROR'
+    })
+  }
+}
+
+router.post('/payment/pay', verifyToken, async function (req, res) {
   try {
     const {
       userEmail,
       paymentMessage,
-      token,
       courseName,
       courseType,
       accessMonths,
@@ -34,301 +54,76 @@ router.post('/payment/pay', function (req, res) {
         accessMonths,
         isFree: true
       })
-
-      try {
-        const options = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-            email: userEmail
-          },
-          data: jsonBody,
-          url
-        }
-        const courseTypePath = courseType === 'course' ? 'course' : 'single-lesson'
-        const instantSuccessUrl = `${baseUrl}/${courseTypePath}/${courseName}`
-
-        axios(options)
-          .then((response) => {
-            if (response?.data?.status === 'success') {
-              return res.status(200).json({
-                status: 'success',
-                pageUrl: instantSuccessUrl
-              })
-            }
-          })
-          .catch((error) => {
-            return res.status(500).json({
-              status: 'error',
-              errorCode: 'SERVER_ERROR',
-              error
-            })
-          })
-      } catch (error) {
-        return res.status(500).json({
-          status: 'error',
-          errorCode: 'SERVER_ERROR'
-        })
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          Accept: 'application/json',
+          Authorization: `Bearer ${req.token}`,
+          email: userEmail
+        },
+        data: jsonBody,
+        url
       }
-    } else {
-      let requestId = null
+      const courseTypePath = courseType === 'course' ? 'course' : 'single-lesson'
+      const instantSuccessUrl = `${baseUrl}/${courseTypePath}/${courseName}`
 
-      async function createPayment (paymentInfo, successUrl, callback) {
-        let instanceId = null
-        let error = null
-
-        await yandexMoney.ExternalPayment.getInstanceId(
-          clientId,
-          async function getInstanceComplete (err, data) {
-            if (err) {
-              console.error(err)
-              error = new Error('Get instance_id failed.')
-              throw error
-            }
-
-            instanceId = data.instance_id
-
-            const externalPayment = new yandexMoney.ExternalPayment(instanceId)
-
-            // Pay options : sum info
-            const options = {
-              ...paymentInfo,
-              message: paymentInfo.paymentMessage,
-              pattern_id: 'p2p',
-              to: walletNumber
-            }
-
-            await externalPayment.request(
-              options,
-              async function requestComplete (err, data) {
-                try {
-                  if (err) {
-                    console.error(err)
-                    error = Error('Get request_id failed.')
-                    throw error
-                  }
-                  requestId = data.request_id
-
-                  await externalPayment.process(
-                    {
-                      request_id: requestId,
-                      ext_auth_success_uri: `${successUrl}/?request_id=${requestId}&email=${userEmail}&course_type=${courseType}&course_name=${courseName}&access_months=${accessMonths}`,
-                      ext_auth_fail_uri: paymentInfo.baseUrl.concat('/error-payment')
-                    },
-                    function processCallback (err, data) {
-                      if (err) {
-                        console.error(err)
-                        error = new Error('Get acs_url failed.')
-                        throw error
-                      } else {
-                        console.warn('processCallbackData', data)
-                        callback(data)
-                      }
-                    }
-                  )
-                } catch (error) {
-                  return res.status(500).json({
-                    status: 'error',
-                    errorCode: 'SERVER_ERROR',
-                    error
-                  })
-                }
-              }
-            )
-          }
-        )
-      }
-
-      function paymentCallback (paymentProcessData) {
-        if (paymentProcessData.status === 'ext_auth_required') {
-          const { acs_uri, acs_params } = paymentProcessData
-          res.status(301).json({
-            status: 'redirect',
-            url: `${acs_uri}?orderId=${acs_params.orderId}`
-          })
-        } else if (paymentProcessData.status === 'success') {
-          const url = `${baseUrl}/api/purchases/add`
-          const jsonBody = JSON.stringify({
-            courseName,
-            courseType,
-            accessMonths,
-            paymentRequestId: requestId
-          })
-
-          try {
-            const options = {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-                Accept: 'application/json',
-                Authorization: `Bearer ${token}`,
-                email: userEmail
-              },
-              data: jsonBody,
-              url
-            }
-
-            axios(options)
-              .then((response) => {
-                if (response?.data?.status === 'success') {
-                  return res.status(200).json({
-                    status: 'success',
-                    pageUrl: successUrl
-                  })
-                }
-              })
-              .catch((error) => {
-                throw new Error(error)
-              })
-          } catch (error) {
-            return res.status(500).json({
-              status: 'error',
-              errorCode: 'SERVER_ERROR'
+      axios(options)
+        .then((response) => {
+          if (response?.data?.status === 'success') {
+            return res.status(200).json({
+              status: 'success',
+              pageUrl: instantSuccessUrl
             })
           }
-        } else if (paymentProcessData.status === 'refused') {
-          throw new Error(paymentProcessData.error)
-        }
-      }
-
-      const successUrl = `${baseUrl}/success-payment`
-
-      createPayment(
-        { amount, paymentMessage, baseUrl },
-        successUrl,
-        paymentCallback
-      )
-    }
-  } catch (error) {
-    return res.status(500).json({
-      status: 'error',
-      errorCode: 'SERVER_ERROR'
-    })
-  }
-})
-
-router.post('/payment/check', function (req, res) {
-  try {
-    const {
-      userEmail,
-      token,
-      courseName,
-      courseType,
-      accessMonths,
-      requestId
-    } = req.body
-
-    async function checkPayment (paymentInfo, successUrl, callback) {
-      let instanceId = null
-      let error = null
-
-      await yandexMoney.ExternalPayment.getInstanceId(
-        clientId,
-        async function getInstanceComplete (err, data) {
-          try {
-            if (err) {
-              console.error(err)
-              error = new Error('Get instance_id failed.')
-              throw error
-            }
-
-            instanceId = data.instance_id
-
-            const externalPayment = new yandexMoney.ExternalPayment(instanceId)
-
-            await externalPayment.process(
-              {
-                request_id: requestId,
-                ext_auth_success_uri: `${successUrl}`,
-                ext_auth_fail_uri: paymentInfo.baseUrl.concat('/error-payment')
-              },
-              function processCallback (err, data) {
-                if (err) {
-                  console.error(err)
-                  error = new Error('Get acs_url failed.')
-                  throw error
-                } else {
-                  console.warn('processCallbackData', data)
-                  callback(data)
-                }
-              }
-            )
-          } catch (error) {
-            return res.status(500).json({
-              status: 'error',
-              errorCode: 'SERVER_ERROR',
-              error
-            })
-          }
-        }
-      )
-    }
-
-    function paymentCallback (paymentProcessData) {
-      if (paymentProcessData.status === 'ext_auth_required') {
-        const { acs_uri, acs_params } = paymentProcessData
-        res.status(301).json({
-          status: 'redirect',
-          url: `${acs_uri}?orderId=${acs_params.orderId}`
         })
-      } else if (paymentProcessData.status === 'success') {
-        const url = `${baseUrl}/api/purchases/add`
-        const jsonBody = JSON.stringify({
-          courseName,
-          courseType,
-          accessMonths,
-          paymentRequestId: requestId
-        })
-
-        try {
-          const options = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json; charset=UTF-8',
-              Accept: 'application/json',
-              Authorization: `Bearer ${token}`,
-              email: userEmail
-            },
-            data: jsonBody,
-            url
-          }
-
-          axios(options)
-            .then((response) => {
-              if (response?.data?.status === 'success') {
-                return res.status(200).json({
-                  status: 'success',
-                  pageUrl: successUrl
-                })
-              }
-            })
-            .catch((error) => {
-              if (error.response.data?.status === 'error') {
-                return res.status(404).json(error.response.data)
-              }
-              throw new Error('Add purchase error')
-            })
-        } catch (error) {
+        .catch((error) => {
           return res.status(500).json({
             status: 'error',
-            errorCode: 'SERVER_ERROR'
+            errorCode: 'SERVER_ERROR',
+            error
           })
+        })
+    } else {
+      const orderId = uuid4()
+      const successUrl = `${baseUrl}/success-payment?orderId=${orderId}`
+      const createPayload = {
+        amount: {
+          value: amount,
+          currency: 'RUB'
+        },
+        description: paymentMessage,
+        metadata: {
+          orderId
+        },
+        confirmation: {
+          type: 'redirect',
+          return_url: successUrl
         }
-      } else if (paymentProcessData.status === 'refused') {
-        throw new Error(paymentProcessData.error)
       }
+
+      const payment = await checkout.createPayment(createPayload, idempotenceKey)
+
+      if (payment.id) {
+        OrderModel.create({
+          orderId,
+          paymentId: payment.id,
+          productType: courseType,
+          productName: courseName,
+          accessMonths
+        })
+
+        return res.status(301).json({
+          status: 'redirect',
+          url: payment.confirmation.confirmation_url
+        })
+      }
+
+      return res.status(500).json({
+        status: 'error',
+        errorCode: 'SERVER_ERROR'
+      })
     }
-
-    const courseTypePath = courseType === 'course' ? 'course' : 'single-lesson'
-    const successUrl = `${baseUrl}/${courseTypePath}/${courseName}`
-
-    checkPayment(
-      { baseUrl },
-      successUrl,
-      paymentCallback
-    )
   } catch (error) {
     return res.status(500).json({
       status: 'error',
@@ -337,34 +132,55 @@ router.post('/payment/check', function (req, res) {
   }
 })
 
-const addFilePurchase = (payload) => {
-  const {
-    response,
-    userEmail,
-    token,
-    lessonName,
-    lessonType,
-    fileName,
-    successUrl,
-    accessMonths,
-    paymentRequestId
-  } = payload
-  const url = `${baseUrl}/api/purchases/add-file`
-  const jsonBody = JSON.stringify({
-    lessonName,
-    lessonType,
-    fileName,
-    accessMonths,
-    paymentRequestId
-  })
-
+router.post('/payment/check', verifyToken, async function (req, res) {
   try {
+    const {
+      orderId,
+      userEmail
+    } = req.body
+
+    const order = await OrderModel.findOne({ orderId })
+    if (!order.orderId) {
+      return res.status(404).json({
+        status: 'error',
+        errorCode: 'ORDER_NOT_FOUND'
+      })
+    }
+
+    let successUrl
+    if (order.productType === 'course') {
+      successUrl = `${baseUrl}/course/${order.productName}`
+    }
+    if (order.productType === 'singleLesson') {
+      successUrl = `${baseUrl}/single-lesson/${order.productName}`
+    }
+    if (order.productType === 'file') {
+      successUrl = `${baseUrl}/profile`
+    }
+
+    const payment = await checkout.getPayment(order.paymentId)
+
+    if (payment.status !== 'succeeded' || !payment.paid) {
+      return res.status(404).json({
+        status: 'error',
+        errorCode: 'PAYMENT_NOT_VALID'
+      })
+    }
+
+    const url = `${baseUrl}/api/purchases/add`
+    const jsonBody = JSON.stringify({
+      courseName: order.productName,
+      courseType: order.productType,
+      accessMonths: order.accessMonths,
+      paymentRequestId: order.paymentId
+    })
+
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${req.token}`,
         email: userEmail
       },
       data: jsonBody,
@@ -372,235 +188,20 @@ const addFilePurchase = (payload) => {
     }
 
     axios(options)
-      .then((resp) => {
-        if (resp?.data?.status === 'success') {
-          return response.status(200).json({
+      .then((response) => {
+        if (response?.data?.status === 'success') {
+          return res.status(200).json({
             status: 'success',
             pageUrl: successUrl
           })
         }
       })
       .catch((error) => {
-        throw new Error(error)
+        if (error.response.data?.status === 'error') {
+          return res.status(404).json(error.response.data)
+        }
+        throw new Error('Add purchase error')
       })
-  } catch (error) {
-    return response.status(500).json({
-      status: 'error',
-      errorCode: 'SERVER_ERROR'
-    })
-  }
-}
-
-router.post('/payment/pay-file', function (req, res) {
-  try {
-    const {
-      userEmail,
-      paymentMessage,
-      token,
-      lessonName,
-      lessonType,
-      fileName,
-      accessMonths,
-      amount
-    } = req.body
-
-    let requestId = null
-
-    async function createPayment (paymentInfo, successUrl, callback) {
-      let instanceId = null
-      let error = null
-
-      await yandexMoney.ExternalPayment.getInstanceId(
-        clientId,
-        async function getInstanceComplete (err, data) {
-          try {
-            if (err) {
-              console.error(err)
-              error = new Error('Get instance_id failed.')
-              throw error
-            }
-
-            instanceId = data.instance_id
-
-            const externalPayment = new yandexMoney.ExternalPayment(instanceId)
-
-            // Pay options : sum info
-            const options = {
-              ...paymentInfo,
-              message: paymentInfo.paymentMessage,
-              pattern_id: 'p2p',
-              to: walletNumber
-            }
-
-            await externalPayment.request(
-              options,
-              async function requestComplete (err, data) {
-                if (err) {
-                  console.error(err)
-                  error = Error('Get request_id failed.')
-                  throw error
-                }
-                requestId = data.request_id
-
-                await externalPayment.process(
-                  {
-                    request_id: requestId,
-                    ext_auth_success_uri: `${successUrl}/?request_id=${requestId}&email=${userEmail}&lesson_type=${lessonType}&lesson_name=${lessonName}&file_name=${fileName}&access_months=${accessMonths}`,
-                    ext_auth_fail_uri: paymentInfo.baseUrl.concat('/error-payment')
-                  },
-                  function processCallback (err, data) {
-                    if (err) {
-                      console.error(err)
-                      error = new Error('Get acs_url failed.')
-                      throw error
-                    } else {
-                      console.warn('processCallbackData', data)
-                      callback(data)
-                    }
-                  }
-                )
-              }
-            )
-          } catch (error) {
-            return res.status(500).json({
-              status: 'error',
-              errorCode: 'SERVER_ERROR',
-              error
-            })
-          }
-        }
-      )
-    }
-
-    function paymentCallback (paymentProcessData) {
-      if (paymentProcessData.status === 'ext_auth_required') {
-        const { acs_uri, acs_params } = paymentProcessData
-        res.status(301).json({
-          status: 'redirect',
-          url: `${acs_uri}?orderId=${acs_params.orderId}`
-        })
-      } else if (paymentProcessData.status === 'success') {
-        addFilePurchase({
-          response: res,
-          userEmail,
-          token,
-          lessonName,
-          lessonType,
-          successUrl,
-          fileName,
-          accessMonths,
-          paymentRequestId: requestId
-        })
-      } else if (paymentProcessData.status === 'refused') {
-        throw new Error(paymentProcessData.error)
-      }
-    }
-
-    const successUrl = `${baseUrl}/success-payment`
-
-    createPayment(
-      { amount, paymentMessage, baseUrl },
-      successUrl,
-      paymentCallback
-    )
-  } catch (error) {
-    return res.status(500).json({
-      status: 'error',
-      errorCode: 'SERVER_ERROR'
-    })
-  }
-})
-
-router.post('/payment/check-file', function (req, res) {
-  try {
-    const {
-      userEmail,
-      token,
-      lessonName,
-      lessonType,
-      fileName,
-      accessMonths,
-      requestId
-    } = req.body
-
-    async function checkPayment (paymentInfo, successUrl, callback) {
-      let instanceId = null
-      let error = null
-
-      await yandexMoney.ExternalPayment.getInstanceId(
-        clientId,
-        async function getInstanceComplete (err, data) {
-          try {
-            if (err) {
-              console.error(err)
-              error = new Error('Get instance_id failed.')
-              throw error
-            }
-
-            instanceId = data.instance_id
-
-            const externalPayment = new yandexMoney.ExternalPayment(instanceId)
-
-            await externalPayment.process(
-              {
-                request_id: requestId,
-                ext_auth_success_uri: `${successUrl}`,
-                ext_auth_fail_uri: paymentInfo.baseUrl.concat('/error-payment')
-              },
-              function processCallback (err, data) {
-                if (err) {
-                  console.error(err)
-                  error = new Error('Get acs_url failed.')
-                  throw error
-                } else {
-                  console.warn('processCallbackData', data)
-                  callback(data)
-                }
-              }
-            )
-          } catch (error) {
-            return res.status(500).json({
-              status: 'error',
-              errorCode: 'SERVER_ERROR',
-              error
-            })
-          }
-        }
-      )
-    }
-
-    function paymentCallback (paymentProcessData) {
-      if (paymentProcessData.status === 'ext_auth_required') {
-        const { acs_uri, acs_params } = paymentProcessData
-        res.status(301).json({
-          status: 'redirect',
-          url: `${acs_uri}?orderId=${acs_params.orderId}`
-        })
-      } else if (paymentProcessData.status === 'success') {
-        addFilePurchase({
-          response: res,
-          userEmail,
-          token,
-          lessonName,
-          lessonType,
-          successUrl,
-          fileName,
-          accessMonths,
-          paymentRequestId: requestId
-        })
-      } else if (paymentProcessData.status === 'refused') {
-        throw new Error(paymentProcessData.error)
-      }
-    }
-
-    const lessonTypePath = lessonType === 'lesson' ? 'lesson' : 'single-lesson'
-    const successUrl = `${baseUrl}/${lessonTypePath}/${lessonName}`
-
-    checkPayment(
-      { baseUrl },
-      successUrl,
-      paymentCallback
-    )
   } catch (error) {
     return res.status(500).json({
       status: 'error',

@@ -27,32 +27,15 @@ export default {
   },
 
   async mounted () {
-    const { request_id, course_type, course_name, access_months, email, file_name, lesson_name, lesson_type } = this.$route.query
+    const { orderId } = this.$route.query
 
-    let url = '/api/payment/check'
-    if (file_name && !course_name) {
-      url = '/api/payment/check-file'
-    }
+    const url = '/api/payment/check'
     const token = this.$cookies.get('_vikosto_token')
-    let jsonBody = JSON.stringify({
-      courseName: course_name,
-      courseType: course_type,
-      token,
-      accessMonths: access_months,
-      userEmail: email,
-      requestId: request_id
+    const jsonBody = JSON.stringify({
+      orderId,
+      userEmail: this.profile.email
     })
-    if (file_name && !course_name) {
-      jsonBody = JSON.stringify({
-        fileName: file_name,
-        lessonType: lesson_type,
-        lessonName: lesson_name,
-        token,
-        accessMonths: access_months,
-        userEmail: email,
-        requestId: request_id
-      })
-    }
+
     try {
       const res = await fetch(url, {
         method: 'POST',
@@ -77,9 +60,6 @@ export default {
         }, 700)
 
         return
-      } else if (data?.status === 'redirect') {
-        window.open(data.url, '_blank', 'noopener, noreferrer')
-        return
       }
 
       throw data
@@ -102,7 +82,3 @@ export default {
 
 }
 </script>
-
-<style>
-
-</style>

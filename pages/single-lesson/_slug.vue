@@ -455,9 +455,7 @@ export default {
         courseType: 'singleLesson',
         accessMonths: this.singleLesson.accessMonths,
         amount: this.newPrice,
-        // amount: 2,
         paymentMessage,
-        token: this.token,
         userEmail
       })
 
@@ -525,22 +523,18 @@ export default {
       const userEmail = this.profile.email
       const amount = file.price
       const from = getFullName(this.profile)
-      const lessonName = this.singleLesson.name
       const fileName = file.name
       const fileTitle = file.title
       const paymentMessage = this.$t('course.payment_message', { from, email: userEmail, amount, courseName: fileTitle })
 
-      const url = '/api/payment/pay-file'
+      const url = '/api/payment/pay'
 
       const jsonBody = JSON.stringify({
-        lessonName,
-        lessonType: 'singleLesson',
-        fileName,
+        courseName: fileName,
+        courseType: 'file',
         accessMonths: file.accessMonths,
         amount: file.price,
-        // amount: 2,
         paymentMessage,
-        token: this.token,
         userEmail
       })
 
