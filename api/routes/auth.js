@@ -179,22 +179,9 @@ router.post('/auth/recovery-password', async function (req, res) {
 
     const data = JSON.stringify({ token, expiredDate: Date.now() + 10 * 3600 * 1000 })
     const encryptedData = encodeURIComponent(CryptoJS.AES.encrypt(data, restorePasswordSecretKey).toString())
-    const bytes = CryptoJS.AES.decrypt(emailSecret, emailSecretKey)
-    const emailPassword = bytes.toString(CryptoJS.enc.Utf8)
 
-    const transporter = nodemailer.createTransport({
-      service: 'Mail.ru',
-      auth: {
-        user: emailAdmin,
-        pass: emailPassword
-      }
-    })
-
-    const mailOptions = {
-      from: emailAdmin,
-      to: email,
-      subject: 'Восстановление пароля на онлайн платформе vikosto',
-      html: `<h1>Восстановление пароля</h1>
+    sendEmail(`
+      <h1>Восстановление пароля</h1>
       <div>
         <span>Ссылка на восстановление пароля:</span>
         <a href="${baseUrl}/restore-password?key=${encryptedData}&email=${email}">
@@ -202,10 +189,11 @@ router.post('/auth/recovery-password', async function (req, res) {
         </a>
       </div>
       <p>Данная ссылка действительна 10 часов с момента создания.</p>
-      <p>Не пересылайте никому эту ссылку.</p>`
-    }
-
-    transporter.sendMail(mailOptions, function (error, info) {
+      <p>Не пересылайте никому эту ссылку.</p>
+    `, {
+      toEmail: email,
+      subject: 'Восстановление пароля на онлайн платформе vikosto'
+    }, function (error, info) {
       if (error) {
         return res.status(500).json({
           status: 'error',
