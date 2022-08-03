@@ -445,7 +445,7 @@ export default {
       const amount = this.newPrice
       const from = getFullName(this.profile)
       const lessonName = this.singleLesson.name
-      const lessonTitle = this.singleLesson.title
+      const lessonTitle = this.singleLesson.title.split(' | ').join(' ')
       const paymentMessage = this.$t('single_lesson.payment_message', { from, email: userEmail, amount, lessonName: lessonTitle })
 
       const url = '/api/payment/pay'
