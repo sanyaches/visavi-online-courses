@@ -490,7 +490,7 @@ export default {
         9: { bold_text: '2', text: 'месяца проверка отработок' }
       }
     },
-    payment_message: 'Оплата, за курс "{courseName}" от {from}. После оплаты нажмите кнопку назад в магазин'
+    payment_message: 'Оплата, за курс "{courseName}" от {from}. После оплаты нажмите "Вернуться в магазин"'
   },
   single_lesson: {
     seo: {
@@ -530,7 +530,7 @@ export default {
       resource_url: 'Ссылка на ресурс',
       submit: 'Добавить'
     },
-    payment_message: 'Оплата, за урок "{lessonName}" от {from}. После оплаты нажмите кнопку назад в магазин',
+    payment_message: 'Оплата, за урок "{lessonName}" от {from}. После оплаты нажмите "Вернуться в магазин"',
     chat_title: 'Обсуждение урока',
     chat_loading: 'Чат загружается...',
     chat_start: 'Здесь вы можете прислать отработку в удобном формате: фото или видео',
