@@ -505,7 +505,7 @@ export default {
         9: { bold_text: '2', text: 'месяца проверка отработок' }
       }
     },
-    payment_message: 'Payment {amount} rubles from {from} (email: {email}), for a course "{courseName}"'
+    payment_message: 'Payment for a course "{courseName}" from {from}. Please, click back button after payment'
   },
   single_lesson: {
     seo: {
@@ -545,7 +545,7 @@ export default {
       resource_url: 'Link to resource',
       submit: 'Add'
     },
-    payment_message: 'Payment {amount} rubles from {from} (email: {email}), for a lesson "{lessonName}"',
+    payment_message: 'Payment for a lesson "{lessonName}" from {from}. Please, click back button after payment',
     chat_title: 'Lesson discussion',
     chat_loading: 'Chat is loading...',
     chat_start: 'You can send your homework in convenient format: video or photo',
