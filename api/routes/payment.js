@@ -13,7 +13,6 @@ const router = Router()
 
 const shopId = process.env.YK_SHOP_ID
 const secretKey = process.env.YK_API_KEY
-const idempotenceKey = '1872542f-fce3-46ed-8239-ccb505701076'
 const jwtSecretKey = process.env.JWT_SECRET
 const baseUrl = process.env.BASE_URL
 
@@ -114,16 +113,17 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
           currency: 'RUB'
         },
         description: paymentMessage,
+        capture: true,
         metadata: {
           orderId
         },
         confirmation: {
           type: 'redirect',
-          enforce: true,
           return_url: successUrl
         }
       }
 
+      const idempotenceKey = uuid4()
       const payment = await checkout.createPayment(createPayload, idempotenceKey)
 
       if (payment.id) {
