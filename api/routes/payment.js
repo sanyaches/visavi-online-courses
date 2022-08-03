@@ -6,12 +6,15 @@ const { Router } = require('express')
 const mongoose = require('mongoose')
 const { YooCheckout } = require('@a2seven/yoo-checkout')
 const uuid4 = require('uuid4')
+const jwt = require('jsonwebtoken')
 const OrderModel = require('../../models/order')
+const UsersModel = require('../../models/users')
 const router = Router()
 
 const shopId = process.env.YK_SHOP_ID
 const secretKey = process.env.YK_API_KEY
 const idempotenceKey = '1872542f-fce3-46ed-8239-ccb505701076'
+const jwtSecretKey = process.env.JWT_SECRET
 const baseUrl = process.env.BASE_URL
 
 const checkout = new YooCheckout({ shopId, secretKey })
@@ -35,10 +38,27 @@ function verifyToken (req, res, next) {
   }
 }
 
-router.post('/payment/pay', verifyToken, async function (req, res) {
+async function addEmailToRequest (req, res, next) {
+  const user = jwt.verify(req.token, jwtSecretKey)
+  const query = {
+    _id: user.id
+  }
+  const foundUser = await UsersModel.findOne(query)
+
+  if (foundUser && foundUser.email) {
+    req.userEmail = foundUser.email
+    next()
+  } else {
+    return res.status(404).json({
+      status: 'error',
+      errorCode: 'USER_NOT_FOUND'
+    })
+  }
+}
+
+router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req, res) {
   try {
     const {
-      userEmail,
       paymentMessage,
       courseName,
       courseType,
@@ -54,13 +74,14 @@ router.post('/payment/pay', verifyToken, async function (req, res) {
         accessMonths,
         isFree: true
       })
+
       const options = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           Accept: 'application/json',
           Authorization: `Bearer ${req.token}`,
-          email: userEmail
+          email: req.userEmail
         },
         data: jsonBody,
         url
@@ -98,6 +119,7 @@ router.post('/payment/pay', verifyToken, async function (req, res) {
         },
         confirmation: {
           type: 'redirect',
+          enforce: true,
           return_url: successUrl
         }
       }
@@ -132,12 +154,9 @@ router.post('/payment/pay', verifyToken, async function (req, res) {
   }
 })
 
-router.post('/payment/check', verifyToken, async function (req, res) {
+router.post('/payment/check', verifyToken, addEmailToRequest, async function (req, res) {
   try {
-    const {
-      orderId,
-      userEmail
-    } = req.body
+    const { orderId } = req.body
 
     const order = await OrderModel.findOne({ orderId })
     if (!order.orderId) {
@@ -181,7 +200,7 @@ router.post('/payment/check', verifyToken, async function (req, res) {
         'Content-Type': 'application/json; charset=UTF-8',
         Accept: 'application/json',
         Authorization: `Bearer ${req.token}`,
-        email: userEmail
+        email: req.userEmail
       },
       data: jsonBody,
       url

@@ -455,8 +455,7 @@ export default {
         courseType: 'singleLesson',
         accessMonths: this.singleLesson.accessMonths,
         amount: this.newPrice,
-        paymentMessage,
-        userEmail
+        paymentMessage
       })
 
       try {
@@ -534,8 +533,7 @@ export default {
         courseType: 'file',
         accessMonths: file.accessMonths,
         amount: file.price,
-        paymentMessage,
-        userEmail
+        paymentMessage
       })
 
       try {

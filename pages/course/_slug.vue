@@ -431,8 +431,7 @@ export default {
         courseType: 'course',
         accessMonths: this.course.accessMonths,
         amount: this.course.price,
-        paymentMessage,
-        userEmail
+        paymentMessage
       })
 
       try {

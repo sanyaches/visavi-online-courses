@@ -21,8 +21,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      token: 'user/getToken',
-      profile: 'user/getMe'
+      token: 'user/getToken'
     })
   },
 
@@ -32,8 +31,7 @@ export default {
     const url = '/api/payment/check'
     const token = this.$cookies.get('_vikosto_token')
     const jsonBody = JSON.stringify({
-      orderId,
-      userEmail: this.profile.email
+      orderId
     })
 
     try {
@@ -42,7 +40,7 @@ export default {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           Accept: 'application/json',
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${this.token || token}`
         },
         body: jsonBody
       })
