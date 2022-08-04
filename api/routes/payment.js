@@ -60,6 +60,7 @@ async function addEmailToRequest (req, res, next) {
 router.post('/payment/on-success', async function (req, res) {
   try {
     const { object } = req.body
+    console.log('Object from webhook: ', object)
     const orderId = object?.metadata?.orderId
 
     // Send a response that we got a notification
