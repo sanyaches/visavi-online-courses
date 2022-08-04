@@ -6,6 +6,10 @@ const OrderSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  userEmail: {
+    type: String,
+    required: true
+  },
   paymentId: {
     type: String,
     required: true

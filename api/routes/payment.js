@@ -9,6 +9,8 @@ const uuid4 = require('uuid4')
 const jwt = require('jsonwebtoken')
 const OrderModel = require('../../models/order')
 const UsersModel = require('../../models/users')
+const PurchaseModel = require('../../models/purchase')
+const PaymentModel = require('../../models/payment')
 const router = Router()
 
 const shopId = process.env.YK_SHOP_ID
@@ -16,7 +18,7 @@ const secretKey = process.env.YK_API_KEY
 const jwtSecretKey = process.env.JWT_SECRET
 const baseUrl = process.env.BASE_URL
 
-const checkout = new YooCheckout({ shopId, secretKey })
+const checkout = new YooCheckout({ shopId, secretKey, token: 'AAEACCfSAAEHyQAAAYJoMM1fgzHCzLMbakQ9aXuKFtA7_WixYL1lNAh3FvHsH4xyFJUH9FJjPizWiEYNaDt2fQBd' })
 
 const url = process.env.MONGO_URL
 mongoose.connect(url)
@@ -54,6 +56,79 @@ async function addEmailToRequest (req, res, next) {
     })
   }
 }
+
+router.post('/payment/on-success', async function (req, res) {
+  try {
+    const { object } = req.body
+    const orderId = object?.metadata?.orderId
+
+    if (!orderId) {
+      console.error('No metadata -> orderId in object from webhook')
+      return res.sendStatus(404)
+    }
+
+    const order = await OrderModel.findOne({ orderId })
+    if (!order.orderId || object.status !== 'succeeded' || !object.paid) {
+      return res.sendStatus(404)
+    }
+
+    await PurchaseModel.deleteOne({
+      courseName: order.productName,
+      courseType: order.productType,
+      userEmail: order.userEmail
+    })
+
+    const startDateMs = Date.now()
+
+    const firstDate = new Date(startDateMs)
+    const secondDate = new Date(startDateMs)
+    secondDate.setMonth(secondDate.getMonth() + Number(order.accessMonths))
+    if (order.accessMonths < 1) {
+      secondDate.setDate(secondDate.getDate() + Number(order.accessMonths * 30))
+    }
+    const difference = secondDate - firstDate
+
+    const endDateMs = startDateMs + difference
+
+    const paymentResult = await PaymentModel.create({
+      paymentRequestId: order.paymentId
+    })
+
+    if (!paymentResult) {
+      res.sendStatus(500)
+    }
+
+    const result = await PurchaseModel.create({
+      courseName: order.productName,
+      courseType: order.productType,
+      userEmail: order.userEmail,
+      startDate: startDateMs,
+      endDate: endDateMs
+    })
+
+    if (!result) {
+      return res.sendStatus(500)
+    }
+
+    return res.sendStatus(200)
+  } catch (e) {
+    console.error(e)
+  }
+})
+
+;(async function createWebHook () {
+  try {
+    const idempotenceKey = uuid4()
+    const createWebHookPayload = {
+      event: 'payment.succeeded',
+      url: `${baseUrl}/api/payment/on-success`
+    }
+    const webhook = await checkout.createWebHook(createWebHookPayload, idempotenceKey)
+    console.log('Webhook success', webhook)
+  } catch (e) {
+    console.error(e)
+  }
+})()
 
 router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req, res) {
   try {
@@ -105,8 +180,18 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
           })
         })
     } else {
+      let successUrl
+      if (courseType === 'course') {
+        successUrl = `${baseUrl}/course/${courseName}`
+      }
+      if (courseType === 'singleLesson') {
+        successUrl = `${baseUrl}/single-lesson/${courseName}`
+      }
+      if (courseType === 'file') {
+        successUrl = `${baseUrl}/profile`
+      }
+
       const orderId = uuid4()
-      const successUrl = `${baseUrl}/success-payment?orderId=${orderId}`
       const createPayload = {
         amount: {
           value: amount,
@@ -129,6 +214,7 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
       if (payment.id) {
         OrderModel.create({
           orderId,
+          userEmail: req.userEmail,
           paymentId: payment.id,
           productType: courseType,
           productName: courseName,
