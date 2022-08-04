@@ -63,14 +63,18 @@ router.post('/payment/on-success', async function (req, res) {
     const { object } = req.body
     const orderId = object?.metadata?.orderId
 
+    // Send a response that we got a notification
+    res.sendStatus(200)
+
     if (!orderId) {
       console.error('No metadata -> orderId in object from webhook')
-      return res.sendStatus(404)
+      return
     }
 
     const order = await OrderModel.findOne({ orderId })
     if (!order.orderId || object.status !== 'succeeded' || !object.paid) {
-      return res.sendStatus(404)
+      console.error('Order is not paid')
+      return
     }
 
     await PurchaseModel.deleteOne({
@@ -91,14 +95,6 @@ router.post('/payment/on-success', async function (req, res) {
 
     const endDateMs = startDateMs + difference
 
-    const paymentResult = await PaymentModel.create({
-      paymentRequestId: order.paymentId
-    })
-
-    if (!paymentResult) {
-      res.sendStatus(500)
-    }
-
     const result = await PurchaseModel.create({
       courseName: order.productName,
       courseType: order.productType,
@@ -108,10 +104,11 @@ router.post('/payment/on-success', async function (req, res) {
     })
 
     if (!result) {
-      return res.sendStatus(500)
+      console.error('Something went wrong with creation new purchase')
+      return
     }
 
-    return res.sendStatus(200)
+    return
   } catch (e) {
     console.error(e)
   }
