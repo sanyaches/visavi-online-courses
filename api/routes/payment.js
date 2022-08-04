@@ -15,10 +15,11 @@ const router = Router()
 
 const shopId = process.env.YK_SHOP_ID
 const secretKey = process.env.YK_API_KEY
+const oauthKey = process.env.YK_OAUTH_KEY
 const jwtSecretKey = process.env.JWT_SECRET
 const baseUrl = process.env.BASE_URL
 
-const checkout = new YooCheckout({ shopId, secretKey, token: 'AAEACCfSAAEHyQAAAYJoMM1fgzHCzLMbakQ9aXuKFtA7_WixYL1lNAh3FvHsH4xyFJUH9FJjPizWiEYNaDt2fQBd' })
+const checkout = new YooCheckout({ shopId, secretKey, token: oauthKey })
 
 const url = process.env.MONGO_URL
 mongoose.connect(url)
