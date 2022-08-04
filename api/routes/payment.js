@@ -10,7 +10,6 @@ const jwt = require('jsonwebtoken')
 const OrderModel = require('../../models/order')
 const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
-const PaymentModel = require('../../models/payment')
 const router = Router()
 
 const shopId = process.env.YK_SHOP_ID
