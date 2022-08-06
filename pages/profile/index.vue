@@ -168,7 +168,11 @@ export default {
         return []
       }
 
-      return this.myCourses.map(item => item.courseName)
+      return this.myCourses
+        .filter(item => item.courseName in this.coursesDictionary)
+        .map((item) => {
+          return item.courseName
+        })
     },
 
     purchaseSingleLessonsKeys () {
@@ -176,7 +180,11 @@ export default {
         return []
       }
 
-      return this.mySingleLessons.map(item => item.courseName)
+      return this.mySingleLessons
+        .filter(item => item.courseName in this.singleLessonsDictionary)
+        .map((item) => {
+          return item.courseName
+        })
     },
 
     purchasesSingleLessons () {
