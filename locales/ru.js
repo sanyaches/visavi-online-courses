@@ -268,10 +268,19 @@ export default {
     access: 'Доступ: {access}',
     price: 'Цена',
     proceed: 'Оплатить',
+    price_total: 'Итого',
+    price_sum: 'Стоимость',
+    discount: 'Скидка',
+    payment_message: 'Оплата, за "{title}" от {from}. После оплаты нажмите "Вернуться в магазин"',
     coupon: {
-      title: 'Промокод для покупки',
-      code: 'Введите промокод',
-      apply: 'Применить промокод'
+      title: 'Введите промокод',
+      code: 'Промокод',
+      apply: 'Применить промокод',
+      applied_coupon: 'Промокод "{code}" успешно применен.',
+      error: {
+        COUPON_NOT_FOUND: 'Промокод не найден, попробуйте другой.',
+        COUPON_NOT_ALLOWED: 'Вы уже использовали этот промокод.'
+      }
     }
   },
   index: {

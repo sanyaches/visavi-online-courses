@@ -49,8 +49,7 @@
                   <img :src="singleLesson.thumbnailUrl">
                 </div>
                 <div v-if="singleLesson.price > 0" class="single-lesson-single__price">
-                  <span class="old">{{ singleLesson.price }}</span>
-                  <span class="new">{{ newPrice }}</span>
+                  <span>{{ singleLesson.price }}</span>
                   <br>
                   <span class="currency">{{ $t('common.currency') }}</span>
                 </div>
@@ -270,7 +269,7 @@
 
 <script>
 /* eslint-disable no-undef */
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { format, formatDuration } from 'date-fns'
 import { ru, enUS } from 'date-fns/locale'
 
@@ -390,9 +389,6 @@ export default {
         months: this.singleLesson.accessMonths
       }, { locale: this.$i18n.locale === 'ru' ? ru : enUS })
     },
-    newPrice () {
-      return Math.ceil(Math.floor(this.singleLesson.price * 0.7) / 10) * 10 - 10
-    },
     purchasedFileNames () {
       const purchasedNames = this.filePurchases.map(filePurchase => filePurchase.fileName)
       const purchasedFileNames = []
@@ -410,7 +406,12 @@ export default {
   },
 
   methods: {
-    async buySingleLesson () {
+    ...mapActions({
+      changeCheckoutItem: 'checkout/changeCheckoutItem',
+      changeShowModal: 'checkout/changeShowModal'
+    }),
+
+    buySingleLesson () {
       if (!this.profile) {
         const link = this.localePath('/login')
         this.$root.$bvToast.toast(this.$t('notify.register_then_buy_msg'), {
@@ -427,7 +428,7 @@ export default {
           name: this.singleLesson.name,
           imageUrl: this.singleLesson.thumbnailUrl,
           title: this.singleLesson.title,
-          price: this.newPrice,
+          price: this.singleLesson.price,
           accessMonths: this.singleLesson.accessMonths
         })
 
@@ -436,71 +437,12 @@ export default {
 
         return
       }
-      const getFullName = (profile) => {
-        return [profile.firstName, profile.lastName]
-          .filter(Boolean)
-          .join(' ')
-      }
-      const userEmail = this.profile.email
-      const amount = this.newPrice
-      const from = getFullName(this.profile)
-      const lessonName = this.singleLesson.name
-      const lessonTitle = this.singleLesson.title.split(' | ').join(' ')
-      const paymentMessage = this.$t('single_lesson.payment_message', { from, email: userEmail, amount, lessonName: lessonTitle })
 
-      const url = '/api/payment/pay'
-
-      const jsonBody = JSON.stringify({
-        courseName: lessonName,
-        courseType: 'singleLesson',
-        accessMonths: this.singleLesson.accessMonths,
-        amount: this.newPrice,
-        paymentMessage
-      })
-
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            Accept: 'application/json',
-            Authorization: `Bearer ${this.token}`
-          },
-          body: jsonBody
-        })
-        const data = await res.json()
-        if (data?.status === 'success') {
-          this.$root.$bvToast.toast(this.$t('notify.success_add_purchase'), {
-            title: this.$t('notify.success_add_purchase'),
-            toaster: 'b-toaster-top-right',
-            solid: true,
-            variant: 'success'
-          })
-
-          window.location.reload()
-
-          return
-        } else if (data?.status === 'redirect') {
-          window.location.assign(data.url)
-          return
-        }
-
-        throw data
-      } catch (error) {
-        if (error.errorCode) {
-          const code = String(error.errorCode).toLowerCase()
-          this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
-            title: this.$t(`notify.error.${code}`),
-            toaster: 'b-toaster-top-right',
-            solid: true,
-            variant: 'danger',
-            appendToast: true
-          })
-        }
-      }
+      this.changeCheckoutItem({ ...this.singleLesson, itemType: 'singleLesson' })
+      this.changeShowModal(true)
     },
 
-    async buyFile (file) {
+    buyFile (file) {
       if (!this.profile) {
         const link = this.localePath('/login')
         this.$root.$bvToast.toast(this.$t('notify.register_then_buy_msg'), {
@@ -514,68 +456,8 @@ export default {
         return
       }
 
-      const getFullName = (profile) => {
-        return [profile.firstName, profile.lastName]
-          .filter(Boolean)
-          .join(' ')
-      }
-      const userEmail = this.profile.email
-      const amount = file.price
-      const from = getFullName(this.profile)
-      const fileName = file.name
-      const fileTitle = file.title
-      const paymentMessage = this.$t('course.payment_message', { from, email: userEmail, amount, courseName: fileTitle })
-
-      const url = '/api/payment/pay'
-
-      const jsonBody = JSON.stringify({
-        courseName: fileName,
-        courseType: 'file',
-        accessMonths: file.accessMonths,
-        amount: file.price,
-        paymentMessage
-      })
-
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            Accept: 'application/json',
-            Authorization: `Bearer ${this.token}`
-          },
-          body: jsonBody
-        })
-        const data = await res.json()
-        if (data?.status === 'success') {
-          this.$root.$bvToast.toast(this.$t('notify.success_add_purchase'), {
-            title: this.$t('notify.success_add_purchase'),
-            toaster: 'b-toaster-top-right',
-            solid: true,
-            variant: 'success'
-          })
-
-          window.location.reload()
-
-          return
-        } else if (data?.status === 'redirect') {
-          window.location.assign(data.url)
-          return
-        }
-
-        throw data
-      } catch (error) {
-        if (error.errorCode) {
-          const code = String(error.errorCode).toLowerCase()
-          this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
-            title: this.$t(`notify.error.${code}`),
-            toaster: 'b-toaster-top-right',
-            solid: true,
-            variant: 'danger',
-            appendToast: true
-          })
-        }
-      }
+      this.changeCheckoutItem({ ...file, itemType: 'file' })
+      this.changeShowModal(true)
     }
   }
 }
@@ -890,25 +772,6 @@ export default {
     font-weight: 800;
     line-height: 100%;
     font-family: 'Alegreya SC', serif;
-
-    .old {
-      color: #656060;
-      font-size: 0.8em;
-      position: relative;
-      opacity: 1;
-
-      &::after {
-        content: '';
-        position: absolute;
-        height: 4px;
-        background-color: rgb(128, 107, 107);
-        top: 50%;
-        left: -10%;
-        width: 120%;
-        opacity: 0.75;
-        transform: rotate(-15deg);
-      }
-    }
 
     span.currency {
       text-transform: uppercase;

@@ -243,7 +243,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { format, formatDuration } from 'date-fns'
 import { ru, enUS } from 'date-fns/locale'
 import LessonListItem from '@/components/LessonListItem.vue'
@@ -385,7 +385,12 @@ export default {
   },
 
   methods: {
-    async buyCourse () {
+    ...mapActions({
+      changeCheckoutItem: 'checkout/changeCheckoutItem',
+      changeShowModal: 'checkout/changeShowModal'
+    }),
+
+    buyCourse () {
       if (!this.profile) {
         const link = this.localePath('/login')
         this.$root.$bvToast.toast(this.$t('notify.register_then_buy_msg'), {
@@ -412,68 +417,8 @@ export default {
         return
       }
 
-      const getFullName = (profile) => {
-        return [profile.firstName, profile.lastName]
-          .filter(Boolean)
-          .join(' ')
-      }
-      const userEmail = this.profile.email
-      const amount = this.course.price
-      const from = getFullName(this.profile)
-      const courseName = this.course.name
-      const courseTitle = this.course.title
-      const paymentMessage = this.$t('course.payment_message', { from, email: userEmail, amount, courseName: courseTitle })
-
-      const url = '/api/payment/pay'
-
-      const jsonBody = JSON.stringify({
-        courseName,
-        courseType: 'course',
-        accessMonths: this.course.accessMonths,
-        amount: this.course.price,
-        paymentMessage
-      })
-
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-            Accept: 'application/json',
-            Authorization: `Bearer ${this.token}`
-          },
-          body: jsonBody
-        })
-        const data = await res.json()
-        if (data?.status === 'success') {
-          this.$root.$bvToast.toast(this.$t('notify.success_add_purchase'), {
-            title: this.$t('notify.success_add_purchase'),
-            toaster: 'b-toaster-top-right',
-            solid: true,
-            variant: 'success'
-          })
-
-          window.location.reload()
-
-          return
-        } else if (data?.status === 'redirect') {
-          window.location.assign(data.url)
-          return
-        }
-
-        throw data
-      } catch (error) {
-        if (error.errorCode) {
-          const code = String(error.errorCode).toLowerCase()
-          this.$root.$bvToast.toast(this.$t(`notify.error.${code}_msg`), {
-            title: this.$t(`notify.error.${code}`),
-            toaster: 'b-toaster-top-right',
-            solid: true,
-            variant: 'danger',
-            appendToast: true
-          })
-        }
-      }
+      this.changeCheckoutItem({ ...this.course, itemType: 'course' })
+      this.changeShowModal(true)
     }
   }
 }

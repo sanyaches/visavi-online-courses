@@ -305,10 +305,19 @@ export default {
     access: 'Access: {access}',
     price: 'Price',
     proceed: 'Pay',
+    price_total: 'Total',
+    price_sum: 'Amount',
+    discount: 'Discount',
+    payment_message: 'Payment for "{title}" from {from}. Please, click "Back to the store" after payment',
     coupon: {
       title: 'Promocode for buying',
       code: 'Enter promocode',
-      apply: 'Apply promocode'
+      apply: 'Apply promocode',
+      applied_coupon: 'Promocode "{code}" applied successfully.',
+      error: {
+        COUPON_NOT_FOUND: 'Promocode was not found, please, try another one.',
+        COUPON_NOT_ALLOWED: 'You have already used this promocode.'
+      }
     }
   },
   index: {

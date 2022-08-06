@@ -10,6 +10,8 @@ const jwt = require('jsonwebtoken')
 const OrderModel = require('../../models/order')
 const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
+const UserCouponSchema = require('../../models/userCoupons')
+const CouponSchema = require('../../models/coupon')
 const router = Router()
 
 const shopId = process.env.YK_SHOP_ID
@@ -48,6 +50,7 @@ async function addEmailToRequest (req, res, next) {
 
   if (foundUser && foundUser.email) {
     req.userEmail = foundUser.email
+    req.userId = foundUser.id
     next()
   } else {
     return res.status(404).json({
@@ -103,6 +106,17 @@ router.post('/payment/on-success', async function (req, res) {
       endDate: endDateMs
     })
 
+    if (order.couponCode) {
+      const coupon = await CouponSchema.findOne({ code: order.couponCode })
+      if (coupon) {
+        console.log('user coupon for user')
+        UserCouponSchema.create({
+          userId: req.userId,
+          couponId: coupon.id
+        })
+      }
+    }
+
     if (!result) {
       console.error('Something went wrong with creation new purchase')
       return
@@ -131,11 +145,12 @@ router.post('/payment/on-success', async function (req, res) {
 router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req, res) {
   try {
     const {
-      paymentMessage,
       courseName,
       courseType,
       accessMonths,
-      amount
+      amount,
+      paymentMessage,
+      couponCode
     } = req.body
 
     if (amount <= 0) {
@@ -216,6 +231,7 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
           paymentId: payment.id,
           productType: courseType,
           productName: courseName,
+          couponCode,
           accessMonths
         })
 
@@ -291,8 +307,19 @@ router.post('/payment/check', verifyToken, addEmailToRequest, async function (re
     }
 
     axios(options)
-      .then((response) => {
+      .then(async (response) => {
         if (response?.data?.status === 'success') {
+          if (order.couponCode) {
+            const coupon = await CouponSchema.findOne({ code: order.couponCode })
+            if (coupon) {
+              console.log('user coupon for user')
+              UserCouponSchema.create({
+                userId: req.userId,
+                couponId: coupon.id
+              })
+            }
+          }
+
           return res.status(200).json({
             status: 'success',
             pageUrl: successUrl

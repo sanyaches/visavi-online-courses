@@ -14,6 +14,7 @@ const purchase = require('./routes/purchase')
 const payment = require('./routes/payment')
 const certificate = require('./routes/certificate')
 const email = require('./routes/email')
+const coupon = require('./routes/coupon')
 
 // Import API Routes
 app.use(express.json())
@@ -26,6 +27,7 @@ app.use(purchase)
 app.use(payment)
 app.use(certificate)
 app.use(email)
+app.use(coupon)
 
 app.use('/videos', express.static(path.join(__dirname, 'videos_public')))
 app.use('/upload', express.static(path.join(__dirname, 'upload')))
