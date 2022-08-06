@@ -19,8 +19,7 @@ const OrderSchema = new mongoose.Schema({
     required: true
   },
   couponCode: {
-    type: String,
-    required: true
+    type: String
   },
   productName: {
     type: String,
