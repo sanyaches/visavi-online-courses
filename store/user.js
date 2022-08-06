@@ -4,7 +4,8 @@ export const state = () => ({
   isAuthenticated: false,
   coursePurchases: [],
   singleLessonPurchases: [],
-  certificates: []
+  certificates: [],
+  files: []
 })
 
 export const mutations = {
@@ -30,6 +31,10 @@ export const mutations = {
 
   setCertificates (state, certificates) {
     state.certificates = certificates
+  },
+
+  setFiles (state, files) {
+    state.files = files
   }
 }
 
@@ -56,6 +61,10 @@ export const getters = {
 
   getCertificates (state) {
     return state.certificates
+  },
+
+  getFiles (state) {
+    return state.files
   }
 }
 
@@ -120,6 +129,7 @@ export const actions = {
 
         commit('setCoursePurchases', purchasesWithExpired.filter(item => item.courseType === 'course'))
         commit('setSingleLessonPurchases', purchasesWithExpired.filter(item => item.courseType === 'singleLesson'))
+        commit('setFiles', purchasesWithExpired.filter(item => item.courseType === 'file'))
       }
     } catch (error) {
       console.error(error)

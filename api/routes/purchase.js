@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
 const FilePurchaseModel = require('../../models/filePurchase')
+const FileModel = require('../../models/file')
 const PaymentModel = require('../../models/payment')
 const { sendEmail } = require('../sendEmail.js')
 const router = Router()
@@ -241,8 +242,21 @@ router.get('/purchases/purchases-by-user', verifyToken, async function (req, res
       .limit(limit)
       .skip(offset)
       .exec()
+    const resultFilesPurchases = await FilePurchaseModel.find({ userEmail })
+      .limit(limit)
+      .skip(offset)
+      .exec()
 
-    if (!result) {
+    const files = await FileModel.find()
+      .limit(limit)
+      .skip(offset)
+      .exec()
+    const filesDict = {}
+    for (const file of files) {
+      filesDict[file.name] = file
+    }
+
+    if (!result || !resultFilesPurchases) {
       res.status(500).json({
         status: 'error',
         errorCode: 'SERVER_ERROR'
@@ -252,7 +266,29 @@ router.get('/purchases/purchases-by-user', verifyToken, async function (req, res
 
     res.status(200).json({
       status: 'success',
-      data: result
+      data: [
+        ...result.map((purchase) => {
+          if (purchase.courseType !== 'file') {
+            return purchase
+          }
+          return {
+            ...purchase,
+            courseType: 'file',
+            resourceUrl: filesDict[purchase.courseName].resourceUrl,
+            name: filesDict[purchase.courseName].name,
+            title: filesDict[purchase.courseName].title
+          }
+        }),
+        ...resultFilesPurchases.map((file) => {
+          return {
+            ...file,
+            courseType: 'file',
+            resourceUrl: filesDict[file.fileName].resourceUrl,
+            name: filesDict[file.fileName].name,
+            title: filesDict[file.fileName].title
+          }
+        })
+      ]
     })
   } catch (error) {
     res.status(500).json({

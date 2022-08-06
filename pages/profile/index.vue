@@ -53,6 +53,24 @@
         <div class="profile-courses">
           <div class="profile-courses__header text-center">
             <h2>
+              {{ $t('profile.files_title') }}
+            </h2>
+          </div>
+          <div>
+            <template v-if="myFiles.length">
+              <div class="profile-courses__files-list">
+                <file-card v-for="file in myFiles" :key="file.name" :file="file" />
+              </div>
+            </template>
+            <div v-else>
+              <span>{{ $t('profile.no_files') }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-courses">
+          <div class="profile-courses__header text-center">
+            <h2>
               {{ $t('profile.certificates_title') }}
             </h2>
           </div>
@@ -156,7 +174,8 @@ export default {
       getIsAuthenticated: 'user/getIsAuthenticated',
       myCourses: 'user/getMyCourses',
       mySingleLessons: 'user/getMySingleLessons',
-      myCertificates: 'user/getCertificates'
+      myCertificates: 'user/getCertificates',
+      myFiles: 'user/getFiles'
     }),
 
     getWelcomeText () {

@@ -450,9 +450,11 @@ export default {
     lessons_title: 'Lessons',
     courses_title: 'Courses',
     certificates_title: 'Certificates',
+    files_title: 'Materials',
     no_lessons: 'You don\'t have purchased lessons.',
     no_courses: 'You don\'t have purchased courses.',
     no_certificates: 'You don\'t have certificates.',
+    no_files: 'You don\'t have materials.',
     change_password: 'Change your password',
     see_lessons: 'See lessons',
     see_courses: 'See courses'
