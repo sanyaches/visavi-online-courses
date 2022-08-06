@@ -433,7 +433,7 @@ export default {
       fifth: {
         question: 'Will I get a certificate?',
         answer: `
-          Everyone gets a certificate! It's guaranteed to receive in your email one month after you purchase the training.
+          Everyone gets a certificate! It's guaranteed to receive in your email one month after you purchase the training and send at least one homework.
           If you send all the homework what you've done on the training you've purchased,
           you'll receive your certificate much sooner.
         `
