@@ -197,7 +197,7 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/sitemap',
-    '@nuxtjs/sentry',
+    // '@nuxtjs/sentry',
     [
       '@nuxtjs/i18n',
       {
