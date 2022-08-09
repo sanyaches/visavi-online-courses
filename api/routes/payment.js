@@ -12,6 +12,7 @@ const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
 const UserCouponSchema = require('../../models/userCoupons')
 const CouponSchema = require('../../models/coupon')
+const { sendEmail } = require('../sendEmail.js')
 const router = Router()
 
 const shopId = process.env.YK_SHOP_ID
@@ -105,6 +106,23 @@ router.post('/payment/on-success', async function (req, res) {
       startDate: startDateMs,
       endDate: endDateMs
     })
+
+    if (result) {
+      sendEmail(`
+        <h1>У нас покупочка!</h1>
+        <div>
+          Кто-то купил на сайте, ура!
+        </div>
+        <p>Тип урока: ${order.productType}</p>
+        <p>Имя урока: ${order.productName}</p>
+        <p>Почта  пользователя: ${order.userEmail}</p>
+        <p>Месяцев доступа: ${order.accessMonths}</p>
+        <p>Промокод: ${order.couponCode || '---'}</p>
+      `, {
+        toEmail: 'vi.kosto@yandex.ru',
+        subject: 'Новая покупка на сайте www.vikosto.net'
+      })
+    }
 
     if (order.couponCode) {
       const coupon = await CouponSchema.findOne({ code: order.couponCode })
