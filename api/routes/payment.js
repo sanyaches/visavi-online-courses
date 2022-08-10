@@ -118,6 +118,7 @@ router.post('/payment/on-success', async function (req, res) {
         <p>Почта  пользователя: ${order.userEmail}</p>
         <p>Месяцев доступа: ${order.accessMonths}</p>
         <p>Промокод: ${order.couponCode || '---'}</p>
+        <p>Сумма: ${object.amount.value} ${object.amount.currency}</p>
       `, {
         toEmail: 'vi.kosto@yandex.ru',
         subject: 'Новая покупка на сайте www.vikosto.net'
@@ -128,10 +129,10 @@ router.post('/payment/on-success', async function (req, res) {
       const coupon = await CouponSchema.findOne({ code: order.couponCode })
       if (coupon) {
         console.log('user coupon for user')
-        UserCouponSchema.create({
-          userId: req.userId,
-          couponId: coupon.id
-        })
+        // UserCouponSchema.create({
+        //   userId: req.userId,
+        //   couponId: coupon.id
+        // })
       }
     }
 
@@ -331,10 +332,10 @@ router.post('/payment/check', verifyToken, addEmailToRequest, async function (re
             const coupon = await CouponSchema.findOne({ code: order.couponCode })
             if (coupon) {
               console.log('user coupon for user')
-              UserCouponSchema.create({
-                userId: req.userId,
-                couponId: coupon.id
-              })
+              // UserCouponSchema.create({
+              //   userId: req.userId,
+              //   couponId: coupon.id
+              // })
             }
           }
 
