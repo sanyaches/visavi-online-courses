@@ -44,22 +44,33 @@ export default {
   computed: {
     ...mapGetters({
       token: 'user/getToken'
-    })
+    }),
+    isMultiple () {
+      return this.form.toEmail.split('|').length > 1
+    }
   },
 
   methods: {
-    async submitSending () {
+    async multipleSend () {
       try {
-        if (!this.form.toEmail || !this.form.subject) {
-          // eslint-disable-next-line no-throw-literal
-          throw { message: 'No recipient or subject', errorCode: 'VALIDATION_ERROR' }
-        }
-        const jsonBody = JSON.stringify({
-          toEmail: this.form.toEmail,
-          subject: this.form.subject,
-          html: this.form.html
-        })
+        const emails = this.form.toEmail.split('|')
 
+        for (const emailItem of emails) {
+          const jsonBody = JSON.stringify({
+            toEmail: emailItem,
+            subject: this.form.subject,
+            html: this.form.html
+          })
+
+          await this.singleSend(jsonBody)
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    },
+
+    async singleSend (jsonBody) {
+      try {
         const url = '/api/email/send'
 
         const res = await fetch(url, {
@@ -80,7 +91,7 @@ export default {
             variant: 'success'
           })
 
-          return
+          return 'ok'
         }
 
         throw data
@@ -95,6 +106,25 @@ export default {
             appendToast: true
           })
         }
+      }
+    },
+
+    async submitSending () {
+      if (!this.form.toEmail || !this.form.subject) {
+        // eslint-disable-next-line no-throw-literal
+        throw { message: 'No recipient or subject', errorCode: 'VALIDATION_ERROR' }
+      }
+
+      if (!this.isMultiple) {
+        const jsonBody = JSON.stringify({
+          toEmail: this.form.toEmail,
+          subject: this.form.subject,
+          html: this.form.html
+        })
+
+        await this.singleSend(jsonBody)
+      } else {
+        this.multipleSend()
       }
     }
   }

@@ -3,7 +3,7 @@ require('dotenv').config()
 const { Router } = require('express')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
-const { sendEmail } = require('../sendEmail.js')
+const UsersModel = require('../../models/users')
 const router = Router()
 
 const jwtSecretKey = process.env.JWT_SECRET
@@ -40,34 +40,32 @@ function verifyAdminToken (req, res, next) {
   }
 }
 
-router.post('/email/send', verifyToken, verifyAdminToken, function (req, res) {
+router.get('/users/list', verifyToken, verifyAdminToken, async function (req, res) {
   try {
-    const {
-      toEmail,
-      subject,
-      html
-    } = req.body
+    const limit = parseInt(req.query.limit, 10) || 1000
+    const offset = parseInt(req.query.offset, 10) || 0
 
-    sendEmail(html, { toEmail, subject }, function (error, info) {
-      if (error) {
-        console.error('Sending email problem', error)
-        res.status(500).json({
-          status: 'error',
-          errorCode: 'EMAIL_ERROR',
-          error
-        })
-      } else {
-        res.status(200).json({
-          status: 'success',
-          info
-        })
-      }
+    const result = await UsersModel.find({ isAdmin: false })
+      .limit(limit)
+      .skip(offset)
+      .exec()
+
+    if (!result) {
+      res.status(500).json({
+        status: 'error',
+        errorCode: 'SERVER_ERROR'
+      })
+      return
+    }
+
+    res.status(200).json({
+      status: 'success',
+      users: result
     })
   } catch (error) {
     res.status(500).json({
       status: 'error',
-      errorCode: 'SERVER_ERROR',
-      error
+      errorCode: 'SERVER_ERROR'
     })
   }
 })

@@ -5,6 +5,9 @@
         <nuxt-link :to="localePath('/admin/purchases')">
           {{ $t('admin.to_purchases') }}
         </nuxt-link>
+        <nuxt-link :to="localePath('/admin/users')">
+          {{ $t('admin.to_users') }}
+        </nuxt-link>
         <h2>Chat</h2>
         <div id="chat-container" class="my-2 admin-chat" />
 
