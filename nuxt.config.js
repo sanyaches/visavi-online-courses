@@ -237,7 +237,7 @@ export default {
     // config
     hostname: process.env.BASE_URL,
     gzip: true,
-    exclude: ['/profile', '/admin/*', '/admin', '/success-payment', '/error-payment'],
+    exclude: ['/profile', '/admin/*', '/admin', '/homework-discussion', '/success-payment', '/error-payment'],
     cacheTime: 1000 * 60 * 1440,
     defaults: {
       changefreq: 'daily',
