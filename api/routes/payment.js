@@ -149,6 +149,14 @@ router.post('/payment/on-success', async function (req, res) {
 
 ;(async function createWebHook () {
   try {
+    const webhooks = await checkout.getWebHookList()
+    if (webhooks.items.findIndex((wh) => {
+      return (wh.event === 'payment.succeeded' && wh.url === `${baseUrl}/api/payment/on-success`)
+    }) !== -1) {
+      console.log('[PAYMENT] Success payment webhook is already exists')
+      return
+    }
+
     const idempotenceKey = uuid4()
     const createWebHookPayload = {
       event: 'payment.succeeded',
@@ -157,7 +165,7 @@ router.post('/payment/on-success', async function (req, res) {
     const webhook = await checkout.createWebHook(createWebHookPayload, idempotenceKey)
     console.log('Webhook success', webhook)
   } catch (e) {
-    console.error(e)
+    console.error('Webhook creation problem')
   }
 })()
 
