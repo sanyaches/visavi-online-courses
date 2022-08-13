@@ -49,7 +49,24 @@ export default {
   },
 
   mounted () {
-    this.initChat(this.profile)
+    if (!this.profile || !this.profile.id || !this.profile.firstName) {
+      this.unsubscribe = this.$store.subscribe((mutation, state) => {
+        if (mutation.type === 'user/setUser') {
+          const { user } = state.user
+          if (user.id) {
+            this.initChat(user)
+          }
+        }
+      })
+    } else {
+      this.initChat(this.profile)
+    }
+  },
+
+  beforeDestroy () {
+    if (this.unsubscribe) {
+      this.unsubscribe()
+    }
   },
 
   methods: {
@@ -65,7 +82,8 @@ export default {
         const ChatWidget = window.CometChatWidget
 
         this.chatLoading = true
-
+        console.log('COMETCHAT AUTHKEY', this.AUTH_KEY)
+        console.log('COMETCHAT APPID', this.APP_ID)
         ChatWidget.init({
           appID: this.APP_ID,
           appRegion: this.APP_REGION,
