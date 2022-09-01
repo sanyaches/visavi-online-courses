@@ -348,6 +348,7 @@ export default {
     author_description_mobile: 'Hi! My name is Victoria Costo - I am a hairstylist and teacher of the basic course and refresher lessons for working masters. In my online lessons, I will teach you how to work properly and gently with your hair and create the most permanent, easy, clean and beautiful hairstyles.',
     lessons_title: 'Hairstyle lessons',
     courses_title: 'Hairstyle courses',
+    courses_yourself_title: 'Hairstyle courses for yourself',
     faq_title: 'FAQ',
     contacts_title: 'Socials',
     contacts_contacts: 'Contacts:',
@@ -379,7 +380,7 @@ export default {
       }
     },
     benefits: {
-      title: 'Why do you need this online education?',
+      title: 'Who would be suitable for courses for yourself?',
       list: {
         first: {
           title: 'Time',

@@ -215,8 +215,9 @@ router.get('/course/list', async function (req, res) {
   try {
     const limit = parseInt(req.query.limit, 10) || 10
     const offset = parseInt(req.query.offset, 10) || 0
+    const forMySelf = req.query.myself || undefined
 
-    const result = await CourseModel.find()
+    const result = await CourseModel.find({ forMySelf })
       .sort({ createdAt: 'desc' })
       .limit(limit)
       .skip(offset)

@@ -310,6 +310,7 @@ export default {
     lessons_title: 'Уроки по прическам',
     main_title_subtitle: 'Онлайн обучение по прическам',
     courses_title: 'Курсы по прическам',
+    courses_yourself_title: 'Курсы для себя',
     faq_title: 'Вопрос-ответ',
     contacts_title: 'Остались вопросы?',
     contacts_contacts: 'Контакты:',
@@ -343,7 +344,7 @@ export default {
       }
     },
     benefits: {
-      title: 'Почему нужно выбрать онлайн обучение?',
+      title: 'Кому подойдут курсы для себя?',
       list: {
         first: {
           title: 'Время',

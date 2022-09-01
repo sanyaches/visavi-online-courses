@@ -1,0 +1,47 @@
+.index-courses {
+  padding: 4rem 0;
+  background-color: #b6a498;
+
+  @media screen and (max-width: 991px) {
+    padding: 3rem 0;
+  }
+
+  &__title {
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'Cormorant SC', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+
+    @media screen and (max-width: 991px) {
+      text-align: center;
+      font-size: 2.2rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 2rem;
+    }
+  }
+
+  &__list {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+    padding-top: 4rem;
+
+    @media screen and (max-width: 991px) {
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      padding-top: 2rem;
+    }
+  }
+
+  &__list-item {
+    width: 340px;
+
+    @media screen and (max-width: 400px) {
+      width: 100%;
+    }
+  }
+}

@@ -52,6 +52,10 @@ const CourseSchema = new mongoose.Schema({
   locale: {
     type: String,
     required: true
+  },
+  forMySelf: {
+    type: Boolean,
+    required: true
   }
 }, {
   collection: 'courses'
