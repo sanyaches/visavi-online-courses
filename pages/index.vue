@@ -22,6 +22,12 @@
               >
                 {{ $t('index.want_study') }}
               </nuxt-link>
+              <nuxt-link
+                to="#main-courses-myself"
+                class="button button--beige button button--large"
+              >
+                {{ $t('index.want_study_for_myself') }}
+              </nuxt-link>
             </div>
           </div>
           <div class="hero__image">
@@ -199,11 +205,13 @@
       </b-container>
     </div>
 
-    <courses :list="courses" />
+    <Courses :list="courses" />
 
-    <benefits />
+    <Benefits />
 
-    <courses-yourself :list="coursesForYourself" />
+    <Learned />
+
+    <CoursesYourself :list="coursesForYourself" />
 
     <div id="main-faq" class="faq">
       <b-container>
@@ -349,12 +357,14 @@
 import Benefits from '@/components/blocks/IndexBenefits.vue'
 import CoursesYourself from '@/components/blocks/IndexCoursesYourself.vue'
 import Courses from '@/components/blocks/IndexCourses.vue'
+import Learned from '@/components/blocks/IndexLearned.vue'
 
 export default {
   components: {
     Benefits,
     Courses,
-    CoursesYourself
+    CoursesYourself,
+    Learned
   },
 
   async asyncData (context) {
@@ -472,6 +482,25 @@ export default {
 
     @media screen and (max-width: 1050px) {
       margin-top: 0.5rem;
+    }
+
+    :nth-child(1) {
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: #6b594d;
+      }
+    }
+
+    :nth-child(2) {
+      background-color: #a89487;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: #6b594d;
+        color: #fff;
+      }
     }
   }
 

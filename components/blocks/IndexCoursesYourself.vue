@@ -1,5 +1,5 @@
 <template>
-  <div id="main-courses-yourself" class="index-courses">
+  <div id="main-courses-myself" class="index-courses">
     <b-container>
       <div class="index-courses__header">
         <h2 class="index-courses__title">

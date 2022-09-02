@@ -19,7 +19,7 @@
       <div class="lesson-list-item__header">
         <div class="lesson-list-item__image">
           <video
-            v-if="withVideo"
+            v-if="withVideo && lesson.promoUrl"
             :poster="lesson.thumbnailUrl"
             controls
           >

@@ -1,9 +1,19 @@
 <template>
   <div class="lesson-page">
-    <nuxt-link v-if="lesson.category === 'practice'" class="lesson-page__link-chat" :to="localePath('/homework-discussion')">
-      {{ $t('lesson.link_chat_1') }}
-      <br>
-      {{ $t('lesson.link_chat_2') }}
+    <nuxt-link
+      v-if="
+        lesson.category === 'practice' &&
+          (lesson.courseName !== 'course-myself-mi' && lesson.courseName !== 'course-myself-no')
+      "
+      class="lesson-page__link-chat"
+      :to="localePath('/homework-discussion')"
+    >
+      <div v-if="lesson.courseName !== 'course-myself-rio'">
+        {{ $t('lesson.link_chat_1') }}
+        <br>
+        {{ $t('lesson.link_chat_2') }}
+      </div>
+      <span v-else>{{ $t('lesson.link_discuss') }}</span>
     </nuxt-link>
 
     <b-container>
@@ -21,9 +31,16 @@
         />
       </div>
 
-      <div v-if="lesson.category === 'practice'" class="my-4 text-center">
+      <div
+        v-if="lesson.category === 'practice' &&
+          (lesson.courseName !== 'course-myself-mi' && lesson.courseName !== 'course-myself-no')"
+        class="my-4 text-center"
+      >
         <nuxt-link class="button button--brown button button--large" :to="localePath('/homework-discussion')">
-          {{ $t('lesson.chat_link') }}
+          <span v-if="lesson.courseName !== 'course-myself-rio'">
+            {{ $t('lesson.chat_link') }}
+          </span>
+          <span v-else>{{ $t('lesson.link_discuss') }}</span>
         </nuxt-link>
       </div>
 
@@ -31,13 +48,27 @@
         <v-md-preview :text="lesson.description" />
       </div>
 
-      <div class="lesson-page__files">
+      <div v-if="files.length" class="lesson-page__files">
         <h2 class="lesson-page__files-title">
           {{ $t('lesson.files_title') }}
         </h2>
 
-        <div v-if="files.length" class="lesson-page__files-list">
-          <file-card v-for="file in files" :key="file.name" :file="file" />
+        <div id="lightgallery" class="lesson-page__files-list">
+          <a
+            v-for="fileImage in filesImages"
+            :key="fileImage.name"
+            :data-src="fileImage.resourceUrl"
+            class="gallery-card"
+            type="button"
+          >
+            <div class="gallery-card__zoom-in">
+              <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
+            </div>
+            <img :src="fileImage.resourceUrl" :alt="fileImage.title">
+          </a>
+        </div>
+        <div class="lesson-page__files-list">
+          <file-card v-for="file in filesDownload" :key="file.name" :file="file" />
         </div>
       </div>
     </b-container>
@@ -46,7 +77,6 @@
 
 <script>
 /* eslint-disable no-undef */
-
 export default {
   async asyncData (context) {
     const name = context.params.slug
@@ -72,6 +102,21 @@ export default {
       lesson: {},
       files: []
     }
+  },
+
+  computed: {
+    filesImages () {
+      return this.files.filter(file => Boolean(file.resourceUrl.match(/.+\.jpg/u)))
+    },
+
+    filesDownload () {
+      return this.files.filter(file => Boolean(file.resourceUrl.match(/.+\.pdf/u)))
+    }
+  },
+
+  mounted () {
+    const el = document.getElementById('lightgallery')
+    window.lightGallery(el)
   }
 }
 </script>
@@ -183,36 +228,8 @@ export default {
   }
 
   &__video {
-    width: 720px;
+    width: 100%;
     overflow: hidden;
-    margin: 0 auto;
-    justify-content: center;
-
-    video {
-      width: 100%;
-      height: auto;
-    }
-
-    @media screen and (max-width: 991px) {
-      display: flex;
-    }
-
-    @media screen and (max-width: 768px) {
-      width: 420px;
-
-      iframe {
-        height: 240px;
-      }
-    }
-
-    @media screen and (max-width: 480px) {
-      width: 100%;
-      justify-content: flex-start;
-
-      iframe {
-        height: auto;
-      }
-    }
   }
 
   &__files-list {

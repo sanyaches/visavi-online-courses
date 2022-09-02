@@ -8,69 +8,69 @@
       </div>
       <div class="benefits__list">
         <div class="benefits__item">
-          <div class="benefits__item-icon">
-            <font-awesome-icon icon="fa-regular fa-clock" />
-          </div>
-          <div class="benefits__item-title">
+          <div v-if="$te('index.benefits.list.first.title')" class="benefits__item-title">
             {{ $t('index.benefits.list.first.title') }}
           </div>
           <div class="benefits__item-description">
             {{ $t('index.benefits.list.first.content') }}
           </div>
+          <div class="benefits__item-number">
+            1
+          </div>
         </div>
         <div class="benefits__item">
-          <div class="benefits__item-icon">
-            <font-awesome-icon icon="fa-regular fa-money-bill-1" />
-          </div>
-          <div class="benefits__item-title">
+          <div v-if="$te('index.benefits.list.second.title')" class="benefits__item-title">
             {{ $t('index.benefits.list.second.title') }}
           </div>
           <div class="benefits__item-description">
             {{ $t('index.benefits.list.second.content') }}
           </div>
+          <div class="benefits__item-number">
+            2
+          </div>
         </div>
         <div class="benefits__item">
-          <div class="benefits__item-icon">
-            <font-awesome-icon icon="fa-regular fa-star" />
-          </div>
-          <div class="benefits__item-title">
+          <div v-if="$te('index.benefits.list.third.title')" class="benefits__item-title">
             {{ $t('index.benefits.list.third.title') }}
           </div>
           <div class="benefits__item-description">
             {{ $t('index.benefits.list.third.content') }}
           </div>
+          <div class="benefits__item-number">
+            3
+          </div>
         </div>
         <div class="benefits__item">
-          <div class="benefits__item-icon">
-            <font-awesome-icon icon="fa-regular fa-eye" />
-          </div>
-          <div class="benefits__item-title">
+          <div v-if="$te('index.benefits.list.fourth.title')" class="benefits__item-title">
             {{ $t('index.benefits.list.fourth.title') }}
           </div>
           <div class="benefits__item-description">
             {{ $t('index.benefits.list.fourth.content') }}
           </div>
+          <div class="benefits__item-number">
+            4
+          </div>
         </div>
         <div class="benefits__item">
-          <div class="benefits__item-icon">
-            <font-awesome-icon icon="fa-solid fa-arrow-trend-up" />
-          </div>
-          <div class="benefits__item-title">
+          <div v-if="$te('index.benefits.list.fifth.title')" class="benefits__item-title">
             {{ $t('index.benefits.list.fifth.title') }}
           </div>
           <div class="benefits__item-description">
             {{ $t('index.benefits.list.fifth.content') }}
           </div>
+          <div class="benefits__item-number">
+            5
+          </div>
         </div>
         <div class="benefits__item">
-          <div class="benefits__item-icon">
-            <font-awesome-icon icon="fa-regular fa-comment-dots" />
-          </div>
-          <div class="benefits__item-title">
+          <div v-if="$te('index.benefits.list.sixth.title')" class="benefits__item-title">
             {{ $t('index.benefits.list.sixth.title') }}
           </div>
           <div class="benefits__item-description">
             {{ $t('index.benefits.list.sixth.content') }}
+          </div>
+          <div class="benefits__item-number">
+            6
           </div>
         </div>
       </div>
@@ -121,46 +121,54 @@ export default {
       row-gap: 2rem;
       padding-top: 2rem;
     }
-  }
 
-  &__item {
-    @media screen and (max-width: 991px) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    @media screen and (max-width: 480px) {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1rem;
+      row-gap: 1rem;
+      padding-top: 1.2rem;
     }
   }
 
-  &__item-icon {
-    font-size: 3rem;
-    color: #fff;
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: #b6a498;
-    width: 80px;
-    height: 80px;
+  &__item {
+    position: relative;
+  }
+
+  &__item-number {
+    position: absolute;
+    top: -3rem;
+    left: 1rem;
+    font-family: 'Raleway', sans-serif;
+    opacity: 0.3;
+    z-index: 0;
+    color: #b6a498;
+    font-size: 12rem;
     line-height: 1;
 
     @media screen and (max-width: 991px) {
-      width: 60px;
-      height: 60px;
-      font-size: 2rem;
+      font-size: 12rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      opacity: 0.25;
+      top: -2rem;
+      font-size: 10rem;
     }
   }
 
   &__item-title {
     margin-top: 2rem;
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
     font-weight: 700;
 
     @media screen and (max-width: 991px) {
       margin-top: 1rem;
-      font-size: 1.2rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
     }
   }
 
@@ -169,7 +177,10 @@ export default {
 
     @media screen and (max-width: 991px) {
       margin-top: 0.3rem;
-      display: none;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 0.85rem;
     }
   }
 }

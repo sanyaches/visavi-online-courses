@@ -68,11 +68,99 @@
           <span>{{ $t('course.gold.benefits.9.text') }}</span>
         </li>
       </ul>
+      <ul v-else-if="course.name==='course-myself-mi'">
+        <li class="course-card__benefit">
+          <b>6</b>
+          <span>месяцев доступа</span>
+        </li>
+        <li class="course-card__benefit">
+          <b>3</b>
+          <span>урока по уходу за волосами</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Гайд по стайлингу и инструментам</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Гайд по подбору уходовых средств</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Гайд по определению типа кожи головы и волос</span>
+        </li>
+        <li class="course-card__benefit is-disabled">
+          <span>Урок по подвижному объёму на фен</span>
+        </li>
+        <li class="course-card__benefit">
+          <b>3</b>
+          <span>практических урока по укладкам на <b>плойку</b></span>
+        </li>
+        <li class="course-card__benefit is-disabled">
+          <span>Обратная связь от Виктории на 1 месяц</span>
+        </li>
+      </ul>
+      <ul v-else-if="course.name==='course-myself-no'">
+        <li class="course-card__benefit">
+          <b>6</b>
+          <span>месяцев доступа</span>
+        </li>
+        <li class="course-card__benefit">
+          <b>3</b>
+          <span>урока по уходу за волосами</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Гайд по стайлингу и инструментам</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Гайд по подбору уходовых средств</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Гайд по определению типа кожи головы и волос</span>
+        </li>
+        <li class="course-card__benefit is-disabled">
+          <span>Урок по подвижному объёму на фен</span>
+        </li>
+        <li class="course-card__benefit">
+          <b>3</b>
+          <span>практических урока по укладкам на <b>утюг</b></span>
+        </li>
+        <li class="course-card__benefit is-disabled">
+          <span>Обратная связь от Виктории на 1 месяц</span>
+        </li>
+      </ul>
+      <ul v-else-if="course.name==='course-myself-rio'">
+        <li class="course-card__benefit">
+          <b>6</b>
+          <span>месяцев доступа</span>
+        </li>
+        <li class="course-card__benefit">
+          <b>3</b>
+          <span>урока по уходу за волосами</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Гайд по стайлингу и инструментам</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Гайд по подбору уходовых средств</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Гайд по определению типа кожи головы и волос</span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Урок по подвижному объёму на фен</span>
+        </li>
+        <li class="course-card__benefit">
+          <b>6</b>
+          <span>практических уроков по укладкам на <b>плойку и утюг</b> </span>
+        </li>
+        <li class="course-card__benefit">
+          <span>Обратная связь от Виктории на 1 месяц</span>
+        </li>
+      </ul>
     </div>
 
     <div class="course-card__footer">
       <div class="course-card__price">
-        <span>{{ course.price }}</span>
+        <span v-if="course.newPrice" class="new">{{ course.newPrice }}</span>
+        <span :class="course.newPrice ? 'old' : null">{{ course.price }}</span>
         <span class="currency">{{ $t('common.currency') }}</span>
       </div>
       <div class="course-card__control">
@@ -126,6 +214,9 @@ export default {
     },
     courseLink () {
       return this.localePath({ path: `/course/${this.course.name}` })
+    },
+    newPrice () {
+      return Math.ceil(Math.floor(this.course.price * 0.7) / 10) * 10 - 10
     }
   },
 
@@ -152,7 +243,7 @@ export default {
           name: this.course.name,
           imageUrl: this.course.thumbnailUrl,
           title: this.course.title,
-          price: this.course.price,
+          price: this.course.newPrice ? this.course.newPrice : this.course.price,
           accessMonths: this.course.accessMonths
         })
 
@@ -179,6 +270,10 @@ export default {
   padding: 1.6rem;
   height: 100%;
 
+  @media screen and (max-width: 480px) {
+    padding: 1rem 1.6rem;
+  }
+
   &__title {
     font-weight: 700;
     font-size: 1.6rem;
@@ -188,12 +283,20 @@ export default {
     @media screen and (max-width: 991px) {
       font-size: 1.4rem;
     }
+
+    @media screen and (max-width: 480px) {
+      font-size: 1.1rem;
+    }
   }
 
   &__description {
     margin-top: 1.5rem;
     align-self: flex-start;
     width: 100%;
+
+    @media screen and (max-width: 480px) {
+      margin-top: 0.5rem;
+    }
   }
 
   &__description ul {
@@ -205,8 +308,16 @@ export default {
     padding: 0.4rem 0;
     line-height: 120%;
 
+    @media screen and (max-width: 480px) {
+      font-size: 1rem;
+    }
+
     b {
       font-size: 1.4rem;
+
+      @media screen and (max-width: 480px) {
+        font-size: 1.1rem;
+      }
     }
 
     &::marker {
@@ -221,6 +332,7 @@ export default {
       opacity: 0.3;
       text-decoration: line-through;
     }
+
   }
 
   &__footer {
@@ -228,16 +340,63 @@ export default {
   }
 
   &__price {
+    position: relative;
     font-size: 2.4rem;
     font-weight: 700;
-    margin: 1.2rem 0;
+    margin: 1.5rem 0;
     line-height: 100%;
     font-family: 'Alegreya SC', serif;
     color: #76665d;
 
+    @media screen and (max-width: 480px) {
+      font-size: 2rem;
+      margin: 1rem 0;
+    }
+
     .currency {
       text-transform: uppercase;
       font-size: 1.3rem;
+
+      @media screen and (max-width: 480px) {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .old {
+    color: #bebebe;
+    font-size: 2rem;
+    position: relative;
+    top: 0.8rem;
+    opacity: 1;
+    margin-right: 0.5rem;
+
+    @media screen and (max-width: 480px) {
+      top: 0.6rem;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      height: 4px;
+      background-color: rgb(160, 130, 130);
+      top: 50%;
+      left: -10%;
+      width: 120%;
+      opacity: 0.75;
+      transform: rotate(-15deg);
+    }
+  }
+
+  .new {
+    color: #8b7262;
+    position: absolute;
+    top: -1rem;
+    left: -0.5rem;
+
+    @media screen and (max-width: 480px) {
+      top: -0.8rem;
+      left: -0.3rem;
     }
   }
 
@@ -251,7 +410,13 @@ export default {
 
     .button {
       border-radius: 0;
+
+      @media screen and (max-width: 480px) {
+        padding: 0.5rem 1.2rem;
+        font-size: 1.1rem;
+      }
     }
+
   }
 }
 </style>

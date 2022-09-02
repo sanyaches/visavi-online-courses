@@ -322,6 +322,7 @@ export default {
   },
   index: {
     courses: 'Courses',
+    courses_myself: 'Courses for myself',
     lessons: 'Lessons',
     privacy_policy: 'Privacy policy',
     public_offer: 'Terms of service',
@@ -337,7 +338,8 @@ export default {
     main_title_subtitle: 'Online hairstyle education',
     main_title_mobile: 'Rather updo',
     main_title_second_mobile: 'than wind up',
-    want_study: 'Want to study',
+    want_study: 'For pro',
+    want_study_for_myself: 'For myself',
     about_title: 'Who does suit online education?',
     author_title: 'About course author',
     author_signature: 'Viktoria Kosto',
@@ -383,28 +385,28 @@ export default {
       title: 'Who would be suitable for courses for yourself?',
       list: {
         first: {
-          title: 'Time',
-          content: 'Watch and practice your lessons when and where it\'s convenient'
+          title: 'Новичкам',
+          content: 'Которые ни разу не держали плойку в руках. Вы научитесь правильно и бережено ухаживать за волосами и делать укладки на себе'
         },
         second: {
-          title: 'Saving',
-          content: 'Online lessons are much cheaper than offline training and have a number of significant advantages'
+          title: 'Отчаянным',
+          content: 'У которых локоны абсолютно не держатся. Вы разберёте ошибки, которые совершали при накрутке и научитесь правильно крутить локоны'
         },
         third: {
-          title: 'Availability',
-          content: 'All detailed theoretical and practical lessons in one place, no need to travel to other cities and countries'
+          title: 'Скептикам',
+          content: 'Убеждённым, что на их волосах ничего не получится. Обучение поможет вам лучше понять свои волосы. В уроках вы найдёте стойкие и быстрые схемы накрутки'
         },
         fourth: {
-          title: 'Viewings',
-          content: 'You can review the lessons as many times as you want in order to grasp all the details and learn the materials better'
+          title: 'Профи',
+          content: 'Которые умеют делать себе укладки, но хотят научиться делать что-то новое. Курс содержит уроки по укладкам для себя в разных техниках, поэтому они будут интересны даже тем, кто умеет уже делать себе локоны'
         },
         fifth: {
-          title: 'Relevance',
-          content: 'Online training includes only current and inspiring information about hairstyles'
+          title: 'Любящим и заботливым',
+          content: 'Которые любят и заботятся о здоровье своих волос. Обучение создано исключительно с большой любовью и заботой о волосах, чтобы сохранить их здоровье, красоту и делать бережные укладки на каждый день'
         },
         sixth: {
-          title: 'Feedback',
-          content: 'You can ask questions about the lessons, send in your work and get detailed feedback in personal chat with tutor'
+          title: 'Ценителям',
+          content: 'Которые ценят своё время и деньги. Курс содержит много полезной и структурированной информации о средствах, инструментах и стайлинге. Вы убережете себя от ненужных покупок'
         }
       }
     },
@@ -584,7 +586,8 @@ export default {
     chat_loading: 'Chat is loading...',
     chat_start: 'You can send your homework in convenient format: video or photo',
     link_chat_1: 'Send',
-    link_chat_2: 'homework'
+    link_chat_2: 'homework',
+    link_discuss: 'Discuss'
   },
   single_lesson_card: {
     buy: 'Buy',

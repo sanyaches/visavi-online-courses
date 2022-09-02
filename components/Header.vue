@@ -58,6 +58,11 @@
                   </nuxt-link>
                 </div>
                 <div class="header__dropdown-menu-item">
+                  <nuxt-link :to="localePath('/#main-courses-myself')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                    {{ $t('index.courses_myself') }}
+                  </nuxt-link>
+                </div>
+                <div class="header__dropdown-menu-item">
                   <nuxt-link :to="localePath('/#main-faq')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
                     {{ $t('index.faq_title') }}
                   </nuxt-link>
@@ -82,6 +87,11 @@
                 <div class="header__dropdown-menu-item">
                   <nuxt-link :to="localePath('/#main-single-lessons')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
                     {{ $t('index.lessons') }}
+                  </nuxt-link>
+                </div>
+                <div class="header__dropdown-menu-item">
+                  <nuxt-link :to="localePath('/#main-courses-myself')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                    {{ $t('index.courses_myself') }}
                   </nuxt-link>
                 </div>
                 <div class="header__dropdown-menu-item">
