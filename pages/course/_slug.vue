@@ -36,10 +36,16 @@
                 <div class="course-page__image">
                   <img :src="course.thumbnailUrl">
                 </div>
-                <div class="course-page__price">
-                  <span>{{ course.price }}</span>
-                  <br>
-                  <span class="currency">{{ $t('common.currency') }}</span>
+                <div :class="['course-page__price', {'price--with-new': course.newPrice}]">
+                  <div v-if="course.newPrice" class="new">
+                    {{ course.newPrice }}
+                  </div>
+                  <div :class="course.newPrice ? 'old' : null">
+                    {{ course.price }}
+                  </div>
+                  <div class="currency">
+                    {{ $t('common.currency') }}
+                  </div>
                 </div>
               </div>
               <div class="course-page__benefits">
@@ -59,7 +65,7 @@
                     <span>{{ formattedMonths }}</span>
                   </div>
                 </div>
-                <div class="course-page__benefit">
+                <div v-if="!course.forMySelf" class="course-page__benefit">
                   <font-awesome-icon icon="fa-solid fa-scroll" class="course-page__benefit-icon" />
                   <div class="course-page__benefit-text">
                     <span>{{ $t('course.give_certificate') }}</span>
@@ -110,7 +116,7 @@
                 </div>
               </div>
               <div class="course-page__benefits">
-                <div class="course-page__benefit">
+                <div v-if="!course.forMySelf || course.name === 'course-myself-rio'" class="course-page__benefit">
                   <font-awesome-icon icon="fa-solid fa-comment-dots" class="course-page__benefit-icon" />
                   <div class="course-page__benefit-text">
                     <span>{{ $t('course.give_feedback') }}</span>
@@ -126,7 +132,7 @@
                     <span>{{ formattedEndDate }}</span>
                   </div>
                 </div>
-                <div class="course-page__benefit">
+                <div v-if="!course.forMySelf" class="course-page__benefit">
                   <font-awesome-icon icon="fa-solid fa-scroll" class="course-page__benefit-icon" />
                   <div class="course-page__benefit-text">
                     <span>{{ $t('course.give_certificate') }}</span>
@@ -184,6 +190,16 @@
         </h2>
 
         <div class="course-page__lessons-container">
+          <div v-if="greetingVideos.length">
+            <ul class="course-page__lessons-list">
+              <li v-for="lesson in greetingVideos" :key="lesson.name" class="course-page__lessons-item">
+                <lesson-list-item
+                  :lesson="lesson"
+                  :lesson-link="isPurchased ? localePath({ path: `/lesson/${lesson.name}` }) : null"
+                />
+              </li>
+            </ul>
+          </div>
           <div v-if="theoryLessons.length">
             <h3 class="course-page__category-title">
               {{ $t('course.category_theory') }}
@@ -361,6 +377,13 @@ export default {
         months: this.course.accessMonths
       }, { locale: this.$i18n.locale === 'ru' ? ru : enUS })
     },
+    greetingVideos () {
+      if (!this.courseLessons || !this.courseLessons.length) {
+        return []
+      }
+
+      return this.courseLessons.filter(lesson => lesson.category === 'greeting')
+    },
     theoryLessons () {
       if (!this.courseLessons || !this.courseLessons.length) {
         return []
@@ -407,7 +430,7 @@ export default {
           name: this.course.name,
           imageUrl: this.course.thumbnailUrl,
           title: this.course.title,
-          price: this.course.price,
+          price: this.course.newPrice ? this.course.newPrice : this.course.price,
           accessMonths: this.course.accessMonths
         })
 
@@ -618,8 +641,13 @@ export default {
     font-weight: 800;
     line-height: 100%;
     font-family: 'Alegreya SC', serif;
+    position: relative;
 
-    span.currency {
+    &.price--with-new {
+      // display: flex;
+    }
+
+    div.currency {
       text-transform: uppercase;
       font-size: 1.6rem;
     }
@@ -635,7 +663,7 @@ export default {
         font-size: 4.4rem;
       }
 
-      span.currency {
+      div.currency {
         font-size: 1.4rem;
       }
     }
@@ -652,9 +680,44 @@ export default {
     @media screen and (max-width: 480px) {
       font-size: 1.6rem;
 
-      span.currency {
+      div.currency {
         font-size: 1.2rem;
       }
+    }
+  }
+
+  .old {
+    color: #4f5760;
+    font-size: 2.4rem;
+    position: relative;
+    opacity: 1;
+
+    &::after {
+      content: '';
+      position: absolute;
+      height: 4px;
+      background-color: rgb(160, 130, 130);
+      top: 50%;
+      left: -10%;
+      width: 120%;
+      opacity: 0.75;
+      transform: rotate(-15deg);
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 2.1rem;
+    }
+  }
+
+  .new {
+    color: #fff;
+    position: absolute;
+    top: -1.8rem;
+    left: -1rem;
+    font-size: 3.2rem;
+
+    @media screen and (max-width: 480px) {
+      font-size: 2.8rem;
     }
   }
 

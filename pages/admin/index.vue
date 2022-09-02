@@ -31,6 +31,20 @@
           {{ $t('admin.no_courses') }}
         </div>
 
+        <p v-if="coursesMyselfLoading">
+          {{ $t('admin.courses_loading') }}
+        </p>
+
+        <ul v-else-if="listCoursesMyself.length" class="course-list">
+          <li v-for="course in listCoursesMyself" :key="course.name" class="course-list__item">
+            <course-list-item :course="course" :course-link="localePath({ path: `admin/course/${course.name}` })" />
+          </li>
+        </ul>
+
+        <div v-else>
+          {{ $t('admin.no_courses') }}
+        </div>
+
         <h2 class="mt-4">
           {{ $t('admin.list_single_lessons') }}
         </h2>
@@ -90,7 +104,9 @@ export default {
     return {
       listCourses: [],
       listSingleLessons: [],
+      listCoursesMyself: [],
       coursesLoading: false,
+      coursesMyselfLoading: false,
       singleLessonsLoading: false,
       APP_ID: '',
       APP_REGION: '',
@@ -108,11 +124,10 @@ export default {
   beforeMount () {
     this.loadCourses()
     this.loadSingleLessons()
+    this.loadCoursesMyself()
   },
 
   mounted () {
-    this.loadCourses()
-    this.loadSingleLessons()
     this.initChat()
   },
 
@@ -173,6 +188,28 @@ export default {
       } finally {
         setTimeout(() => {
           this.coursesLoading = false
+        }, 400)
+      }
+    },
+
+    async loadCoursesMyself () {
+      try {
+        this.coursesMyselfLoading = true
+        this.listCoursesMyself = []
+        const res = await fetch('api/course/list?limit=1000&offset=0&myself=true', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            Accept: 'application/json'
+          }
+        })
+        const data = await res.json()
+        if (data?.status === 'success') {
+          this.listCoursesMyself = data.data
+        }
+      } finally {
+        setTimeout(() => {
+          this.coursesMyselfLoading = false
         }, 400)
       }
     },

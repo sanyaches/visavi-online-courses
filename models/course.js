@@ -45,6 +45,10 @@ const CourseSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  newPrice: {
+    type: Number,
+    required: true
+  },
   accessMonths: {
     type: Number,
     required: true

@@ -22,7 +22,7 @@ export const getters = {
       return null
     }
 
-    const originalPrice = state.checkoutItem.price
+    const originalPrice = state.checkoutItem.newPrice ? state.checkoutItem.newPrice : state.checkoutItem.price
     let price = originalPrice
     if (state.coupon) {
       const coupon = state.coupon

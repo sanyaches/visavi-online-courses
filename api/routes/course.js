@@ -55,6 +55,7 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
       cardImageSecond = '/api/upload/single-photo.png',
       promoUrl,
       price,
+      newPrice,
       accessMonths,
       locale
     } = req.body
@@ -66,6 +67,7 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
       shortDescription,
       imageUrl,
       price,
+      newPrice,
       thumbnailUrl,
       cardImageFirst,
       cardImageSecond,
@@ -96,6 +98,7 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
         cardImageFirst: result.cardImageFirst,
         cardImageSecond: result.cardImageSecond,
         price: result.price,
+        newPrice: result.newPrice,
         accessMonths: result.accessMonths,
         locale: result.locale,
         promoUrl: result.promoUrl,
@@ -140,6 +143,7 @@ router.post('/course/edit', verifyToken, verifyAdminToken, async function (req, 
       cardImageSecond = '/api/upload/single-photo.png',
       promoUrl,
       price,
+      newPrice,
       accessMonths,
       locale
     } = req.body
@@ -154,6 +158,7 @@ router.post('/course/edit', verifyToken, verifyAdminToken, async function (req, 
       cardImageSecond,
       promoUrl,
       price,
+      newPrice,
       accessMonths,
       locale,
       updatedAt: Date.now()
