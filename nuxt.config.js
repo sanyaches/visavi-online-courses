@@ -169,6 +169,10 @@ export default {
     {
       src: '~plugins/metrika.js',
       ssr: false
+    },
+    {
+      src: '~plugins/light-gallery.js',
+      ssr: false
     }
   ],
 
@@ -271,7 +275,7 @@ export default {
         'faCaretDown', 'faCaretLeft', 'faCaretRight', 'faCommentDots',
         'faCaretUp', 'faFileArrowDown', 'faClock', 'faScroll', 'faCirclePlay',
         'faArrowTrendUp', 'faXmark', 'faPlus', 'faUser', 'faCheck', 'faKey',
-        'faStar', 'faClipboardList'
+        'faStar', 'faClipboardList', 'faMagnifyingGlassPlus'
       ],
       regular: [
         'faClock', 'faMoneyBill1', 'faEye',
