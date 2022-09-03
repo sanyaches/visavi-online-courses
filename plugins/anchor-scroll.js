@@ -1,8 +1,9 @@
 const headerSelector = '.header'
 const scrollToHash = (hash, scrollOffset) => {
+  const behavior = ('scrollBehavior' in document.documentElement.style) ? 'smooth' : null
   const el = document.querySelector(hash)
   if (el) {
-    window.scrollTo({ top: el.offsetTop - scrollOffset, behavior: 'smooth' })
+    window.scrollTo({ top: el.offsetTop - scrollOffset, behavior })
   }
 }
 

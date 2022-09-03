@@ -195,7 +195,7 @@
               <li v-for="lesson in greetingVideos" :key="lesson.name" class="course-page__lessons-item">
                 <lesson-list-item
                   :lesson="lesson"
-                  :lesson-link="isPurchased ? localePath({ path: `/lesson/${lesson.name}` }) : null"
+                  :lesson-link="localePath({ path: `/lesson/${lesson.name}` })"
                 />
               </li>
             </ul>

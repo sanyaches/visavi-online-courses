@@ -297,7 +297,7 @@ router.get('/lesson/single/:lessonName', async function (req, res) {
       foundPurchase = await checkPurchased(bearerToken, result.courseName)
     }
 
-    if (!foundPurchase) {
+    if (!foundPurchase && result.category !== 'greeting') {
       return res.status(403).json({
         status: 'error',
         errorCode: 'FORBIDDEN_ERROR'
