@@ -19,7 +19,7 @@ export default ({ app }) => {
       anchor.onclick = function (e) {
         try {
           const cacheAnchor = anchor
-          if (window.location.hash === cacheAnchor.hash) {
+          if (cacheAnchor.hash && window.location.hash === cacheAnchor.hash) {
             e.preventDefault()
             scrollToHash(cacheAnchor.hash, headerHeight)
           }
