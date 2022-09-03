@@ -16,7 +16,7 @@ export default ({ app }) => {
           const cacheAnchor = anchor
           if (window.location.hash === cacheAnchor.hash) {
             e.preventDefault()
-            scrollToHash(cacheAnchor.hash)
+            scrollToHash(cacheAnchor.hash, headerHeight)
           }
         } catch (e) {
           console.error('Broken scroll to hash')

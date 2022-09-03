@@ -23,7 +23,7 @@
                 {{ $t('index.want_study') }}
               </nuxt-link>
               <nuxt-link
-                to="#main-courses-myself"
+                to="#main-myself-benefits"
                 class="button button--beige button button--large"
               >
                 {{ $t('index.want_study_for_myself') }}
@@ -207,7 +207,7 @@
 
     <Courses :list="courses" />
 
-    <Benefits />
+    <Benefits id="main-myself-benefits" />
 
     <Learned />
 
