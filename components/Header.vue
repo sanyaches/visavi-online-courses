@@ -27,7 +27,7 @@
           </div>
         </div>
         <transition name="fade">
-          <div v-if="dropdownActive" class="header__dropdown-menu">
+          <div v-show="dropdownActive" class="header__dropdown-menu">
             <div class="header__dropdown-menu-content">
               <template v-if="isAdmin">
                 <div class="header__dropdown-menu-item">

@@ -166,6 +166,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/vue-markdown.js', mode: 'client' },
+    { src: '~/plugins/anchor-scroll.js', mode: 'client' },
     {
       src: '~plugins/metrika.js',
       ssr: false
