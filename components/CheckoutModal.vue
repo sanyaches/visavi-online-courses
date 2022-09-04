@@ -78,6 +78,9 @@
       <b-button class="mt-4 button button--large button--brown-dark" block @click="toPay">
         {{ $t('checkout.proceed') }}
       </b-button>
+      <b-button v-if="$i18n.locale === 'ru'" class="mt-4 button button--large button--brown-dark" block @click="toPay($event, true)">
+        {{ $t('checkout.proceed_foreign') }}
+      </b-button>
     </template>
     <template v-else>
       <div>
@@ -160,9 +163,11 @@ export default {
       }
     },
 
-    toPay () {
-      this.payForCheckout({ user: this.profile, bvToast: this.$root.$bvToast })
+    toPay (e, isForeign = false) {
+      const platform = isForeign || this.$i18n.locale === 'en' ? 'EN' : 'RU'
+      this.payForCheckout({ user: this.profile, bvToast: this.$root.$bvToast, platform, lang: this.$i18n.locale })
     }
+
   }
 }
 </script>

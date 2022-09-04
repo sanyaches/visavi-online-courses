@@ -5,6 +5,7 @@ const axios = require('axios')
 const { Router } = require('express')
 const mongoose = require('mongoose')
 const { YooCheckout } = require('@a2seven/yoo-checkout')
+const payture = require('payture-official')
 const uuid4 = require('uuid4')
 const jwt = require('jsonwebtoken')
 const OrderModel = require('../../models/order')
@@ -19,9 +20,13 @@ const shopId = process.env.YK_SHOP_ID
 const secretKey = process.env.YK_API_KEY
 const oauthKey = process.env.YK_OAUTH_KEY
 const jwtSecretKey = process.env.JWT_SECRET
+const paytureHost = process.env.PAYTURE_HOST
+const paytureKey = process.env.PAYTURE_API_KEY
+const paytureSecret = process.env.PAYTURE_API_SECRET
 const baseUrl = process.env.BASE_URL
 
 const checkout = new YooCheckout({ shopId, secretKey, token: oauthKey })
+const paytureInPay = payture.InPay(paytureHost, { Key: paytureKey, Password: paytureSecret })
 
 const url = process.env.MONGO_URL
 mongoose.connect(url)
@@ -177,7 +182,8 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
       accessMonths,
       amount,
       paymentMessage,
-      couponCode
+      couponCode,
+      platform = 'RU'
     } = req.body
 
     if (amount <= 0) {
@@ -231,47 +237,78 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
         successUrl = `${baseUrl}/profile`
       }
 
-      const orderId = uuid4()
-      const createPayload = {
-        amount: {
-          value: amount,
-          currency: 'RUB'
-        },
-        description: paymentMessage,
-        capture: true,
-        metadata: {
-          orderId
-        },
-        confirmation: {
-          type: 'redirect',
-          return_url: successUrl
+      const onSuccess = (id, url) => {
+        if (id && url) {
+          OrderModel.create({
+            orderId,
+            userEmail: req.userEmail,
+            paymentId: id,
+            platform,
+            productType: courseType,
+            productName: courseName,
+            couponCode,
+            accessMonths
+          })
+
+          return res.status(301).json({
+            status: 'redirect',
+            url
+          })
         }
       }
 
-      const idempotenceKey = uuid4()
-      const payment = await checkout.createPayment(createPayload, idempotenceKey)
-
-      if (payment.id) {
-        OrderModel.create({
-          orderId,
-          userEmail: req.userEmail,
-          paymentId: payment.id,
-          productType: courseType,
-          productName: courseName,
-          couponCode,
-          accessMonths
-        })
-
-        return res.status(301).json({
-          status: 'redirect',
-          url: payment.confirmation.confirmation_url
+      const onError = () => {
+        return res.status(500).json({
+          status: 'error',
+          errorCode: 'SERVER_ERROR'
         })
       }
 
-      return res.status(500).json({
-        status: 'error',
-        errorCode: 'SERVER_ERROR'
-      })
+      const orderId = uuid4()
+      if (platform === 'RU') {
+        const createPayload = {
+          amount: {
+            value: amount,
+            currency: 'RUB'
+          },
+          description: paymentMessage,
+          capture: true,
+          metadata: {
+            orderId
+          },
+          confirmation: {
+            type: 'redirect',
+            return_url: successUrl
+          }
+        }
+        const idempotenceKey = uuid4()
+        const payment = await checkout.createPayment(createPayload, idempotenceKey)
+
+        if (payment.id && payment.confirmation.confirmation_url) {
+          onSuccess(payment.id, payment.confirmation.confirmation_url)
+        }
+      } else if (platform === 'EN') {
+        const data = {
+          OrderId: orderId,
+          Amount: amount * 100, // In cents
+          Total: amount,
+          Description: paymentMessage,
+          SessionType: 'Pay',
+          Url: `${baseUrl}/success-payment?orderId={orderid}`
+        }
+
+        paytureInPay.init(data, (error, response, body, responseObject) => {
+          if (error) {
+            return onError()
+          }
+
+          if (responseObject.Success === 'True' && responseObject.SessionId) {
+            return onSuccess(responseObject.SessionId, `${paytureHost}apim/Pay?SessionId=${responseObject.SessionId}`)
+          }
+
+          return onError()
+        })
+      }
     }
   } catch (error) {
     return res.status(500).json({
@@ -281,38 +318,8 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
   }
 })
 
-router.post('/payment/check', verifyToken, addEmailToRequest, async function (req, res) {
+const onCheckSuccess = (req, res, order, successUrl) => {
   try {
-    const { orderId } = req.body
-
-    const order = await OrderModel.findOne({ orderId })
-    if (!order.orderId) {
-      return res.status(404).json({
-        status: 'error',
-        errorCode: 'ORDER_NOT_FOUND'
-      })
-    }
-
-    let successUrl
-    if (order.productType === 'course') {
-      successUrl = `${baseUrl}/course/${order.productName}`
-    }
-    if (order.productType === 'singleLesson') {
-      successUrl = `${baseUrl}/single-lesson/${order.productName}`
-    }
-    if (order.productType === 'file') {
-      successUrl = `${baseUrl}/profile`
-    }
-
-    const payment = await checkout.getPayment(order.paymentId)
-
-    if (payment.status !== 'succeeded' || !payment.paid) {
-      return res.status(404).json({
-        status: 'error',
-        errorCode: 'PAYMENT_NOT_VALID'
-      })
-    }
-
     const url = `${baseUrl}/api/purchases/add`
     const jsonBody = JSON.stringify({
       courseName: order.productName,
@@ -340,10 +347,10 @@ router.post('/payment/check', verifyToken, addEmailToRequest, async function (re
             const coupon = await CouponSchema.findOne({ code: order.couponCode })
             if (coupon) {
               console.log('user coupon for user')
-              // UserCouponSchema.create({
-              //   userId: req.userId,
-              //   couponId: coupon.id
-              // })
+            // UserCouponSchema.create({
+            //   userId: req.userId,
+            //   couponId: coupon.id
+            // })
             }
           }
 
@@ -359,6 +366,65 @@ router.post('/payment/check', verifyToken, addEmailToRequest, async function (re
         }
         throw new Error('Add purchase error')
       })
+  } catch (e) {
+    console.error('[Error - onCheckSuccess]', e)
+  }
+}
+
+const onCheckError = (res) => {
+  return res.status(500).json({
+    status: 'error',
+    errorCode: 'SERVER_ERROR'
+  })
+}
+
+router.post('/payment/check', verifyToken, addEmailToRequest, async function (req, res) {
+  try {
+    const { orderId } = req.body
+
+    const order = await OrderModel.findOne({ orderId })
+    if (!order.orderId) {
+      return res.status(404).json({
+        status: 'error',
+        errorCode: 'ORDER_NOT_FOUND'
+      })
+    }
+
+    let successUrl
+    if (order.productType === 'course') {
+      successUrl = `${baseUrl}/course/${order.productName}`
+    }
+    if (order.productType === 'singleLesson') {
+      successUrl = `${baseUrl}/single-lesson/${order.productName}`
+    }
+    if (order.productType === 'file') {
+      successUrl = `${baseUrl}/profile`
+    }
+
+    if (order.platform === 'EN') {
+      paytureInPay.payStatus(orderId, (error, response, body, responseObject) => {
+        if (error) {
+          return onCheckError(res)
+        }
+
+        if (responseObject.Success === 'True' && responseObject.State === 'Charged') {
+          return onCheckSuccess(req, res, order, successUrl)
+        }
+
+        return onCheckError(res)
+      })
+    } else {
+      const payment = await checkout.getPayment(order.paymentId)
+
+      if (payment.status !== 'succeeded' || !payment.paid) {
+        return res.status(404).json({
+          status: 'error',
+          errorCode: 'PAYMENT_NOT_VALID'
+        })
+      }
+
+      return onCheckSuccess(req, res, order, successUrl)
+    }
   } catch (error) {
     return res.status(500).json({
       status: 'error',

@@ -268,6 +268,7 @@ export default {
     access: 'Доступ: {access}',
     price: 'Цена',
     proceed: 'Оплатить',
+    proceed_foreign: 'Оплатить иностранной картой',
     price_total: 'Итого',
     price_sum: 'Стоимость',
     discount: 'Скидка',

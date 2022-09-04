@@ -51,11 +51,14 @@ export const actions = {
         .join(' ')
     }
     const token = this.$cookies.get('_vikosto_token')
-    const { user, bvToast } = payload
+    const { user, bvToast, platform = 'RU', lang = 'ru' } = payload
     const { getCheckoutItem: checkoutItem, getCoupon: coupon } = getters
     const from = getFullName(user)
     const title = checkoutItem.title.split(' | ').join(' ')
-    const amount = checkoutItem.price
+    let amount = checkoutItem.price
+    if (lang === 'ru' && platform === 'EN') {
+      amount /= 50
+    }
     const paymentMessage = this.$i18n.t('checkout.payment_message', { from, title })
 
     const url = '/api/payment/pay'
@@ -66,7 +69,8 @@ export const actions = {
       accessMonths: checkoutItem.accessMonths,
       amount,
       paymentMessage,
-      couponCode: coupon?.code
+      couponCode: coupon?.code,
+      platform
     })
 
     try {
