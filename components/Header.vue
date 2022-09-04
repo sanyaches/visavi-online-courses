@@ -5,7 +5,16 @@
         <nuxt-link :to="localePath('/')" @click.native="dropdownActive = false">
           <img src="@/assets/images/logo.png">
         </nuxt-link>
+
         <div class="header__controls">
+          <div class="language-switcher" style="margin-right: 1rem;">
+            <nuxt-link v-if="$i18n.locale === 'ru'" class="anchor--raw" :to="switchLocalePath('en')">
+              Eng
+            </nuxt-link>
+            <nuxt-link v-if="$i18n.locale === 'en'" class="anchor--raw" :to="switchLocalePath('ru')">
+              Rus
+            </nuxt-link>
+          </div>
           <nuxt-link v-if="getIsAuthenticated" v-b-tooltip.hover :title="profileTitle" :to="localePath('profile')" class="header__profile anchor anchor--raw">
             <div class="header__profile-icon">
               <font-awesome-icon icon="fa-solid fa-user" />

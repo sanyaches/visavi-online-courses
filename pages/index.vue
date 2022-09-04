@@ -185,33 +185,45 @@
       </b-container>
     </div>
 
-    <div id="main-single-lessons" class="lessons">
-      <b-container>
-        <div class="lessons__header">
-          <h2 class="lessons__title">
-            {{ $t('index.lessons_title') }}
-          </h2>
-        </div>
-        <div class="lessons__list">
-          <div
-            v-for="lesson in singleLessons"
-            :key="lesson.name"
-            class="lessons__list-item"
-          >
-            <single-lesson-card-main :lesson="lesson" />
-            <div class="lessons__poloska-bleat" />
+    <template v-if="$i18n.locale === 'ru'">
+      <div id="main-single-lessons" class="lessons">
+        <b-container>
+          <div class="lessons__header">
+            <h2 class="lessons__title">
+              {{ $t('index.lessons_title') }}
+            </h2>
           </div>
-        </div>
-      </b-container>
-    </div>
+          <div class="lessons__list">
+            <div
+              v-for="lesson in singleLessons"
+              :key="lesson.name"
+              class="lessons__list-item"
+            >
+              <single-lesson-card-main :lesson="lesson" />
+              <div class="lessons__poloska-bleat" />
+            </div>
+          </div>
+        </b-container>
+      </div>
 
-    <Courses :list="courses" />
+      <Courses :list="courses" />
 
-    <Benefits id="main-myself-benefits" />
+      <Benefits id="main-myself-benefits" />
 
-    <Learned />
+      <Learned />
 
-    <CoursesYourself :list="coursesForYourself" />
+      <CoursesYourself :list="coursesForYourself" />
+    </template>
+    <template v-else>
+      <div id="foreign-courses" style="padding: 6rem 0 2rem;">
+        <b-container>
+          <h2>English online courses will be soon here. Try to visit this page later.</h2>
+          <nuxt-link :to="switchLocalePath('ru')">
+            To available courses on Russian language
+          </nuxt-link>
+        </b-container>
+      </div>
+    </template>
 
     <div id="main-faq" class="faq">
       <b-container>
