@@ -57,7 +57,7 @@ export const actions = {
     const title = checkoutItem.title.split(' | ').join(' ')
     let amount = checkoutItem.price
     if (lang === 'ru' && platform === 'EN') {
-      amount /= 50
+      amount /= 54
     }
     const paymentMessage = this.$i18n.t('checkout.payment_message', { from, title })
 
