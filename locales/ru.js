@@ -472,7 +472,7 @@ export default {
     about: 'О курсе',
     access_months: 'Длительность доступа:',
     months: '(в месяцах)',
-    duration: 'Количетсво уроков:',
+    duration: 'Количество уроков:',
     watch_title: 'Просмотр промо',
     give_feedback: 'Предоставляется',
     feedback: 'обратная связь',
