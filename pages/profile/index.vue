@@ -143,10 +143,13 @@ export default {
       const responseCourses = await context.app.$http.$get(
         `${context.env.baseUrl}/api/course/list?limit=1000&offset=0`
       )
+      const responseMyselfCourses = await context.app.$http.$get(
+        `${context.env.baseUrl}/api/course/list?limit=1000&offset=0&myself=true`
+      )
 
       return {
         singleLessons: response.data,
-        courses: responseCourses.data
+        courses: [...responseCourses.data, ...responseMyselfCourses.data]
       }
     } catch (e) {
       context.error(e)
