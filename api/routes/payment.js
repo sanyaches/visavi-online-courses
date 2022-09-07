@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 require('dotenv').config()
 
+const { decode: decodeQueryString } = require('querystring')
 const axios = require('axios')
 const { Router } = require('express')
 const mongoose = require('mongoose')
@@ -66,6 +67,94 @@ async function addEmailToRequest (req, res, next) {
   }
 }
 
+router.post('/payment/payture-event', async function (req, res) {
+  try {
+    console.log('Payture  webhook info: ', decodeQueryString(req.body))
+    const { OrderId: orderId, Success: success, Amount: amount, Notification: notificationType } = decodeQueryString(req.body)
+    res.sendStatus(200)
+
+    if (notificationType !== 'MerchantPay') {
+      console.log('not merchant pay notification!')
+      return
+    }
+
+    if (!orderId) {
+      console.error('No metadata -> orderId in object from webhook')
+      return
+    }
+
+    const order = await OrderModel.findOne({ orderId })
+    if (!order || !order.orderId || success !== 'True') {
+      console.error('Order is not paid')
+      return
+    }
+
+    await PurchaseModel.deleteOne({
+      courseName: order.productName,
+      courseType: order.productType,
+      userEmail: order.userEmail
+    })
+
+    const startDateMs = Date.now()
+
+    const firstDate = new Date(startDateMs)
+    const secondDate = new Date(startDateMs)
+    secondDate.setMonth(secondDate.getMonth() + Number(order.accessMonths))
+    if (order.accessMonths < 1) {
+      secondDate.setDate(secondDate.getDate() + Number(order.accessMonths * 30))
+    }
+    const difference = secondDate - firstDate
+
+    const endDateMs = startDateMs + difference
+
+    const result = await PurchaseModel.create({
+      courseName: order.productName,
+      courseType: order.productType,
+      userEmail: order.userEmail,
+      startDate: startDateMs,
+      endDate: endDateMs
+    })
+
+    if (result) {
+      sendEmail(`
+        <h1>У нас покупочка!</h1>
+        <div>
+          Кто-то купил на сайте, ура!
+        </div>
+        <p>Тип урока: ${order.productType}</p>
+        <p>Имя урока: ${order.productName}</p>
+        <p>Почта  пользователя: ${order.userEmail}</p>
+        <p>Месяцев доступа: ${order.accessMonths}</p>
+        <p>Промокод: ${order.couponCode || '---'}</p>
+        <p>Сумма: ${amount / 100} $</p>
+      `, {
+        toEmail: 'vi.kosto@yandex.ru',
+        subject: 'Новая покупка на сайте www.vikosto.net'
+      })
+    }
+
+    if (order.couponCode) {
+      const coupon = await CouponSchema.findOne({ code: order.couponCode })
+      if (coupon) {
+        console.log('user coupon for user')
+        // UserCouponSchema.create({
+        //   userId: req.userId,
+        //   couponId: coupon.id
+        // })
+      }
+    }
+
+    if (!result) {
+      console.error('Something went wrong with creation new purchase')
+      return
+    }
+
+    return
+  } catch (e) {
+    console.error(e)
+  }
+})
+
 router.post('/payment/on-success', async function (req, res) {
   try {
     const { object } = req.body
@@ -81,7 +170,7 @@ router.post('/payment/on-success', async function (req, res) {
     }
 
     const order = await OrderModel.findOne({ orderId })
-    if (!order.orderId || object.status !== 'succeeded' || !object.paid) {
+    if (!order || !order.orderId || object.status !== 'succeeded' || !object.paid) {
       console.error('Order is not paid')
       return
     }

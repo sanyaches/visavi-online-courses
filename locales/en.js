@@ -347,7 +347,7 @@ export default {
     author_description_1: 'Hi, my name is Victoria Kosto - I am a hairstylist and teacher of the basic course and refresher classes for working masters.I came to this profession because of my great love for beauty and beauty.',
     author_description_2: 'I treat my work with maximum responsibility and creativity, so I myself regularly improve my knowledge and skills.',
     author_description_3: 'In hairstyles I appreciate lightness, brevity and purity. I love to inspire clients and students through my approach to my work. In my online lessons I will teach you how to work properly and gently with hair, and how to create the most permanent, easy, clean and beautiful hairstyles.',
-    author_description_mobile: 'Hi! My name is Victoria Costo - I am a hairstylist and teacher of the basic course and refresher lessons for working masters. In my online lessons, I will teach you how to work properly and gently with your hair and create the most permanent, easy, clean and beautiful hairstyles.',
+    author_description_mobile: 'Hi! My name is Victoria Kosto - I am a hairstylist and teacher of the basic course and refresher lessons for working masters. In my online lessons, I will teach you how to work properly and gently with your hair and create the most permanent, easy, clean and beautiful hairstyles.',
     lessons_title: 'Hairstyle lessons',
     courses_title: 'Hairstyle courses',
     courses_yourself_title: 'Hairstyle courses for yourself',
