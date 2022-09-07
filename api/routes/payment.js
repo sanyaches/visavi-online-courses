@@ -69,6 +69,7 @@ async function addEmailToRequest (req, res, next) {
 
 router.post('/payment/payture-event', async function (req, res) {
   try {
+    console.log('Payture webhook req', req)
     console.log('Payture  webhook info: ', decodeQueryString(req.body))
     const { OrderId: orderId, Success: success, Amount: amount, Notification: notificationType } = decodeQueryString(req.body)
     res.sendStatus(200)
