@@ -214,7 +214,7 @@
 
       <!-- <CoursesYourself :list="coursesForYourself" /> -->
 
-      <LessonCoursesYourself :list="coursesForYourself" />
+      <LessonCoursesYourself :list="lessonCoursesMyself" />
     </template>
     <template v-else>
       <div id="foreign-courses" style="padding: 6rem 0 2rem;">
@@ -439,6 +439,12 @@ export default {
         }
       ],
       link: [{ rel: 'canonical', href: process.env.BASE_URL }]
+    }
+  },
+
+  computed: {
+    lessonCoursesMyself () {
+      return this.coursesForYourself.filter(course => !course.name.startsWith('course-myself'))
     }
   }
 }
