@@ -314,6 +314,7 @@ export default {
     main_title_subtitle: 'Онлайн обучение по прическам',
     courses_title: 'Курсы по прическам',
     courses_yourself_title: 'Курсы для себя',
+    lesson_courses_yourself_title: 'Уроки для себя',
     faq_title: 'Вопрос-ответ',
     contacts_title: 'Остались вопросы?',
     contacts_contacts: 'Контакты:',
@@ -514,6 +515,38 @@ export default {
       }
     },
     payment_message: 'Оплата, за курс "{courseName}" от {from}. После оплаты нажмите "Вернуться в магазин"'
+  },
+  lesson_course: {
+    seo: {
+      title: '{title} - онлайн обучение прическам - vikosto',
+      keywords: 'vikosto онлайн урок прически {words}'
+    },
+    buy_button: 'Купить',
+    buy_course_button: 'Урок',
+    no_lessons: 'Пока нет уроков',
+    list_lessons: 'Видео',
+    category_theory: 'Теоретическая часть',
+    category_practice: 'Практическая часть',
+    description: 'Описание:',
+    about: 'Об уроке',
+    access_months: 'Длительность доступа:',
+    months: '(в месяцах)',
+    duration: 'Количество видео:',
+    watch_title: 'Просмотр промо',
+    give_feedback: 'Предоставляется',
+    feedback: 'обратная связь',
+    homework: 'Прислать отработку',
+    materials: 'Смотреть',
+    description_title: 'Об уроке',
+    give_certificate: 'Выдается',
+    certificate: 'электронный сертификат',
+    price: 'Цена: ',
+    buy: 'Купить',
+    buy_again: 'Доступ истек, купить снова',
+    watch: 'К видно',
+    expired_at: 'Доступ закончится:',
+    open_access: 'Открыть доступ к уроку',
+    payment_message: 'Оплата, за урок "{courseName}" от {from}. После оплаты нажмите "Вернуться в магазин"'
   },
   single_lesson: {
     seo: {

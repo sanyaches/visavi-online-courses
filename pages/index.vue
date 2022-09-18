@@ -212,7 +212,9 @@
 
       <Learned />
 
-      <CoursesYourself :list="coursesForYourself" />
+      <!-- <CoursesYourself :list="coursesForYourself" /> -->
+
+      <LessonCoursesYourself :list="coursesForYourself" />
     </template>
     <template v-else>
       <div id="foreign-courses" style="padding: 6rem 0 2rem;">
@@ -367,7 +369,7 @@
 
 <script>
 import Benefits from '@/components/blocks/IndexBenefits.vue'
-import CoursesYourself from '@/components/blocks/IndexCoursesYourself.vue'
+import LessonCoursesYourself from '@/components/blocks/IndexLessonCoursesYourself.vue'
 import Courses from '@/components/blocks/IndexCourses.vue'
 import Learned from '@/components/blocks/IndexLearned.vue'
 
@@ -375,7 +377,7 @@ export default {
   components: {
     Benefits,
     Courses,
-    CoursesYourself,
+    LessonCoursesYourself,
     Learned
   },
 

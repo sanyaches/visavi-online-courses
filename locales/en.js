@@ -351,6 +351,7 @@ export default {
     lessons_title: 'Hairstyle lessons',
     courses_title: 'Hairstyle courses',
     courses_yourself_title: 'Hairstyle courses for yourself',
+    lesson_courses_yourself_title: 'Hairstyle lessons for yourself',
     faq_title: 'FAQ',
     contacts_title: 'Socials',
     contacts_contacts: 'Contacts:',
@@ -520,6 +521,38 @@ export default {
       }
     },
     payment_message: 'Payment for a course "{courseName}" from {from}. Please, click "Back to the store" after payment'
+  },
+  lesson_course: {
+    seo: {
+      title: '{title} - online hairstyles education - vikosto',
+      keywords: 'vikosto online lesson hairstyle {words}'
+    },
+    buy_button: 'Buy',
+    buy_course_button: 'Lesson',
+    no_lessons: 'There are no videos now',
+    list_lessons: 'Videos',
+    category_theory: 'Theory part',
+    category_practice: 'Practice part',
+    description: 'Description:',
+    price: 'Price: ',
+    about: 'About lesson',
+    access_months: 'Access duration:',
+    duration: 'Videos count:',
+    give_certificate: 'Grant',
+    give_feedback: 'Provide',
+    feedback: 'feedback',
+    description_title: 'About lesson',
+    watch_title: 'Watch promo',
+    homework: 'Send homework',
+    materials: 'To videos',
+    certificate: 'e-certificate',
+    months: '(in months)',
+    buy: 'Buy',
+    buy_again: 'Access expired, buy again',
+    watch: 'To videos',
+    expired_at: 'Access will closed:',
+    open_access: 'Open an access',
+    payment_message: 'Payment for a lesson "{courseName}" from {from}. Please, click "Back to the store" after payment'
   },
   single_lesson: {
     seo: {
