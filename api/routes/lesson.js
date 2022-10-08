@@ -322,6 +322,7 @@ router.get('/lesson/single/:lessonName', async function (req, res) {
       }
     })
   } catch (error) {
+    console.warn('[Lesson: get error]', error)
     res.status(500).json({
       status: 'error',
       errorCode: 'SERVER_ERROR'

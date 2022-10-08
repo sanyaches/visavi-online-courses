@@ -55,7 +55,10 @@ router.post('/purchases/add', verifyToken, async function (req, res) {
     } = req.body
     const userEmail = req.headers.email
 
-    await PurchaseModel.deleteOne({ courseName, courseType, userEmail })
+    const filter = { courseName, courseType, userEmail }
+    if (await PurchaseModel.exists(filter)) {
+      await PurchaseModel.deleteMany(filter)
+    }
 
     const startDateMs = Date.now()
 
