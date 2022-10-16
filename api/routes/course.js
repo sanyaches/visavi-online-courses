@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const CourseModel = require('../../models/course')
 const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
+const { createNormalizeFilter } = require('../../lib/filter')
 const router = Router()
 
 const jwtSecretKey = process.env.JWT_SECRET
@@ -225,10 +226,11 @@ router.get('/course/list', async function (req, res) {
   try {
     const limit = parseInt(req.query.limit, 10) || 10
     const offset = parseInt(req.query.offset, 10) || 0
-    const forMySelf = req.query.myself || undefined
-    const locale = req.query.locale || 'ru'
+    const forMySelf = req.query.myself ? req.query.myself === 'true' : undefined
+    const locale = req.query.locale
+    const filter = createNormalizeFilter({ forMySelf, locale })
 
-    const result = await CourseModel.find({ forMySelf, locale })
+    const result = await CourseModel.find(filter)
       .sort({ createdAt: 'desc' })
       .limit(limit)
       .skip(offset)

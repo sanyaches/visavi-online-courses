@@ -8,6 +8,7 @@ const FileModel = require('../../models/file')
 const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
 const FilePurchaseModel = require('../../models/filePurchase')
+const { createNormalizeFilter } = require('../../lib/filter')
 
 const router = Router()
 
@@ -296,9 +297,10 @@ router.get('/single-lesson/list-demo', async function (req, res) {
   try {
     const limit = parseInt(req.query.limit, 10) || 10
     const offset = parseInt(req.query.offset, 10) || 0
-    const locale = req.query.locale || 'ru'
+    const locale = req.query.locale
+    const filter = createNormalizeFilter({ locale })
 
-    const result = await SingleLessonModel.find({ locale }, { videoUrl: 0 })
+    const result = await SingleLessonModel.find(filter, { videoUrl: 0 })
       .sort({ createdAt: 'desc' })
       .limit(limit)
       .skip(offset)

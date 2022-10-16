@@ -141,7 +141,7 @@ export default {
         `${context.env.baseUrl}/api/single-lesson/list-demo?limit=1000&offset=0`
       )
       const responseCourses = await context.app.$http.$get(
-        `${context.env.baseUrl}/api/course/list?limit=1000&offset=0`
+        `${context.env.baseUrl}/api/course/list?limit=1000&offset=0&myself=false`
       )
       const responseMyselfCourses = await context.app.$http.$get(
         `${context.env.baseUrl}/api/course/list?limit=1000&offset=0&myself=true`
