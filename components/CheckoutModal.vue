@@ -22,7 +22,7 @@
               </div>
               <div v-if="checkoutItem.price > 0" class="checkout-item__price">
                 <span>{{ checkoutItem.price }}</span>
-                <span style="font-size: 0.8em" class="currency">{{ $t('common.currency') }}</span>
+                <span style="font-size: 0.8em" class="currency">{{ $t(`common.currency.${checkoutItem.currency}`) }}</span>
               </div>
               <div v-else class="checkout-item__price">
                 {{ $t('common.free') }}
@@ -34,7 +34,7 @@
               </div>
               <div v-if="checkoutItem.originalPrice > 0" class="checkout-item__price is--small">
                 <span>{{ checkoutItem.originalPrice }}</span>
-                <span class="currency">{{ $t('common.currency') }}</span>
+                <span class="currency">{{ $t(`common.currency.${checkoutItem.currency}`) }}</span>
               </div>
               <div v-else class="checkout-item__price">
                 {{ $t('common.free') }}
@@ -46,7 +46,7 @@
               </div>
               <div class="checkout-item__price is--small is--red">
                 <span>-{{ checkoutItem.originalPrice - checkoutItem.price }}</span>
-                <span class="currency">{{ $t('common.currency') }}</span>
+                <span class="currency">{{ $t(`common.currency.${checkoutItem.currency}`) }}</span>
               </div>
             </div>
           </div>
@@ -164,7 +164,7 @@ export default {
     },
 
     toPay (e, isForeign = false) {
-      const platform = isForeign || this.$i18n.locale === 'en' ? 'EN' : 'RU'
+      const platform = isForeign || this.checkoutItem.currency === 'USD' ? 'EN' : 'RU'
       this.payForCheckout({ user: this.profile, bvToast: this.$root.$bvToast, platform, lang: this.$i18n.locale })
     }
 

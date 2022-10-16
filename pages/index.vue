@@ -200,7 +200,7 @@
               class="lessons__list-item"
             >
               <single-lesson-card-main :lesson="lesson" />
-              <div class="lessons__poloska-bleat" />
+              <div class="lessons__line-alternative" />
             </div>
           </div>
         </b-container>
@@ -216,13 +216,24 @@
 
       <LessonCoursesYourself :list="lessonCoursesMyself" />
     </template>
-    <template v-else>
-      <div id="foreign-courses" style="padding: 6rem 0 2rem;">
+    <template v-else-if="$i18n.locale === 'en'">
+      <div id="main-single-lessons" class="lessons">
         <b-container>
-          <h2>English online courses will be soon here. Try to visit this page later.</h2>
-          <nuxt-link :to="switchLocalePath('ru')">
-            To available courses on Russian language
-          </nuxt-link>
+          <div class="lessons__header">
+            <h2 class="lessons__title">
+              {{ $t('index.lessons_title') }}
+            </h2>
+          </div>
+          <div class="lessons__list">
+            <div
+              v-for="lesson in singleLessons"
+              :key="lesson.name"
+              class="lessons__list-item"
+            >
+              <single-lesson-card-main :lesson="lesson" />
+              <div class="lessons__line-alternative" />
+            </div>
+          </div>
         </b-container>
       </div>
     </template>
@@ -383,14 +394,15 @@ export default {
 
   async asyncData (context) {
     try {
+      const locale = context.i18n.locale
       const response = await context.app.$http.$get(
-        `${context.env.baseUrl}/api/single-lesson/list-demo?limit=1000&offset=0`
+        `${context.env.baseUrl}/api/single-lesson/list-demo?limit=1000&offset=0&locale=${locale}`
       )
       const responseCourses = await context.app.$http.$get(
-        `${context.env.baseUrl}/api/course/list?limit=1000&offset=0`
+        `${context.env.baseUrl}/api/course/list?limit=1000&offset=0&locale=${locale}`
       )
       const responseCoursesYourself = await context.app.$http.$get(
-        `${context.env.baseUrl}/api/course/list?limit=1000&offset=0&myself=true`
+        `${context.env.baseUrl}/api/course/list?limit=1000&offset=0&myself=true&locale=${locale}`
       )
 
       return {
@@ -939,7 +951,7 @@ export default {
     z-index: 2;
 
     &:nth-child(3n-2) {
-      .lessons__poloska-bleat {
+      .lessons__line-alternative {
         display: block;
 
         @media screen and (max-width: 991px) {
@@ -961,7 +973,7 @@ export default {
     }
   }
 
-  &__poloska-bleat {
+  &__line-alternative {
     position: absolute;
     z-index: 1;
     left: 0;

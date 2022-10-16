@@ -44,6 +44,12 @@ const SingleLessonSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  newPrice: {
+    type: Number
+  },
+  currency: {
+    type: String
+  },
   accessMonths: {
     type: Number,
     required: true

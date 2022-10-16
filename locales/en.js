@@ -4,7 +4,10 @@ export default {
     edit: 'Edit',
     delete: 'Delete',
     back: 'Back',
-    currency: 'RUB'
+    currency: {
+      RUB: 'RUB',
+      USD: 'USD'
+    }
   },
   success_payment: {
     title: 'Successful payment, waiting redirect...'

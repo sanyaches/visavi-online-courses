@@ -161,7 +161,7 @@
       <div class="course-card__price">
         <span v-if="course.newPrice" class="new">{{ course.newPrice }}</span>
         <span :class="course.newPrice ? 'old' : null">{{ course.price }}</span>
-        <span class="currency">{{ $t('common.currency') }}</span>
+        <span class="currency">{{ $t(`common.currency.${course.currency}`) }}</span>
       </div>
       <div class="course-card__control">
         <b-button v-if="!thisPurchase || isExpired" class="button button--brown-dark button button--large" @click="buyCourse">
@@ -214,9 +214,6 @@ export default {
     },
     courseLink () {
       return this.localePath({ path: `/course/${this.course.name}` })
-    },
-    newPrice () {
-      return Math.ceil(Math.floor(this.course.price * 0.7) / 10) * 10 - 10
     }
   },
 
@@ -244,6 +241,7 @@ export default {
           imageUrl: this.course.thumbnailUrl,
           title: this.course.title,
           price: this.course.newPrice ? this.course.newPrice : this.course.price,
+          currency: this.course.currency,
           accessMonths: this.course.accessMonths
         })
 

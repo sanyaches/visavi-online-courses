@@ -49,9 +49,10 @@
                   <img :src="singleLesson.thumbnailUrl">
                 </div>
                 <div v-if="singleLesson.price > 0" class="single-lesson-single__price">
-                  <span>{{ singleLesson.price }}</span>
+                  <span :class="singleLesson.newPrice ? 'old' : null">{{ singleLesson.price }}</span>
+                  <span v-if="singleLesson.newPrice" class="new">{{ singleLesson.newPrice }}</span>
                   <br>
-                  <span class="currency">{{ $t('common.currency') }}</span>
+                  <span class="currency">{{ $t(`common.currency.${singleLesson.currency}`) }}</span>
                 </div>
                 <div v-else class="single-lesson-single__price">
                   {{ $t('common.free') }}
@@ -252,7 +253,7 @@
                     </div>
                   </div>
                   <p class="file-offer__price">
-                    {{ file.price }} {{ $t('common.currency') }}
+                    {{ file.price }} {{ $t(`common.currency.${file.currency}`) }}
                   </p>
                   <b-button class="button button--brown-dark button button--large" @click="buyFile(file)">
                     {{ $t('single_lesson.buy') }}
@@ -429,6 +430,7 @@ export default {
           imageUrl: this.singleLesson.thumbnailUrl,
           title: this.singleLesson.title,
           price: this.singleLesson.price,
+          currency: this.singleLesson.currency,
           accessMonths: this.singleLesson.accessMonths
         })
 
@@ -606,11 +608,6 @@ export default {
     }
   }
 
-  &__buy-button {
-     width: 5rem;
-    height: 5rem;
-  }
-
   @keyframes pulse {
     0% {
       transform: scale(0.9);
@@ -780,6 +777,25 @@ export default {
 
     &.play {
       font-size: 5rem;
+    }
+
+    .old {
+      color: #656060;
+      font-size: 0.8em;
+      position: relative;
+      opacity: 1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        height: 4px;
+        background-color: rgb(128, 107, 107);
+        top: 50%;
+        left: -10%;
+        width: 120%;
+        opacity: 0.75;
+        transform: rotate(-15deg);
+      }
     }
 
     @media screen and (max-width: 1200px) {

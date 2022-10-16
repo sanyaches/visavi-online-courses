@@ -7,7 +7,7 @@
           <span>{{ lessonCourse.price }}</span>
           <br>
           <span class="currency">
-            {{ $t('common.currency') }}
+            {{ $t(`common.currency.${lessonCourse.currency}`) }}
           </span>
         </div>
         <div v-else class="single-lesson-course-card__price">

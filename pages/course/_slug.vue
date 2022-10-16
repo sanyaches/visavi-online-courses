@@ -44,7 +44,7 @@
                     {{ course.price }}
                   </div>
                   <div class="currency">
-                    {{ $t('common.currency') }}
+                    {{ $t(`common.currency.${course.currency}`) }}
                   </div>
                 </div>
               </div>
@@ -431,6 +431,7 @@ export default {
           imageUrl: this.course.thumbnailUrl,
           title: this.course.title,
           price: this.course.newPrice ? this.course.newPrice : this.course.price,
+          currency: this.course.currency,
           accessMonths: this.course.accessMonths
         })
 

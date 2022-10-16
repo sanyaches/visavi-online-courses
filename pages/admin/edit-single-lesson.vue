@@ -68,6 +68,16 @@
             <b-input id="single-lesson-price" v-model="form.price" required autocomplete="single-lesson-price" type="number" />
           </label>
 
+          <label for="single-lesson-new-price">
+            <div>{{ $t('admin.edit_single_lesson.form.new_price') }}</div>
+            <b-input id="single-lesson-new-price" v-model="form.newPrice" autocomplete="single-lesson-new-price" type="number" />
+          </label>
+
+          <label for="single-lesson-currency">
+            <div>{{ $t('admin.edit_single_lesson.form.currency') }}</div>
+            <b-input id="single-lesson-currency" v-model="form.currency" autocomplete="single-lesson-currency" type="text" />
+          </label>
+
           <label for="single-lesson-duration">
             <div>{{ $t('admin.edit_single_lesson.form.duration') }}</div>
             <b-input id="single-lesson-duration" v-model="form.duration" required autocomplete="single-lesson-duration" type="number" />
@@ -113,6 +123,8 @@ export default {
         duration: 0,
         accessMonths: 0,
         price: 0,
+        newPrice: null,
+        currency: '',
         locale: ''
       }
     }
@@ -146,6 +158,8 @@ export default {
         cardImageFirst: this.form.cardImageFirst,
         cardImageSecond: this.form.cardImageSecond,
         price: this.form.price,
+        newPrice: this.form.newPrice,
+        currency: this.form.currency,
         promoUrl: this.form.promoUrl,
         duration: this.form.duration,
         accessMonths: this.form.accessMonths,

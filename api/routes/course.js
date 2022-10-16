@@ -55,6 +55,7 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
       cardImageSecond = '/api/upload/single-photo.png',
       promoUrl,
       price,
+      currency,
       newPrice,
       accessMonths,
       locale
@@ -68,6 +69,7 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
       imageUrl,
       price,
       newPrice,
+      currency,
       thumbnailUrl,
       cardImageFirst,
       cardImageSecond,
@@ -99,6 +101,7 @@ router.post('/course/add', verifyToken, verifyAdminToken, async function (req, r
         cardImageSecond: result.cardImageSecond,
         price: result.price,
         newPrice: result.newPrice,
+        currency: result.currency,
         accessMonths: result.accessMonths,
         locale: result.locale,
         promoUrl: result.promoUrl,
@@ -144,6 +147,7 @@ router.post('/course/edit', verifyToken, verifyAdminToken, async function (req, 
       promoUrl,
       price,
       newPrice,
+      currency,
       accessMonths,
       locale
     } = req.body
@@ -159,6 +163,7 @@ router.post('/course/edit', verifyToken, verifyAdminToken, async function (req, 
       promoUrl,
       price,
       newPrice,
+      currency,
       accessMonths,
       locale,
       updatedAt: Date.now()
@@ -221,8 +226,9 @@ router.get('/course/list', async function (req, res) {
     const limit = parseInt(req.query.limit, 10) || 10
     const offset = parseInt(req.query.offset, 10) || 0
     const forMySelf = req.query.myself || undefined
+    const locale = req.query.locale || 'ru'
 
-    const result = await CourseModel.find({ forMySelf })
+    const result = await CourseModel.find({ forMySelf, locale })
       .sort({ createdAt: 'desc' })
       .limit(limit)
       .skip(offset)

@@ -67,6 +67,7 @@ export const actions = {
       courseName: checkoutItem.name,
       courseType: checkoutItem.itemType,
       accessMonths: checkoutItem.accessMonths,
+      currency: checkoutItem.currency,
       amount,
       paymentMessage,
       couponCode: coupon?.code,

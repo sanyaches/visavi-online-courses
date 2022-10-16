@@ -271,6 +271,7 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
       courseType,
       accessMonths,
       amount,
+      currency,
       paymentMessage,
       couponCode,
       platform = 'RU'
@@ -359,7 +360,7 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
         const createPayload = {
           amount: {
             value: amount,
-            currency: 'RUB'
+            currency
           },
           description: paymentMessage,
           capture: true,
@@ -377,7 +378,7 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
         if (payment.id && payment.confirmation.confirmation_url) {
           onSuccess(payment.id, payment.confirmation.confirmation_url)
         }
-      } else if (platform === 'EN') {
+      } else if (platform === 'EN' || currency === 'USD') {
         const data = {
           OrderId: orderId,
           Amount: amount * 100, // In cents

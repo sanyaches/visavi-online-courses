@@ -60,7 +60,9 @@ router.post('/single-lesson/add', verifyToken, verifyAdminToken, async function 
       duration,
       accessMonths,
       locale,
-      price
+      price,
+      newPrice,
+      currency
     } = req.body
 
     const result = await SingleLessonModel.create({
@@ -78,7 +80,9 @@ router.post('/single-lesson/add', verifyToken, verifyAdminToken, async function 
       cardImageSecond,
       createdAt: Date.now(),
       updatedAt: Date.now(),
-      price
+      price,
+      newPrice,
+      currency
     })
 
     if (!result) {
@@ -104,7 +108,9 @@ router.post('/single-lesson/add', verifyToken, verifyAdminToken, async function 
         duration: result.duration,
         accessMonths: result.accessMonths,
         locale: result.locale,
-        price: result.price
+        price: result.price,
+        newPrice: result.newPrice,
+        currency: result.currency
       }
     })
   } catch (error) {
@@ -211,6 +217,8 @@ router.post('/single-lesson/edit', verifyToken, verifyAdminToken, async function
       duration,
       accessMonths,
       price,
+      newPrice,
+      currency,
       locale
     } = req.body
 
@@ -226,6 +234,8 @@ router.post('/single-lesson/edit', verifyToken, verifyAdminToken, async function
       duration,
       accessMonths,
       price,
+      newPrice,
+      currency,
       updatedAt: Date.now(),
       locale
     })
@@ -286,8 +296,9 @@ router.get('/single-lesson/list-demo', async function (req, res) {
   try {
     const limit = parseInt(req.query.limit, 10) || 10
     const offset = parseInt(req.query.offset, 10) || 0
+    const locale = req.query.locale || 'ru'
 
-    const result = await SingleLessonModel.find({}, { videoUrl: 0 })
+    const result = await SingleLessonModel.find({ locale }, { videoUrl: 0 })
       .sort({ createdAt: 'desc' })
       .limit(limit)
       .skip(offset)

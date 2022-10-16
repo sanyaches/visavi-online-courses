@@ -70,7 +70,12 @@
 
           <label for="course-new-price">
             <div>{{ $t('admin.edit_course.form.new_price') }}</div>
-            <b-input id="course-new-price" v-model="form.newPrice" required autocomplete="course-new-price" type="number" />
+            <b-input id="course-new-price" v-model="form.newPrice" autocomplete="course-new-price" type="number" />
+          </label>
+
+          <label for="course-currency">
+            <div>{{ $t('admin.edit_course.form.new_price') }}</div>
+            <b-input id="course-currency" v-model="form.currency" autocomplete="course-currency" type="number" />
           </label>
 
           <label for="course-access_months">
@@ -111,6 +116,7 @@ export default {
         cardImageSecond: '',
         price: 0,
         newPrice: 0,
+        currency: '',
         accessMonths: 0,
         locale: '',
         promoUrl: ''
@@ -147,6 +153,7 @@ export default {
         cardImageSecond: this.form.cardImageSecond,
         price: this.form.price,
         newPrice: this.form.newPrice,
+        currency: this.form.currency,
         accessMonths: this.form.accessMonths,
         promoUrl: this.form.promoUrl
       })

@@ -106,7 +106,7 @@
         <div v-if="offer.price > 0" class="profile-offer__price">
           <span>{{ offer.price }}</span>
           <br>
-          <span class="currency">{{ $t('common.currency') }}</span>
+          <span class="currency">{{ $t(`common.currency.${offer.currency}`) }}</span>
         </div>
         <div v-else class="profile-offer__price">
           {{ $t('common.free') }}

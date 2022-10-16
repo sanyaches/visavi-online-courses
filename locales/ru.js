@@ -4,7 +4,10 @@ export default {
     edit: 'Редактировать',
     delete: 'Удалить',
     back: 'Назад',
-    currency: 'рублей'
+    currency: {
+      RUB: 'рублей',
+      USD: 'USD'
+    }
   },
   success_payment: {
     title: 'Успешная оплата, ожидаем перенаправления...'

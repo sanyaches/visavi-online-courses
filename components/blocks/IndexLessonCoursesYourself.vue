@@ -13,7 +13,7 @@
           class="course-lessons__list-item"
         >
           <single-lesson-course-card-main :lesson-course="course" />
-          <div class="course-lessons__poloska-bleat" />
+          <div class="course-lessons__line-alternative" />
         </div>
       </div>
     </b-container>
@@ -77,7 +77,7 @@ export default {
     z-index: 2;
 
     &:nth-child(3n-2) {
-      .course-lessons__poloska-bleat {
+      .course-lessons__line-alternative {
         display: block;
 
         @media screen and (max-width: 991px) {
@@ -99,7 +99,7 @@ export default {
     }
   }
 
-  &__poloska-bleat {
+  &__line-alternative {
     position: absolute;
     z-index: 1;
     left: 0;

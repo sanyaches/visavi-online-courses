@@ -5,10 +5,11 @@
         <img class="bottom" :src="lesson.cardImageSecond">
         <img class="top" :src="lesson.cardImageFirst">
         <div v-if="lesson.price > 0" class="single-lesson-card-main__price">
-          <span>{{ lesson.price }}</span>
+          <span :class="lesson.newPrice ? 'old' : null">{{ lesson.price }}</span>
+          <span v-if="lesson.newPrice" class="new">{{ lesson.newPrice }}</span>
           <br>
           <span class="currency">
-            {{ $t('common.currency') }}
+            {{ $t(`common.currency.${lesson.currency}`) }}
           </span>
         </div>
         <div v-else class="single-lesson-card-main__price">
@@ -133,6 +134,29 @@ export default {
     span.currency {
       text-transform: uppercase;
       font-size: 1.3rem;
+    }
+
+    .old {
+      color: #bebebe;
+      font-size: 2rem;
+      position: relative;
+      opacity: 1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        height: 4px;
+        background-color: rgb(160, 130, 130);
+        top: 50%;
+        left: -10%;
+        width: 120%;
+        opacity: 0.75;
+        transform: rotate(-15deg);
+      }
+    }
+
+    .new {
+      color: #fff;
     }
   }
 
