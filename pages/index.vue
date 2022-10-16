@@ -15,7 +15,7 @@
               <br>
               <span class="second">{{ $t('index.main_title_second_mobile') }}</span>
             </div>
-            <div class="hero__button">
+            <div v-if="$i18n.locale === 'ru'" class="hero__button">
               <nuxt-link
                 to="#main-single-lessons"
                 class="button button--brown-dark button button--large"
@@ -27,6 +27,14 @@
                 class="button button--beige button button--large"
               >
                 {{ $t('index.want_study_for_myself') }}
+              </nuxt-link>
+            </div>
+            <div v-else class="hero__button">
+              <nuxt-link
+                to="#main-single-lessons"
+                class="button button--brown-dark button button--large"
+              >
+                {{ $t('index.to_lessons') }}
               </nuxt-link>
             </div>
           </div>

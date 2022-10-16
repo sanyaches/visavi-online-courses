@@ -305,6 +305,7 @@ export default {
     main_title_second_mobile: 'а волосы',
     want_study: 'Для профи',
     want_study_for_myself: 'Для себя',
+    to_lessons: 'К урокам',
     about_title: 'Кому подойдет онлайн обучение?',
     author_title: 'Об авторе обучения',
     author_signature: 'Viktoria Kosto',

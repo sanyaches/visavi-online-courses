@@ -343,6 +343,7 @@ export default {
     main_title_second_mobile: 'than wind up',
     want_study: 'For pro',
     want_study_for_myself: 'For myself',
+    to_lessons: 'To lessons',
     about_title: 'Who does suit online education?',
     author_title: 'About course author',
     author_signature: 'Viktoria Kosto',
