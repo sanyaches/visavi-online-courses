@@ -1,4 +1,8 @@
+import heroBlock from './index-page/heroBlock.js'
+
 export default {
+  ...heroBlock,
+
   common: {
     free: 'Бесплатно',
     edit: 'Редактировать',
@@ -299,13 +303,6 @@ export default {
     profile: 'Профиль',
     register: 'Регистрация',
     profile_tooltip: 'Перейти в профиль',
-    main_title: 'Накручивай не',
-    main_title_second: 'себя, а волосы',
-    main_title_mobile: 'Накручивай не себя,',
-    main_title_second_mobile: 'а волосы',
-    want_study: 'Для профи',
-    want_study_for_myself: 'Для себя',
-    to_lessons: 'К урокам',
     about_title: 'Кому подойдет онлайн обучение?',
     author_title: 'Об авторе обучения',
     author_signature: 'Viktoria Kosto',

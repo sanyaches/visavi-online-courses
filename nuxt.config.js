@@ -208,8 +208,8 @@ export default {
       {
         baseUrl: process.env.BASE_URL,
         locales: [
-          { code: 'en', iso: 'en-US', file: 'en.js', dir: 'ltr' },
-          { code: 'ru', iso: 'ru-RU', file: 'ru.js', dir: 'ltr' }
+          { code: 'en', iso: 'en-US', file: 'en/index.js', dir: 'ltr' },
+          { code: 'ru', iso: 'ru-RU', file: 'ru/index.js', dir: 'ltr' }
         ],
         langDir: './locales/',
         defaultLocale: 'ru',

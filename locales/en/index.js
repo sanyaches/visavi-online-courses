@@ -1,4 +1,8 @@
+import heroBlock from './index-page/heroBlock'
+
 export default {
+  ...heroBlock,
+
   common: {
     free: 'Free',
     edit: 'Edit',
@@ -336,14 +340,6 @@ export default {
     register: 'Register',
     profile_tooltip: 'To profile',
     name: 'VIKOSTO',
-    main_title: 'Rather updo',
-    main_title_second: 'than wind up',
-    main_title_subtitle: 'Online hairstyle education',
-    main_title_mobile: 'Rather updo',
-    main_title_second_mobile: 'than wind up',
-    want_study: 'For pro',
-    want_study_for_myself: 'For myself',
-    to_lessons: 'To lessons',
     about_title: 'Who does suit online education?',
     author_title: 'About course author',
     author_signature: 'Viktoria Kosto',
