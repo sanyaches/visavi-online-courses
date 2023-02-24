@@ -79,7 +79,7 @@
     font-size: 4rem;
     text-transform: uppercase;
     font-family: var(--title-font-family);
-    font-weight: 500;
+    font-weight: 400;
     line-height: 100%;
 
     @media screen and (max-width: 1200px) {
@@ -87,7 +87,8 @@
     }
 
     @media screen and (max-width: 980px) {
-      font-size: 2.4rem;
+      font-size: 1.8rem;
+      line-height: 110%;
     }
 
   }
@@ -98,7 +99,7 @@
     font-family: var(--cormorant-font-family);
 
     @media screen and (max-width: 980px) {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
     }
   }
 
@@ -109,7 +110,7 @@
     font-size: 3rem;
 
     @media screen and (max-width: 980px) {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       margin-top: 0.3rem;
     }
   }
