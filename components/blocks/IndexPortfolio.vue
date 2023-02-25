@@ -97,10 +97,16 @@ export default {
       const bridesContainer = document.getElementById('brides')
       const studentsContainer = document.getElementById('students')
       if (bridesContainer) {
-        window.lightGallery(bridesContainer)
+        window.lightGallery(bridesContainer, {
+          download: false,
+          share: false
+        })
       }
       if (studentsContainer) {
-        window.lightGallery(studentsContainer)
+        window.lightGallery(studentsContainer, {
+          download: false,
+          share: false
+        })
       }
     }
   }
