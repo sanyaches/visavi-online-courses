@@ -12,9 +12,8 @@
           {{ $t('portfolio_students_tab') }}
         </div>
       </div>
-
-      <v-carousel v-model="slide" hide-delimiters :show-arrows="false" height="auto">
-        <v-carousel-item>
+      <ssr-carousel v-model="slide">
+        <div :index="0">
           <div id="brides" class="portfolio__grid">
             <a class="portfolio__grid-cell" data-src="images/portfolio/brides/1.jpg">
               <img src="images/portfolio/brides/1.jpg">
@@ -44,39 +43,39 @@
               <img src="images/portfolio/brides/1.jpg">
             </a>
           </div>
-        </v-carousel-item>
-        <v-carousel-item>
+        </div>
+        <div :index="1">
           <div id="students" class="portfolio__grid">
-            <div class="portfolio__grid-cell">
+            <a class="portfolio__grid-cell" data-src="images/portfolio/students/1.jpg">
               <img src="images/portfolio/students/1.jpg">
-            </div>
-            <div class="portfolio__grid-cell">
+            </a>
+            <a class="portfolio__grid-cell" data-src="images/portfolio/students/1.jpg">
               <img src="images/portfolio/students/1.jpg">
-            </div>
-            <div class="portfolio__grid-cell">
+            </a>
+            <a class="portfolio__grid-cell" data-src="images/portfolio/students/1.jpg">
               <img src="images/portfolio/students/1.jpg">
-            </div>
-            <div class="portfolio__grid-cell">
+            </a>
+            <a class="portfolio__grid-cell" data-src="images/portfolio/students/1.jpg">
               <img src="images/portfolio/students/1.jpg">
-            </div>
-            <div class="portfolio__grid-cell">
+            </a>
+            <a class="portfolio__grid-cell" data-src="images/portfolio/students/1.jpg">
               <img src="images/portfolio/students/1.jpg">
-            </div>
-            <div class="portfolio__grid-cell">
+            </a>
+            <a class="portfolio__grid-cell" data-src="images/portfolio/students/1.jpg">
               <img src="images/portfolio/students/1.jpg">
-            </div>
-            <div class="portfolio__grid-cell">
+            </a>
+            <a class="portfolio__grid-cell" data-src="images/portfolio/students/1.jpg">
               <img src="images/portfolio/students/1.jpg">
-            </div>
-            <div class="portfolio__grid-cell">
+            </a>
+            <a class="portfolio__grid-cell" data-src="images/portfolio/students/1.jpg">
               <img src="images/portfolio/students/1.jpg">
-            </div>
-            <div class="portfolio__grid-cell">
+            </a>
+            <a class="portfolio__grid-cell" data-src="images/portfolio/students/1.jpg">
               <img src="images/portfolio/students/1.jpg">
-            </div>
+            </a>
           </div>
-        </v-carousel-item>
-      </v-carousel>
+        </div>
+      </ssr-carousel>
     </b-container>
   </div>
 </template>
@@ -90,14 +89,19 @@ export default {
   },
 
   mounted () {
-    const el = document.getElementById('brides')
-    window.lightGallery(el)
+    this.registerGalleries()
   },
 
-  unmounted () {
-    if (this.lightbox) {
-      this.lightbox.destroy()
-      this.lightbox = null
+  methods: {
+    registerGalleries () {
+      const bridesContainer = document.getElementById('brides')
+      const studentsContainer = document.getElementById('students')
+      if (bridesContainer) {
+        window.lightGallery(bridesContainer)
+      }
+      if (studentsContainer) {
+        window.lightGallery(studentsContainer)
+      }
     }
   }
 }
@@ -161,15 +165,11 @@ export default {
     display: grid;
     gap: 0.4rem;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 215px);
+    grid-template-rows: repeat(3, 1fr);
     margin-top: 1rem;
     max-width: 677px;
     margin-left: auto;
     margin-right: auto;
-
-    @media screen and (max-width: 480px) {
-      grid-template-rows: repeat(3, 125px);
-    }
   }
 
   &__grid-cell {
@@ -181,18 +181,7 @@ export default {
 
   &__grid-cell img {
     width: 100%;
-  }
-
-  .v-window {
-    &-x-transition,
-    &-x-reverse-transition,
-    &-y-transition,
-    &-y-reverse-transition {
-      &-enter-active,
-      &-leave-active {
-        transition: 1s cubic-bezier(.45, .8, .50, 1);
-      }
-    }
+    height: 100%;
   }
 }
 </style>

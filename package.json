@@ -23,7 +23,6 @@
     "@nuxtjs/i18n": "7.2.1",
     "@nuxtjs/sentry": "5.1.7",
     "@nuxtjs/sitemap": "2.4.0",
-    "@nuxtjs/vuetify": "^1.12.3",
     "axios": "^0.27.2",
     "bootstrap": "4.6.1",
     "bootstrap-vue": "2.21.2",
@@ -42,7 +41,8 @@
     "payture-official": "0.0.6",
     "portal-vue": "2.1.7",
     "shaka-player": "3.0.8",
-    "uuid4": "2.0.2"
+    "uuid4": "2.0.2",
+    "vue-ssr-carousel": "^1.9.1"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "6.1.1",
