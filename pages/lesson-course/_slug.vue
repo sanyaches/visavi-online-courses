@@ -873,8 +873,8 @@ export default {
     h2 {
       font-size: 2.2rem;
       text-transform: uppercase;
-      font-weight: 700;
-      font-family: 'Cormorant SC', serif;
+      font-weight: 500;
+      font-family: var(--font-family-cormorant);
     }
 
     @media screen and (max-width: 991px) {
@@ -921,8 +921,8 @@ export default {
   &__lessons-title {
     font-size: 2.2rem;
     text-transform: uppercase;
-    font-weight: 700;
-    font-family: 'Cormorant SC', serif;
+    font-weight: 500;
+    font-family: var(--font-family-cormorant);
 
     @media screen and (max-width: 991px) {
       font-size: 1.6rem;

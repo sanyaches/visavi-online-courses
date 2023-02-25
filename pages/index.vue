@@ -72,6 +72,8 @@
       </b-container>
     </div>
 
+    <BlocksIndexPortfolio />
+
     <template v-if="$i18n.locale === 'ru'">
       <div id="main-single-lessons" class="lessons">
         <b-container>
@@ -356,8 +358,8 @@ export default {
 
   &__title {
     text-transform: uppercase;
-    font-family: 'Cormorant SC', serif;
-    font-weight: 700;
+    font-family: var(--font-family-cormorant);
+    font-weight: 500;
     font-size: 2.5rem;
 
     @media screen and (max-width: 991px) {
@@ -500,8 +502,8 @@ export default {
 
   &__title {
     text-transform: uppercase;
-    font-family: 'Cormorant SC', serif;
-    font-weight: 700;
+    font-family: var(--font-family-cormorant);
+    font-weight: 500;
     font-size: 2.5rem;
 
     @media screen and (max-width: 991px) {
@@ -575,8 +577,8 @@ export default {
 
   &__title {
     text-transform: uppercase;
-    font-family: 'Cormorant SC', serif;
-    font-weight: 700;
+    font-family: var(--font-family-cormorant);
+    font-weight: 500;
     font-size: 2.5rem;
 
     @media screen and (max-width: 991px) {
@@ -680,8 +682,8 @@ export default {
 
   &__title {
     text-transform: uppercase;
-    font-family: 'Cormorant SC', serif;
-    font-weight: 700;
+    font-family: var(--font-family-cormorant);
+    font-weight: 500;
     font-size: 2.5rem;
 
     @media screen and (max-width: 991px) {

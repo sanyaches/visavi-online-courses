@@ -76,15 +76,11 @@
 
   &__main-title {
     color: #ffffff;
-    font-size: 4rem;
+    font-size: 3.2rem;
     text-transform: uppercase;
-    font-family: var(--title-font-family);
+    font-family: var(--font-family-title);
     font-weight: 400;
     line-height: 100%;
-
-    @media screen and (max-width: 1200px) {
-      font-size: 3.2rem;
-    }
 
     @media screen and (max-width: 980px) {
       font-size: 1.8rem;
@@ -96,7 +92,7 @@
   &__title-ampersand {
     font-size: 3rem;
     line-height: 100%;
-    font-family: var(--cormorant-font-family);
+    font-family: var(--font-family-cormorant);
 
     @media screen and (max-width: 980px) {
       font-size: 1.8rem;
@@ -189,8 +185,9 @@
     @media screen and (max-width: 480px) {
       width: 400px;
       height: 400px;
-      left: -100px;
-      top: -80px;
+      left: 50%;
+      top: -10%;
+      transform: translateX(-50%);
     }
   }
 }

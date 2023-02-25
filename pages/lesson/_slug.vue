@@ -261,8 +261,8 @@ export default {
   &__chat-title {
     font-size: 1.6rem;
     text-transform: uppercase;
-    font-weight: 700;
-    font-family: 'Cormorant SC', serif;
+    font-weight: 500;
+    font-family: var(--font-family-cormorant);
   }
 
   &__chat {

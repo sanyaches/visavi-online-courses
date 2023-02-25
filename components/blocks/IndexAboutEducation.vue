@@ -76,8 +76,8 @@
 
   &__title {
     text-transform: uppercase;
-    font-family: 'Cormorant SC', serif;
-    font-weight: 700;
+    font-family: var(--font-family-cormorant);
+    font-weight: 500;
     font-size: 2.5rem;
 
     @media screen and (max-width: 991px) {
@@ -117,8 +117,8 @@
     color: #b6a498;
     font-size: 8rem;
     line-height: 100%;
-    font-weight: 600;
-    font-family: 'Cormorant SC', serif;
+    font-weight: 500;
+    font-family: var(--font-family-cormorant);
 
     @media screen and (max-width: 991px) {
       top: -5.5rem;

@@ -1,7 +1,9 @@
 import heroBlock from './index-page/heroBlock.js'
+import portfolio from './index-page/portfolio'
 
 export default {
   ...heroBlock,
+  ...portfolio,
 
   common: {
     free: 'Бесплатно',
