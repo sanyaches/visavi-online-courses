@@ -15,7 +15,7 @@
           </h2>
           <div class="hero__buttons">
             <nuxt-link
-              to="#main-single-lessons"
+              to="#index-education-programs"
               class="hero__link button button--brown-dark button button--large"
             >
               {{ $t('hero_block_to_lessons') }}

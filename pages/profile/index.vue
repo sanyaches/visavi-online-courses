@@ -24,7 +24,7 @@
               <span>{{ $t('profile.no_lessons') }}</span>
             </div>
           </div>
-          <nuxt-link to="/#main-single-lessons" class="anchor anchor--small anchor--brown">
+          <nuxt-link to="/#index-education-programs" class="anchor anchor--small anchor--brown">
             {{ $t('profile.see_lessons') }}
           </nuxt-link>
         </div>
