@@ -1,12 +1,12 @@
 <template>
-  <div id="index-education-programs" class="education-programs">
+  <div id="index-services" class="services">
     <b-container>
-      <div class="education-programs__header">
-        <h2 class="education-programs__title">
-          {{ $t('index.education_programs_title') }}
+      <div class="services__header">
+        <h2 class="services__title">
+          {{ $t('index.services_title') }}
         </h2>
       </div>
-      <div class="education-programs__list">
+      <div class="services__list">
         <ssr-carousel
           show-arrows
           show-dots
@@ -28,48 +28,48 @@
         >
           >
           <div
-            v-for="item in educationList"
+            v-for="item in servicesList"
             :key="item.id"
-            class="education-programs__list-item"
+            class="services__list-item"
           >
             <main-card :title="item.title" :description="item.description" :page-url="item.pageUrl" :image-src="item.imageSrc" />
           </div>
         </ssr-carousel>
 
-        <div class="education-programs__line-background" />
+        <div class="services__line-background" />
       </div>
     </b-container>
   </div>
 </template>
 
 <script>
-const educationList = [
+const servicesList = [
   {
     id: 'asf1',
     title: 'Bla | bla',
     description: 'Bla bla bla',
-    imageSrc: 'images/portfolio/brides/1.jpg',
+    imageSrc: 'images/portfolio/students/1.jpg',
     pageUrl: '/'
   },
   {
     id: 'asf11',
     title: 'Bla | bla',
     description: 'Bla bla bla',
-    imageSrc: 'images/portfolio/brides/1.jpg',
+    imageSrc: 'images/portfolio/students/1.jpg',
     pageUrl: '/'
   },
   {
     id: 'as2f1',
     title: 'Bla',
     description: 'Bla bla bla',
-    imageSrc: 'images/portfolio/brides/1.jpg',
+    imageSrc: 'images/portfolio/students/1.jpg',
     pageUrl: '/'
   },
   {
     id: 'as2f121',
     title: 'Bla',
     description: 'Bla bla bla',
-    imageSrc: 'images/portfolio/brides/1.jpg',
+    imageSrc: 'images/portfolio/students/1.jpg',
     pageUrl: '/'
   }
 ]
@@ -77,14 +77,14 @@ const educationList = [
 export default {
   data () {
     return {
-      educationList
+      servicesList
     }
   }
 }
 </script>
 
 <style lang="scss">
-.education-programs {
+.services {
   padding: 4rem 0;
 
   @media screen and (max-width: 991px) {
@@ -131,7 +131,7 @@ export default {
     width: calc(100% + 40px);
     transform: translateX(-20px);
     z-index: 0;
-    background-color: var(--vk-brown-3);
+    background-color: var(--vk-beige-1);
   }
 }
 </style>

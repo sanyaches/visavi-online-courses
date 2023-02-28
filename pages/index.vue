@@ -8,6 +8,8 @@
 
     <BlocksIndexEducationPrograms />
 
+    <BlocksIndexServices />
+
     <div id="main-faq" class="faq">
       <b-container>
         <div class="faq__header">

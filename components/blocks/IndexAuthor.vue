@@ -31,7 +31,7 @@
           <img src="@/assets/images/viktoriia.png">
           <div class="author__image-circle" />
           <div class="author__signature">
-            <div>Viktoria</div>
+            <div>Victoria</div>
             <div>Kosto</div>
           </div>
         </div>
@@ -46,7 +46,7 @@
               {{ $t('index.author_description_mobile') }}
             </p>
             <div class="author__signature">
-              <div>Viktoria</div>
+              <div>Victoria</div>
               <div>Kosto</div>
             </div>
           </div>

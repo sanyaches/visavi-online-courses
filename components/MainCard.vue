@@ -59,6 +59,10 @@ export default {
     cursor: pointer;
     margin-bottom: 2rem;
 
+    @media screen and (max-width: 991px) {
+      margin-bottom: 1.5rem;
+    }
+
     img {
       width: 100%;
     }
@@ -130,18 +134,6 @@ export default {
 
     @media screen and (max-width: 1199px) {
       font-size: 1.3rem;
-    }
-
-    @media screen and (max-width: 991px) {
-      color: #212529;
-
-      a, a:visited {
-        color: #212529;
-      }
-
-      a:hover, a:active {
-        color: #938378;
-      }
     }
   }
 
