@@ -15,6 +15,11 @@
         <div class="main-card__description">
           {{ description }}
         </div>
+        <div class="main-card__more">
+          <nuxt-link :to="pageUrl">
+            {{ $t('main_card_more') }}
+          </nuxt-link>
+        </div>
       </div>
     </div>
   </div>
@@ -46,7 +51,6 @@ export default {
 <style lang="scss">
 .main-card {
   &__container {
-    width: 100%;
     z-index: 2;
 
     @media screen and (max-width: 991px) {
@@ -146,6 +150,19 @@ export default {
       @media screen and (max-width: 991px) {
         color: initial;
       }
+    }
+  }
+
+  &__more {
+    font-weight: 500;
+    margin-top: 0.5rem;
+
+    a, a:visited {
+      color: #fff;
+    }
+
+    a:hover, a:active {
+      color: #f4e6dc;
     }
   }
 }

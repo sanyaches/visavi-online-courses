@@ -5,6 +5,8 @@ export default {
   ...heroBlock,
   ...portfolio,
 
+  main_card_more: 'Подробнее',
+
   common: {
     free: 'Бесплатно',
     edit: 'Редактировать',
@@ -315,6 +317,8 @@ export default {
     author_description_mobile: 'Привет! Меня зовут Виктория Косто - я стилист по причёскам и преподаватель базового курса и уроков повышения для работающих мастеров. В своих онлайн-уроках я научу вас правильно и бережно работать с волосами, а также создавать максимально стойкие, легкие, чистые и красивые причёски.',
     education_programs_title: 'Обучение прическам',
     services_title: 'Услуги',
+    reviews_services_title: 'Отзывы об услугах',
+    reviews_education_title: 'Отзывы об обучении',
     main_title_subtitle: 'Онлайн обучение по прическам',
     courses_title: 'Курсы по прическам',
     courses_yourself_title: 'Курсы для себя',

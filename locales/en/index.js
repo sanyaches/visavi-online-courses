@@ -5,6 +5,8 @@ export default {
   ...heroBlock,
   ...portfolio,
 
+  main_card_more: 'Details',
+
   common: {
     free: 'Free',
     edit: 'Edit',
@@ -352,6 +354,8 @@ export default {
     author_description_mobile: 'Hi! My name is Victoria Kosto - I am a hairstylist and teacher of the basic course and refresher lessons for working masters. In my online lessons, I will teach you how to work properly and gently with your hair and create the most permanent, easy, clean and beautiful hairstyles.',
     education_programs_title: 'Hairstyle education',
     services_title: 'Services',
+    reviews_services_title: 'Service reviews',
+    reviews_education_title: 'Education reviews',
     courses_title: 'Hairstyle courses',
     courses_yourself_title: 'Hairstyle courses for yourself',
     lesson_courses_yourself_title: 'Hairstyle lessons for yourself',

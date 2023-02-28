@@ -1,0 +1,31 @@
+.ssr-carousel-arrows {
+
+  :not([disabled]) > .ssr-carousel-back-icon,
+  :not([disabled]) > .ssr-carousel-next-icon {
+    opacity: 0.9;
+  }
+
+  .ssr-carousel-next-button {
+    right: 1.2%;
+  }
+
+  .ssr-carousel-back-button {
+    left: 1.2%;
+  }
+
+  .ssr-carousel-back-icon, .ssr-carousel-next-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .ssr-carousel-next-icon:before {
+    border-width: 8px 0 8px 11px;
+  }
+
+  .ssr-carousel-back-icon:before {
+    border-width: 8px 11px 8px 0;
+  }
+}
+
+
+
