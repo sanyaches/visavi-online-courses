@@ -1,12 +1,12 @@
 <template>
   <div class="main-card">
     <div class="main-card__container">
-      <div class="main-card__image" @click="$router.push(pageUrl)">
+      <div class="main-card__image" @click="$router.push(localizedLinkUrl)">
         <img :src="imageSrc">
       </div>
       <div class="main-card__content">
         <div class="main-card__title">
-          <nuxt-link :to="pageUrl">
+          <nuxt-link :to="localizedLinkUrl">
             <span>{{ title.split(' | ')[0] }}</span>
             <br>
             <span>{{ title.split(' | ')[1] }}</span>
@@ -16,7 +16,7 @@
           {{ description }}
         </div>
         <div class="main-card__more">
-          <nuxt-link :to="pageUrl">
+          <nuxt-link :to="localizedLinkUrl" class="button button--brown">
             {{ $t('main_card_more') }}
           </nuxt-link>
         </div>
@@ -43,6 +43,12 @@ export default {
     description: {
       type: String,
       required: true
+    }
+  },
+
+  computed: {
+    localizedLinkUrl () {
+      return this.localeRoute({ path: this.pageUrl })
     }
   }
 }
@@ -72,46 +78,6 @@ export default {
     }
   }
 
-  &__price {
-    font-size: 2.2rem;
-    position: absolute;
-    right: 0.5rem;
-    top: 0.5rem;
-    color: #fff;
-    text-align: right;
-    font-weight: 700;
-    line-height: 100%;
-    font-family: 'Alegreya SC', serif;
-
-    span.currency {
-      text-transform: uppercase;
-      font-size: 1.3rem;
-    }
-
-    .old {
-      color: #bebebe;
-      font-size: 2rem;
-      position: relative;
-      opacity: 1;
-
-      &::after {
-        content: '';
-        position: absolute;
-        height: 4px;
-        background-color: rgb(160, 130, 130);
-        top: 50%;
-        left: -10%;
-        width: 120%;
-        opacity: 0.75;
-        transform: rotate(-15deg);
-      }
-    }
-
-    .new {
-      color: #fff;
-    }
-  }
-
   &__content {
     padding-right: 1rem;
 
@@ -126,7 +92,6 @@ export default {
     font-size: 1.6rem;
     font-weight: 600;
     color: #fff;
-    text-decoration: underline;
 
     a, a:visited {
       color: #fff;
@@ -142,20 +107,13 @@ export default {
   }
 
   &__description {
-    .github-markdown-body {
-      padding: 1rem 0;
-      font-family: 'Raleway', sans-serif;
-      color: #fff;
-
-      @media screen and (max-width: 991px) {
-        color: initial;
-      }
-    }
+    color: var(--card-description-color, #333);
+    margin-top: 0.5rem;
   }
 
   &__more {
     font-weight: 500;
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
 
     a, a:visited {
       color: #fff;
@@ -164,6 +122,10 @@ export default {
     a:hover, a:active {
       color: #f4e6dc;
     }
+  }
+
+  &__more .button {
+    display: block;
   }
 }
 </style>

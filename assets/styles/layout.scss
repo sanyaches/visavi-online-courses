@@ -76,11 +76,11 @@ a.button {
 }
 
 .button--brown {
-  color: #212529;
-  background-color: #b6a498;
+  color: var(--button-brown-color);
+  background-color: var(--button-brown-bg-color);
 
   &:hover, &:active, &:focus {
-    background-color: #d6c3b5;
+    background-color:  var(--button-brown-bg-hover-color);
   }
 }
 

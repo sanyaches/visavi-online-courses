@@ -127,6 +127,10 @@ export default {
     font-weight: 500;
     text-transform: uppercase;
     font-family: var(--font-family-cormorant);
+
+    @media screen and (max-width: 480px) {
+      font-size: 2rem;
+    }
   }
 
   &__tabs {

@@ -42,38 +42,59 @@
 </template>
 
 <script>
-const reviewList = [
+const reviewListRu = [
   {
-    id: 'asf1',
-    name: 'Some student #1',
-    content: 'Victorias online education is so comprehensive and detailed.  I love the face that she`s broken down the styles into sections so you can really understand the process. I`ve already learnt a phenomenal amount, and i`m also picking up lots of tips and tricks to incorporate into my work going ahead, plus the wonderfully supportive Facebook group! highly recommended.'
+    id: 'review-ru-1',
+    name: 'Клиент #1',
+    content: 'Отзыв на услугу 1'
   },
   {
-    id: 'asf11',
-    name: 'Bla',
-    content: 'Hi Victoria,' +
-    'I just wanted to message to say how amazing I’m finding the online education.' +
-    'After having my 1-2-1 lesson 3 years ago this was a no brainier to join straight away!' +
-    'I’ve absolutely loved learning new tips and tricks. It’s really helping expand my knowledge' +
-    'of styling and it’s definitely giving me more confidence in areas that I needed the most.' +
-    'I feel like it’s become my little comfort blanket and I love that! Thank you 🙏🏻 ❤️❤️❤️❤️'
+    id: 'review-ru-2',
+    name: 'Клиент №2',
+    content: 'Отзыв на услугу 2'
   },
   {
-    id: 'as2f1',
-    name: 'Bla',
-    content: 'Bla bla bla'
+    id: 'review-ru-3',
+    name: 'Клиент №3',
+    content: 'Отзыв на услугу 3'
   },
   {
-    id: 'as2f121',
-    name: 'Bla',
-    content: 'Bla bla bla'
+    id: 'review-ru-4',
+    name: 'Клиент №4',
+    content: 'Отзыв на услугу 4'
+  }
+]
+
+const reviewListEng = [
+  {
+    id: 'review-en-1',
+    name: 'Happy client #1',
+    content: 'Review hairstyle service 1'
+  },
+  {
+    id: 'review-en-2',
+    name: 'Happy client #2',
+    content: 'Review hairstyle service 2'
+  },
+  {
+    id: 'review-en-3',
+    name: 'Happy client #3',
+    content: 'Review hairstyle service 3'
+  },
+  {
+    id: 'review-en-4',
+    name: 'Happy client #4',
+    content: 'Review hairstyle service 4'
   }
 ]
 
 export default {
-  data () {
-    return {
-      reviewList
+  computed: {
+    reviewList () {
+      if (this.$i18n.locale === 'ru') {
+        return reviewListRu
+      }
+      return reviewListEng
     }
   }
 }

@@ -2,6 +2,14 @@
   <div class="author">
     <b-container>
       <div class="author__content desktop">
+        <div class="author__image">
+          <picture>
+            <source srcset="@/assets/images/vika3.webp">
+            <img src="@/assets/images/vika3.png">
+          </picture>
+          <div class="author__image-circle" />
+        </div>
+
         <div class="author__text">
           <h2 class="author__title">
             {{ $t('index.author_title') }}
@@ -17,19 +25,8 @@
             <p>
               {{ $t('index.author_description_3') }}
             </p>
-            <div class="author__button">
-              <nuxt-link
-                to="#main-courses"
-                class="button button--beige button button--large"
-              >
-                {{ $t('index.author_want_study') }}
-              </nuxt-link>
-            </div>
           </div>
-        </div>
-        <div class="author__image">
-          <img src="@/assets/images/viktoriia.png">
-          <div class="author__image-circle" />
+
           <div class="author__signature">
             <div>Victoria</div>
             <div>Kosto</div>
@@ -40,28 +37,23 @@
         <h2 class="author__title">
           {{ $t('index.author_title') }}
         </h2>
-        <div class="author__flexbox">
-          <div class="author__description">
-            <p>
-              {{ $t('index.author_description_mobile') }}
-            </p>
+        <div class="author__gridbox">
+          <div class="author__image">
+            <picture>
+              <source srcset="@/assets/images/vika3.webp">
+              <img src="@/assets/images/vika3.png">
+            </picture>
+            <div class="author__image-circle" />
             <div class="author__signature">
               <div>Victoria</div>
               <div>Kosto</div>
             </div>
           </div>
-          <div class="author__image">
-            <img src="@/assets/images/viktoriia.png">
-            <div class="author__image-circle" />
+          <div class="author__description">
+            <p>
+              {{ $t('index.author_description_mobile') }}
+            </p>
           </div>
-        </div>
-        <div class="author__button">
-          <nuxt-link
-            to="#main-courses"
-            class="button button--beige button button--large"
-          >
-            {{ $t('index.author_want_study') }}
-          </nuxt-link>
         </div>
       </div>
     </b-container>
@@ -70,8 +62,12 @@
 
 <style lang="scss">
 .author {
-  padding: 2rem 0;
+  padding: 4rem 0;
   overflow: hidden;
+
+  @media screen and (max-width: 480px) {
+    padding: 2rem 0;
+  }
 
   &__title {
     text-transform: uppercase;
@@ -90,7 +86,9 @@
   }
 
   &__content.desktop {
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 5rem;
 
     @media screen and (max-width: 991px) {
       display: none;
@@ -105,49 +103,49 @@
     }
   }
 
-  .mobile &__flexbox {
-    display: flex;
-    margin-top: 2rem;
+  .mobile &__gridbox {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    margin-top: 1.2rem;
   }
 
   &__text {
     padding-top: 4rem;
+    position: relative;
   }
 
   &__description {
+    text-align: left;
+
     .desktop & {
       margin-top: 4rem;
+      padding-bottom: 9rem;
     }
 
     .mobile & {
-      min-width: 180px;
+      text-align: right;
+      margin-top: 1rem;
+      font-size: 1.2rem;
+
+      @media screen and (max-width: 480px) {
+        font-size: 0.8rem;
+      }
     }
   }
 
   &__image {
     position: relative;
-    margin-left: 3rem;
     z-index: 2;
 
     .mobile & {
-      margin-left: 5px;
-      min-width: 170px;
+      margin-right: 5px;
       margin-top: 1rem;
+    }
 
-      @media screen and (min-width: 768px) {
-        min-width: 250px;
-        margin-top: 0;
-      }
-
-      @media screen and (max-width: 370px) {
-        min-width: 140px;
-        margin-top: 0;
-      }
-
-      img {
-        width: 100%;
-        height: auto;
-      }
+    img {
+      width: 100%;
+      height: auto;
     }
   }
 
@@ -187,24 +185,15 @@
     line-height: 100%;
 
     .desktop & {
+      font-size: 4rem;
       position: absolute;
-      left: -10rem;
-      bottom: 0;
+      right: 2rem;
+      bottom: 1rem;
     }
 
     .mobile & {
-      font-size: 3rem;
-    }
-  }
-
-  &__button {
-    display: inline-flex;
-    margin-top: 1.5rem;
-
-    .mobile & {
-      margin-top: 3rem;
-      display: flex;
-      justify-content: center;
+      font-size: 2.8rem;
+      padding-top: 0.5rem;
     }
   }
 }

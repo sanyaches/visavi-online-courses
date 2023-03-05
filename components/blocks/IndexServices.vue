@@ -43,41 +43,76 @@
 </template>
 
 <script>
-const servicesList = [
+const servicesListRu = [
   {
-    id: 'asf1',
-    title: 'Bla | bla',
-    description: 'Bla bla bla',
+    id: 'wedding-hair',
+    title: 'Свадебная причёска',
+    description: 'Для тех кто точно знает что хочет',
     imageSrc: 'images/portfolio/students/1.jpg',
-    pageUrl: '/'
+    pageUrl: 'service/wedding-hair'
   },
   {
-    id: 'asf11',
-    title: 'Bla | bla',
-    description: 'Bla bla bla',
+    id: 'hairstyle',
+    title: 'Прическа',
+    description: 'Прическа для гостей, на фотосессию, на день рождения и др.торжества',
     imageSrc: 'images/portfolio/students/1.jpg',
-    pageUrl: '/'
+    pageUrl: 'service/hairstyle'
   },
   {
-    id: 'as2f1',
-    title: 'Bla',
-    description: 'Bla bla bla',
+    id: 'package-lite',
+    title: 'Свадебный пакет «Лайт»',
+    description: 'Если вы хотите точно быть уверенной в своем образе ',
     imageSrc: 'images/portfolio/students/1.jpg',
-    pageUrl: '/'
+    pageUrl: 'service/package-lite'
   },
   {
-    id: 'as2f121',
-    title: 'Bla',
-    description: 'Bla bla bla',
+    id: 'package-guest',
+    title: 'Гостевой пакет',
+    description: 'Сборы от 5-9 гостей',
     imageSrc: 'images/portfolio/students/1.jpg',
-    pageUrl: '/'
+    pageUrl: 'service/package-guest'
+  }
+]
+
+const servicesListEng = [
+  {
+    id: 'wedding-hair',
+    title: 'Свадебная причёска',
+    description: 'Для тех кто точно знает что хочет',
+    imageSrc: 'images/portfolio/students/1.jpg',
+    pageUrl: 'en/service/wedding-hair'
+  },
+  {
+    id: 'hairstyle',
+    title: 'Прическа',
+    description: 'Прическа для гостей, на фотосессию, на день рождения и др.торжества',
+    imageSrc: 'images/portfolio/students/1.jpg',
+    pageUrl: 'en/service/hairstyle'
+  },
+  {
+    id: 'package-lite',
+    title: 'Свадебный пакет «Лайт»',
+    description: 'Если вы хотите точно быть уверенной в своем образе ',
+    imageSrc: 'images/portfolio/students/1.jpg',
+    pageUrl: 'en/service/package-lite'
+  },
+  {
+    id: 'package-guest',
+    title: 'Гостевой пакет',
+    description: 'Сборы от 5-9 гостей',
+    imageSrc: 'images/portfolio/students/1.jpg',
+    pageUrl: 'en/service/package-guest'
   }
 ]
 
 export default {
-  data () {
-    return {
-      servicesList
+  computed: {
+    servicesList () {
+      if (this.$i18n.locale === 'ru') {
+        return servicesListRu
+      }
+
+      return servicesListEng
     }
   }
 }
@@ -86,6 +121,10 @@ export default {
 <style lang="scss">
 .services {
   padding: 4rem 0;
+
+  --button-brown-color: #fff;
+  --button-brown-bg-color: #917C6F;
+  --button-brown-bg-hover-color: #a08d81;
 
   @media screen and (max-width: 991px) {
     padding: 1.5rem 0;
