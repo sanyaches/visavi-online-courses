@@ -1,11 +1,14 @@
 import heroBlock from './index-page/heroBlock'
 import portfolio from './index-page/portfolio'
+import program from './program'
 
 export default {
   ...heroBlock,
   ...portfolio,
 
-  main_card_more: 'Details',
+  program: { ...program },
+
+  main_card_more: 'Check price',
 
   common: {
     free: 'Free',

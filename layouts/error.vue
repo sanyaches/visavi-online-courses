@@ -7,7 +7,7 @@
       <h2 class="info">
         {{ error.message }}
       </h2>
-      <nuxt-link v-if="error.statusCode === 404" class="button" to="/">
+      <nuxt-link v-if="error.statusCode === 404" class="button" :to="localePath('/')">
         Homepage
       </nuxt-link>
     </div>
@@ -52,14 +52,13 @@ export default {
   color: #35495e;
   letter-spacing: 1px;
 }
-.info
-{
+.info {
   font-weight: 300;
   color: #9aabb1;
   margin: 0;
 }
-.button
-{
+.button {
   margin-top: 50px;
+  display: block;
 }
 </style>

@@ -1,9 +1,12 @@
 import heroBlock from './index-page/heroBlock.js'
 import portfolio from './index-page/portfolio'
+import program from './program/index.js'
 
 export default {
   ...heroBlock,
   ...portfolio,
+
+  program: { ...program },
 
   main_card_more: 'Узнать цену',
 

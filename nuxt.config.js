@@ -277,7 +277,8 @@ export default {
         'faCaretDown', 'faCaretLeft', 'faCaretRight', 'faCommentDots',
         'faCaretUp', 'faFileArrowDown', 'faClock', 'faScroll', 'faCirclePlay',
         'faArrowTrendUp', 'faXmark', 'faPlus', 'faUser', 'faCheck', 'faKey',
-        'faStar', 'faClipboardList', 'faMagnifyingGlassPlus'
+        'faStar', 'faClipboardList', 'faMagnifyingGlassPlus', 'faGift', 'faHandHoldingHeart',
+        'faFileShield', 'faShieldHalved', 'faShield', 'faCalendarDays', 'faGifts'
       ],
       regular: [
         'faClock', 'faMoneyBill1', 'faEye',
