@@ -94,8 +94,8 @@ export default {
 
   &__title {
     text-transform: uppercase;
-    font-family: 'Cormorant SC', serif;
-    font-weight: 700;
+    font-family: var(--font-family-cormorant);
+    font-weight: 500;
     font-size: 2.5rem;
 
     @media screen and (max-width: 991px) {

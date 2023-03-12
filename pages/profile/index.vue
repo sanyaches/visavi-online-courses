@@ -24,7 +24,7 @@
               <span>{{ $t('profile.no_lessons') }}</span>
             </div>
           </div>
-          <nuxt-link to="/#main-single-lessons" class="anchor anchor--small anchor--brown">
+          <nuxt-link to="/#index-education-programs" class="anchor anchor--small anchor--brown">
             {{ $t('profile.see_lessons') }}
           </nuxt-link>
         </div>
@@ -318,8 +318,8 @@ export default {
 
   &__header h2 {
     text-transform: uppercase;
-    font-family: 'Cormorant SC', serif;
-    font-weight: 700;
+    font-family: var(--font-family-cormorant);
+    font-weight: 500;
     font-size: 2.2rem;
 
     @media screen and (max-width: 991px) {
@@ -375,8 +375,8 @@ export default {
 
   &__header h2 {
     text-transform: uppercase;
-    font-family: 'Cormorant SC', serif;
-    font-weight: 700;
+    font-family: var(--font-family-cormorant);
+    font-weight: 500;
     font-size: 2.2rem;
 
     @media screen and (max-width: 991px) {

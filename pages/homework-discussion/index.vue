@@ -136,8 +136,8 @@ export default {
 .chat-page__chat-title {
   font-size: 1.6rem;
   text-transform: uppercase;
-  font-weight: 700;
-  font-family: 'Cormorant SC', serif;
+  font-weight: 500;
+  font-family: var(--font-family-cormorant);
 
   @media screen and (max-width: 480px) {
     font-size: 1.2rem;

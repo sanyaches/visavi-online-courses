@@ -140,7 +140,7 @@ export default {
         {
           rel: 'stylesheet',
           href:
-            'https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Cormorant+SC:wght@500;700&family=Kaisei+Decol:wght@500;700&family=Raleway:wght@400;500;600;700&family=Zen+Antique&display=swap'
+            'https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@400;500;700&family=Cormorant+SC:wght@400;500;700&family=Kaisei+Decol:wght@500;700&family=Raleway:wght@400;500;600;700&family=Zen+Antique&display=swap'
         },
         ...i18nHead.link
       ],
@@ -189,7 +189,8 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/fontawesome'
+    '@nuxtjs/fontawesome',
+    'vue-ssr-carousel/nuxt'
   ],
 
   /*
@@ -208,8 +209,8 @@ export default {
       {
         baseUrl: process.env.BASE_URL,
         locales: [
-          { code: 'en', iso: 'en-US', file: 'en.js', dir: 'ltr' },
-          { code: 'ru', iso: 'ru-RU', file: 'ru.js', dir: 'ltr' }
+          { code: 'en', iso: 'en-US', file: 'en/index.js', dir: 'ltr' },
+          { code: 'ru', iso: 'ru-RU', file: 'ru/index.js', dir: 'ltr' }
         ],
         langDir: './locales/',
         defaultLocale: 'ru',
@@ -276,7 +277,8 @@ export default {
         'faCaretDown', 'faCaretLeft', 'faCaretRight', 'faCommentDots',
         'faCaretUp', 'faFileArrowDown', 'faClock', 'faScroll', 'faCirclePlay',
         'faArrowTrendUp', 'faXmark', 'faPlus', 'faUser', 'faCheck', 'faKey',
-        'faStar', 'faClipboardList', 'faMagnifyingGlassPlus'
+        'faStar', 'faClipboardList', 'faMagnifyingGlassPlus', 'faGift', 'faHandHoldingHeart',
+        'faFileShield', 'faShieldHalved', 'faShield', 'faCalendarDays', 'faGifts'
       ],
       regular: [
         'faClock', 'faMoneyBill1', 'faEye',
@@ -285,7 +287,7 @@ export default {
       ],
       light: [],
       duotone: [],
-      brands: ['faInstagram', 'faTelegram']
+      brands: ['faInstagram', 'faTelegram', 'faWhatsapp']
     }
   }
 }

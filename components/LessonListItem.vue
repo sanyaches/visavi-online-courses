@@ -118,8 +118,8 @@ export default {
   &__title {
     font-size: 1.7rem;
     text-transform: uppercase;
-    font-weight: 700;
-    font-family: 'Cormorant SC', serif;
+    font-weight: 500;
+    font-family: var(--font-family-cormorant);
 
     @media screen and (max-width: 991px) {
       font-size: 1.3rem;
