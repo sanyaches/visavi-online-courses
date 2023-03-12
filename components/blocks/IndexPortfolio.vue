@@ -16,62 +16,62 @@
         <div :index="0">
           <div id="brides" class="portfolio__grid">
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/brides/1.jpg')">
-              <img src="@/assets/images/portfolio/brides/1.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/brides/1.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/brides/2.jpg')">
-              <img src="@/assets/images/portfolio/brides/2.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/brides/2.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/brides/3.jpg')">
-              <img src="@/assets/images/portfolio/brides/3.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/brides/3.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/brides/4.jpg')">
-              <img src="@/assets/images/portfolio/brides/4.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/brides/4.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/brides/5.jpg')">
-              <img style="top: -25%;" src="@/assets/images/portfolio/brides/5.jpg" loading="lazy">
+              <img style="top: -25%;" src="@/assets/images/portfolio/brides/5.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/brides/6.jpg')">
-              <img style="top: -8%;" src="@/assets/images/portfolio/brides/6.jpg" loading="lazy">
+              <img style="top: -8%;" src="@/assets/images/portfolio/brides/6.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/brides/7.jpg')">
-              <img style="top: -25%;" src="@/assets/images/portfolio/brides/7.jpg" loading="lazy">
+              <img style="top: -25%;" src="@/assets/images/portfolio/brides/7.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/brides/8.jpg')">
-              <img src="@/assets/images/portfolio/brides/8.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/brides/8.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/brides/9.jpg')">
-              <img src="@/assets/images/portfolio/brides/9.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/brides/9.jpg">
             </a>
           </div>
         </div>
         <div :index="1">
           <div id="students" class="portfolio__grid">
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/students/1.jpg')">
-              <img src="@/assets/images/portfolio/students/1.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/students/1.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/students/2.jpg')">
-              <img src="@/assets/images/portfolio/students/2.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/students/2.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/students/3.jpg')">
-              <img src="@/assets/images/portfolio/students/3.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/students/3.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/students/4.jpg')">
-              <img src="@/assets/images/portfolio/students/4.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/students/4.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/students/5.jpg')">
-              <img src="@/assets/images/portfolio/students/5.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/students/5.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/students/6.jpg')">
-              <img src="@/assets/images/portfolio/students/6.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/students/6.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/students/7.jpg')">
-              <img src="@/assets/images/portfolio/students/7.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/students/7.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/students/8.jpg')">
-              <img src="@/assets/images/portfolio/students/8.jpg" loading="lazy">
+              <img src="@/assets/images/portfolio/students/8.jpg">
             </a>
             <a class="portfolio__grid-cell" :data-src="require('@/assets/images/portfolio/students/9.jpg')">
-              <img style="top: -25%;" src="@/assets/images/portfolio/students/9.jpg" loading="lazy">
+              <img style="top: -25%;" src="@/assets/images/portfolio/students/9.jpg">
             </a>
           </div>
         </div>
