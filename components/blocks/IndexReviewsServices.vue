@@ -33,7 +33,7 @@
             :key="item.id"
             class="reviews-education__list-item"
           >
-            <main-review-card :name="item.name" :content="item.content" />
+            <main-review-card :image-src="item.imageSrc" />
           </div>
         </ssr-carousel>
       </div>
@@ -45,46 +45,46 @@
 const reviewListRu = [
   {
     id: 'review-ru-1',
-    name: 'Клиент #1',
-    content: 'Отзыв на услугу 1'
+    imageSrc: require('~/assets/images/reviews/brides/1.jpg')
   },
   {
     id: 'review-ru-2',
-    name: 'Клиент №2',
-    content: 'Отзыв на услугу 2'
+    imageSrc: require('~/assets/images/reviews/brides/2.jpg')
   },
   {
     id: 'review-ru-3',
-    name: 'Клиент №3',
-    content: 'Отзыв на услугу 3'
+    imageSrc: require('~/assets/images/reviews/brides/3.jpg')
   },
   {
     id: 'review-ru-4',
-    name: 'Клиент №4',
-    content: 'Отзыв на услугу 4'
+    imageSrc: require('~/assets/images/reviews/brides/4.jpg')
+  },
+  {
+    id: 'review-ru-5',
+    imageSrc: require('~/assets/images/reviews/brides/5.jpg')
   }
 ]
 
 const reviewListEng = [
   {
     id: 'review-en-1',
-    name: 'Happy client #1',
-    content: 'Review hairstyle service 1'
+    imageSrc: require('~/assets/images/reviews/brides/1.jpg')
   },
   {
     id: 'review-en-2',
-    name: 'Happy client #2',
-    content: 'Review hairstyle service 2'
+    imageSrc: require('~/assets/images/reviews/brides/2.jpg')
   },
   {
     id: 'review-en-3',
-    name: 'Happy client #3',
-    content: 'Review hairstyle service 3'
+    imageSrc: require('~/assets/images/reviews/brides/3.jpg')
   },
   {
     id: 'review-en-4',
-    name: 'Happy client #4',
-    content: 'Review hairstyle service 4'
+    imageSrc: require('~/assets/images/reviews/brides/4.jpg')
+  },
+  {
+    id: 'review-en-5',
+    imageSrc: require('~/assets/images/reviews/brides/5.jpg')
   }
 ]
 
@@ -120,10 +120,10 @@ export default {
     font-weight: 500;
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    text-align: center;
 
     @media screen and (max-width: 991px) {
       font-size: 2.2rem;
-      text-align: center;
     }
 
     @media screen and (max-width: 480px) {

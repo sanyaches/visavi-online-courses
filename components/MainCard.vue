@@ -2,7 +2,7 @@
   <div class="main-card">
     <div class="main-card__container">
       <div class="main-card__image" @click="$router.push(localizedLinkUrl)">
-        <img :src="imageSrc">
+        <img :src="imageSrc" loading="lazy">
       </div>
       <div class="main-card__content">
         <div class="main-card__title">
@@ -16,7 +16,7 @@
           {{ description }}
         </div>
         <div class="main-card__more">
-          <nuxt-link :to="localizedLinkUrl" class="button button--brown">
+          <nuxt-link :to="localizedLinkUrl" class="button button--brown-dark">
             {{ $t('main_card_more') }}
           </nuxt-link>
         </div>

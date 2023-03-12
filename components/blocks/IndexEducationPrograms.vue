@@ -48,28 +48,28 @@ const educationListRu = [
     id: 'individual-lesson-masters',
     title: 'Индивидуальный урок для мастеров',
     description: 'Показ и отработка двух укладок или причёсок на ваш выбор',
-    imageSrc: 'images/training1.jpg',
+    imageSrc: require('~/assets/images/education-card3.jpg'),
     pageUrl: '/program/individual-lesson-masters'
   },
   {
     id: 'individual-lesson-yourself',
     title: 'Индивидуальный | урок для себя',
     description: 'Такой урок станет идеальным подарком самой себе и своим близким',
-    imageSrc: 'images/portfolio/brides/1.jpg',
+    imageSrc: require('~/assets/images/education-card4.jpg'),
     pageUrl: '/program/individual-lesson-yourself'
   },
   {
     id: 'base-course',
     title: 'Базовый курс',
     description: 'Самые главные основы работы с волосами, только актуальные причёски, индивидуальная обратная связь, объемный практический и теоретический блок  ',
-    imageSrc: 'images/portfolio/brides/1.jpg',
+    imageSrc: require('~/assets/images/education-card2.jpg'),
     pageUrl: '/program/base-course'
   },
   {
     id: 'advanced-hair-training',
     title: 'Курс повышения',
     description: 'Интенсивная прокачка своих навыков и знаний перед свадебным сезоном',
-    imageSrc: 'images/portfolio/brides/1.jpg',
+    imageSrc: require('~/assets/images/education-card1.jpg'),
     pageUrl: '/program/advanced-hair-training'
   }
 ]
@@ -79,14 +79,14 @@ const educationListEng = [
     id: 'individual-lesson-masters',
     title: 'Progression hair training class',
     description: 'Показ и отработка двух укладок или причёсок на ваш выбор',
-    imageSrc: 'images/training1.jpg',
+    imageSrc: require('~/assets/images/education-card3.jpg'),
     pageUrl: '/program/individual-lesson-masters'
   },
   {
     id: 'advanced-hair-training',
     title: 'Advanced hair training',
     description: 'Интенсивная прокачка своих навыков и знаний перед свадебным сезоном',
-    imageSrc: 'images/portfolio/brides/1.jpg',
+    imageSrc: require('~/assets/images/education-card1.jpg'),
     pageUrl: '/program/advanced-hair-training'
   }
 ]
@@ -108,8 +108,6 @@ export default {
 .education-programs {
   padding: 4rem 0;
 
-  --card-description-color: #f0f0f0;
-
   @media screen and (max-width: 991px) {
     padding: 1.5rem 0;
   }
@@ -120,10 +118,10 @@ export default {
     font-weight: 500;
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    text-align: center;
 
     @media screen and (max-width: 991px) {
       font-size: 2.2rem;
-      text-align: center;
     }
 
     @media screen and (max-width: 480px) {
@@ -150,12 +148,12 @@ export default {
   &__line-background {
     position: absolute;
     top: 50%;
-    left: 0;
+    left: -3000px;
     height: 50%;
-    width: calc(100% + 40px);
+    width: 9999px;
     transform: translateX(-20px);
     z-index: 0;
-    background-color: var(--vk-gray-2);
+    background-color: var(--vk-brown-2);
   }
 }
 </style>

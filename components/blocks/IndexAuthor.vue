@@ -5,7 +5,7 @@
         <div class="author__image">
           <picture>
             <source srcset="@/assets/images/vika3.webp">
-            <img src="@/assets/images/vika3.png">
+            <img src="@/assets/images/vika3.png" loading="lazy">
           </picture>
           <div class="author__image-circle" />
         </div>

@@ -287,7 +287,7 @@ export default {
       ],
       light: [],
       duotone: [],
-      brands: ['faInstagram', 'faTelegram']
+      brands: ['faInstagram', 'faTelegram', 'faWhatsapp']
     }
   }
 }

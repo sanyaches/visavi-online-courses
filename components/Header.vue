@@ -2,7 +2,7 @@
   <div class="header">
     <div class="header__container">
       <div class="header__content">
-        <nuxt-link :to="localePath('/')" @click.native="dropdownActive = false">
+        <nuxt-link :to="localePath('/')">
           <img src="@/assets/images/logo.png">
         </nuxt-link>
 
@@ -15,14 +15,13 @@
               Rus
             </nuxt-link>
           </div>
+
           <nuxt-link v-if="getIsAuthenticated" v-b-tooltip.hover :title="profileTitle" :to="localePath('profile')" class="header__profile anchor anchor--raw">
             <div class="header__profile-icon">
               <font-awesome-icon icon="fa-solid fa-user" />
             </div>
-            <!-- <div class="header__profile-fullname">
-              {{ fullName }}
-            </div> -->
           </nuxt-link>
+
           <div class="header__menu">
             <div
               class="hamburger hamburger--squeeze header__menu-burger"
@@ -35,83 +34,127 @@
             </div>
           </div>
         </div>
+
         <transition name="fade">
           <div v-show="dropdownActive" class="header__dropdown-menu">
             <div class="header__dropdown-menu-content">
               <template v-if="isAdmin">
                 <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('profile')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                  <nuxt-link :to="localePath('profile')" class="anchor anchor--raw">
                     {{ $t('index.profile') }}
                   </nuxt-link>
                 </div>
                 <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('admin')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
+                  <nuxt-link :to="localePath('admin')" class="anchor anchor--raw">
                     {{ $t('index.admin') }}
                   </nuxt-link>
                 </div>
               </template>
               <template v-else-if="getIsAuthenticated">
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('profile')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.profile') }}
-                  </nuxt-link>
-                </div>
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('/#main-courses')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.courses') }}
-                  </nuxt-link>
-                </div>
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('/#index-education-programs')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.lessons') }}
-                  </nuxt-link>
-                </div>
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('/#main-myself-benefits')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.courses_myself') }}
-                  </nuxt-link>
-                </div>
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('/#main-faq')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.faq_title') }}
-                  </nuxt-link>
-                </div>
+                <template v-if="$i18n.locale === 'ru'">
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('profile')" class="anchor anchor--raw">
+                      {{ $t('index.profile') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#index-education-programs')" class="anchor anchor--raw">
+                      {{ $t('index.education_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/service')" class="anchor anchor--raw">
+                      {{ $t('index.services_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#index-reviews')" class="anchor anchor--raw">
+                      {{ $t('index.reviews_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#main-faq')" class="anchor anchor--raw">
+                      {{ $t('faq.faq_title') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#index-contacts')" class="anchor anchor--raw">
+                      {{ $t('index.contacts_link') }}
+                    </nuxt-link>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('profile')" class="anchor anchor--raw">
+                      {{ $t('index.profile') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#main-faq')" class="anchor anchor--raw">
+                      {{ $t('faq.faq_title') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#index-contacts')" class="anchor anchor--raw">
+                      {{ $t('index.contacts_link') }}
+                    </nuxt-link>
+                  </div>
+                </template>
               </template>
               <template v-if="!getIsAuthenticated">
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('login')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.login') }}
-                  </nuxt-link>
-                </div>
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('register')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.register') }}
-                  </nuxt-link>
-                </div>
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('/#main-courses')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.courses') }}
-                  </nuxt-link>
-                </div>
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('/#index-education-programs')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.lessons') }}
-                  </nuxt-link>
-                </div>
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('/#main-myself-benefits')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.courses_myself') }}
-                  </nuxt-link>
-                </div>
-                <div class="header__dropdown-menu-item">
-                  <nuxt-link :to="localePath('/#main-faq')" class="anchor anchor--raw" @click.native="dropdownActive = !dropdownActive">
-                    {{ $t('index.faq_title') }}
-                  </nuxt-link>
-                </div>
+                <template v-if="$i18n.locale === 'ru'">
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('login')" class="anchor anchor--raw">
+                      {{ $t('index.login') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#index-education-programs')" class="anchor anchor--raw">
+                      {{ $t('index.education_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/service')" class="anchor anchor--raw">
+                      {{ $t('index.services_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#index-reviews')" class="anchor anchor--raw">
+                      {{ $t('index.reviews_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#main-faq')" class="anchor anchor--raw">
+                      {{ $t('faq.faq_title') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#index-contacts')" class="anchor anchor--raw">
+                      {{ $t('index.contacts_link') }}
+                    </nuxt-link>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('login')" class="anchor anchor--raw">
+                      {{ $t('index.login') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#main-faq')" class="anchor anchor--raw">
+                      {{ $t('faq.faq_title') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/#index-contacts')" class="anchor anchor--raw">
+                      {{ $t('index.contacts_link') }}
+                    </nuxt-link>
+                  </div>
+                </template>
               </template>
               <template v-else>
                 <div class="header__dropdown-menu-item">
-                  <button class="button--brown button" @click="dropdownActive = !dropdownActive; logout()">
+                  <button class="button--brown button" @click="logout">
                     {{ $t('index.logout') }}
                   </button>
                 </div>
@@ -156,6 +199,15 @@ export default {
 
       return `${this.$t('index.profile_tooltip')} ${this.getMe.firstName} ${this.getMe.lastName}`
     }
+  },
+
+  created () {
+    this.$watch(
+      () => this.$route,
+      () => {
+        this.dropdownActive = false
+      }
+    )
   },
 
   beforeMount () {

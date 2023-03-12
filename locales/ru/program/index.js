@@ -57,7 +57,11 @@ export default {
       item_3: {
         description: 'Тем, кто что-то умеет делать со своими волосами, но хотел бы знать новые техники и схемы сборки'
       }
-    }
+    },
+    program_title: 'Программа урока',
+    schedule_title: 'Детали проведения',
+    price_title: 'Стоимость',
+    book_button_text: 'Хочу на урок!'
   },
 
   advanced_hair_training: {
@@ -80,7 +84,11 @@ export default {
         title_second_line: 'универсалам',
         description: 'У вас уже есть большой опыт работы с волосами, но вы бы хотели переквалифицироваться и узнать современные техники сборки причёсок'
       }
-    }
+    },
+    program_title: 'Программа курса',
+    schedule_title: 'Детали проведения',
+    price_title: 'Стоимость',
+    book_button_text: 'Хочу на курс!'
   },
 
   individual_lesson_masters: {
@@ -97,7 +105,16 @@ export default {
         title: 'Работающим',
         title_second_line: 'мастерам',
         description: 'У вас есть опыт работы и вы хотели бы закрыть пробелы, освоить новые техники и стилистику'
+      },
+      item_2: {
+        title: 'Парикмахерам',
+        title_second_line: 'универсалам',
+        description: 'У вас уже есть большой опыт работы с волосами, но вы бы хотели переквалифицироваться и узнать современные техники сборки причёсок'
       }
-    }
+    },
+    program_title: 'Программа урока',
+    schedule_title: 'Детали проведения',
+    price_title: 'Стоимость',
+    book_button_text: 'Хочу на урок!'
   }
 }

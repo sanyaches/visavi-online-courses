@@ -21,7 +21,7 @@
               {{ $t('hero_block_to_lessons') }}
             </nuxt-link>
             <nuxt-link
-              to="#main-myself-benefits"
+              :to="localePath('/service')"
               class="hero__link button button--beige button button--large"
             >
               {{ $t('hero_block_to_services') }}
@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="hero__image">
-          <img src="@/assets/images/hero-image.png">
+          <img src="@/assets/images/hero-image.png" loading="lazy">
           <div class="hero__image-circle" />
         </div>
         <div class="hero__description" />

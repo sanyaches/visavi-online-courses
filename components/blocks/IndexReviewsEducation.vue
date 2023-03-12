@@ -12,7 +12,6 @@
           show-dots
           paginate-by-slide
           loop
-          :autoplay-delay="6"
           :slides-per-page="3"
           :gutter="'3rem'"
           :responsive="[
@@ -32,7 +31,7 @@
             :key="item.id"
             class="reviews-education__list-item"
           >
-            <main-review-card :name="item.name" :content="item.content" />
+            <main-review-card :image-src="item.imageSrc" />
           </div>
         </ssr-carousel>
       </div>
@@ -44,56 +43,30 @@
 const reviewListRu = [
   {
     id: 'review-student-1',
-    name: 'Талантливый студент #1',
-    content: 'Отзыв текст №1'
+    imageSrc: require('~/assets/images/reviews/students/1.jpg')
   },
   {
     id: 'review-student-2',
-    name: 'Талантливый студент #2',
-    content: 'Отзыв текст №2'
+    imageSrc: require('~/assets/images/reviews/students/2.jpg')
   },
   {
     id: 'review-student-3',
-    name: 'Талантливый студент #3',
-    content: 'Отзыв текст №3'
-  },
-  {
-    id: 'review-student-4',
-    name: 'Талантливый студент #4',
-    content: 'Отзыв текст №4'
+    imageSrc: require('~/assets/images/reviews/students/3.jpg')
   }
 ]
 
 const reviewListEng = [
   {
     id: 'review-en-student-1',
-    name: 'Gifted student #1',
-    content: 'Victorias online education is so comprehensive and detailed.  I love the face that she`s broken down the styles into sections so you can really understand the process. I`ve already learnt a phenomenal amount, and i`m also picking up lots of tips and tricks to incorporate into my work going ahead, plus the wonderfully supportive Facebook group! highly recommended.'
+    imageSrc: require('~/assets/images/reviews/students/1.jpg')
   },
   {
     id: 'review-en-student-2',
-    name: 'Gifted student #2',
-    content: 'Hi Victoria,' +
-    'I just wanted to message to say how amazing I’m finding the online education.' +
-    'After having my 1-2-1 lesson 3 years ago this was a no brainier to join straight away!' +
-    'I’ve absolutely loved learning new tips and tricks. It’s really helping expand my knowledge' +
-    'of styling and it’s definitely giving me more confidence in areas that I needed the most.' +
-    'I feel like it’s become my little comfort blanket and I love that! Thank you 🙏🏻 ❤️❤️❤️❤️'
+    imageSrc: require('~/assets/images/reviews/students/2.jpg')
   },
   {
     id: 'review-en-student-3',
-    name: 'Gifted student #3',
-    content: 'Victorias online education is so comprehensive and detailed.  I love the face that she`s broken down the styles into sections so you can really understand the process. I`ve already learnt a phenomenal amount, and i`m also picking up lots of tips and tricks to incorporate into my work going ahead, plus the wonderfully supportive Facebook group! highly recommended.'
-  },
-  {
-    id: 'review-en-student-4',
-    name: 'Gifted student #4',
-    content: 'Hi Victoria,' +
-    'I just wanted to message to say how amazing I’m finding the online education.' +
-    'After having my 1-2-1 lesson 3 years ago this was a no brainier to join straight away!' +
-    'I’ve absolutely loved learning new tips and tricks. It’s really helping expand my knowledge' +
-    'of styling and it’s definitely giving me more confidence in areas that I needed the most.' +
-    'I feel like it’s become my little comfort blanket and I love that! Thank you 🙏🏻 ❤️❤️❤️❤️'
+    imageSrc: require('~/assets/images/reviews/students/3.jpg')
   }
 ]
 
@@ -129,10 +102,10 @@ export default {
     font-weight: 500;
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    text-align: center;
 
     @media screen and (max-width: 991px) {
       font-size: 2.2rem;
-      text-align: center;
     }
 
     @media screen and (max-width: 480px) {

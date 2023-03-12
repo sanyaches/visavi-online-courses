@@ -1,48 +1,58 @@
 <template>
   <div class="program-page">
-    <b-container class="promo-container">
+    <ReachOutModal />
+
+    <div class="promo-container">
       <div class="program-page__promo">
         <div class="program-page__promo-background">
-          <img class="program-page__thumbnail" src="/api/upload/myself-course-thumb.jpg">
+          <img class="program-page__thumbnail is-desktop" src="@/assets/images/education-wide3.jpg">
+          <img class="program-page__thumbnail is-mobile" src="@/assets/images/education-wide3mobile.jpg">
         </div>
         <div class="program-page__promo-content">
           <div class="program-page__promo-content-background">
-            <div class="program-page__promo-text">
-              <div class="program-page__promo-header">
-                <h1 class="program-page__title">
-                  <span>{{ $t('program.base_course.title') }}</span>
-                </h1>
-                <b-button class="button button--brown-dark button button--large">
-                  {{ $t('program.common.buy') }}
-                </b-button>
+            <b-container>
+              <div class="program-page__promo-text">
+                <div class="program-page__promo-header">
+                  <div>
+                    <h1 class="program-page__title">
+                      <span>{{ $t('program.base_course.title') }}</span>
+                    </h1>
+                    <p>
+                      Самые главные основы работы с волосами, только актуальные причёски, индивидуальная обратная связь, объемный практический и теоретический блок
+                    </p>
+                  </div>
+                  <b-button class="button button--brown-dark button button--large">
+                    {{ $t('program.common.buy') }}
+                  </b-button>
+                </div>
+                <div class="program-page__benefits">
+                  <div class="program-page__benefit">
+                    <font-awesome-icon icon="fa-solid fa-clock" class="program-page__benefit-icon" />
+                    <div class="program-page__benefit-text">
+                      {{ $t('program.common.duration') }}
+                      <br>
+                      {{ $t('program.base_course.duration') }}
+                    </div>
+                  </div>
+                  <div class="program-page__benefit">
+                    <font-awesome-icon icon="fa-solid fa-hand-holding-heart" class="program-page__benefit-icon" />
+                    <div class="program-page__benefit-text">
+                      <span>{{ $t('program.common.treatment') }}</span>
+                    </div>
+                  </div>
+                  <div class="program-page__benefit">
+                    <font-awesome-icon icon="fa-solid fa-scroll" class="program-page__benefit-icon" />
+                    <div class="program-page__benefit-text">
+                      <span>{{ $t('program.common.give_certificate') }}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="program-page__benefits">
-                <div class="program-page__benefit">
-                  <font-awesome-icon icon="fa-solid fa-clock" class="program-page__benefit-icon" />
-                  <div class="program-page__benefit-text">
-                    {{ $t('program.common.duration') }}
-                    <br>
-                    {{ $t('program.base_course.duration') }}
-                  </div>
-                </div>
-                <div class="program-page__benefit">
-                  <font-awesome-icon icon="fa-solid fa-hand-holding-heart" class="program-page__benefit-icon" />
-                  <div class="program-page__benefit-text">
-                    <span>{{ $t('program.common.treatment') }}</span>
-                  </div>
-                </div>
-                <div class="program-page__benefit">
-                  <font-awesome-icon icon="fa-solid fa-scroll" class="program-page__benefit-icon" />
-                  <div class="program-page__benefit-text">
-                    <span>{{ $t('program.common.give_certificate') }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </b-container>
           </div>
         </div>
       </div>
-    </b-container>
+    </div>
 
     <div class="about">
       <b-container>
@@ -538,7 +548,7 @@
         <div class="price__grid">
           <div class="price__col-2">
             <div class="price__book">
-              <button class="price__book-button">
+              <button class="price__book-button" @click="reachOut">
                 {{ $t('program.base_course.book_button_text') }}
               </button>
             </div>
@@ -585,6 +595,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   head () {
     return {
@@ -619,6 +631,18 @@ export default {
   created () {
     if (this.$i18n.locale === 'en') {
       this.$nuxt.error({ statusCode: 404, message: "This program doesn't exist in this language" })
+    }
+  },
+
+  methods: {
+    ...mapActions({
+      changeShowModal: 'reachOut/changeShowModal',
+      changeService: 'reachOut/changeService'
+    }),
+
+    reachOut () {
+      this.changeShowModal(true)
+      this.changeService('base_course')
     }
   }
 }

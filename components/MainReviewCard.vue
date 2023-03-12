@@ -1,10 +1,7 @@
 <template>
   <div class="main-review-card">
     <div class="main-review-card__content">
-      {{ content }}
-    </div>
-    <div class="main-review-card__title">
-      {{ name }}
+      <img :src="imageSrc" loading="lazy">
     </div>
   </div>
 </template>
@@ -12,11 +9,7 @@
 <script>
 export default {
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-    content: {
+    imageSrc: {
       type: String,
       required: true
     }
@@ -26,32 +19,20 @@ export default {
 
 <style lang="scss">
 .main-review-card {
-  --main-review-card-bg: var(--vk-beige-1);
+  --main-review-card-bg: var(--vk-gray-2);
 
   display: flex;
   flex-direction: column;
   height: 100%;
 
   &__content {
-    padding: 1.6rem 3.2rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    background-color: var(--main-review-card-bg);
-    font-family: 'Raleway', sans-serif;
-    text-align: left;
     flex-grow: 1;
-    position: relative;
+  }
 
-    &::after {
-      content: '';
-      width: 1rem;
-      height: 1rem;
-      background-color: var(--main-review-card-bg);
-      position: absolute;
-      left: 2rem;
-      bottom: -0.5rem;
-      transform: rotate(45deg);
-    }
+  &__content img {
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5rem;
   }
 
   &__title {

@@ -1,12 +1,18 @@
 import heroBlock from './index-page/heroBlock'
 import portfolio from './index-page/portfolio'
 import program from './program'
+import reachOut from './reachOut'
+import faq from './faq'
 
 export default {
   ...heroBlock,
   ...portfolio,
 
   program: { ...program },
+
+  reach_out: { ...reachOut },
+
+  faq: { ...faq },
 
   main_card_more: 'Check price',
 
@@ -335,9 +341,11 @@ export default {
     }
   },
   index: {
-    courses: 'Courses',
-    courses_myself: 'Courses for myself',
-    lessons: 'Lessons',
+    services: 'Services',
+    services_link: 'Services',
+    reviews_link: 'Reviews',
+    contacts_link: 'Contacts',
+    education_link: 'Education',
     privacy_policy: 'Privacy policy',
     public_offer: 'Terms of service',
     admin: 'Admin',
@@ -351,10 +359,10 @@ export default {
     author_title: 'About Victoria',
     author_signature: 'Victoria Kosto',
     author_want_study: 'Study by Victoria\'s courses',
-    author_description_1: 'Hi, my name is Victoria Kosto - I am a hairstylist and teacher of the basic course and refresher classes for working masters.I came to this profession because of my great love for beauty and beauty.',
-    author_description_2: 'I treat my work with maximum responsibility and creativity, so I myself regularly improve my knowledge and skills.',
-    author_description_3: 'In hairstyles I appreciate lightness, brevity and purity. I love to inspire clients and students through my approach to my work. In my online lessons I will teach you how to work properly and gently with hair, and how to create the most permanent, easy, clean and beautiful hairstyles.',
-    author_description_mobile: 'Hi! My name is Victoria Kosto - I am a hairstylist and teacher of the basic course and refresher lessons for working masters. In my online lessons, I will teach you how to work properly and gently with your hair and create the most permanent, easy, clean and beautiful hairstyles.',
+    author_description_1: 'Hi, my name is Victoria Kosto and I am a stylist and tutor in hairstyling courses. I came into this profession more than 4 years ago because of my great love for the beautiful and lovely.',
+    author_description_2: 'I treat my work with maximum responsibility and creativity and regularly improve my knowledge and skills myself.',
+    author_description_3: 'In hairstyles, I value lightness, brevity, and purity. I love to inspire clients and students through my approach to my work. I have a large and very loyal base of clients and students from all over the world. In my training, I will teach you how to work properly and gently with hair, and how to create the most permanent, light, clean, and beautiful hairstyles.',
+    author_description_mobile: 'Hi! My name is Victoria Kosto - I am a hairstylist and tutor in hairstyling courses. I love to inspire clients and students through my approach to my work. I have a large and very loyal base of clients and students from all over the world. In my training, I will teach you how to work properly and gently with your hair and create the most permanent, easy, clean and beautiful hairstyles.',
     education_programs_title: 'Hairstyle education',
     services_title: 'Services',
     reviews_services_title: 'Service reviews',
@@ -362,7 +370,6 @@ export default {
     courses_title: 'Hairstyle courses',
     courses_yourself_title: 'Hairstyle courses for yourself',
     lesson_courses_yourself_title: 'Hairstyle lessons for yourself',
-    faq_title: 'FAQ',
     contacts_title: 'Socials',
     contacts_contacts: 'Contacts:',
     right_side: {
@@ -419,38 +426,6 @@ export default {
           title: 'Ценителям',
           content: 'Которые ценят своё время и деньги. Курс содержит много полезной и структурированной информации о средствах, инструментах и стайлинге. Вы убережете себя от ненужных покупок'
         }
-      }
-    },
-    faq: {
-      first: {
-        question: 'When can I start training ?',
-        answer: 'After payment, you immediately have access to the purchased lessons and materials, it means you can start learning right away.'
-      },
-      second: {
-        question: 'Is it necessary to send a homework?',
-        answer: 'You do not need to send your homework. But in order to learn the lessons well, it is recommended to send homework. You will have feedback available where we can discuss any questions you may have about your practice.'
-      },
-      third: {
-        question: 'How long access to the material remains?',
-        answer: `You will have access to all of the lessons and the SILVER course for 3 months.
-          If you purchased the GOLD course, you will have access to the lessons for 6 months.
-          The PDFs of the lessons stay with you forever after you download them.`
-      },
-      fourth: {
-        question: 'Will there be any feedback?',
-        answer: `
-          Each product includes feedback from Victoria to ensure that your training is as effective as possible.
-          You will have access to feedback for 1 to 2 months,
-          depending on the plan you purchased.
-        `
-      },
-      fifth: {
-        question: 'Will I get a certificate?',
-        answer: `
-          Everyone gets a certificate! It's guaranteed to receive in your email one month after you purchase the training and send at least one homework.
-          If you send all the homework what you've done on the training you've purchased,
-          you'll receive your certificate much sooner.
-        `
       }
     },
     seo: {
