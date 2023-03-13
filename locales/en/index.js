@@ -429,9 +429,9 @@ export default {
       }
     },
     seo: {
-      title: 'Online hairstyles education - vikosto',
-      description: 'Bridal and wedding hairstyles courses and lessons online - vikosto',
-      keywords: 'education online hairstyles bridal wedding courses vikosto'
+      title: 'Wedding hair and hair education - vikosto',
+      description: 'Wedding hair, hair for brides, traveling to your gathering, hairstyle education',
+      keywords: 'education hair hairstyles bridal wedding courses vikosto'
     }
   },
   profile: {

@@ -22,7 +22,7 @@
         </div>
         <div class="contacts__socials">
           <div class="social">
-            <a target="_blank" href="https://instagram.com/vi.kosto">
+            <a target="_blank" href="https://ig.me/m/vi.kosto">
               <font-awesome-icon class="social-icon" icon="fa-brands fa-instagram" />
             </a>
           </div>
@@ -31,17 +31,11 @@
               <font-awesome-icon class="social-icon" icon="fa-brands fa-telegram" />
             </a>
           </div>
-        </div>
-        <div class="contacts__contacts">
-          <h3>{{ $t('index.contacts_contacts') }}</h3>
-          <div>
-            <a href="mailto:vi.kosto@yandex.ru" class="anchor anchor--raw">vi.kosto@yandex.ru</a>
+          <div class="social">
+            <a target="_blank" href="https://wa.me/905542890793/">
+              <font-awesome-icon class="social-icon" icon="fa-brands fa-whatsapp" />
+            </a>
           </div>
-          <div>
-            <a href="tel:+79877887381" class="anchor anchor--raw">+7 (987) 788 7381</a>
-          </div>
-          <div>Савкина Виктория Денисовна</div>
-          <div>ИНН: 561019006810</div>
         </div>
 
         <div class="contacts__documents mt-5">
@@ -150,6 +144,7 @@ export default {
     gap: 2rem;
     flex-wrap: wrap;
     margin-top: 1rem;
+    justify-content: center;
   }
 
   .social a {
