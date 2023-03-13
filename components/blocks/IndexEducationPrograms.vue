@@ -12,7 +12,6 @@
           show-dots
           paginate-by-slide
           loop
-          :autoplay-delay="6"
           :slides-per-page="3"
           :gutter="'3rem'"
           :responsive="[
@@ -107,6 +106,7 @@ export default {
 <style lang="scss">
 .education-programs {
   padding: 4rem 0;
+  overflow-x: hidden;
 
   @media screen and (max-width: 991px) {
     padding: 1.5rem 0;

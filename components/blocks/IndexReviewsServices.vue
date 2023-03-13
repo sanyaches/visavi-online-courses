@@ -13,7 +13,6 @@
           show-dots
           paginate-by-slide
           loop
-          :autoplay-delay="6"
           :slides-per-page="3"
           :gutter="'3rem'"
           :responsive="[
