@@ -68,6 +68,11 @@
                     </nuxt-link>
                   </div>
                   <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('guide')" class="anchor anchor--raw">
+                      {{ $t('guide_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('/#index-reviews')" class="anchor anchor--raw">
                       {{ $t('index.reviews_link') }}
                     </nuxt-link>
@@ -87,6 +92,11 @@
                   <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('profile')" class="anchor anchor--raw">
                       {{ $t('index.profile') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('guide')" class="anchor anchor--raw">
+                      {{ $t('guide_link') }}
                     </nuxt-link>
                   </div>
                   <div class="header__dropdown-menu-item">
@@ -119,6 +129,11 @@
                     </nuxt-link>
                   </div>
                   <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('guide')" class="anchor anchor--raw">
+                      {{ $t('guide_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('/#index-reviews')" class="anchor anchor--raw">
                       {{ $t('index.reviews_link') }}
                     </nuxt-link>
@@ -138,6 +153,11 @@
                   <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('login')" class="anchor anchor--raw">
                       {{ $t('index.login') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('guide')" class="anchor anchor--raw">
+                      {{ $t('guide_link') }}
                     </nuxt-link>
                   </div>
                   <div class="header__dropdown-menu-item">

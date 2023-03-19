@@ -3,10 +3,12 @@ import portfolio from './index-page/portfolio'
 import program from './program/index'
 import reachOut from './reachOut'
 import faq from './faq'
+import guide from './guide'
 
 export default {
   ...heroBlock,
   ...portfolio,
+  ...guide,
 
   program: { ...program },
   reach_out: { ...reachOut },
