@@ -201,20 +201,8 @@
                 95 $
               </div>
             </div>
-            <small class="price__currency-info">(Принимается в RUB, USD, EUR, TL из рассчета в долларах)</small></span>
-            <div class="price__info">
-              Обращаем ваше внимание, что запись и бронирование осуществляется по предоплате (20%).
-              При отмене бронирования предоплата не возвращается. Временная бронь 3 дня с момента обращения.
-              Остаток по оплате вносится в день обучения
-            </div>
+            <small class="price__currency-info">(Принимается в RUB, USD, EUR, TL из рассчета в долларах)</small>
             <div class="price__benefits">
-              <div class="price__contract">
-                <b>Договор <font-awesome-icon icon="fa-solid fa-shield-halved" /></b>
-                <p>
-                  Мы можем выслать вам экземпляр на электронную почту или подписать его с вами при личной встрече
-                </p>
-              </div>
-
               <div class="price__included">
                 <b>В стоимость входит <font-awesome-icon icon="fa-solid fa-gifts" /></b>
                 <ul class="price__included-list">
