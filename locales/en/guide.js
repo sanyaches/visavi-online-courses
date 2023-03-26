@@ -21,5 +21,21 @@ export default {
   guide_reviews_title: 'Reviews',
   guide_cta_text: 'Do you want to make your <span class="guide-cta__highlight-text">hairstyles</span> better and more beautiful?',
   guide_cta_button: 'Buy the guide',
-  guide_agreement: 'Public agreement'
+  guide_agreement: 'Public agreement',
+  guide_back_link: 'Back to the guide',
+  guide_agreement_title: 'Public agreement on the provision of information services',
+
+  guide_modal_good: 'The guide about styling and hair tools is suitable for you',
+  guide_modal_title: 'Prepare order',
+  guide_name_label: 'Name *',
+  guide_name_placeholder: 'Enter your name',
+  guide_email_label: 'Email *',
+  guide_email_placeholder: 'Enter your email',
+  guide_country_label: 'The guide is suitable for country: *',
+  guide_country_turkey: 'Turkey',
+  guide_country_rest: 'Other',
+  guide_pay: 'Buy the guide',
+  guide_pay_paypal: 'Buy with PayPal',
+  guide_agreement_label: '* Agree with',
+  guide_agreement_link: 'the public offer agreement'
 }

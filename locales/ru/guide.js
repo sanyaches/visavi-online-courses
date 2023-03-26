@@ -21,5 +21,21 @@ export default {
   guide_reviews_title: 'Отзывы',
   guide_cta_text: 'Хочешь сделать свои <span class="guide-cta__highlight-text">укладки</span> качественнее и красивее?',
   guide_cta_button: 'Купить гайд',
-  guide_agreement: 'Публичный договор-оферта'
+  guide_agreement: 'Публичный договор-оферта',
+  guide_back_link: 'Назад к гайду',
+  guide_agreement_title: 'Публичный договор-оферта на оказание информационных услуг',
+
+  guide_modal_good: 'Гайд по стайлингу и инструментам',
+  guide_modal_title: 'Оформление заказа',
+  guide_name_label: 'Имя *',
+  guide_name_placeholder: 'Введите ваше имя',
+  guide_email_label: 'Email *',
+  guide_email_placeholder: 'Введите ваш email',
+  guide_country_label: 'Гайд подходит для страны: *',
+  guide_country_turkey: 'Турция',
+  guide_country_rest: 'Остальные страны',
+  guide_pay: 'Оплатить',
+  guide_pay_paypal: 'Оплатить с PayPal',
+  guide_agreement_label: '* Я согласен с условиями',
+  guide_agreement_link: 'публичного договора-оферты'
 }

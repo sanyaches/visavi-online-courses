@@ -331,6 +331,7 @@ export default {
     price_sum: 'Amount',
     discount: 'Discount',
     payment_message: 'Payment for "{title}" from {from}. Please, click "Back to the store" after payment',
+    guide_payment_message: 'Payment for "Styling and hair tools guide" from {from}. Please, click "Back to the store" after payment',
     coupon: {
       title: 'Promocode for buying',
       code: 'Enter promocode',

@@ -1,5 +1,7 @@
 <template>
   <div class="guide">
+    <ModalsGuideBuyModal />
+
     <div class="guide-hero desktop">
       <nuxt-link v-if="$i18n.locale === 'ru'" class="guide-hero__translate-button" :to="switchLocalePath('en')">
         ENG
@@ -17,7 +19,7 @@
           <div class="right-text float-text">
             <p>{{ $t('guide_hero_subtitle') }}</p>
             <p>
-              <button class="guide-hero__button">
+              <button class="guide-hero__button" @click="buyGuide">
                 {{ $t('guide_hero_button') }}
               </button>
             </p>
@@ -39,7 +41,7 @@
           <p class="glitch" v-html="$t('guide_hero_phrase_html')" />
           <p>{{ $t('guide_hero_subtitle') }}</p>
           <p>
-            <button class="guide-hero__button">
+            <button class="guide-hero__button" @click="buyGuide">
               {{ $t('guide_hero_button') }}
             </button>
           </p>
@@ -155,12 +157,12 @@
       <div class="guide-cta__content">
         <p class="desktop" v-html="$t('guide_cta_text')" />
         <p class="mobile white-box" v-html="$t('guide_cta_text')" />
-        <button class="guide-cta__button desktop">
+        <button class="guide-cta__button desktop" @click="buyGuide">
           {{ $t('guide_cta_button') }}
         </button>
       </div>
 
-      <button class="guide-cta__button mobile">
+      <button class="guide-cta__button mobile" @click="buyGuide">
         {{ $t('guide_cta_button') }}
       </button>
     </div>
@@ -174,7 +176,7 @@
           <font-awesome-icon class="social-icon" icon="fa-brands fa-whatsapp" />
         </a>
       </div>
-      <nuxt-link :to="localePath('/guide-agreement')">
+      <nuxt-link :to="localePath('/guide/agreement')">
         {{ $t('guide_agreement') }}
       </nuxt-link>
     </div>
@@ -182,8 +184,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  layout: 'no-header'
+  layout: 'no-header',
+
+  methods: {
+    ...mapActions({
+      changeShowModal: 'guide-form/changeShowModal'
+    }),
+
+    buyGuide () {
+      this.changeShowModal(true)
+    }
+  }
 }
 </script>
 
@@ -234,7 +248,7 @@ export default {
     }
 
     .float-text {
-      z-index: 5000;
+      z-index: 10;
       position: absolute;
       bottom: 33%;
     }
@@ -290,7 +304,7 @@ export default {
     top: 0;
     height: 100%;
     background: linear-gradient(90deg, #090909 73.9%, rgba(9, 9, 9, 0) 100%);
-    z-index: 500;
+    z-index: 5;
 
     @media (max-width: 1500px) {
       --gutter: 350px;
@@ -367,7 +381,7 @@ export default {
     top: 3rem;
     left: 3rem;
     color: white;
-    z-index: 9999;
+    z-index: 9;
     padding: 0.9rem 1.5rem;
     font-size: 1.1rem;
     line-height: 1.55;
@@ -679,7 +693,7 @@ export default {
   }
 
   &__grid div {
-    z-index: 500;
+    z-index: 5;
     flex: 1;
     position: relative;
   }
