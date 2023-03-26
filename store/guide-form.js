@@ -90,24 +90,8 @@ export const actions = {
         body: jsonBody
       })
       const data = await res.json()
-      if (data?.status === 'success') {
-        bvToast.toast(this.$i18n.t('notify.success_add_purchase'), {
-          title: this.$i18n.t('notify.success_add_purchase'),
-          toaster: 'b-toaster-top-right',
-          solid: true,
-          variant: 'success'
-        })
 
-        if (data.pageUrl) {
-          setTimeout(() => {
-            window.location.assign(data.pageUrl)
-          }, 700)
-        } else {
-          window.location.reload()
-        }
-
-        return
-      } else if (data?.status === 'redirect') {
+      if (data?.status === 'redirect') {
         window.location.assign(data.url)
         return
       }

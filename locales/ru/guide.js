@@ -33,9 +33,10 @@ export default {
   guide_email_placeholder: 'Введите ваш email',
   guide_country_label: 'Гайд подходит для страны: *',
   guide_country_turkey: 'Турция',
-  guide_country_rest: 'Остальные страны',
+  guide_country_rest: 'Остальные страны мира',
   guide_pay: 'Оплатить',
   guide_pay_paypal: 'Оплатить с PayPal',
   guide_agreement_label: '* Я согласен с условиями',
-  guide_agreement_link: 'публичного договора-оферты'
+  guide_agreement_link: 'публичного договора-оферты',
+  guide_pay_payture: 'Оплатить иностранной картой'
 }

@@ -642,6 +642,8 @@ export default {
       user_not_found_msg: 'Пользователь с такими данными не найден',
       server_error: 'Ошибка сервера',
       server_error_msg: 'Ошибка сервера, попробуйте позднее',
+      bad_request: 'Ошибка запроса',
+      bad_request_msg: 'Ошибка запроса, попробуйте позднее',
       validation_error: 'Введенные данные не соответствуют требованиям',
       validation_error_msg: 'Проверьте заполненные поля',
       user_or_email_already_exists_msg: 'Аккаунт с данным email уже существует',

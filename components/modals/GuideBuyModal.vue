@@ -42,20 +42,20 @@
             :aria-describedby="ariaDescribedby"
             name="guide-country"
             required
-            value="Turkey"
+            value="Rest of the world"
             @change="changeGuide"
           >
-            {{ $t('guide_country_turkey') }}
+            {{ $t('guide_country_rest') }}
           </b-form-radio>
           <b-form-radio
             :checked="guide"
             :aria-describedby="ariaDescribedby"
             name="guide-country"
             required
-            value="Rest of the world"
+            value="Turkey"
             @change="changeGuide"
           >
-            {{ $t('guide_country_rest') }}
+            {{ $t('guide_country_turkey') }}
           </b-form-radio>
         </b-form-group>
 
@@ -92,10 +92,16 @@
           class="mt-4 button button--large button--brown-dark"
           block
           type="submit"
-          @click="toPay($event, 'paypal')"
+          @click="toPay($event, 'payture')"
         >
-          {{ $t('guide_pay_paypal') }}
+          {{ $t('guide_pay_payture') }}
         </b-button>
+        <!-- <paypal-button
+          :amount="amountUsd"
+          :name="name"
+          :email="email"
+          :disabled="!isValid"
+        /> -->
       </b-form>
     </div>
   </b-modal>

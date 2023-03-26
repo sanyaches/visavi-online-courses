@@ -647,6 +647,8 @@ export default {
       user_not_found_msg: 'Account with your credentials not found',
       server_error: 'Server error',
       server_error_msg: 'Server error, try later please',
+      bad_request: 'Bad request',
+      bad_request_msg: 'Bad request error, try later please',
       validation_error: 'Checking data error',
       validation_error_msg: 'Please, check your form fields',
       user_or_email_already_exists_msg: 'Account with this email already exists',

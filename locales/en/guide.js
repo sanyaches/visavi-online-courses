@@ -33,8 +33,9 @@ export default {
   guide_email_placeholder: 'Enter your email',
   guide_country_label: 'The guide is suitable for country: *',
   guide_country_turkey: 'Turkey',
-  guide_country_rest: 'Other',
+  guide_country_rest: 'The rest of the world',
   guide_pay: 'Buy the guide',
+  guide_pay_payture: 'Buy by card',
   guide_pay_paypal: 'Buy with PayPal',
   guide_agreement_label: '* Agree with',
   guide_agreement_link: 'the public offer agreement'
