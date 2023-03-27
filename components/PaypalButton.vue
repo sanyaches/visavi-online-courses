@@ -61,8 +61,9 @@ export default {
     }
   },
 
-  beforeMount () {
-    this.prepareRenderPaypal()
+  async beforeMount () {
+    await this.prepareRenderPaypal()
+    this.renderPaypal()
   },
 
   methods: {
