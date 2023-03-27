@@ -93,14 +93,6 @@
           {{ $t('guide_pay') }}
         </b-button>
 
-        <b-button
-          class="mt-4 button button--large button--brown-dark"
-          block
-          @click="sendSuccessEmail"
-        >
-          send email
-        </b-button>
-
         <paypal-button
           :amount="amountUsd"
           :name="name"
