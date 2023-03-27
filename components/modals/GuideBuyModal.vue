@@ -121,7 +121,7 @@ import { Convert } from 'easy-currencies'
 export default {
   data () {
     return {
-      amountRub: 1000,
+      amountRub: 99,
       amountUsd: 0
     }
   },

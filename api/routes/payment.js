@@ -445,7 +445,7 @@ router.post('/payment/pay-guide', async function (req, res) {
       name,
       guide
     } = req.body
-    const amountRub = 1000
+    const amountRub = 99
     const value = await Convert(amountRub).from('RUB').to('USD')
     const amountUsd = parseFloat(value.toFixed(2))
 
