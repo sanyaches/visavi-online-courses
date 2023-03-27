@@ -7,12 +7,13 @@ const { Router } = require('express')
 const mongoose = require('mongoose')
 const { YooCheckout } = require('@a2seven/yoo-checkout')
 const payture = require('payture-official')
+const { Convert } = require('easy-currencies')
 const uuid4 = require('uuid4')
 const jwt = require('jsonwebtoken')
 const OrderModel = require('../../models/order')
 const UsersModel = require('../../models/users')
 const PurchaseModel = require('../../models/purchase')
-const UserCouponSchema = require('../../models/userCoupons')
+// const UserCouponSchema = require('../../models/userCoupons')
 const CouponSchema = require('../../models/coupon')
 const { sendEmail } = require('../sendEmail.js')
 const router = Router()
@@ -28,6 +29,12 @@ const baseUrl = process.env.BASE_URL
 
 const checkout = new YooCheckout({ shopId, secretKey, token: oauthKey })
 const paytureInPay = payture.InPay(paytureHost, { Key: paytureKey, Password: paytureSecret })
+
+const PaymentMethodDict = {
+  YooMoney: 'yoomoney',
+  Payture: 'payture',
+  PayPal: 'paypal'
+}
 
 const url = process.env.MONGO_URL
 mongoose.connect(url)
@@ -160,6 +167,26 @@ router.post('/payment/on-success', async function (req, res) {
   try {
     const { object } = req.body
     console.log('Object from webhook: ', object)
+
+    if (object?.metadata?.guide) {
+      sendEmail(`
+        <h1>У нас покупочка!</h1>
+        <div>
+          Кто-то купил на сайте ГАЙД, ура!
+        </div>
+        <p>Почта  пользователя: ${object?.metadata?.email}</p>
+        <p>Имя пользователя: ${object?.metadata?.name}</p>
+        <p>Гайд: ${object?.metadata?.guide}</p>
+      `, {
+        toEmail: 'vi.kosto@yandex.ru',
+        subject: 'Гайд: новая покупка на сайте www.vikosto.net'
+      })
+
+      res.sendStatus(200)
+
+      return
+    }
+
     const orderId = object?.metadata?.orderId
 
     // Send a response that we got a notification
@@ -400,6 +427,98 @@ router.post('/payment/pay', verifyToken, addEmailToRequest, async function (req,
           return onError()
         })
       }
+    }
+  } catch (error) {
+    return res.status(500).json({
+      status: 'error',
+      errorCode: 'SERVER_ERROR'
+    })
+  }
+})
+
+router.post('/payment/pay-guide', async function (req, res) {
+  try {
+    const {
+      message,
+      method,
+      email,
+      name,
+      guide
+    } = req.body
+    const amountRub = 99
+    const value = await Convert(amountRub).from('RUB').to('USD')
+    const amountUsd = parseFloat(value.toFixed(2))
+
+    const successUrl = `${baseUrl}/thanks-guide`
+    const orderId = uuid4()
+
+    const redirectToUrl = (url) => {
+      return res.status(301).json({
+        status: 'redirect',
+        url
+      })
+    }
+
+    const onError = () => {
+      return res.status(500).json({
+        status: 'error',
+        errorCode: 'SERVER_ERROR'
+      })
+    }
+
+    if (method === PaymentMethodDict.YooMoney) {
+      const createPayload = {
+        amount: {
+          value: amountRub,
+          currency: 'RUB'
+        },
+        description: message,
+        metadata: {
+          email,
+          name,
+          guide
+        },
+        capture: true,
+        confirmation: {
+          type: 'redirect',
+          return_url: successUrl
+        }
+      }
+      const idempotenceKey = uuid4()
+      const payment = await checkout.createPayment(createPayload, idempotenceKey)
+
+      if (payment.id && payment.confirmation.confirmation_url) {
+        redirectToUrl(payment.confirmation.confirmation_url)
+      }
+    } else if (method === PaymentMethodDict.Payture) {
+      const data = {
+        OrderId: orderId,
+        Amount: amountUsd * 100, // In cents
+        Total: amountUsd,
+        Description: message,
+        SessionType: 'Pay',
+        Url: successUrl,
+        CustomerEmail: email,
+        CustomerName: name,
+        TypeOfGuide: guide
+      }
+
+      paytureInPay.init(data, (error, response, body, responseObject) => {
+        if (error) {
+          return onError()
+        }
+
+        if (responseObject.Success === 'True' && responseObject.SessionId) {
+          return redirectToUrl(`${paytureHost}apim/Pay?SessionId=${responseObject.SessionId}`)
+        }
+
+        return onError()
+      })
+    } else {
+      return res.status(400).json({
+        status: 'error',
+        errorCode: 'BAD_REQUEST'
+      })
     }
   } catch (error) {
     return res.status(500).json({

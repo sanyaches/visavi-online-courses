@@ -18,6 +18,10 @@ export default {
     COMETCHAT_ADMIN_AUTH_KEY: process.env.COMETCHAT_ADMIN_AUTH_KEY
   },
 
+  publicRuntimeConfig: {
+    PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID
+  },
+
   /*
   ** Headers of the page
   ** See https://nuxtjs.org/api/configuration-head
@@ -140,7 +144,7 @@ export default {
         {
           rel: 'stylesheet',
           href:
-            'https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@400;500;700&family=Cormorant+SC:wght@400;500;700&family=Kaisei+Decol:wght@500;700&family=Raleway:wght@400;500;600;700&family=Zen+Antique&display=swap'
+            'https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@400;500;700&family=Cormorant+SC:wght@400;500;700&family=Kaisei+Decol:wght@500;700&family=Raleway:wght@400;500;600;700&family=Rubik+Glitch&family=Zen+Antique&display=swap'
         },
         ...i18nHead.link
       ],

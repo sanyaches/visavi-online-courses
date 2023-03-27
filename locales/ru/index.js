@@ -3,10 +3,12 @@ import portfolio from './index-page/portfolio'
 import program from './program/index'
 import reachOut from './reachOut'
 import faq from './faq'
+import guide from './guide'
 
 export default {
   ...heroBlock,
   ...portfolio,
+  ...guide,
 
   program: { ...program },
   reach_out: { ...reachOut },
@@ -291,6 +293,7 @@ export default {
     price_sum: 'Стоимость',
     discount: 'Скидка',
     payment_message: 'Оплата, за "{title}" от {from}. После оплаты нажмите "Вернуться в магазин"',
+    guide_payment_message: 'Оплата, за "Гайд по стайлингу и инструментам" от {from}. После оплаты нажмите "Вернуться в магазин"',
     coupon: {
       title: 'Введите промокод',
       code: 'Промокод',
@@ -639,6 +642,8 @@ export default {
       user_not_found_msg: 'Пользователь с такими данными не найден',
       server_error: 'Ошибка сервера',
       server_error_msg: 'Ошибка сервера, попробуйте позднее',
+      bad_request: 'Ошибка запроса',
+      bad_request_msg: 'Ошибка запроса, попробуйте позднее',
       validation_error: 'Введенные данные не соответствуют требованиям',
       validation_error_msg: 'Проверьте заполненные поля',
       user_or_email_already_exists_msg: 'Аккаунт с данным email уже существует',

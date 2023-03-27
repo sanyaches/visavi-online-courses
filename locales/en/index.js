@@ -3,10 +3,12 @@ import portfolio from './index-page/portfolio'
 import program from './program'
 import reachOut from './reachOut'
 import faq from './faq'
+import guide from './guide'
 
 export default {
   ...heroBlock,
   ...portfolio,
+  ...guide,
 
   program: { ...program },
 
@@ -329,6 +331,7 @@ export default {
     price_sum: 'Amount',
     discount: 'Discount',
     payment_message: 'Payment for "{title}" from {from}. Please, click "Back to the store" after payment',
+    guide_payment_message: 'Payment for "Styling and hair tools guide" from {from}. Please, click "Back to the store" after payment',
     coupon: {
       title: 'Promocode for buying',
       code: 'Enter promocode',
@@ -644,6 +647,8 @@ export default {
       user_not_found_msg: 'Account with your credentials not found',
       server_error: 'Server error',
       server_error_msg: 'Server error, try later please',
+      bad_request: 'Bad request',
+      bad_request_msg: 'Bad request error, try later please',
       validation_error: 'Checking data error',
       validation_error_msg: 'Please, check your form fields',
       user_or_email_already_exists_msg: 'Account with this email already exists',
