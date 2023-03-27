@@ -38,5 +38,9 @@ export default {
   guide_pay_payture: 'Buy by card',
   guide_pay_paypal: 'Buy with PayPal',
   guide_agreement_label: '* Agree with',
-  guide_agreement_link: 'the public offer agreement'
+  guide_agreement_link: 'the public offer agreement',
+
+  guide_thanks_title: 'Thank you for your order!',
+  guide_thanks_text: 'We will send you the guide to your email address.',
+  guide_thanks_text2: 'If you have any questions, please contact us at email:'
 }

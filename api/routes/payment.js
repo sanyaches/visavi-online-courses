@@ -167,6 +167,26 @@ router.post('/payment/on-success', async function (req, res) {
   try {
     const { object } = req.body
     console.log('Object from webhook: ', object)
+
+    if (object?.metadata?.guide) {
+      sendEmail(`
+        <h1>У нас покупочка!</h1>
+        <div>
+          Кто-то купил на сайте ГАЙД, ура!
+        </div>
+        <p>Почта  пользователя: ${object?.metadata?.email}</p>
+        <p>Имя пользователя: ${object?.metadata?.name}</p>
+        <p>Гайд: ${object?.metadata?.guide}</p>
+      `, {
+        toEmail: 'vi.kosto@yandex.ru',
+        subject: 'Гайд: новая покупка на сайте www.vikosto.net'
+      })
+
+      res.sendStatus(200)
+
+      return
+    }
+
     const orderId = object?.metadata?.orderId
 
     // Send a response that we got a notification
@@ -422,7 +442,8 @@ router.post('/payment/pay-guide', async function (req, res) {
       message,
       method,
       email,
-      name
+      name,
+      guide
     } = req.body
     const amountRub = 1000
     const value = await Convert(amountRub).from('RUB').to('USD')
@@ -453,8 +474,9 @@ router.post('/payment/pay-guide', async function (req, res) {
         },
         description: message,
         metadata: {
-          customer_email: email,
-          custome_name: name
+          email,
+          name,
+          guide
         },
         capture: true,
         confirmation: {
@@ -477,7 +499,8 @@ router.post('/payment/pay-guide', async function (req, res) {
         SessionType: 'Pay',
         Url: successUrl,
         CustomerEmail: email,
-        CustomerName: name
+        CustomerName: name,
+        TypeOfGuide: guide
       }
 
       paytureInPay.init(data, (error, response, body, responseObject) => {

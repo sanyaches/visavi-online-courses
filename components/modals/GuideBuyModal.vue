@@ -36,13 +36,17 @@
           />
         </b-form-group>
 
-        <b-form-group v-slot="{ ariaDescribedby }" :label="$t('guide_country_label')">
+        <b-form-group
+          v-if="$i18n.locale === 'ru'"
+          v-slot="{ ariaDescribedby }"
+          :label="$t('guide_country_label')"
+        >
           <b-form-radio
             :checked="guide"
             :aria-describedby="ariaDescribedby"
             name="guide-country"
             required
-            value="Rest of the world"
+            value="Для остальных стран"
             @change="changeGuide"
           >
             {{ $t('guide_country_rest') }}
@@ -52,7 +56,7 @@
             :aria-describedby="ariaDescribedby"
             name="guide-country"
             required
-            value="Turkey"
+            value="Турецкая версия"
             @change="changeGuide"
           >
             {{ $t('guide_country_turkey') }}
@@ -88,20 +92,23 @@
         >
           {{ $t('guide_pay') }}
         </b-button>
+
         <b-button
           class="mt-4 button button--large button--brown-dark"
           block
-          type="submit"
-          @click="toPay($event, 'payture')"
+          @click="sendSuccessEmail"
         >
-          {{ $t('guide_pay_payture') }}
+          send email
         </b-button>
-        <!-- <paypal-button
+
+        <paypal-button
           :amount="amountUsd"
           :name="name"
           :email="email"
           :disabled="!isValid"
-        /> -->
+          :on-success="sendSuccessEmail"
+          :link-back="localePath('/thanks-guide')"
+        />
       </b-form>
     </div>
   </b-modal>
@@ -132,6 +139,10 @@ export default {
   async beforeMount () {
     const value = await Convert(this.amountRub).from('RUB').to('USD')
     this.amountUsd = parseFloat(value.toFixed(2))
+
+    if (this.$i18n.locale !== 'ru') {
+      this.changeGuide('English version')
+    }
   },
 
   methods: {
@@ -142,7 +153,8 @@ export default {
       changeGuide: 'guide-form/changeGuide',
       changeName: 'guide-form/changeName',
       changeEmail: 'guide-form/changeEmail',
-      changeAgreement: 'guide-form/changeAgreement'
+      changeAgreement: 'guide-form/changeAgreement',
+      sendSuccessEmail: 'guide-form/sendSuccessEmail'
     }),
 
     toPay (e, paymentMethod) {

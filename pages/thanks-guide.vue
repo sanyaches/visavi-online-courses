@@ -1,10 +1,16 @@
 <template>
-  <div>
+  <div class="py-5">
     <b-container>
-      <h1>
-        Thanks for buying the guide,
-        wait please while we sending it to your email, it may take couple hours
+      <h1 class="mb-4">
+        {{ $t('guide_thanks_title') }}
       </h1>
+      <p>
+        {{ $t('guide_thanks_text') }}
+      </p>
+      <p style="display: inline-block">
+        {{ $t('guide_thanks_text2') }}
+      </p>
+      <a href="mailto:vi.kosto@yandex.ru">vi.kosto@yandex.ru</a>
     </b-container>
   </div>
 </template>

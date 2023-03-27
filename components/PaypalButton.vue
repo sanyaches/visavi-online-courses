@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import { loadScript } from '@paypal/paypal-js'
 
 export default {
@@ -33,47 +32,47 @@ export default {
     name: {
       type: String,
       default: ''
-    }
-  },
+    },
 
-  asyncData (context) {
-    try {
-      return {
-        PAYPAL_CLIENT_ID: context.env.PAYPAL_CLIENT_ID
-      }
-    } catch (e) {
-      context.error(e)
+    linkBack: {
+      type: String,
+      default: ''
+    },
+
+    onSuccess: {
+      type: Function,
+      default: () => {}
     }
   },
 
   data () {
     return {
       loading: false,
-      PAYPAL_CLIENT_ID: '',
+      PAYPAL_CLIENT_ID: this.$config.PAYPAL_CLIENT_ID,
       paypalRenderer: null
+    }
+  },
+
+  watch: {
+    isLoading (val) {
+      if (!val) {
+        this.renderPaypal()
+      }
     }
   },
 
   beforeMount () {
     this.prepareRenderPaypal()
-    this.renderPaypal()
   },
 
   methods: {
-    ...mapActions([
-      'sendGoal',
-      'openGuideBuyModal',
-      'receiveGuideBuyingInfo',
-      'sendEmail'
-    ]),
-
     prepareRenderPaypal () {
       this.loading = true
 
-      loadScript({
+      return loadScript({
         'client-id': this.PAYPAL_CLIENT_ID,
-        currency: 'USD',
-        'disable-funding': ['credit', 'card']
+        currency: 'USD'
+        // 'disable-funding': ['credit', 'card'] if you want to disable cards
       }).then((paypal) => {
         this.paypalRenderer = paypal.Buttons({
           style: {
@@ -100,7 +99,8 @@ export default {
           onApprove: (data, actions) => {
             return actions.order.capture().then((details) => {
               if (details.status === 'COMPLETED') {
-                this.$router.push(this.localePath('/thanks-guide'))
+                this.onSuccess()
+                this.$router.push(this.linkBack)
               }
             })
           }

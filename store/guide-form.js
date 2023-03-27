@@ -77,7 +77,8 @@ export const actions = {
       message: paymentMessage,
       method: getters.getPaymentMethod,
       email: getters.getEmail,
-      name: getters.getName
+      name: getters.getName,
+      guide: getters.getGuide
     })
 
     try {
@@ -108,6 +109,33 @@ export const actions = {
           appendToast: true
         })
       }
+    }
+  },
+
+  async sendSuccessEmail ({ getters }) {
+    const url = '/api/payment/on-success'
+
+    const jsonBody = JSON.stringify({
+      object: {
+        metadata: {
+          email: getters.getEmail,
+          name: getters.getName,
+          guide: getters.getGuide
+        }
+      }
+    })
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        Accept: 'application/json'
+      },
+      body: jsonBody
+    })
+
+    if (res.status === 200) {
+      console.log('email sent')
     }
   },
 

@@ -38,5 +38,9 @@ export default {
   guide_pay_paypal: 'Оплатить с PayPal',
   guide_agreement_label: '* Я согласен с условиями',
   guide_agreement_link: 'публичного договора-оферты',
-  guide_pay_payture: 'Оплатить иностранной картой'
+  guide_pay_payture: 'Оплатить иностранной картой',
+
+  guide_thanks_title: 'Спасибо за покупку!',
+  guide_thanks_text: 'В ближайшее время мы отправим вам гайд на вашу почту.',
+  guide_thanks_text2: 'Если у вас возникнут вопросы, пишите нам на почту:'
 }
