@@ -36,7 +36,7 @@ export default {
   guide_country_rest: 'The rest of the world',
   guide_pay: 'Buy the guide',
   guide_pay_payture: 'Buy by card',
-  guide_pay_paypal: 'Buy with PayPal',
+  guide_pay_foreigners: 'Buy with PayPal',
   guide_agreement_label: '* Agree with',
   guide_agreement_link: 'the public offer agreement',
 

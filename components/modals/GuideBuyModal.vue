@@ -72,7 +72,7 @@
             required
             @change="changeAgreement"
           />
-          <label for="confirm-agreement" style="display: inline-block;">
+          <label for="confirm-agreement" style="display: inline;">
             <span>{{ $t('guide_agreement_label') }}</span>
             <nuxt-link
               :to="localePath('/guide/agreement')"
@@ -83,15 +83,23 @@
           </label>
         </b-form-group>
 
+        <p v-if="$i18n.locale === 'ru'">
+          {{ $t('guide_russian_label') }}
+        </p>
+
         <b-button
           v-if="$i18n.locale === 'ru'"
-          class="mt-4 button button--large button--brown-dark"
+          class="button button--large button--brown-dark"
           block
           type="submit"
           @click="toPay($event, 'yoomoney')"
         >
           {{ $t('guide_pay') }}
         </b-button>
+
+        <p v-if="$i18n.locale === 'ru'" class="mt-2">
+          {{ $t('guide_pay_foreigners') }}
+        </p>
 
         <paypal-button
           :amount="amountUsd"
