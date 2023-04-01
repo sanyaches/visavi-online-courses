@@ -28,6 +28,7 @@
     "bootstrap": "4.6.1",
     "bootstrap-vue": "2.21.2",
     "cookie-universal-nuxt": "2.1.5",
+    "cors": "^2.8.5",
     "crypto-js": "4.1.1",
     "date-fns": "2.28.0",
     "dotenv": "16.0.0",

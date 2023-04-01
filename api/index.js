@@ -1,9 +1,17 @@
 import path from 'path'
 
 const express = require('express')
+const cors = require('cors')
 
 // Create express instance
 const app = express()
+app.use(cors({
+  origin: [
+    /^https?:\/\/localhost:\d{2,5}$/,
+    'https://vikosto.net',
+    /\.vikosto\.net$/
+  ]
+}))
 
 // Require API routes
 const auth = require('./routes/auth')
