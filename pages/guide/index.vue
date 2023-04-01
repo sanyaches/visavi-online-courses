@@ -6,9 +6,9 @@
       <nuxt-link v-if="$i18n.locale === 'ru'" class="guide-hero__translate-button" :to="switchLocalePath('en')">
         ENG
       </nuxt-link>
-      <nuxt-link v-if="$i18n.locale === 'en'" class="guide-hero__translate-button" :to="switchLocalePath('ru')">
+      <!-- <nuxt-link v-if="$i18n.locale === 'en'" class="guide-hero__translate-button" :to="switchLocalePath('ru')">
         RU
-      </nuxt-link>
+      </nuxt-link> -->
       <div class="guide-hero__main">
         <div class="color-block" />
         <div class="guide-hero__image">
