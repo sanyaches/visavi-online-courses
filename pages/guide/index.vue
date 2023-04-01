@@ -134,14 +134,14 @@
         </template>
         <template v-else>
           <div>
-            <img src="@/assets/images/guide/review1.png">
+            <img src="@/assets/images/guide/review-1-en.png">
           </div>
           <div>
-            <img src="@/assets/images/guide/review2.png">
-            <img src="@/assets/images/guide/review3.png">
+            <img src="@/assets/images/guide/review-2-en.png">
+            <img src="@/assets/images/guide/review-3-en.png">
           </div>
           <div>
-            <img src="@/assets/images/guide/review4.png">
+            <img src="@/assets/images/guide/review-4-en.png">
           </div>
         </template>
       </div>
