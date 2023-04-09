@@ -26,6 +26,9 @@ const paytureHost = process.env.PAYTURE_HOST
 const paytureKey = process.env.PAYTURE_API_KEY
 const paytureSecret = process.env.PAYTURE_API_SECRET
 const baseUrl = process.env.BASE_URL
+const tinkoffShopId = process.env.TINKOFF_SHOP_ID
+const tinkoffShowcaseId = process.env.TINKOFF_SHOWCASE_ID
+const tinkoffAPIBaseUrl = 'https://forma.tinkoff.ru/api/partners/v2/orders/'
 
 const checkout = new YooCheckout({ shopId, secretKey, token: oauthKey })
 const paytureInPay = payture.InPay(paytureHost, { Key: paytureKey, Password: paytureSecret })
@@ -33,7 +36,8 @@ const paytureInPay = payture.InPay(paytureHost, { Key: paytureKey, Password: pay
 const PaymentMethodDict = {
   YooMoney: 'yoomoney',
   Payture: 'payture',
-  PayPal: 'paypal'
+  PayPal: 'paypal',
+  Tinkoff: 'tinkoff'
 }
 
 const url = process.env.MONGO_URL
@@ -180,6 +184,27 @@ router.post('/payment/on-success', async function (req, res) {
       `, {
         toEmail: 'vi.kosto@yandex.ru',
         subject: 'Гайд: новая покупка на сайте www.vikosto.net'
+      })
+
+      res.sendStatus(200)
+
+      return
+    } else if (object?.metadata?.course || req.body?.status === 'approved') {
+      const loan = req.body?.status === 'approved' ? 'В кредит' : 'Нет'
+      const meta = object?.metadata || req.body.meta
+
+      sendEmail(`
+        <h1>У нас покупочка!</h1>
+        <div>
+          Кто-то оплатил на сайте курс, ура!
+        </div>
+        <p>Почта  пользователя: ${meta.email}</p>
+        <p>Имя пользователя: ${meta.name}</p>
+        <p>Курс: ${meta.course}</p>
+        <p>В кредит: ${loan}</p>
+      `, {
+        toEmail: 'vi.kosto@yandex.ru',
+        subject: 'Курс: новая покупка на сайте www.vikosto.net'
       })
 
       res.sendStatus(200)
@@ -514,6 +539,118 @@ router.post('/payment/pay-guide', async function (req, res) {
 
         return onError()
       })
+    } else {
+      return res.status(400).json({
+        status: 'error',
+        errorCode: 'BAD_REQUEST'
+      })
+    }
+  } catch (error) {
+    return res.status(500).json({
+      status: 'error',
+      errorCode: 'SERVER_ERROR'
+    })
+  }
+})
+
+router.post('/payment/pay-course', async function (req, res) {
+  try {
+    const {
+      message,
+      method,
+      email,
+      name,
+      amount,
+      course
+    } = req.body
+
+    const successUrl = `${baseUrl}/success-payment`
+
+    const redirectToUrl = (url) => {
+      return res.status(301).json({
+        status: 'redirect',
+        url
+      })
+    }
+
+    const onError = () => {
+      return res.status(500).json({
+        status: 'error',
+        errorCode: 'SERVER_ERROR'
+      })
+    }
+
+    if (method === PaymentMethodDict.YooMoney) {
+      const createPayload = {
+        amount: {
+          value: amount,
+          currency: 'RUB'
+        },
+        description: message,
+        metadata: {
+          email,
+          name,
+          course
+        },
+        capture: true,
+        confirmation: {
+          type: 'redirect',
+          return_url: successUrl
+        }
+      }
+      const idempotenceKey = uuid4()
+      const payment = await checkout.createPayment(createPayload, idempotenceKey)
+
+      if (payment.id && payment.confirmation.confirmation_url) {
+        redirectToUrl(payment.confirmation.confirmation_url)
+      }
+    } else if (method === PaymentMethodDict.Tinkoff) {
+      const url = tinkoffAPIBaseUrl + 'create' // 'create-demo' - for demo
+      const jsonBody = JSON.stringify({
+        shopId: tinkoffShopId,
+        showcaseId: tinkoffShowcaseId,
+        items: [
+          { name: course, price: amount, quantity: 1 }
+        ],
+        sum: amount,
+        webhookURL: `${baseUrl}/api/payment/on-success`,
+        values: {
+          contact: {
+            email
+          }
+        },
+        meta: {
+          name,
+          email,
+          course
+        }
+      })
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          Accept: 'application/json'
+        },
+        data: jsonBody,
+        url
+      }
+
+      axios(options)
+        .then((response) => {
+          if (response?.status === 200) {
+            const paymentLink = response?.data?.link
+            return redirectToUrl(paymentLink)
+          }
+          onError()
+        })
+        .catch((error) => {
+          return res.status(500).json({
+            status: 'error',
+            errorCode: 'SERVER_ERROR',
+            error
+          })
+        })
     } else {
       return res.status(400).json({
         status: 'error',

@@ -1,0 +1,27 @@
+.payment-page {
+  padding: 40px 0;
+
+  &__item {
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0.5rem 0;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+
+  &__amount-primary {
+    text-align: right;
+  }
+
+  &__amount-secondary {
+    position: absolute;
+    right: 0.2rem;
+    bottom: -1.4rem;
+    background-color: brown;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    box-shadow: -2px 2px 15px 3px rgba(0,0,0,0.2);
+  }
+}
