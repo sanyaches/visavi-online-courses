@@ -257,7 +257,7 @@
             </div>
             <div class="price__header">
               <div class="price__amount">
-                210 $
+                15000 ₽
                 <div class="price__amount-text">
                   - "Шаг за шагом"
                 </div>
@@ -265,13 +265,13 @@
             </div>
             <div class="price__header">
               <div class="price__amount">
-                250 $
+                17000 ₽
                 <div class="price__amount-text">
                   - "Один на один"
                 </div>
               </div>
             </div>
-            <small class="price__currency-info" style="text-align: left;">(Принимается в RUB, USD, EUR, TL из рассчета в долларах)</small></span>
+            <small class="price__currency-info" style="text-align: left;">(Принимается в RUB, USD, EUR, TL из рассчета в рублях)</small>
             <div class="price__info">
               Обращаем ваше внимание, что запись и бронирование осуществляется по предоплате (20%).
               При отмене бронирования предоплата не возвращается. Временная бронь 3 дня с момента обращения.
@@ -288,7 +288,6 @@
               <div class="price__included">
                 <b>В стоимость входит <font-awesome-icon icon="fa-solid fa-gifts" /></b>
                 <ul class="price__included-list">
-                  <li>Рабочая тетрадь с добавочными материалами</li>
                   <li>Гайд по стайлингу и инструментам в электронном формате</li>
                   <li>Все материалы на время обучения (стайлинг, инструменты, расходники) </li>
                   <li>Обед. Кофе-брейк</li>

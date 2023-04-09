@@ -333,6 +333,30 @@
     }
   }
 
+  &__day-box {
+    display: flex;
+    gap: 2rem;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  &__day-card-image {
+    max-width: 350px;
+
+    @media screen and (max-width: 768px) {
+      order: 0;
+      align-self: center;
+    }
+  }
+
+  &__day-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   &__day-card-list-title {
     text-align: left;
     margin-top: 0.5rem;

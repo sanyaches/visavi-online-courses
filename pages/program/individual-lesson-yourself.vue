@@ -198,10 +198,10 @@
                 {{ $t('program.individual_lesson_yourself.price_title') }}
               </h2>
               <div class="price__amount">
-                95 $
+                6000 ₽
               </div>
             </div>
-            <small class="price__currency-info">(Принимается в RUB, USD, EUR, TL из рассчета в долларах)</small>
+            <small class="price__currency-info">(Принимается в RUB, USD, EUR, TL из рассчета в рублях)</small>
             <div class="price__benefits">
               <div class="price__included">
                 <b>В стоимость входит <font-awesome-icon icon="fa-solid fa-gifts" /></b>

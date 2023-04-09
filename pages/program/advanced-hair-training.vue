@@ -116,34 +116,40 @@
                   День первый
                 </div>
                 <hr>
+                <div class="program__day-box">
+                  <div class="program__day-card-image">
+                    <img src="@/assets/images/photo8.jpg">
+                  </div>
+                  <div>
+                    <div class="program__day-card-list-title">
+                      Теоретический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Типы, структура и диагностика волос</li>
+                      <li>Подготовка волос к укладке</li>
+                      <li>Правильный подбор стайлинга</li>
+                      <li>Универсальная схема создания причёсок</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Теоретический блок
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Типы, структура и диагностика волос</li>
-                  <li>Подготовка волос к укладке</li>
-                  <li>Правильный подбор стайлинга</li>
-                  <li>Универсальная схема создания причёсок</li>
-                </ul>
+                    <div class="program__day-card-list-title">
+                      Демонстрация (1 модель)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Прикорневой объем на фен</li>
+                      <li>Работа с уплотняющим стайлингом</li>
+                      <li>Создание воздушной и подвижной укладки</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Демонстрация (1 модель)
+                    <div class="program__day-card-list-title">
+                      Отработка ученика (1 модель)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Прикорневой объем на фен</li>
+                      <li>Работа с уплотняющим стайлингом</li>
+                      <li>Создание воздушной и подвижной укладки</li>
+                    </ul>
+                  </div>
                 </div>
-                <ul class="program__day-card-list">
-                  <li>Прикорневой объем на фен</li>
-                  <li>Работа с уплотняющим стайлингом</li>
-                  <li>Создание воздушной и подвижной укладки</li>
-                </ul>
-
-                <div class="program__day-card-list-title">
-                  Отработка ученика (1 модель)
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Прикорневой объем на фен</li>
-                  <li>Работа с уплотняющим стайлингом</li>
-                  <li>Создание воздушной и подвижной укладки</li>
-                </ul>
               </div>
             </div>
 
@@ -153,25 +159,31 @@
                   День второй
                 </div>
                 <hr>
+                <div class="program__day-box">
+                  <div class="program__day-card-image">
+                    <img src="@/assets/images/photo9.jpg">
+                  </div>
+                  <div>
+                    <div class="program__day-card-list-title">
+                      Теоретический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Тренды в прическах, где искать вдохновение. Как выделяться из толпы</li>
+                      <li>Особенности оформления зоны у лица</li>
+                      <li>Создание продающих фото и видео</li>
+                      <li>Ведение соц. сетей</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Теоретический блок
+                    <div class="program__day-card-list-title">
+                      Практический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Локоны в ломанной технике на утюг</li>
+                      <li>Прическа с плетением</li>
+                      <li>Текстурный хвост. Текстурный пучок</li>
+                    </ul>
+                  </div>
                 </div>
-                <ul class="program__day-card-list">
-                  <li>Тренды в прическах, где искать вдохновение. Как выделяться из толпы</li>
-                  <li>Особенности оформления зоны у лица</li>
-                  <li>Создание продающих фото и видео</li>
-                  <li>Ведение соц. сетей</li>
-                </ul>
-
-                <div class="program__day-card-list-title">
-                  Практический блок
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Локоны в ломанной технике на утюг</li>
-                  <li>Прическа с плетением</li>
-                  <li>Текстурный хвост. Текстурный пучок</li>
-                </ul>
               </div>
             </div>
 
@@ -181,22 +193,28 @@
                   День третий
                 </div>
                 <hr>
+                <div class="program__day-box">
+                  <div class="program__day-card-image">
+                    <img src="@/assets/images/photo10.jpg">
+                  </div>
+                  <div>
+                    <div class="program__day-card-list-title">
+                      Теоретический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Создание чистых элементов в прическах</li>
+                      <li>Подбор стайлинга для гладкости и блеска</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Теоретический блок
+                    <div class="program__day-card-list-title">
+                      Практический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Низкий гладкий хвост с элементами плетения</li>
+                      <li>Две схемы сборки гладкого пучка</li>
+                    </ul>
+                  </div>
                 </div>
-                <ul class="program__day-card-list">
-                  <li>Создание чистых элементов в прическах</li>
-                  <li>Подбор стайлинга для гладкости и блеска</li>
-                </ul>
-
-                <div class="program__day-card-list-title">
-                  Практический блок
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Низкий гладкий хвост с элементами плетения</li>
-                  <li>Две схемы сборки гладкого пучка</li>
-                </ul>
               </div>
             </div>
           </ssr-carousel>
@@ -304,10 +322,10 @@
                 {{ $t('program.advanced_hair_training.price_title') }}
               </h2>
               <div class="price__amount">
-                350 $
+                24000 ₽
               </div>
             </div>
-            <small class="price__currency-info">(Принимается в RUB, USD, EUR, TL из рассчета в долларах)</small></span>
+            <small class="price__currency-info">(Принимается в RUB, USD, EUR, TL из рассчета в рублях)</small>
             <div class="price__info">
               Обращаем ваше внимание, что запись и бронирование осуществляется по предоплате (20%).
               При отмене бронирования предоплата не возвращается. Временная бронь 3 дня с момента обращения.

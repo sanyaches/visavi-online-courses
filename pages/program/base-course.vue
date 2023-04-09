@@ -122,38 +122,44 @@
                   День первый
                 </div>
                 <hr>
+                <div class="program__day-box">
+                  <div class="program__day-card-image">
+                    <img src="@/assets/images/photo1.jpg">
+                  </div>
+                  <div>
+                    <div class="program__day-card-list-title">
+                      Теоретический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Знакомство</li>
+                      <li>Типы, виды и структура волос</li>
+                      <li>Анализ и диагностика волос </li>
+                      <li>Кейс стилиста. Расходные материалы, стайлинг, инструменты и его виды, минимальный и оптимальный набор средств</li>
+                      <li>Подготовка волос к укладке</li>
+                      <li>Секреты стойкости(фиксация невидимок и нанесение стайлинга)</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Теоретический блок
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Знакомство</li>
-                  <li>Типы, виды и структура волос</li>
-                  <li>Анализ и диагностика волос </li>
-                  <li>Кейс стилиста. Расходные материалы, стайлинг, инструменты и его виды, минимальный и оптимальный набор средств</li>
-                  <li>Подготовка волос к укладке</li>
-                  <li>Секреты стойкости(фиксация невидимок и нанесение стайлинга)</li>
-                </ul>
+                    <div class="program__day-card-list-title">
+                      Демонстрация (показ на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Стойкая подвижная голливудская волна на плойку</li>
+                      <li>Правильный прикорневой начес</li>
+                      <li>Трансформация в низкий голливудский хвост</li>
+                      <li>Трансформация в низкий голливудский хвост</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Демонстрация (показ на одной модели)
+                    <div class="program__day-card-list-title">
+                      Отработка ученика (отработка на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Постановка руки и работа с плойкой</li>
+                      <li>Стойкая подвижная голливудская волна на плойку</li>
+                      <li>Правильный прикорневой начес</li>
+                      <li>Трансформация в низкий голливудский хвост</li>
+                    </ul>
+                  </div>
                 </div>
-                <ul class="program__day-card-list">
-                  <li>Стойкая подвижная голливудская волна на плойку</li>
-                  <li>Правильный прикорневой начес</li>
-                  <li>Трансформация в низкий голливудский хвост</li>
-                  <li>Трансформация в низкий голливудский хвост</li>
-                </ul>
-
-                <div class="program__day-card-list-title">
-                  Отработка ученика (отработка на одной модели)
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Постановка руки и работа с плойкой</li>
-                  <li>Стойкая подвижная голливудская волна на плойку</li>
-                  <li>Правильный прикорневой начес</li>
-                  <li>Трансформация в низкий голливудский хвост</li>
-                </ul>
               </div>
             </div>
 
@@ -163,38 +169,44 @@
                   День второй
                 </div>
                 <hr>
+                <div class="program__day-box">
+                  <div class="program__day-card-image">
+                    <img src="@/assets/images/photo2.jpg">
+                  </div>
+                  <div>
+                    <div class="program__day-card-list-title">
+                      Теоретический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Формы лица и особенности выбора укладки </li>
+                      <li>Оформление зоны у лица</li>
+                      <li>Зонирование головы. Как не завалить форму причёски </li>
+                      <li>Формы и объемы в причёсках </li>
+                      <li>Топ 10 ошибок при накрутке и как их избежать </li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Теоретический блок
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Формы лица и особенности выбора укладки </li>
-                  <li>Оформление зоны у лица</li>
-                  <li>Зонирование головы. Как не завалить форму причёски </li>
-                  <li>Формы и объемы в причёсках </li>
-                  <li>Топ 10 ошибок при накрутке и как их избежать </li>
-                </ul>
+                    <div class="program__day-card-list-title">
+                      Демонстрация (показ на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Текстурные локоны на утюг</li>
+                      <li>Прикорневой объем на утюг</li>
+                      <li>Трансформация в низкий хвост</li>
+                      <li>Трансформация в низкий пучок</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Демонстрация (показ на одной модели)
+                    <div class="program__day-card-list-title">
+                      Отработка ученика (отработка на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Постановка руки и работа с плойкой</li>
+                      <li>Текстурные локоны на утюг</li>
+                      <li>Прикорневой объем на утюг </li>
+                      <li>Трансформация в низкий хвост</li>
+                      <li>Трансформация в низкий пучок</li>
+                    </ul>
+                  </div>
                 </div>
-                <ul class="program__day-card-list">
-                  <li>Текстурные локоны на утюг</li>
-                  <li>Прикорневой объем на утюг</li>
-                  <li>Трансформация в низкий хвост</li>
-                  <li>Трансформация в низкий пучок</li>
-                </ul>
-
-                <div class="program__day-card-list-title">
-                  Отработка ученика (отработка на одной модели)
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Постановка руки и работа с плойкой</li>
-                  <li>Текстурные локоны на утюг</li>
-                  <li>Прикорневой объем на утюг </li>
-                  <li>Трансформация в низкий хвост</li>
-                  <li>Трансформация в низкий пучок</li>
-                </ul>
               </div>
             </div>
 
@@ -204,30 +216,36 @@
                   День третий
                 </div>
                 <hr>
+                <div class="program__day-box">
+                  <div class="program__day-card-image">
+                    <img src="@/assets/images/photo3.jpg">
+                  </div>
+                  <div>
+                    <div class="program__day-card-list-title">
+                      Теоретический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Упаковка профиля в соц сетях</li>
+                      <li>Правила съемки, создание фото и видео </li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Теоретический блок
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Упаковка профиля в соц сетях</li>
-                  <li>Правила съемки, создание фото и видео </li>
-                </ul>
+                    <div class="program__day-card-list-title">
+                      Демонстрация (показ на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Прикорневой объем на фен</li>
+                      <li>Воздушные локоны на плойку</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Демонстрация (показ на одной модели)
+                    <div class="program__day-card-list-title">
+                      Отработка ученика (отработка на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Прикорневой объем на фен</li>
+                      <li>Воздушные локоны на плойку</li>
+                    </ul>
+                  </div>
                 </div>
-                <ul class="program__day-card-list">
-                  <li>Прикорневой объем на фен</li>
-                  <li>Воздушные локоны на плойку</li>
-                </ul>
-
-                <div class="program__day-card-list-title">
-                  Отработка ученика (отработка на одной модели)
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Прикорневой объем на фен</li>
-                  <li>Воздушные локоны на плойку</li>
-                </ul>
               </div>
             </div>
 
@@ -237,29 +255,35 @@
                   День четвертый
                 </div>
                 <hr>
+                <div class="program__day-box">
+                  <div class="program__day-card-image">
+                    <img src="@/assets/images/photo4.jpg">
+                  </div>
+                  <div>
+                    <div class="program__day-card-list-title">
+                      Теоретический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Работа с доп материалами(валики для волос, накладные пряди и т.д)</li>
+                      <li>Крепление фаты в пучок</li>
+                      <li>Клиентоориентированность. Работа с первыми клиентами, первая невеста</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Теоретический блок
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Работа с доп материалами(валики для волос, накладные пряди и т.д)</li>
-                  <li>Крепление фаты в пучок</li>
-                  <li>Клиентоориентированность. Работа с первыми клиентами, первая невеста</li>
-                </ul>
+                    <div class="program__day-card-list-title">
+                      Демонстрация (показ на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Пучок из прямых волос </li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Демонстрация (показ на одной модели)
+                    <div class="program__day-card-list-title">
+                      Отработка ученика (отработка на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Пучок из прямых волос </li>
+                    </ul>
+                  </div>
                 </div>
-                <ul class="program__day-card-list">
-                  <li>Пучок из прямых волос </li>
-                </ul>
-
-                <div class="program__day-card-list-title">
-                  Отработка ученика (отработка на одной модели)
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Пучок из прямых волос </li>
-                </ul>
               </div>
             </div>
 
@@ -269,29 +293,35 @@
                   День пятый
                 </div>
                 <hr>
+                <div class="program__day-box">
+                  <div class="program__day-card-image">
+                    <img src="@/assets/images/photo5.jpg">
+                  </div>
+                  <div>
+                    <div class="program__day-card-list-title">
+                      Теоретический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Как продать свои услуги </li>
+                      <li>Как донести ценность своей работы </li>
+                      <li>Ценообразование. Как работать всегда в плюс</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Теоретический блок
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Как продать свои услуги </li>
-                  <li>Как донести ценность своей работы </li>
-                  <li>Ценообразование. Как работать всегда в плюс</li>
-                </ul>
+                    <div class="program__day-card-list-title">
+                      Демонстрация (показ на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Высокий пучок </li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Демонстрация (показ на одной модели)
+                    <div class="program__day-card-list-title">
+                      Отработка ученика (отработка на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Высокий пучок </li>
+                    </ul>
+                  </div>
                 </div>
-                <ul class="program__day-card-list">
-                  <li>Высокий пучок </li>
-                </ul>
-
-                <div class="program__day-card-list-title">
-                  Отработка ученика (отработка на одной модели)
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Высокий пучок </li>
-                </ul>
               </div>
             </div>
 
@@ -301,31 +331,37 @@
                   День шестой
                 </div>
                 <hr>
+                <div class="program__day-box">
+                  <div class="program__day-card-image">
+                    <img src="@/assets/images/photo6.jpg">
+                  </div>
+                  <div>
+                    <div class="program__day-card-list-title">
+                      Теоретический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>С чего начать после курса, план действий</li>
+                      <li>Где искать моделей</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Теоретический блок
-                </div>
-                <ul class="program__day-card-list">
-                  <li>С чего начать после курса, план действий</li>
-                  <li>Где искать моделей</li>
-                </ul>
+                    <div class="program__day-card-list-title">
+                      Демонстрация (показ на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Гладкие причёски</li>
+                      <li>Хвост с элементами плетения</li>
+                      <li>Два варианта гладкого пучка</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Демонстрация (показ на одной модели)
+                    <div class="program__day-card-list-title">
+                      Отработка ученика (отработка на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Гладкие причёски</li>
+                      <li>Хвост с элементами плетения</li>
+                    </ul>
+                  </div>
                 </div>
-                <ul class="program__day-card-list">
-                  <li>Гладкие причёски</li>
-                  <li>Хвост с элементами плетения</li>
-                  <li>Два варианта гладкого пучка</li>
-                </ul>
-
-                <div class="program__day-card-list-title">
-                  Отработка ученика (отработка на одной модели)
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Гладкие причёски</li>
-                  <li>Хвост с элементами плетения</li>
-                </ul>
               </div>
             </div>
 
@@ -335,32 +371,38 @@
                   День седьмой
                 </div>
                 <hr>
+                <div class="program__day-box">
+                  <div class="program__day-card-image">
+                    <img src="@/assets/images/photo7.jpg">
+                  </div>
+                  <div>
+                    <div class="program__day-card-list-title">
+                      Теоретический блок
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Тренды. Стоит ли за ними следовать ?</li>
+                      <li>Где искать вдохновение</li>
+                      <li>Оцениваем результаты от проделанной работы за весь курс</li>
+                      <li>Закрываем оставшиеся пробелы и вопросы</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Теоретический блок
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Тренды. Стоит ли за ними следовать ?</li>
-                  <li>Где искать вдохновение</li>
-                  <li>Оцениваем результаты от проделанной работы за весь курс</li>
-                  <li>Закрываем оставшиеся пробелы и вопросы</li>
-                </ul>
+                    <div class="program__day-card-list-title">
+                      Демонстрация (показ на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Ломанная текстура на утюг</li>
+                      <li>Причёска с элементами плетения</li>
+                    </ul>
 
-                <div class="program__day-card-list-title">
-                  Демонстрация (показ на одной модели)
+                    <div class="program__day-card-list-title">
+                      Отработка ученика (отработка на одной модели)
+                    </div>
+                    <ul class="program__day-card-list">
+                      <li>Ломанная текстура на утюг</li>
+                      <li>Причёска с элементами плетения</li>
+                    </ul>
+                  </div>
                 </div>
-                <ul class="program__day-card-list">
-                  <li>Ломанная текстура на утюг</li>
-                  <li>Причёска с элементами плетения</li>
-                </ul>
-
-                <div class="program__day-card-list-title">
-                  Отработка ученика (отработка на одной модели)
-                </div>
-                <ul class="program__day-card-list">
-                  <li>Ломанная текстура на утюг</li>
-                  <li>Причёска с элементами плетения</li>
-                </ul>
               </div>
             </div>
           </ssr-carousel>
@@ -559,10 +601,10 @@
                 {{ $t('program.base_course.price_title') }}
               </h2>
               <div class="price__amount">
-                550 $
+                35000 ₽
               </div>
             </div>
-            <small class="price__currency-info">(Принимается в RUB, USD, EUR, TL из рассчета в долларах)</small></span>
+            <small class="price__currency-info">(Принимается в RUB, USD, EUR, TL из рассчета в рублях)</small>
             <div class="price__info">
               Обращаем ваше внимание, что запись и бронирование осуществляется по предоплате (20%).
               При отмене бронирования предоплата не возвращается. Временная бронь 3 дня с момента обращения.
