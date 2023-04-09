@@ -613,7 +613,6 @@ router.post('/payment/pay-course', async function (req, res) {
           { name: course, price: amount, quantity: 1 }
         ],
         sum: amount,
-        webhookURL: `${baseUrl}/api/payment/on-success`,
         values: {
           contact: {
             email
