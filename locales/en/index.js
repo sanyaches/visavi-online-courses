@@ -344,6 +344,9 @@ export default {
     }
   },
   index: {
+    education: 'Online education',
+    education_online_link: 'Online education',
+    lessons_title: 'Online lessons',
     services: 'Services',
     services_link: 'Services',
     reviews_link: 'Reviews',

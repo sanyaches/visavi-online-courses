@@ -306,6 +306,9 @@ export default {
     }
   },
   index: {
+    education: 'Онлайн обучение',
+    education_online_link: 'Онлайн обучение',
+    lessons_title: 'Уроки онлайн',
     services: 'Услуги',
     services_link: 'Услуги',
     contacts_link: 'Контакты',

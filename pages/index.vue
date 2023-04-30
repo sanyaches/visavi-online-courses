@@ -53,32 +53,6 @@
 
 <script>
 export default {
-  async asyncData (context) {
-    try {
-      const locale = context.i18n.locale
-      const responseCourses = await context.app.$http.$get(
-        `${context.env.baseUrl}/api/course/list?limit=1000&offset=0&locale=${locale}&myself=false`
-      )
-      const responseCoursesYourself = await context.app.$http.$get(
-        `${context.env.baseUrl}/api/course/list?limit=1000&offset=0&myself=true&locale=${locale}`
-      )
-
-      return {
-        courses: responseCourses.data,
-        coursesForYourself: responseCoursesYourself.data
-      }
-    } catch (e) {
-      context.error(e)
-    }
-  },
-
-  data () {
-    return {
-      courses: [],
-      coursesForYourself: []
-    }
-  },
-
   head () {
     return {
       title: this.$t('index.seo.title'),
@@ -107,12 +81,6 @@ export default {
         }
       ],
       link: [{ rel: 'canonical', href: process.env.BASE_URL }]
-    }
-  },
-
-  computed: {
-    lessonCoursesMyself () {
-      return this.coursesForYourself.filter(course => !course.name.startsWith('course-myself'))
     }
   }
 }

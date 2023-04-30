@@ -63,6 +63,11 @@
                     </nuxt-link>
                   </div>
                   <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/education')" class="anchor anchor--raw">
+                      {{ $t('index.education_online_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('/service')" class="anchor anchor--raw">
                       {{ $t('index.services_link') }}
                     </nuxt-link>
@@ -100,6 +105,11 @@
                     </nuxt-link>
                   </div>
                   <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/education')" class="anchor anchor--raw">
+                      {{ $t('index.education_online_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('/#main-faq')" class="anchor anchor--raw">
                       {{ $t('faq.faq_title') }}
                     </nuxt-link>
@@ -121,6 +131,11 @@
                   <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('/#index-education-programs')" class="anchor anchor--raw">
                       {{ $t('index.education_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/education')" class="anchor anchor--raw">
+                      {{ $t('index.education_online_link') }}
                     </nuxt-link>
                   </div>
                   <div class="header__dropdown-menu-item">
@@ -158,6 +173,11 @@
                   <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('guide')" class="anchor anchor--raw">
                       {{ $t('guide_link') }}
+                    </nuxt-link>
+                  </div>
+                  <div class="header__dropdown-menu-item">
+                    <nuxt-link :to="localePath('/education')" class="anchor anchor--raw">
+                      {{ $t('index.education_online_link') }}
                     </nuxt-link>
                   </div>
                   <div class="header__dropdown-menu-item">
