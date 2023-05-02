@@ -122,6 +122,49 @@ export const actions = {
     }
   },
 
+  async paypalSuccessHandler ({ commit, getters }, payload) {
+    const { user } = payload
+    const token = this.$cookies.get('_vikosto_token')
+    const product = getters.getCheckoutItem
+    const jsonBody = JSON.stringify({
+      product: {
+        courseName: product.name,
+        courseType: product.itemType,
+        accessMonths: product.accessMonths,
+        userEmail: user.email
+      }
+    })
+    const url = '/api/payment/paypal-success'
+
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: jsonBody
+      })
+      const data = await res.json()
+      if (data?.status === 'success') {
+        if (data.pageUrl) {
+          setTimeout(() => {
+            window.location.assign(data.pageUrl)
+          }, 700)
+        } else {
+          window.location.reload()
+        }
+
+        return
+      }
+
+      throw data
+    } catch (error) {
+      console.error(error)
+    }
+  },
+
   async applyCoupon ({ commit }, payload) {
     if (!payload) {
       return

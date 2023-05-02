@@ -43,6 +43,13 @@ export const getters = {
     return state.user
   },
 
+  getFullName (state) {
+    if (!state.user) {
+      return null
+    }
+    return [state.user.firstName, state.user.lastName].filter(Boolean).join(' ')
+  },
+
   getIsAuthenticated (state) {
     return state.isAuthenticated
   },

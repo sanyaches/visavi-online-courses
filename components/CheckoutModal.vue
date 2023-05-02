@@ -23,6 +23,7 @@
               <div v-if="checkoutItem.price > 0" class="checkout-item__price">
                 <span>{{ checkoutItem.price }}</span>
                 <span style="font-size: 0.8em" class="currency">{{ $t(`common.currency.${checkoutItem.currency}`) }}</span>
+                <span v-if="amountUsd">({{ amountUsd }} $)</span>
               </div>
               <div v-else class="checkout-item__price">
                 {{ $t('common.free') }}
@@ -75,12 +76,20 @@
           </b-form>
         </div>
       </div>
-      <b-button class="mt-4 button button--large button--brown-dark" block @click="toPay">
+      <b-button
+        class="mt-4 button button--large button--brown-dark"
+        block
+        @click="toPay"
+      >
         {{ $t('checkout.proceed') }}
       </b-button>
-      <b-button v-if="$i18n.locale === 'ru'" class="mt-4 button button--large button--brown-dark" block @click="toPay($event, true)">
-        {{ $t('checkout.proceed_foreign') }}
-      </b-button>
+      <paypal-button
+        :amount="amountUsd"
+        :name="fullName"
+        :email="profile.email"
+        :disabled="loading"
+        :on-success="onSuccess"
+      />
     </template>
     <template v-else>
       <div>
@@ -94,6 +103,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { formatDuration } from 'date-fns'
 import { ru, enUS } from 'date-fns/locale'
+import { convertCurrencies } from '../lib/convertCurrencies'
 
 export default {
   data () {
@@ -101,7 +111,9 @@ export default {
       couponForm: {
         code: ''
       },
-      couponResponse: null
+      couponResponse: null,
+      loading: false,
+      amountUsd: 0
     }
   },
 
@@ -109,6 +121,7 @@ export default {
     ...mapGetters({
       token: 'user/getToken',
       profile: 'user/getMe',
+      fullName: 'user/getFullName',
       showModal: 'checkout/getShowModal',
       checkoutItem: 'checkout/getCheckoutItem',
       appliedCoupon: 'checkout/getCoupon'
@@ -149,11 +162,25 @@ export default {
     }
   },
 
+  watch: {
+    checkoutItem: {
+      async handler (val) {
+        if (val?.price && val?.currency !== 'USD') {
+          const amountUsd = await convertCurrencies(val?.price, val?.currency, 'USD')
+          this.amountUsd = amountUsd
+        }
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+
   methods: {
     ...mapActions({
       applyCoupon: 'checkout/applyCoupon',
       payForCheckout: 'checkout/payForCheckout',
-      changeShowModal: 'checkout/changeShowModal'
+      changeShowModal: 'checkout/changeShowModal',
+      paypalSuccessHandler: 'checkout/paypalSuccessHandler'
     }),
 
     async submitCoupon () {
@@ -166,8 +193,11 @@ export default {
     toPay (e, isForeign = false) {
       const platform = isForeign || this.checkoutItem.currency === 'USD' ? 'EN' : 'RU'
       this.payForCheckout({ user: this.profile, bvToast: this.$root.$bvToast, platform, lang: this.$i18n.locale })
-    }
+    },
 
+    onSuccess () {
+      this.paypalSuccessHandler({ user: this.profile })
+    }
   }
 }
 </script>

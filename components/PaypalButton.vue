@@ -73,7 +73,6 @@ export default {
       return loadScript({
         'client-id': this.PAYPAL_CLIENT_ID,
         currency: 'USD'
-        // 'disable-funding': ['credit', 'card'] if you want to disable cards
       }).then((paypal) => {
         this.paypalRenderer = paypal.Buttons({
           style: {
@@ -101,7 +100,9 @@ export default {
             return actions.order.capture().then((details) => {
               if (details.status === 'COMPLETED') {
                 this.onSuccess()
-                this.$router.push(this.linkBack)
+                if (this.linkBack) {
+                  this.$router.push(this.linkBack)
+                }
               }
             })
           }

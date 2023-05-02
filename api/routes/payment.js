@@ -78,82 +78,53 @@ async function addEmailToRequest (req, res, next) {
   }
 }
 
-router.post('/payment/payture-event', async function (req, res) {
+router.post('/payment/paypal-success', async function (req, res) {
   try {
-    console.log('Payture webhook req', req)
-    console.log('Payture  webhook info: ', decodeQueryString(req.body))
-    const { OrderId: orderId, Success: success, Amount: amount, Notification: notificationType } = decodeQueryString(req.body)
-    res.sendStatus(200)
-
-    if (notificationType !== 'MerchantPay') {
-      console.log('not merchant pay notification!')
-      return
-    }
-
-    if (!orderId) {
-      console.error('No metadata -> orderId in object from webhook')
-      return
-    }
-
-    const order = await OrderModel.findOne({ orderId })
-    if (!order || !order.orderId || success !== 'True') {
-      console.error('Order is not paid')
-      return
-    }
+    const { product } = req.body
 
     await PurchaseModel.deleteOne({
-      courseName: order.productName,
-      courseType: order.productType,
-      userEmail: order.userEmail
+      courseName: product.courseName,
+      courseType: product.courseType,
+      userEmail: product.userEmail
     })
 
     const startDateMs = Date.now()
 
     const firstDate = new Date(startDateMs)
     const secondDate = new Date(startDateMs)
-    secondDate.setMonth(secondDate.getMonth() + Number(order.accessMonths))
-    if (order.accessMonths < 1) {
-      secondDate.setDate(secondDate.getDate() + Number(order.accessMonths * 30))
+    secondDate.setMonth(secondDate.getMonth() + Number(product.accessMonths))
+    if (product.accessMonths < 1) {
+      secondDate.setDate(secondDate.getDate() + Number(product.accessMonths * 30))
     }
     const difference = secondDate - firstDate
 
     const endDateMs = startDateMs + difference
 
     const result = await PurchaseModel.create({
-      courseName: order.productName,
-      courseType: order.productType,
-      userEmail: order.userEmail,
+      courseName: product.courseName,
+      courseType: product.courseType,
+      userEmail: product.userEmail,
       startDate: startDateMs,
       endDate: endDateMs
     })
 
     if (result) {
       sendEmail(`
-        <h1>У нас покупочка!</h1>
+        <h1>У нас покупочка через Paypal!</h1>
         <div>
           Кто-то купил на сайте, ура!
         </div>
-        <p>Тип урока: ${order.productType}</p>
-        <p>Имя урока: ${order.productName}</p>
-        <p>Почта  пользователя: ${order.userEmail}</p>
-        <p>Месяцев доступа: ${order.accessMonths}</p>
-        <p>Промокод: ${order.couponCode || '---'}</p>
-        <p>Сумма: ${amount / 100} $</p>
+        <p>Тип урока: ${product.courseType}</p>
+        <p>Имя урока: ${product.courseName}</p>
+        <p>Почта  пользователя: ${product.userEmail}</p>
+        <p>Месяцев доступа: ${product.accessMonths}</p>
       `, {
         toEmail: 'vi.kosto@yandex.ru',
-        subject: 'Новая покупка на сайте www.vikosto.net'
+        subject: 'Новая покупка на сайте vikosto.net'
       })
-    }
-
-    if (order.couponCode) {
-      const coupon = await CouponSchema.findOne({ code: order.couponCode })
-      if (coupon) {
-        console.log('user coupon for user')
-        // UserCouponSchema.create({
-        //   userId: req.userId,
-        //   couponId: coupon.id
-        // })
-      }
+      res.status(200).json({
+        status: 'success'
+      })
     }
 
     if (!result) {
@@ -164,6 +135,7 @@ router.post('/payment/payture-event', async function (req, res) {
     return
   } catch (e) {
     console.error(e)
+    res.send(500).json({ error: e })
   }
 })
 
