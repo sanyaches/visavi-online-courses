@@ -601,7 +601,7 @@
                 {{ $t('program.base_course.price_title') }}
               </h2>
               <div class="price__amount">
-                35000 ₽
+                550 $
               </div>
             </div>
             <small class="price__currency-info">(Принимается в RUB, USD, EUR, TL из рассчета в рублях)</small>

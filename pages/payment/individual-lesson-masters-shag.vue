@@ -5,7 +5,7 @@
         <div class="d-flex space-between payment-page__item">
           <div>Вы приобретаете обучение по программе "Индивидуальный урок для мастеров: шаг за шагом"</div>
           <div class="payment-page__amount-primary">
-            15000 ₽
+            17000 ₽
           </div>
         </div>
         <b-form class="payment-page__form" @submit.prevent>
@@ -105,7 +105,7 @@ export default {
         return
       }
 
-      this.changeAmount(15000)
+      this.changeAmount(17000)
       this.changePaymentMethod(paymentMethod)
       this.changeCourseTitle('Индивидуальный урок для мастеров: шаг за шагом')
       this.pay(this.$root.$bvToast)

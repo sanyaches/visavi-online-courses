@@ -257,7 +257,7 @@
             </div>
             <div class="price__header">
               <div class="price__amount">
-                15000 ₽
+                210 $
                 <div class="price__amount-text">
                   - "Шаг за шагом"
                 </div>
@@ -265,7 +265,7 @@
             </div>
             <div class="price__header">
               <div class="price__amount">
-                17000 ₽
+                250 $
                 <div class="price__amount-text">
                   - "Один на один"
                 </div>
