@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <BlocksIndexCourses :list="courses" />
+    <BlocksIndexCourses v-if="courses && courses.length" :list="courses" />
 
     <div id="main-single-lessons" class="lessons">
       <b-container>

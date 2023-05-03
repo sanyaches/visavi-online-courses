@@ -77,6 +77,7 @@
         </div>
       </div>
       <b-button
+        v-if="$i18n.locale === 'ru'"
         class="mt-4 button button--large button--brown-dark"
         block
         @click="toPay"

@@ -116,14 +116,6 @@
                 </div>
               </div>
               <div class="course-page__benefits">
-                <div v-if="!course.forMySelf || course.name === 'course-myself-rio'" class="course-page__benefit">
-                  <font-awesome-icon icon="fa-solid fa-comment-dots" class="course-page__benefit-icon" />
-                  <div class="course-page__benefit-text">
-                    <span>{{ $t('lesson_course.give_feedback') }}</span>
-                    <br>
-                    <span>{{ $t('lesson_course.feedback') }}</span>
-                  </div>
-                </div>
                 <div class="course-page__benefit">
                   <font-awesome-icon icon="fa-solid fa-key" class="course-page__benefit-icon" />
                   <div class="course-page__benefit-text">

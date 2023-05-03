@@ -26,14 +26,7 @@
           <span>{{ $t('course.silver.benefits.6.text') }}</span>
         </li>
         <li class="course-card__benefit">
-          <span>{{ $t('course.silver.benefits.7.text') }}</span>
-        </li>
-        <li class="course-card__benefit">
           <span>{{ $t('course.silver.benefits.8.text') }}</span>
-        </li>
-        <li class="course-card__benefit">
-          <b>{{ $t('course.silver.benefits.9.bold_text') }}</b>
-          <span>{{ $t('course.silver.benefits.9.text') }}</span>
         </li>
       </ul>
       <ul v-else-if="course.name==='course-gold'">
@@ -58,14 +51,7 @@
           <span>{{ $t('course.gold.benefits.6.text') }}</span>
         </li>
         <li class="course-card__benefit">
-          <span>{{ $t('course.gold.benefits.7.text') }}</span>
-        </li>
-        <li class="course-card__benefit">
           <span>{{ $t('course.gold.benefits.8.text') }}</span>
-        </li>
-        <li class="course-card__benefit">
-          <b>{{ $t('course.gold.benefits.9.bold_text') }}</b>
-          <span>{{ $t('course.gold.benefits.9.text') }}</span>
         </li>
       </ul>
       <ul v-else-if="course.name==='course-myself-mi'">
@@ -93,9 +79,6 @@
           <b>3</b>
           <span>практических урока по укладкам на <b>плойку</b></span>
         </li>
-        <li class="course-card__benefit is-disabled">
-          <span>Обратная связь от Виктории на 1 месяц</span>
-        </li>
       </ul>
       <ul v-else-if="course.name==='course-myself-no'">
         <li class="course-card__benefit">
@@ -122,9 +105,6 @@
           <b>3</b>
           <span>практических урока по укладкам на <b>утюг</b></span>
         </li>
-        <li class="course-card__benefit is-disabled">
-          <span>Обратная связь от Виктории на 1 месяц</span>
-        </li>
       </ul>
       <ul v-else-if="course.name==='course-myself-rio'">
         <li class="course-card__benefit">
@@ -150,9 +130,6 @@
         <li class="course-card__benefit">
           <b>6</b>
           <span>практических уроков по укладкам на <b>плойку и утюг</b> </span>
-        </li>
-        <li class="course-card__benefit">
-          <span>Обратная связь от Виктории на 1 месяц</span>
         </li>
       </ul>
     </div>

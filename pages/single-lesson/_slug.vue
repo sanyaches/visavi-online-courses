@@ -133,14 +133,6 @@
                 </div>
               </div>
               <div class="single-lesson-single__benefits">
-                <div v-if="singleLesson.price > 0" class="single-lesson-single__benefit">
-                  <font-awesome-icon icon="fa-solid fa-comment-dots" class="single-lesson-single__benefit-icon" />
-                  <div class="single-lesson-single__benefit-text">
-                    <span>{{ $t('single_lesson.give_feedback') }}</span>
-                    <br>
-                    <span>{{ $t('single_lesson.feedback') }}</span>
-                  </div>
-                </div>
                 <div class="single-lesson-single__benefit">
                   <font-awesome-icon icon="fa-solid fa-key" class="single-lesson-single__benefit-icon" />
                   <div class="single-lesson-single__benefit-text">
