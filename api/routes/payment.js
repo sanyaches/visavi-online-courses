@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 require('dotenv').config()
 
-const { decode: decodeQueryString } = require('querystring')
 const axios = require('axios')
 const { Router } = require('express')
 const mongoose = require('mongoose')
@@ -131,6 +130,31 @@ router.post('/payment/paypal-success', async function (req, res) {
       console.error('Something went wrong with creation new purchase')
       return
     }
+
+    return
+  } catch (e) {
+    console.error(e)
+    res.send(500).json({ error: e })
+  }
+})
+
+router.post('/payment/paypal-paid', function (req, res) {
+  try {
+    const { name, email, description } = req.body
+
+    sendEmail(`
+      <h1>У нас оплата через Paypal!</h1>
+      <p>Имя: ${name}</p>
+      <p>Почта  пользователя: ${email}</p>
+      <p>Описание: ${description}</p>
+    `, {
+      toEmail: 'vi.kosto@yandex.ru',
+      subject: 'Новая покупка на сайте vikosto.net'
+    })
+
+    res.status(200).json({
+      status: 'success'
+    })
 
     return
   } catch (e) {

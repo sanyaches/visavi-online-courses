@@ -1,5 +1,7 @@
 <template>
-  <div :class="['paypal-button', 'mt-2', {'paypal-button--disabled': disabled}]">
+  <div
+    :class="['paypal-button', 'mt-2', { 'paypal-button--disabled': disabled }]"
+  >
     <div id="paypal-button-container" />
     <div v-if="loading" class="paypal-button__loading">
       Loading paypal ...
@@ -24,12 +26,22 @@ export default {
       required: true
     },
 
+    currency: {
+      type: String,
+      default: 'EUR'
+    },
+
     email: {
       type: String,
       default: ''
     },
 
     name: {
+      type: String,
+      default: ''
+    },
+
+    description: {
       type: String,
       default: ''
     },
@@ -72,46 +84,53 @@ export default {
 
       return loadScript({
         'client-id': this.PAYPAL_CLIENT_ID,
-        currency: 'USD'
-      }).then((paypal) => {
-        this.paypalRenderer = paypal.Buttons({
-          style: {
-            layout: 'vertical',
-            color: 'blue',
-            shape: 'rect',
-            label: 'paypal'
-          },
-          createOrder: (data, actions) => {
-            return actions.order.create({
-              purchase_units: [{
-                amount: {
-                  value: this.amount
-                }
-              }],
-              payer: {
-                email_address: this.email,
-                name: {
-                  given_name: this.name
-                }
-              }
-            })
-          },
-          onApprove: (data, actions) => {
-            return actions.order.capture().then((details) => {
-              if (details.status === 'COMPLETED') {
-                this.onSuccess()
-                if (this.linkBack) {
-                  this.$router.push(this.linkBack)
-                }
-              }
-            })
-          }
-        })
-      }).catch((err) => {
-        console.error('failed to load the PayPal JS SDK script', err)
-      }).finally(() => {
-        this.loading = false
+        currency: this.currency
       })
+        .then((paypal) => {
+          this.paypalRenderer = paypal.Buttons({
+            style: {
+              layout: 'vertical',
+              color: 'blue',
+              shape: 'rect',
+              label: 'paypal'
+            },
+            createOrder: (data, actions) => {
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: this.amount,
+                      currency_code: this.currency
+                    },
+                    description: this.description
+                  }
+                ],
+                payer: {
+                  email_address: this.email,
+                  name: {
+                    given_name: this.name
+                  }
+                }
+              })
+            },
+            onApprove: (data, actions) => {
+              return actions.order.capture().then((details) => {
+                if (details.status === 'COMPLETED') {
+                  this.onSuccess()
+                  if (this.linkBack) {
+                    this.$router.push(this.linkBack)
+                  }
+                }
+              })
+            }
+          })
+        })
+        .catch((err) => {
+          console.error('failed to load the PayPal JS SDK script', err)
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
 
     renderPaypal () {

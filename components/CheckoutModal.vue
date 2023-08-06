@@ -1,5 +1,11 @@
 <template>
-  <b-modal id="bv-modal-checkout" hide-footer :visible="showModal" class="checkout-modal" @change="changeShowModal">
+  <b-modal
+    id="bv-modal-checkout"
+    hide-footer
+    :visible="showModal"
+    class="checkout-modal"
+    @change="changeShowModal"
+  >
     <template #modal-title>
       {{ $t('checkout.title') }}
     </template>
@@ -17,12 +23,14 @@
         <div v-if="checkoutItem.price > 0" class="checkout__coupon">
           <div style="padding: 0.5rem 0">
             <div class="d-flex justify-content-between align-items-center">
-              <div style="font-size: 1.6rem; font-weight: 700;">
+              <div style="font-size: 1.6rem; font-weight: 700">
                 {{ $t('checkout.price_total') }}
               </div>
               <div v-if="checkoutItem.price > 0" class="checkout-item__price">
                 <span>{{ checkoutItem.price }}</span>
-                <span style="font-size: 0.8em" class="currency">{{ $t(`common.currency.${checkoutItem.currency}`) }}</span>
+                <span style="font-size: 0.8em" class="currency">{{
+                  $t(`common.currency.${checkoutItem.currency}`)
+                }}</span>
                 <span v-if="amountUsd">({{ amountUsd }} $)</span>
               </div>
               <div v-else class="checkout-item__price">
@@ -30,24 +38,34 @@
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <div style="font-size: 0.9rem;">
+              <div style="font-size: 0.9rem">
                 {{ $t('checkout.price_sum') }}
               </div>
-              <div v-if="checkoutItem.originalPrice > 0" class="checkout-item__price is--small">
+              <div
+                v-if="checkoutItem.originalPrice > 0"
+                class="checkout-item__price is--small"
+              >
                 <span>{{ checkoutItem.originalPrice }}</span>
-                <span class="currency">{{ $t(`common.currency.${checkoutItem.currency}`) }}</span>
+                <span class="currency">{{
+                  $t(`common.currency.${checkoutItem.currency}`)
+                }}</span>
               </div>
               <div v-else class="checkout-item__price">
                 {{ $t('common.free') }}
               </div>
             </div>
-            <div v-if="appliedCoupon" class="d-flex justify-content-between align-items-center">
-              <div style="font-size: 0.9rem;">
+            <div
+              v-if="appliedCoupon"
+              class="d-flex justify-content-between align-items-center"
+            >
+              <div style="font-size: 0.9rem">
                 {{ $t('checkout.discount') }}
               </div>
               <div class="checkout-item__price is--small is--red">
                 <span>-{{ checkoutItem.originalPrice - checkoutItem.price }}</span>
-                <span class="currency">{{ $t(`common.currency.${checkoutItem.currency}`) }}</span>
+                <span class="currency">{{
+                  $t(`common.currency.${checkoutItem.currency}`)
+                }}</span>
               </div>
             </div>
           </div>
@@ -63,7 +81,10 @@
                 autocomplete="coupon-code"
                 type="text"
               />
-              <b-button class="button button--large button--brown checkout__coupon-button" type="submit">
+              <b-button
+                class="button button--large button--brown checkout__coupon-button"
+                type="submit"
+              >
                 <font-awesome-icon icon="fa-solid fa-check" />
               </b-button>
             </label>
@@ -84,6 +105,7 @@
       >
         {{ $t('checkout.proceed') }}
       </b-button>
+
       <paypal-button
         :amount="amountUsd"
         :name="fullName"
@@ -129,9 +151,12 @@ export default {
     }),
 
     formattedMonths () {
-      return formatDuration({
-        months: this.checkoutItem?.accessMonths
-      }, { locale: this.$i18n.locale === 'ru' ? ru : enUS })
+      return formatDuration(
+        {
+          months: this.checkoutItem?.accessMonths
+        },
+        { locale: this.$i18n.locale === 'ru' ? ru : enUS }
+      )
     },
 
     preparedTitle () {
@@ -144,7 +169,9 @@ export default {
 
     formMessage () {
       if (this.couponResponse?.status === 'success') {
-        return this.$t('checkout.coupon.applied_coupon', { code: this.couponResponse.coupon.code })
+        return this.$t('checkout.coupon.applied_coupon', {
+          code: this.couponResponse.coupon.code
+        })
       }
 
       if (this.couponResponse?.status === 'error') {
@@ -155,7 +182,10 @@ export default {
     },
 
     couponFormState () {
-      if (!this.couponResponse || (!this.appliedCoupon && !this.couponResponse?.status)) {
+      if (
+        !this.couponResponse ||
+        (!this.appliedCoupon && !this.couponResponse?.status)
+      ) {
         return
       }
 
@@ -167,7 +197,11 @@ export default {
     checkoutItem: {
       async handler (val) {
         if (val?.price && val?.currency !== 'USD') {
-          const amountUsd = await convertCurrencies(val?.price, val?.currency, 'USD')
+          const amountUsd = await convertCurrencies(
+            val?.price,
+            val?.currency,
+            'USD'
+          )
           this.amountUsd = amountUsd
         }
       },
@@ -185,15 +219,24 @@ export default {
     }),
 
     async submitCoupon () {
-      const couponResponse = await this.applyCoupon({ couponCode: this.couponForm.code, userId: this.profile.id })
+      const couponResponse = await this.applyCoupon({
+        couponCode: this.couponForm.code,
+        userId: this.profile.id
+      })
       if (couponResponse) {
         this.couponResponse = couponResponse
       }
     },
 
     toPay (e, isForeign = false) {
-      const platform = isForeign || this.checkoutItem.currency === 'USD' ? 'EN' : 'RU'
-      this.payForCheckout({ user: this.profile, bvToast: this.$root.$bvToast, platform, lang: this.$i18n.locale })
+      const platform =
+        isForeign || this.checkoutItem.currency === 'USD' ? 'EN' : 'RU'
+      this.payForCheckout({
+        user: this.profile,
+        bvToast: this.$root.$bvToast,
+        platform,
+        lang: this.$i18n.locale
+      })
     },
 
     onSuccess () {
