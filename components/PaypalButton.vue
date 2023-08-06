@@ -90,7 +90,7 @@ export default {
           this.paypalRenderer = paypal.Buttons({
             style: {
               layout: 'vertical',
-              color: 'blue',
+              color: 'silver',
               shape: 'rect',
               label: 'paypal'
             },

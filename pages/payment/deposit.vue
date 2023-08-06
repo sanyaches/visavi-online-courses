@@ -1,6 +1,6 @@
 <template>
   <div class="payment-page">
-    <b-container>
+    <div class="payment-page__container">
       <div class="d-block">
         <div class="d-flex space-between payment-page__item">
           <div>Payment for deposit</div>
@@ -15,7 +15,7 @@
               :value="name"
               required
               placeholder="Your name"
-              @change="changeName"
+              @input="changeName"
             />
           </b-form-group>
 
@@ -26,7 +26,7 @@
               type="email"
               required
               placeholder="Your email"
-              @change="changeEmail"
+              @input="changeEmail"
             />
           </b-form-group>
 
@@ -36,33 +36,41 @@
               :value="description"
               required
               placeholder="e.g. Deposit for the wedding on 12.12.2024 at 13:00"
-              @change="changeDescription"
+              @input="changeDescription"
             />
           </b-form-group>
 
+          <b-alert :show="!isValid" variant="danger">
+            Please fill in the form to make a payment
+          </b-alert>
+
           <paypal-button
             :amount="amountEur"
-            :name="fullName"
-            :email="profile.email"
-            :disabled="loading"
+            :name="name"
+            :description="description"
+            :email="email"
+            :disabled="!isValid"
             :on-success="onSuccess"
-            currency="EUR"
+            :currency="currency"
+            class="mx-auto"
           />
         </b-form>
       </div>
-    </b-container>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { convertCurrencies } from '../lib/convertCurrencies'
+import { convertCurrencies } from '@/lib/convertCurrencies'
+
+const euroCurrency = 'EUR'
 
 export default {
   data () {
     return {
-      amount: this.$route.query?.amount,
-      currency: this.$route.query?.currency,
+      amount: parseInt(this.$route.query?.amount || ''),
+      currency: this.$route.query?.currency || euroCurrency,
       loading: false,
       amountEur: 0
     }
@@ -77,17 +85,21 @@ export default {
     })
   },
 
-  beforeMount: async () => {
-    if (this.amount && this.currency !== 'EUR') {
+  async beforeMount () {
+    this.loading = true
+
+    if (this.amount && this.currency !== euroCurrency) {
       const amountEur = await convertCurrencies(
         this.amount,
         this.currency,
-        'EUR'
+        euroCurrency
       )
       this.amountEur = amountEur
     } else if (this.amount) {
       this.amountEur = this.amount
     }
+
+    this.loading = false
   },
 
   methods: {

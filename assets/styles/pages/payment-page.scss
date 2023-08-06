@@ -1,5 +1,12 @@
 .payment-page {
   padding: 40px 0;
+  min-height: calc(100vh - 80px);
+
+  &__container {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
 
   &__item {
     position: relative;
