@@ -23,7 +23,8 @@ export default {
     back: 'Назад',
     currency: {
       RUB: 'рублей',
-      USD: 'USD'
+      USD: 'USD',
+      EUR: 'EUR'
     }
   },
   success_payment: {

@@ -25,7 +25,8 @@ export default {
     back: 'Back',
     currency: {
       RUB: 'RUB',
-      USD: 'USD'
+      USD: 'USD',
+      EUR: 'EUR'
     }
   },
   success_payment: {
