@@ -56,10 +56,10 @@
             :aria-describedby="ariaDescribedby"
             name="guide-country"
             required
-            value="Турецкая версия"
+            value="Русская версия"
             @change="changeGuide"
           >
-            {{ $t('guide_country_turkey') }}
+            {{ $t('guide_country_russia') }}
           </b-form-radio>
         </b-form-group>
 

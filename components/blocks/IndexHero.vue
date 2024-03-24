@@ -15,16 +15,16 @@
           </h2>
           <div class="hero__buttons">
             <nuxt-link
-              to="#index-education-programs"
+              :to="localePath('/education')"
               class="hero__link button button--brown-dark button button--large"
             >
               {{ $t('hero_block_to_lessons') }}
             </nuxt-link>
             <nuxt-link
-              :to="localePath('/service')"
+              :to="localePath('/guide')"
               class="hero__link button button--beige button button--large"
             >
-              {{ $t('hero_block_to_services') }}
+              {{ $t('hero_block_to_guide') }}
             </nuxt-link>
           </div>
         </div>
@@ -127,7 +127,7 @@
 
   &__link {
     display: block;
-    width: 200px;
+    width: 210px;
   }
 
   &__image {

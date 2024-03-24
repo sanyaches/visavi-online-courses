@@ -1,5 +1,5 @@
 export default {
-  guide_link: 'Guide',
+  guide_link: 'Styling guide',
   guide_hero_button: 'I want the guide',
   guide_hero_phrase_html: 'STYLING AND<br>HAIR TOOLS<br>GUIDE',
   guide_hero_subtitle: 'All and more for long-lasting and stylish hairstyle',
@@ -32,7 +32,7 @@ export default {
   guide_email_label: 'Email *',
   guide_email_placeholder: 'Enter your email',
   guide_country_label: 'The guide is suitable for country: *',
-  guide_country_turkey: 'Turkey',
+  guide_country_russia: 'Russia',
   guide_country_rest: 'The rest of the world',
   guide_pay: 'Buy the guide',
   guide_pay_payture: 'Buy by card',

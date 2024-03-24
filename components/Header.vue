@@ -72,11 +72,11 @@
                       {{ $t('index.services_link') }}
                     </nuxt-link>
                   </div>
-                  <!-- <div class="header__dropdown-menu-item">
+                  <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('guide')" class="anchor anchor--raw">
                       {{ $t('guide_link') }}
                     </nuxt-link>
-                  </div> -->
+                  </div>
                   <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('/#index-reviews')" class="anchor anchor--raw">
                       {{ $t('index.reviews_link') }}
@@ -143,11 +143,11 @@
                       {{ $t('index.services_link') }}
                     </nuxt-link>
                   </div>
-                  <!-- <div class="header__dropdown-menu-item">
+                  <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('guide')" class="anchor anchor--raw">
                       {{ $t('guide_link') }}
                     </nuxt-link>
-                  </div> -->
+                  </div>
                   <div class="header__dropdown-menu-item">
                     <nuxt-link :to="localePath('/#index-reviews')" class="anchor anchor--raw">
                       {{ $t('index.reviews_link') }}
