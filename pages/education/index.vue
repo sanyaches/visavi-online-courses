@@ -8,7 +8,15 @@
       </div>
     </div>
 
-    <BlocksIndexCourses v-if="courses && courses.length" :list="courses" />
+    <BlocksIndexCourses
+      v-if="courses && courses.length"
+      :list="courses"
+    />
+
+    <BlocksIndexCoursesYourself
+      v-if="coursesForMyself && coursesForMyself.length"
+      :list="coursesForMyself"
+    />
 
     <div id="main-single-lessons" class="lessons">
       <b-container>
@@ -29,14 +37,17 @@
         </div>
       </b-container>
     </div>
+
+    <BlocksIndexLessonCoursesYourself
+      v-if="lessonCoursesMyself && lessonCoursesMyself.length"
+      :list="lessonCoursesMyself"
+    />
   </div>
 </template>
 
 <script>
-export default {
-  components: {
-  },
 
+export default {
   async asyncData (context) {
     try {
       const locale = context.i18n.locale
@@ -46,10 +57,14 @@ export default {
       const responseCourses = await context.app.$http.$get(
         `${context.env.baseUrl}/api/course/list?limit=1000&offset=0&locale=${locale}&myself=false`
       )
+      const coursesMyself = await context.app.$http.$get(
+        `${context.env.baseUrl}/api/course/list?limit=1000&offset=0&locale=${locale}&myself=true`
+      )
 
       return {
         singleLessons: response.data,
-        courses: responseCourses.data
+        courses: responseCourses.data,
+        coursesMyself: coursesMyself.data
       }
     } catch (e) {
       context.error(e)
@@ -59,7 +74,17 @@ export default {
   data () {
     return {
       courses: [],
+      coursesMyself: [],
       lessons: []
+    }
+  },
+
+  computed: {
+    lessonCoursesMyself () {
+      return this.coursesMyself.filter(course => !course.name.startsWith('course-myself'))
+    },
+    coursesForMyself () {
+      return this.coursesMyself.filter(course => course.name.startsWith('course-myself'))
     }
   }
 }
