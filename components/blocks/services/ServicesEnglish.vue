@@ -142,7 +142,7 @@
             loading="lazy"
           >
           <p class="card__price">
-            Price - <span class="price">160€</span>
+            Price - <span class="price">170€</span>
           </p>
           <p class="card__price-text">
             Travelling for far distances (out of town) is paid separately
@@ -208,7 +208,7 @@
             loading="lazy"
           >
           <p class="card__price">
-            Price - <span class="price">250€</span>
+            Price - <span class="price">290€</span>
           </p>
           <p class="card__price-text">
             Travelling for far distances (out of town) is paid separately
@@ -274,7 +274,7 @@
             loading="lazy"
           >
           <p class="card__price">
-            Price - <span class="price">380€</span>
+            Price - <span class="price">480€</span>
           </p>
           <p class="card__price-text">
             Travelling for far distances (out of town) is paid separately
